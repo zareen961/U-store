@@ -1,7 +1,7 @@
 const express = require('express')
 
-const protect = require('../middleware/protect')
-const {userRegister, userLogin, userDelete, userUpdate} = require('../controllers/user')
+const { protectUser } = require('../middleware/protect')
+const { userRegister, userLogin, userDelete, userUpdate } = require('../controllers/user')
 
 const router = express.Router()
 
@@ -18,9 +18,9 @@ router.post('/login', userLogin)
 // @route: DELETE /api/user
 // @desc: To delete an user
 // @access: Private
-router.delete('/', protect, userDelete)
+router.delete('/', protectUser, userDelete)
 
 // @route: PUT /api/user
 // @desc: To update an existing user
 // @access: Private
-router.put('/', protect, userUpdate)
+router.put('/', protectUser, userUpdate)

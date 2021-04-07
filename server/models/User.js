@@ -1,26 +1,27 @@
-const { Schema, model, Types } = require("mongoose")
+const { Schema, model, Types } = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 const notificationSchema = new Schema(
     {
         type: {
             type: String,
             enum: [
-                "BID_RECEIVED",
-                "BID_ACCEPTED",
-                "BID_REJECTED",
-                "BIDDEN_PRODUCT_DELETED",
-                "RIVAL_BID",
+                'BID_RECEIVED',
+                'BID_ACCEPTED',
+                'BID_REJECTED',
+                'BIDDEN_PRODUCT_DELETED',
+                'RIVAL_BID',
             ],
             required: true,
         },
         user: {
             type: Types.ObjectID,
-            ref: "User",
+            ref: 'User',
             required: true,
         },
         product: {
             type: Types.ObjectID,
-            ref: "Product",
+            ref: 'Product',
             required: true,
         },
     },
@@ -61,17 +62,17 @@ const userSchema = new Schema(
         },
         collegeState: {
             type: Types.ObjectId,
-            ref: "State",
+            ref: 'State',
             required: true,
         },
         collegeCity: {
             type: Types.ObjectId,
-            ref: "City",
+            ref: 'City',
             required: true,
         },
         college: {
             type: Types.ObjectId,
-            ref: "College",
+            ref: 'College',
             required: true,
         },
         password: {
@@ -81,13 +82,13 @@ const userSchema = new Schema(
         bids: [
             {
                 type: Types.ObjectId,
-                ref: "Bid",
+                ref: 'Bid',
             },
         ],
         products: [
             {
                 type: Types.ObjectId,
-                ref: "Product",
+                ref: 'Product',
             },
         ],
         notifications: [notificationSchema],
@@ -97,4 +98,19 @@ const userSchema = new Schema(
     }
 )
 
-module.exports = new model("User", userSchema)
+// to match the provided password with the password saved in the database
+userSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password)
+}
+
+// to hash the password before saving to the database
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        next()
+    }
+
+    const salt = await bcrypt.genSalt(13)
+    this.password = await bcrypt.hash(this.password, salt)
+})
+
+module.exports = new model('User', userSchema)
