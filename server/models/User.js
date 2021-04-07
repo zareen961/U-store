@@ -1,28 +1,33 @@
-const { Schema, model, Types } = require('mongoose')
+const { Schema, model, Types } = require("mongoose")
 
-const notificationSchema = new Schema({
-    type: {
-        type: String,
-        enum: [
-            'BID_RECEIVED',
-            'BID_ACCEPTED',
-            'BID_REJECTED',
-            'BIDDEN_PRODUCT_DELETED',
-            'RIVAL_BID',
-        ],
-        required: true,
+const notificationSchema = new Schema(
+    {
+        type: {
+            type: String,
+            enum: [
+                "BID_RECEIVED",
+                "BID_ACCEPTED",
+                "BID_REJECTED",
+                "BIDDEN_PRODUCT_DELETED",
+                "RIVAL_BID",
+            ],
+            required: true,
+        },
+        user: {
+            type: Types.ObjectID,
+            ref: "User",
+            required: true,
+        },
+        product: {
+            type: Types.ObjectID,
+            ref: "Product",
+            required: true,
+        },
     },
-    user: {
-        type: Types.ObjectID,
-        ref: 'User',
-        required: true,
-    },
-    product: {
-        type: Types.ObjectID,
-        ref: 'Product',
-        required: true,
-    },
-})
+    {
+        timestamps: true,
+    }
+)
 
 const userSchema = new Schema(
     {
@@ -56,17 +61,17 @@ const userSchema = new Schema(
         },
         collegeState: {
             type: Types.ObjectId,
-            ref: 'State',
+            ref: "State",
             required: true,
         },
         collegeCity: {
             type: Types.ObjectId,
-            ref: 'City',
+            ref: "City",
             required: true,
         },
         college: {
             type: Types.ObjectId,
-            ref: 'College',
+            ref: "College",
             required: true,
         },
         password: {
@@ -76,13 +81,13 @@ const userSchema = new Schema(
         bids: [
             {
                 type: Types.ObjectId,
-                ref: 'Bid',
+                ref: "Bid",
             },
         ],
         products: [
             {
                 type: Types.ObjectId,
-                ref: 'Product',
+                ref: "Product",
             },
         ],
         notifications: [notificationSchema],
@@ -92,4 +97,4 @@ const userSchema = new Schema(
     }
 )
 
-module.exports = new model('User', userSchema)
+module.exports = new model("User", userSchema)
