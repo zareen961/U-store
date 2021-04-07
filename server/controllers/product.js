@@ -52,12 +52,16 @@ const productDelete = asyncHandler(async (req, res) => {
 
 // To update one’s product until no bid is placed
 const productUpdate = asyncHandler(async (req, res) => {
+    const { name, image, price, description } = req.body
     const productID = req.params.productID
 
     const foundProduct = await Product.findById(productID)
 
     if (foundProduct) {
-        const { name, image, price, description } = req.body
+        if (foundProduct.bids.length > 0) {
+            res.status(400)
+            throw new Error("Cannot update products with active bids!")
+        }
 
         const updatedProduct = await Product.findOneAndUpdate(
             { _id: productID },

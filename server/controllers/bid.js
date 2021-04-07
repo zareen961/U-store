@@ -41,14 +41,16 @@ const bidDelete = asyncHandler(async (req, res) => {
 
 // to update a bid status
 const bidStatusUpdate = asyncHandler(async (req, res) => {
+    const { status } = req.body
     const bidID = req.params.bidID
 
     const foundBid = await Bid.findById(bidID)
 
     if (foundBid) {
-        const { price } = req.body
-
-        const updatedBid = await Bid.findOneAndUpdate({ _id: bidID }, { $set: { price } })
+        const updatedBid = await Bid.findOneAndUpdate(
+            { _id: bidID },
+            { $set: { status } }
+        )
 
         if (updatedBid) {
             res.status(200).json(updatedBid)
