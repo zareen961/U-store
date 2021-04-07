@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose')
+const { Schema, model, Types } = require("mongoose")
 
 const bidSchema = new Schema(
     {
@@ -10,19 +10,21 @@ const bidSchema = new Schema(
         status: {
             type: String,
             required: true,
-            enum: ['ACCEPTED', 'REJECTED', 'PENDING'],
-            default: 'PENDING',
+            enum: ["ACCEPTED", "REJECTED", "PENDING"],
+            default: "PENDING",
         },
         bidOwner: {
             type: Types.ObjectId,
-            ref: 'User',
+            ref: "User",
+            required: true,
         },
         productOwner: {
             type: Types.ObjectId,
-            ref: 'User',
+            ref: "User",
+            required: true,
         },
     },
     { timestamps: true }
 )
 
-module.exports = new model('Bid', bidSchema)
+module.exports = new model("Bid", bidSchema)

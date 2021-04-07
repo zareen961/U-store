@@ -1,4 +1,4 @@
-const { Schema, model, Types } = require('mongoose')
+const { Schema, model, Types } = require("mongoose")
 
 const productSchema = new Schema(
     {
@@ -21,20 +21,21 @@ const productSchema = new Schema(
         bids: [
             {
                 type: Types.ObjectId,
-                ref: 'Bid',
+                ref: "Bid",
             },
         ],
         productOwner: {
             type: Types.ObjectId,
-            ref: 'User',
+            ref: "User",
             required: true,
         },
         college: {
             type: Types.ObjectId,
-            ref: 'College',
+            ref: "College",
+            required: true,
         },
     },
     { timestamps: true }
 )
 
-module.exports = new model('Product', productSchema)
+module.exports = new model("Product", productSchema)
