@@ -16,6 +16,13 @@ const adminStateAdd = asyncHandler(async (req, res) => {})
 const adminCityAdd = asyncHandler(async (req, res) => {})
 
 // to add a new college
-const adminCollegeAdd = asyncHandler (async (req, res) => {})
+const adminCollegeAdd = asyncHandler(async (req, res) => {})
 
-module.exports = {adminRegister, adminLogin, adminDelete, adminStateAdd, adminCityAdd, adminCollegeAdd}
+module.exports = {
+    adminRegister,
+    adminLogin,
+    adminDelete,
+    adminStateAdd,
+    adminCityAdd,
+    adminCollegeAdd,
+}
