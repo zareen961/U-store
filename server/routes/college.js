@@ -18,6 +18,6 @@ router.delete('/', protectAdmin, collegeDelete)
 // @route: GET /api/college
 // @desc: To get all the states
 // @access: Public
-router.get('/', protectAdmin, collegeGetAll)
+router.get('/', collegeGetAll)
 
 module.exports = router

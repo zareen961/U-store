@@ -34,7 +34,9 @@ const userRegister = asyncHandler(async (req, res) => {
     })
 
     if (newUser) {
-        res.status(201).json('New User Registered!')
+        res.status(201).json({
+            message: 'New User Registered!',
+        })
     } else {
         res.status(500)
         throw new Error('Invalid User data!')
@@ -48,12 +50,15 @@ const userLogin = asyncHandler(async (req, res) => {
     // finding the user by either username or email
     const foundUser = await User.findOne({
         $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
-    })
+    }).populate('products bids')
 
     if (foundUser && (await foundUser.matchPassword(password))) {
+        // now deleting the password from the foundUser object before sending to frontend
+        foundUser.password = null
+
         res.send({
-            ...foundUser,
-            token: generateToken(foundAdmin._id),
+            user: foundUser,
+            token: generateToken(foundUser._id),
         })
     } else {
         res.status(401)
@@ -96,7 +101,7 @@ const userUpdate = asyncHandler(async (req, res) => {
     } = req.body
 
     // finding the user
-    const foundUser = await findById(req.authUser._id)
+    const foundUser = await User.findById(req.authUser._id)
 
     foundUser.email = email
     foundUser.username = username
