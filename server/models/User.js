@@ -15,12 +15,12 @@ const notificationSchema = new Schema(
             required: true,
         },
         user: {
-            type: Types.ObjectID,
+            type: Types.ObjectId,
             ref: 'User',
             required: true,
         },
         product: {
-            type: Types.ObjectID,
+            type: Types.ObjectId,
             ref: 'Product',
             required: true,
         },

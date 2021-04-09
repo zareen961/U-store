@@ -6,6 +6,11 @@ const morgan = require('morgan')
 
 const connectDB = require('./config/db')
 const { notFoundHandler, errorHandler } = require('./middleware/error')
+const adminRoutes = require('./routes/admin')
+const userRoutes = require('./routes/user')
+const productRoutes = require('./routes/product')
+const bidRoutes = require('./routes/bid')
+const collegeRoutes = require('./routes/college')
 
 // connecting to database
 connectDB()
@@ -23,10 +28,15 @@ app.use(express.json({ limit: '30mb', extended: true }))
 app.use(cors())
 
 app.get('/', (req, res) => {
-    res.send("<h1>U-store Server Running....</h1>")
+    res.send('<h1>U-store Server Running....</h1>')
 })
 
 // Routes
+app.use('/api/admin', adminRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/college', collegeRoutes)
+app.use('/api/product', productRoutes)
+app.use('/api/bid', bidRoutes)
 
 // Error Handler middleware
 app.use(notFoundHandler)

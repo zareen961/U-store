@@ -19,3 +19,5 @@ router.delete('/:bidID', protectUser, bidDelete)
 // @desc: To update a bid’s status - seller
 // @access: Private
 router.put('/:bidID', protectUser, bidStatusUpdate)
+
+module.exports = router

@@ -5,9 +5,7 @@ const {
     adminRegister,
     adminLogin,
     adminDelete,
-    adminStateAdd,
-    adminCityAdd,
-    adminCollegeAdd,
+    adminGetAll,
 } = require('../controllers/admin')
 
 const router = express.Router()
@@ -27,17 +25,9 @@ router.post('/login', adminLogin)
 // @access: Private
 router.delete('/:adminID', protectAdmin, adminDelete)
 
-// @route: POST /api/admin/state
-// @desc: To add a new state
+// @route: GET /api/admin
+// @desc: To get all admins
 // @access: Private
-router.post('/state', protectAdmin, adminStateAdd)
+router.get('/', protectAdmin, adminGetAll)
 
-// @route: POST /api/admin/city
-// @desc: To add a new city
-// @access: Private
-router.post('/city', protectAdmin, adminCityAdd)
-
-// @route: POST /api/admin/college
-// @desc: To add a new college
-// @access: Private
-router.post('/college', protectAdmin, adminCollegeAdd)
+module.exports = router

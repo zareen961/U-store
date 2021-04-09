@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Admin = require('../models/Admin')
+const generateToken = require('../utils/generateToken')
 
 // to register a new admin
 const adminRegister = asyncHandler(async (req, res) => {
@@ -56,20 +57,16 @@ const adminDelete = asyncHandler(async (req, res) => {
     }
 })
 
-// to add a new state
-const adminStateAdd = asyncHandler(async (req, res) => {})
+// to get all the Admins
+const adminGetAll = asyncHandler(async (req, res) => {
+    const foundAdmins = await Admin.find()
 
-// to add a new city
-const adminCityAdd = asyncHandler(async (req, res) => {})
-
-// to add a new college
-const adminCollegeAdd = asyncHandler(async (req, res) => {})
+    res.status(200).json(foundAdmins)
+})
 
 module.exports = {
     adminRegister,
     adminLogin,
     adminDelete,
-    adminStateAdd,
-    adminCityAdd,
-    adminCollegeAdd,
+    adminGetAll,
 }
