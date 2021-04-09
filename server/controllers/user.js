@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler')
 
 const User = require('../models/User')
+const Product = require('../models/Product')
+const Bid = require('../models/Bid')
 const generateToken = require('../utils/generateToken')
 
 // to register new user
@@ -71,16 +73,22 @@ const userDelete = asyncHandler(async (req, res) => {
     const { password } = req.body
 
     // finding the user
-    const foundUser = await findById(req.authUser._id)
+    const foundUser = await User.findById(req.authUser._id)
 
     if (foundUser && (await foundUser.matchPassword(password))) {
+        // deleting all the products uploaded by this user
+        await Product.deleteMany({ _id: { $in: foundUser.products } })
+
+        // deleting all the bids placed by this user
+        await Bid.deleteMany({ _id: { $in: foundUser.bids } })
+
         await foundUser.remove()
         res.status(200).json({
             message: 'User Deleted!',
         })
     } else {
         res.status(400)
-        throw new Error('Invalid Credentials!')
+        throw new Error('Wrong Credentials!')
     }
 })
 
@@ -88,15 +96,11 @@ const userDelete = asyncHandler(async (req, res) => {
 const userUpdate = asyncHandler(async (req, res) => {
     const {
         email,
-        username,
         firstName,
         lastName,
         avatar,
         primaryPhone,
         secondaryPhone,
-        collegeState,
-        collegeCity,
-        college,
         password,
     } = req.body
 
@@ -104,18 +108,17 @@ const userUpdate = asyncHandler(async (req, res) => {
     const foundUser = await User.findById(req.authUser._id)
 
     foundUser.email = email
-    foundUser.username = username
     foundUser.firstName = firstName
     foundUser.lastName = lastName
     foundUser.avatar = avatar
     foundUser.primaryPhone = primaryPhone
     foundUser.secondaryPhone = secondaryPhone
-    foundUser.collegeState = collegeState
-    foundUser.collegeCity = collegeCity
-    foundUser.college = college
     foundUser.password = password
 
     await foundUser.save()
+
+    // now deleting the password from the foundUser object before sending to frontend
+    foundUser.password = null
 
     res.status(200).json(foundUser)
 })
