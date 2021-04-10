@@ -55,7 +55,13 @@ const bidPlace = asyncHandler(async (req, res) => {
 const bidDelete = asyncHandler(async (req, res) => {
     const bidID = req.params.bidID
 
-    const foundBid = await Bid.findById(bidID)
+    const foundBid = await Bid.findById(bidID).populate("product")
+
+    // checking if the logged in user is the owner of the Bid being deleted
+    if (String(foundBid.bidOwner) !== String(req.authUser._id)) {
+        res.status(401)
+        throw new Error("Unauthorized to delete this bid!")
+    }
 
     if (foundBid) {
         // removing the deleted Bid's ID from the bidOwner's bids array
@@ -79,7 +85,13 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
     const { status } = req.body
     const bidID = req.params.bidID
 
-    const foundBid = await Bid.findById(bidID)
+    const foundBid = await Bid.findById(bidID).populate("product")
+
+    // checking if the logged in user is the Product owner
+    if (String(foundBid.product.productOwner) !== String(req.authUser._id)) {
+        res.status(401)
+        throw new Error("Unauthorized to update this bid!")
+    }
 
     if (foundBid) {
         const updatedBid = await Bid.findOneAndUpdate(
