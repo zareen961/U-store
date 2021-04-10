@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler")
 
 const Product = require("../models/Product")
+const User = require("../models/User")
+const Bid = require("../models/Bid")
 
 // to upload new product
 const productUpload = asyncHandler(async (req, res) => {
@@ -18,6 +20,9 @@ const productUpload = asyncHandler(async (req, res) => {
     })
 
     if (newProduct) {
+        // pushing the new productID to the productOwner's products array
+        await User.update({ _id: productOwner }, { $push: { products: newProduct._id } })
+
         res.status(200).json(newProduct)
     } else {
         res.status(400)
@@ -40,6 +45,18 @@ const productDelete = asyncHandler(async (req, res) => {
     const foundProduct = await Product.findById(productID)
 
     if (foundProduct) {
+        // checking if the logged in user is the owner of the Product
+        if (String(foundProduct.productOwner) !== String(req.authUser._id)) {
+            res.status(401)
+            throw new Error("User is not the owner of the product!")
+        }
+
+        // removing the deleted productID from productOwner's products array
+        await User.update({ _id: req.authUser._id }, { $pull: { products: productID } })
+
+        // removing all the bids placed on that product
+        await Bid.deleteMany({ _id: { $in: foundProduct.bids } })
+
         await foundProduct.remove()
         res.status(200).json({
             message: "Product Deleted!",
@@ -58,6 +75,12 @@ const productUpdate = asyncHandler(async (req, res) => {
     const foundProduct = await Product.findById(productID)
 
     if (foundProduct) {
+        // checking if the logged in user is the owner of the Product
+        if (String(foundProduct.productOwner) !== String(req.authUser._id)) {
+            res.status(401)
+            throw new Error("User is not the owner of the product!")
+        }
+
         if (foundProduct.bids.length > 0) {
             res.status(400)
             throw new Error("Cannot update products with active bids!")
@@ -65,7 +88,8 @@ const productUpdate = asyncHandler(async (req, res) => {
 
         const updatedProduct = await Product.findOneAndUpdate(
             { _id: productID },
-            { $set: { name, image, price, description } }
+            { $set: { name, image, price, description } },
+            { new: true }
         )
 
         if (updatedProduct) {

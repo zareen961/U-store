@@ -18,9 +18,9 @@ const bidSchema = new Schema(
             ref: "User",
             required: true,
         },
-        productOwner: {
+        product: {
             type: Types.ObjectId,
-            ref: "User",
+            ref: "Product",
             required: true,
         },
     },

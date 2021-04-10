@@ -1,5 +1,5 @@
-const chalk = require('chalk')
-const mongoose = require('mongoose')
+const chalk = require("chalk")
+const mongoose = require("mongoose")
 
 const connectDB = async () => {
     try {
@@ -7,6 +7,7 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             useCreateIndex: true,
+            useFindAndModify: false,
         })
         console.log(chalk.bgGreen.black(`MongoDB Connected: ${conn.connection.host}`))
     } catch (err) {
