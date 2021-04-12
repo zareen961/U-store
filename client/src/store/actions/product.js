@@ -1,6 +1,6 @@
-import * as actionTypes from "../actionTypes"
-import axiosInstance from "../../utils/axiosInstance"
-import { alertAdd } from "./alert"
+import * as actionTypes from '../actionTypes'
+import axiosInstance from '../../utils/axiosInstance'
+import { alertAdd } from './alert'
 
 // to fetch all the Products of the logged in user's college
 export const productFetchAll = () => async (dispatch) => {
@@ -9,7 +9,7 @@ export const productFetchAll = () => async (dispatch) => {
             type: actionTypes.PRODUCT_FETCH_ALL_REQUEST,
         })
 
-        const { data } = await axiosInstance.get("/api/product")
+        const { data } = await axiosInstance.get('/api/product')
 
         dispatch({
             type: actionTypes.PRODUCT_FETCH_ALL_SUCCESS,
@@ -26,7 +26,7 @@ export const productFetchAll = () => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -37,7 +37,7 @@ export const productUpload = (productData) => async (dispatch) => {
             type: actionTypes.PRODUCT_UPLOAD_REQUEST,
         })
 
-        const { data } = await axiosInstance.post("/api/product", productData)
+        const { data } = await axiosInstance.post('/api/product', productData)
 
         dispatch({
             type: actionTypes.PRODUCT_UPLOAD_SUCCESS,
@@ -49,7 +49,7 @@ export const productUpload = (productData) => async (dispatch) => {
             payload: data,
         })
 
-        dispatch(alertAdd("Product Uploaded!", "success"))
+        dispatch(alertAdd('Product Uploaded!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -61,7 +61,7 @@ export const productUpload = (productData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -72,7 +72,7 @@ export const productEdit = (productID, productData) => async (dispatch) => {
             type: actionTypes.PRODUCT_EDIT_REQUEST,
         })
 
-        await axiosInstance.put(`/api/product/${productID}`, productData)
+        await axiosInstance.patch(`/api/product/${productID}`, productData)
 
         dispatch({
             type: actionTypes.PRODUCT_EDIT_SUCCESS,
@@ -83,7 +83,7 @@ export const productEdit = (productID, productData) => async (dispatch) => {
             payload: productData,
         })
 
-        dispatch(alertAdd("Product Edited!", "success"))
+        dispatch(alertAdd('Product Edited!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -95,7 +95,7 @@ export const productEdit = (productID, productData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -117,7 +117,7 @@ export const productDelete = (productID) => async (dispatch) => {
             payload: productID,
         })
 
-        dispatch(alertAdd("Product Deleted!", "success"))
+        dispatch(alertAdd('Product Deleted!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -129,6 +129,6 @@ export const productDelete = (productID) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }

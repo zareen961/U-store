@@ -25,9 +25,9 @@ router.get('/', protectUser, productGetAll)
 // @access: Private
 router.delete('/:productID', protectUser, productDelete)
 
-// @route: PUT /api/product/:productID
+// @route: PATCH /api/product/:productID
 // @desc: To update one’s product until no bid is placed
 // @access: Private
-router.put('/:productID', protectUser, productUpdate)
+router.patch('/:productID', protectUser, productUpdate)
 
 module.exports = router

@@ -20,9 +20,9 @@ router.post('/login', userLogin)
 // @access: Private
 router.delete('/', protectUser, userDelete)
 
-// @route: PUT /api/user
+// @route: PATCH /api/user
 // @desc: To update an existing user
 // @access: Private
-router.put('/', protectUser, userUpdate)
+router.patch('/', protectUser, userUpdate)
 
 module.exports = router

@@ -94,33 +94,20 @@ const userDelete = asyncHandler(async (req, res) => {
 
 // to update details of existing user
 const userUpdate = asyncHandler(async (req, res) => {
-    const {
-        email,
-        firstName,
-        lastName,
-        avatar,
-        primaryPhone,
-        secondaryPhone,
-        password,
-    } = req.body
+    const toUpdateUser = req.body
 
-    // finding the user
-    const foundUser = await User.findById(req.authUser._id)
+    const updatedUser = await User.findOneAndUpdate(
+        { _id: req.authUser._id },
+        { $set: toUpdateUser },
+        { new: true }
+    )
 
-    foundUser.email = email
-    foundUser.firstName = firstName
-    foundUser.lastName = lastName
-    foundUser.avatar = avatar
-    foundUser.primaryPhone = primaryPhone
-    foundUser.secondaryPhone = secondaryPhone
-    foundUser.password = password
-
-    await foundUser.save()
-
-    // now deleting the password from the foundUser object before sending to frontend
-    foundUser.password = null
-
-    res.status(200).json(foundUser)
+    if (updatedUser) {
+        res.status(200).json({ message: 'User Details Updated' })
+    } else {
+        res.status(500)
+        throw new Error('Some Error occurred while updating the user!')
+    }
 })
 
 module.exports = { userRegister, userLogin, userDelete, userUpdate }

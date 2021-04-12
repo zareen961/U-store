@@ -110,19 +110,14 @@ const collegeDelete = asyncHandler(async (req, res) => {
                 await foundCollege.remove()
 
                 // now removing the collegeID from it's City
-                const foundCity = await City.findById(city)
-                const collegeIndex = foundCity.colleges.findIndex(
-                    (collegeID) => collegeID === college
-                )
-                foundCity.colleges.splice(collegeIndex, 1)
-                await foundCity.save()
+                await City.update({ _id: city }, { $pull: { colleges: college } })
 
                 return res.status(200).json({
                     message: 'College Deleted!',
                 })
             } else {
                 res.status(404)
-                throw new Error('No college found!')
+                throw new Error('No College found!')
             }
         }
 
@@ -137,17 +132,14 @@ const collegeDelete = asyncHandler(async (req, res) => {
                 await foundCity.remove()
 
                 // now removing the cityID from it's State
-                const foundState = await State.findById(state)
-                const cityIndex = foundState.cities.findIndex((cityID) => cityID === city)
-                foundState.cities.splice(cityIndex, 1)
-                await foundState.save()
+                await State.update({ _id: state }, { $pull: { cities: city } })
 
                 return res.status(200).json({
                     message: 'City Deleted!',
                 })
             } else {
                 res.status(404)
-                throw new Error('No city found!')
+                throw new Error('No City found!')
             }
         }
 
@@ -176,7 +168,7 @@ const collegeDelete = asyncHandler(async (req, res) => {
                 })
             } else {
                 res.status(404)
-                throw new Error('No state found!')
+                throw new Error('No State found!')
             }
         }
 

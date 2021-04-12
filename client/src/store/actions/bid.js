@@ -1,6 +1,6 @@
-import * as actionTypes from "../actionTypes"
-import axiosInstance from "../../utils/axiosInstance"
-import { alertAdd } from "./alert"
+import * as actionTypes from '../actionTypes'
+import axiosInstance from '../../utils/axiosInstance'
+import { alertAdd } from './alert'
 
 // to place a new Bid
 export const bidPlace = (bidData) => async (dispatch) => {
@@ -9,7 +9,7 @@ export const bidPlace = (bidData) => async (dispatch) => {
             type: actionTypes.BID_PLACE_REQUEST,
         })
 
-        const { data } = await axiosInstance.post("/api/bid", bidData)
+        const { data } = await axiosInstance.post('/api/bid', bidData)
 
         dispatch({
             type: actionTypes.BID_PLACE_SUCCESS,
@@ -30,7 +30,7 @@ export const bidPlace = (bidData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -41,7 +41,7 @@ export const bidStatusUpdate = (bidID, newStatus) => async (dispatch) => {
             type: actionTypes.BID_STATUS_UPDATE_REQUEST,
         })
 
-        await axiosInstance.put(`/api/bid/${bidID}`, newStatus)
+        await axiosInstance.patch(`/api/bid/${bidID}`, newStatus)
 
         dispatch({
             type: actionTypes.BID_STATUS_UPDATE_SUCCESS,
@@ -52,7 +52,7 @@ export const bidStatusUpdate = (bidID, newStatus) => async (dispatch) => {
             payload: newStatus,
         })
 
-        dispatch(alertAdd("Bid Status Updated!", "success"))
+        dispatch(alertAdd('Bid Status Updated!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -64,7 +64,7 @@ export const bidStatusUpdate = (bidID, newStatus) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -86,7 +86,7 @@ export const bidDelete = (bidID) => async (dispatch) => {
             payload: bidID,
         })
 
-        dispatch(alertAdd("Bid Deleted!", "success"))
+        dispatch(alertAdd('Bid Deleted!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -98,6 +98,6 @@ export const bidDelete = (bidID) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }

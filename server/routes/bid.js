@@ -15,9 +15,9 @@ router.post('/:productID', protectUser, bidPlace)
 // @access: Private
 router.delete('/:bidID', protectUser, bidDelete)
 
-// @route: PUT /api/bid/:bidID
+// @route: PATCH /api/bid/:bidID
 // @desc: To update a bid’s status - seller
 // @access: Private
-router.put('/:bidID', protectUser, bidStatusUpdate)
+router.patch('/:bidID', protectUser, bidStatusUpdate)
 
 module.exports = router

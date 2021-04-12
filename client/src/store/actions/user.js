@@ -1,6 +1,6 @@
-import * as actionTypes from "../actionTypes"
-import axiosInstance from "../../utils/axiosInstance"
-import { alertAdd } from "./alert"
+import * as actionTypes from '../actionTypes'
+import axiosInstance from '../../utils/axiosInstance'
+import { alertAdd } from './alert'
 
 // to fetch all the colleges data
 export const collegeFetchData = () => async (dispatch) => {
@@ -9,7 +9,7 @@ export const collegeFetchData = () => async (dispatch) => {
             type: actionTypes.COLLEGE_FETCH_ALL_REQUEST,
         })
 
-        const { data } = await axiosInstance.get("/api/college")
+        const { data } = await axiosInstance.get('/api/college')
 
         dispatch({
             type: actionTypes.COLLEGE_FETCH_ALL_SUCCESS,
@@ -26,7 +26,7 @@ export const collegeFetchData = () => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -37,13 +37,13 @@ export const userRegister = (userData) => async (dispatch) => {
             type: actionTypes.USER_REGISTER_REQUEST,
         })
 
-        await axiosInstance.post("/api/user", userData)
+        await axiosInstance.post('/api/user', userData)
 
         dispatch({
             type: actionTypes.USER_REGISTER_SUCCESS,
         })
 
-        dispatch(alertAdd("User Registered!", "success"))
+        dispatch(alertAdd('User Registered!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -55,7 +55,7 @@ export const userRegister = (userData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -66,14 +66,14 @@ export const userLogin = (userData) => async (dispatch) => {
             type: actionTypes.USER_LOGIN_REQUEST,
         })
 
-        const { data } = await axiosInstance.post("/api/user/login", userData)
+        const { data } = await axiosInstance.post('/api/user/login', userData)
 
         dispatch({
             type: actionTypes.USER_LOGIN_SUCCESS,
             payload: data,
         })
 
-        dispatch(alertAdd("User Logged In!", "success"))
+        dispatch(alertAdd('User Logged In!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -85,7 +85,7 @@ export const userLogin = (userData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -96,7 +96,7 @@ export const userUpdate = (userData) => async (dispatch) => {
             type: actionTypes.USER_UPDATE_REQUEST,
         })
 
-        await axiosInstance.put("/api/user", userData)
+        await axiosInstance.patch('/api/user', userData)
 
         dispatch({
             type: actionTypes.USER_UPDATE_SUCCESS,
@@ -106,7 +106,7 @@ export const userUpdate = (userData) => async (dispatch) => {
             payload: userData,
         })
 
-        dispatch(alertAdd("User Details Updated!", "success"))
+        dispatch(alertAdd('User Details Updated!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -118,15 +118,15 @@ export const userUpdate = (userData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
 // to logout an User
 export const userLogout = () => (dispatch) => {
-    localStorage.removeItem("user")
+    localStorage.removeItem('user')
     dispatch({ type: actionTypes.USER_LOGOUT })
-    dispatch(alertAdd("User Logged out!", "success"))
+    dispatch(alertAdd('User Logged out!', 'success'))
 }
 
 // to delete an User
@@ -136,7 +136,7 @@ export const userDelete = (password) => async (dispatch) => {
             type: actionTypes.USER_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete("/api/user", { password })
+        await axiosInstance.delete('/api/user', { password })
 
         dispatch({
             type: actionTypes.USER_DELETE_SUCCESS,
@@ -144,7 +144,7 @@ export const userDelete = (password) => async (dispatch) => {
 
         dispatch(userLogout())
 
-        dispatch(alertAdd("User Deleted!", "success"))
+        dispatch(alertAdd('User Deleted!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -156,6 +156,6 @@ export const userDelete = (password) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }

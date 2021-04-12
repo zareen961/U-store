@@ -13,7 +13,7 @@ const adminRegister = asyncHandler(async (req, res) => {
     })
 
     if (newAdmin) {
-        res.status(201).json(newAdmin)
+        res.status(201).json({ message: 'New Admin Registered!' })
     } else {
         res.status(500)
     }
@@ -50,7 +50,7 @@ const adminDelete = asyncHandler(async (req, res) => {
 
         await foundAdminToDelete.remove()
 
-        res.status(200).json({ message: 'Admin Deleted!', adminID })
+        res.status(200).json({ message: 'Admin Deleted!' })
     } else {
         res.status(401)
         throw new Error('Wrong Credentials!')
