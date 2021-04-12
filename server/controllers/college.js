@@ -110,7 +110,7 @@ const collegeDelete = asyncHandler(async (req, res) => {
                 await foundCollege.remove()
 
                 // now removing the collegeID from it's City
-                await City.update({ _id: city }, { $pull: { colleges: college } })
+                await City.updateOne({ _id: city }, { $pull: { colleges: college } })
 
                 return res.status(200).json({
                     message: 'College Deleted!',
@@ -132,7 +132,7 @@ const collegeDelete = asyncHandler(async (req, res) => {
                 await foundCity.remove()
 
                 // now removing the cityID from it's State
-                await State.update({ _id: state }, { $pull: { cities: city } })
+                await State.updateOne({ _id: state }, { $pull: { cities: city } })
 
                 return res.status(200).json({
                     message: 'City Deleted!',

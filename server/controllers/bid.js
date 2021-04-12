@@ -38,7 +38,7 @@ const bidPlace = asyncHandler(async (req, res) => {
     })
 
     // pushing the new bidID to the bidOwner's bids array
-    await User.update(
+    await User.updateOne(
         { _id: req.authUser._id },
         {
             $push: {
@@ -51,7 +51,7 @@ const bidPlace = asyncHandler(async (req, res) => {
     )
 
     // pushing the new bidID to the Product's bids array
-    await Product.update(
+    await Product.updateOne(
         { _id: product },
         {
             $push: {
@@ -85,10 +85,10 @@ const bidDelete = asyncHandler(async (req, res) => {
 
     if (foundBid) {
         // removing the deleted Bid's ID from the bidOwner's bids array
-        await User.update({ _id: req.authUser._id }, { $pull: { bids: bidID } })
+        await User.updateOne({ _id: req.authUser._id }, { $pull: { bids: bidID } })
 
         // removing the deleted Bid's ID from the Product's bids array
-        await Product.update({ _id: foundBid.product }, { $pull: { bids: bidID } })
+        await Product.updateOne({ _id: foundBid.product }, { $pull: { bids: bidID } })
 
         await foundBid.remove()
         res.status(200).json({

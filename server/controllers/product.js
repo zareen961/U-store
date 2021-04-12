@@ -21,7 +21,7 @@ const productUpload = asyncHandler(async (req, res) => {
 
     if (newProduct) {
         // pushing the new productID to the productOwner's products array
-        await User.update(
+        await User.updateOne(
             { _id: productOwner },
             {
                 $push: {
@@ -62,7 +62,10 @@ const productDelete = asyncHandler(async (req, res) => {
         }
 
         // removing the deleted productID from productOwner's products array
-        await User.update({ _id: req.authUser._id }, { $pull: { products: productID } })
+        await User.updateOne(
+            { _id: req.authUser._id },
+            { $pull: { products: productID } }
+        )
 
         // removing all the bids placed on that product
         await Bid.deleteMany({ _id: { $in: foundProduct.bids } })
