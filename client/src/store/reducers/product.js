@@ -1,4 +1,4 @@
-import * as actionTypes from "../actionTypes"
+import * as actionTypes from '../actionTypes'
 
 export const productFetchAllReducer = (
     state = {
@@ -17,7 +17,6 @@ export const productFetchAllReducer = (
                 loading: true,
                 error: null,
                 success: false,
-                products: [],
                 lastFetch: null,
             }
 
@@ -37,7 +36,6 @@ export const productFetchAllReducer = (
                 loading: false,
                 error: action.payload,
                 success: false,
-                products: [],
                 lastFetch: null,
             }
 

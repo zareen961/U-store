@@ -11,7 +11,6 @@ export const collegeReducer = (
                 loading: true,
                 error: null,
                 success: false,
-                data: [],
                 lastFetch: null,
             }
 
@@ -31,7 +30,6 @@ export const collegeReducer = (
                 loading: false,
                 error: action.payload,
                 success: false,
-                data: [],
                 lastFetch: null,
             }
 

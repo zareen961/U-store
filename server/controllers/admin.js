@@ -20,7 +20,7 @@ const adminRegister = asyncHandler(async (req, res) => {
     })
 
     if (newAdmin) {
-        res.status(201).json({ message: 'New Admin Registered!' })
+        res.status(201).json(newAdmin)
     } else {
         res.status(500)
     }
@@ -66,7 +66,7 @@ const adminDelete = asyncHandler(async (req, res) => {
 
 // to get all the Admins
 const adminGetAll = asyncHandler(async (req, res) => {
-    const foundAdmins = await Admin.find()
+    const foundAdmins = await Admin.find().select('-password')
 
     res.status(200).json(foundAdmins)
 })
