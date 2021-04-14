@@ -3,12 +3,19 @@ const asyncHandler = require('express-async-handler')
 const Bid = require('../models/Bid')
 const User = require('../models/User')
 const Product = require('../models/Product')
+const { validateBidInputs } = require('../validators/bid')
 
 // to place a bid on a product
 const bidPlace = asyncHandler(async (req, res) => {
     const { price } = req.body
     const product = req.params.productID
     const bidOwner = req.authUser._id
+
+    const { isValid, message } = validateBidInputs(req.body)
+    if (!isValid) {
+        res.status(500)
+        throw new Error(message)
+    }
 
     // checking if the User placing Bid is NOT the owner of the Product.
     const foundProduct = await Product.findById(product)
@@ -104,6 +111,12 @@ const bidDelete = asyncHandler(async (req, res) => {
 const bidStatusUpdate = asyncHandler(async (req, res) => {
     const { newStatus } = req.body
     const bidID = req.params.bidID
+
+    const { isValid, message } = validateBidInputs(req.body, true)
+    if (!isValid) {
+        res.status(500)
+        throw new Error(message)
+    }
 
     const foundBid = await Bid.findById(bidID).populate('product')
 

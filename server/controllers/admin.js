@@ -7,6 +7,13 @@ const generateToken = require('../utils/generateToken')
 const adminRegister = asyncHandler(async (req, res) => {
     const { username, password } = req.body
 
+    // checking for the uniqueness of username
+    const isUniqueUsername = await Admin.countDocuments({ username })
+    if (isUniqueUsername > 0) {
+        res.status(400)
+        throw new Error('Username is already taken!')
+    }
+
     const newAdmin = await Admin.create({
         username,
         password,

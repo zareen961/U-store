@@ -3,12 +3,18 @@ const asyncHandler = require('express-async-handler')
 const Product = require('../models/Product')
 const User = require('../models/User')
 const Bid = require('../models/Bid')
-
+const { validateProductInputs } = require('../validators/product')
 // to upload new product
 const productUpload = asyncHandler(async (req, res) => {
     const { name, image, price, description } = req.body
     const productOwner = req.authUser._id
     const college = req.authUser.college
+
+    const { isValid, message } = validateProductInputs(req.body)
+    if (!isValid) {
+        res.status(500)
+        throw new Error(message)
+    }
 
     const newProduct = await Product.create({
         name,
@@ -84,6 +90,12 @@ const productDelete = asyncHandler(async (req, res) => {
 const productUpdate = asyncHandler(async (req, res) => {
     const toUpdateProduct = req.body
     const productID = req.params.productID
+
+    const { isValid, message } = validateProductInputs(req.body, true)
+    if (!isValid) {
+        res.status(500)
+        throw new Error(message)
+    }
 
     const foundProduct = await Product.findById(productID)
 

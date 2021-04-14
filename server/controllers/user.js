@@ -4,6 +4,7 @@ const User = require('../models/User')
 const Product = require('../models/Product')
 const Bid = require('../models/Bid')
 const generateToken = require('../utils/generateToken')
+const { validateUserInputs } = require('../validators/user')
 
 // to register new user
 const userRegister = asyncHandler(async (req, res) => {
@@ -20,6 +21,26 @@ const userRegister = asyncHandler(async (req, res) => {
         college,
         password,
     } = req.body
+
+    const { isValid, message } = validateUserInputs(req.body)
+    if (!isValid) {
+        res.status(500)
+        throw new Error(message)
+    }
+
+    // checking for the uniqueness of username
+    const isUniqueUsername = await User.countDocuments({ username })
+    if (isUniqueUsername > 0) {
+        res.status(400)
+        throw new Error('Username is already taken!')
+    }
+
+    //  checking for the uniqueness fo email address
+    const isUniqueEmail = await User.countDocuments({ email })
+    if (isUniqueEmail > 0) {
+        res.status(400)
+        throw new Error('Email is already registered! Try Login.')
+    }
 
     const newUser = await User.create({
         email,
@@ -95,6 +116,32 @@ const userDelete = asyncHandler(async (req, res) => {
 // to update details of existing user
 const userUpdate = asyncHandler(async (req, res) => {
     const toUpdateUser = req.body
+
+    const { isValid, message } = validateUserInputs(req.body, true)
+    if (!isValid) {
+        res.status(500)
+        throw new Error(message)
+    }
+
+    // checking for the uniqueness of username
+    if (toUpdateUser.username) {
+        const isUniqueUsername = await User.countDocuments({
+            username: toUpdateUser.username,
+        })
+        if (isUniqueUsername > 0) {
+            res.status(400)
+            throw new Error('Username is already taken!')
+        }
+    }
+
+    //  checking for the uniqueness fo email address
+    if (toUpdateUser.email) {
+        const isUniqueEmail = await User.countDocuments({ email: toUpdateUser.email })
+        if (isUniqueEmail > 0) {
+            res.status(400)
+            throw new Error('This Email is already registered!')
+        }
+    }
 
     const updatedUser = await User.findOneAndUpdate(
         { _id: req.authUser._id },
