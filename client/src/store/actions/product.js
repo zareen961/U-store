@@ -1,32 +1,37 @@
-import * as actionTypes from '../actionTypes'
-import axiosInstance from '../../utils/axiosInstance'
-import { alertAdd } from './alert'
+import * as actionTypes from "../actionTypes"
+import axiosInstance from "../../utils/axiosInstance"
+import { alertAdd } from "./alert"
+import { handleCache } from "../../utils/handleCache"
 
 // to fetch all the Products of the logged in user's college
-export const productFetchAll = () => async (dispatch) => {
-    try {
-        dispatch({
-            type: actionTypes.PRODUCT_FETCH_ALL_REQUEST,
-        })
+export const productFetchAll = () => async (dispatch, getState) => {
+    const { lastFetch } = getState().productFetchAll
 
-        const { data } = await axiosInstance.get('/api/product')
+    if (!handleCache(lastFetch)) {
+        try {
+            dispatch({
+                type: actionTypes.PRODUCT_FETCH_ALL_REQUEST,
+            })
 
-        dispatch({
-            type: actionTypes.PRODUCT_FETCH_ALL_SUCCESS,
-            payload: data,
-        })
-    } catch (err) {
-        const errorMsg =
-            err.response && err.response.data.message
-                ? err.response.data.message
-                : err.message
+            const { data } = await axiosInstance.get("/api/product")
 
-        dispatch({
-            type: actionTypes.PRODUCT_FETCH_ALL_FAIL,
-            payload: errorMsg,
-        })
+            dispatch({
+                type: actionTypes.PRODUCT_FETCH_ALL_SUCCESS,
+                payload: data,
+            })
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
 
-        dispatch(alertAdd(errorMsg, 'error'))
+            dispatch({
+                type: actionTypes.PRODUCT_FETCH_ALL_FAIL,
+                payload: errorMsg,
+            })
+
+            dispatch(alertAdd(errorMsg, "error"))
+        }
     }
 }
 
@@ -37,7 +42,7 @@ export const productUpload = (productData) => async (dispatch) => {
             type: actionTypes.PRODUCT_UPLOAD_REQUEST,
         })
 
-        const { data } = await axiosInstance.post('/api/product', productData)
+        const { data } = await axiosInstance.post("/api/product", productData)
 
         dispatch({
             type: actionTypes.PRODUCT_UPLOAD_SUCCESS,
@@ -49,7 +54,7 @@ export const productUpload = (productData) => async (dispatch) => {
             payload: data,
         })
 
-        dispatch(alertAdd('Product Uploaded!', 'success'))
+        dispatch(alertAdd("Product Uploaded!", "success"))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -61,7 +66,7 @@ export const productUpload = (productData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, 'error'))
+        dispatch(alertAdd(errorMsg, "error"))
     }
 }
 
@@ -83,7 +88,7 @@ export const productEdit = (productID, productData) => async (dispatch) => {
             payload: productData,
         })
 
-        dispatch(alertAdd('Product Edited!', 'success'))
+        dispatch(alertAdd("Product Edited!", "success"))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -95,7 +100,7 @@ export const productEdit = (productID, productData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, 'error'))
+        dispatch(alertAdd(errorMsg, "error"))
     }
 }
 
@@ -117,7 +122,7 @@ export const productDelete = (productID) => async (dispatch) => {
             payload: productID,
         })
 
-        dispatch(alertAdd('Product Deleted!', 'success'))
+        dispatch(alertAdd("Product Deleted!", "success"))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -129,6 +134,6 @@ export const productDelete = (productID) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, 'error'))
+        dispatch(alertAdd(errorMsg, "error"))
     }
 }

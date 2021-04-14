@@ -1,4 +1,4 @@
-import * as actionTypes from '../actionTypes'
+import * as actionTypes from "../actionTypes"
 
 export const productFetchAllReducer = (
     state = {
@@ -101,6 +101,12 @@ export const productFetchAllReducer = (
                     }
                     return product
                 }),
+            }
+
+        case actionTypes.PRODUCT_CLEANUP:
+            return {
+                ...state,
+                lastFetch: null,
             }
 
         default:
