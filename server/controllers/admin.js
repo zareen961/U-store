@@ -20,6 +20,9 @@ const adminRegister = asyncHandler(async (req, res) => {
     })
 
     if (newAdmin) {
+        // removing password before sending to client
+        newAdmin.password = null
+
         res.status(201).json(newAdmin)
     } else {
         res.status(500)

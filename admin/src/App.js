@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import jwtDecode from 'jwt-decode'
 import setAuthHeader from './utils/setAuthHeader'
 
-import { adminLogin, adminLogout, adminFetchAll } from './store/actions'
+import { adminLogin, adminLogout, adminFetchAll, adminRegister } from './store/actions'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -23,7 +23,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        dispatch(adminFetchAll())
+        dispatch(adminRegister({ username: 'JoruKaGulaam', password: 'ilovemybaby' }))
     }, [dispatch])
 
     return <div>U-store | Bubble ❤ Batook</div>
