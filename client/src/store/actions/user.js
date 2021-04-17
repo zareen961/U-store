@@ -6,7 +6,7 @@ import setAuthHeader from '../../utils/setAuthHeader'
 
 // to fetch all the colleges data
 export const collegeFetchData = () => async (dispatch, getState) => {
-    const lastFetch = getState().college
+    const { lastFetch } = getState().college
 
     if (!handleCache(lastFetch)) {
         try {
@@ -103,21 +103,30 @@ export const userLogin = (userData) => async (dispatch) => {
 }
 
 // to update an User details
-export const userUpdate = (userData) => async (dispatch) => {
+export const userUpdate = (userData, currentPassword) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.USER_UPDATE_REQUEST,
         })
 
-        await axiosInstance.patch('/api/user', userData)
+        const { data } = await axiosInstance.patch('/api/user', {
+            ...userData,
+            currentPassword,
+        })
 
         dispatch({
             type: actionTypes.USER_UPDATE_SUCCESS,
         })
+
         dispatch({
             type: actionTypes.USER_UPDATE_UPDATED,
-            payload: userData,
+            payload: data,
         })
+
+        if (localStorage.getItem('user')) {
+            const token = JSON.parse(localStorage.getItem('user')).token
+            localStorage.setItem('user', JSON.stringify({ ...data, token }))
+        }
 
         dispatch(alertAdd('User Details Updated!', 'success'))
     } catch (err) {
@@ -150,7 +159,7 @@ export const userDelete = (password) => async (dispatch) => {
             type: actionTypes.USER_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete('/api/user', { password })
+        await axiosInstance.delete('/api/user', { data: { password } })
 
         dispatch({
             type: actionTypes.USER_DELETE_SUCCESS,

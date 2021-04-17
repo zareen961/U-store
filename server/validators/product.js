@@ -65,6 +65,10 @@ const validateProductInputs = (inputData, isEdit = false) => {
             }
         }
     }
+
+    return {
+        isValid: true,
+    }
 }
 
 module.exports = validateProductInputs

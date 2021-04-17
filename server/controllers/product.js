@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const Product = require('../models/Product')
 const User = require('../models/User')
 const Bid = require('../models/Bid')
-const { validateProductInputs } = require('../validators/product')
+const validateProductInputs = require('../validators/product')
 // to upload new product
 const productUpload = asyncHandler(async (req, res) => {
     const { name, image, price, description } = req.body

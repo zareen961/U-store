@@ -73,7 +73,7 @@ export const productFetchAllReducer = (
                 }),
             }
 
-        case action.Types.BID_PUSH_NEW:
+        case actionTypes.BID_PUSH_NEW:
             return {
                 ...state,
                 products: state.product.map((product) => {
@@ -84,7 +84,7 @@ export const productFetchAllReducer = (
                 }),
             }
 
-        case action.Types.BID_UPDATE_UPDATED:
+        case actionTypes.BID_UPDATE_UPDATED:
             return {
                 ...state,
                 products: state.product.map((product) => {

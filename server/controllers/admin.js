@@ -52,6 +52,12 @@ const adminDelete = asyncHandler(async (req, res) => {
     const adminID = req.params.adminID
     const { password } = req.body
 
+    // checking if the logged in admin is deleting itself
+    if (String(adminID) === String(req.authAdmin._id)) {
+        res.status(400)
+        throw new Error('You cannot delete your admin account! Ask other admins.')
+    }
+
     // finding the logged in admin
     const foundAdmin = await Admin.findById(req.authAdmin._id)
 
@@ -69,7 +75,7 @@ const adminDelete = asyncHandler(async (req, res) => {
 
 // to get all the Admins
 const adminGetAll = asyncHandler(async (req, res) => {
-    const foundAdmins = await Admin.find().select('-password')
+    const foundAdmins = await Admin.find().select('-password').sort({ createdAt: -1 })
 
     res.status(200).json(foundAdmins)
 })

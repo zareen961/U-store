@@ -54,11 +54,11 @@ const userSchema = new Schema(
             default: 1,
         },
         primaryPhone: {
-            type: Number,
+            type: String,
             required: true,
         },
         secondaryPhone: {
-            type: Number,
+            type: String,
         },
         collegeState: {
             type: Types.ObjectId,

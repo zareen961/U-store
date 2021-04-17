@@ -187,7 +187,7 @@ export const collegeFetchAllReducer = (
                 success: false,
             }
 
-        case actionTypes.COLLEGE_FETCH_ALL_REQUEST:
+        case actionTypes.COLLEGE_FETCH_ALL_SUCCESS:
             return {
                 ...state,
                 loading: false,

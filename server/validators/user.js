@@ -1,3 +1,5 @@
+const { ObjectID } = require('mongodb')
+
 const {
     EMAIL_LEN_MAX,
     EMAIL_REGEX,
@@ -15,8 +17,63 @@ const validateUserInputs = (inputData, isEdit = false) => {
         lastName,
         primaryPhone,
         secondaryPhone,
+        collegeState,
+        collegeCity,
+        college,
         password,
     } = inputData
+
+    // validating college data
+    if (!isEdit) {
+        if (collegeState) {
+            if (!ObjectID.isValid(collegeState)) {
+                return {
+                    isValid: false,
+                    message: 'Invalid College State!',
+                }
+            }
+        } else {
+            return {
+                isValid: false,
+                message: 'College state is a required field!',
+            }
+        }
+
+        if (collegeCity) {
+            if (!ObjectID.isValid(collegeCity)) {
+                return {
+                    isValid: false,
+                    message: 'Invalid College City!',
+                }
+            }
+        } else {
+            return {
+                isValid: false,
+                message: 'College city is a required field!',
+            }
+        }
+
+        if (college) {
+            if (!ObjectID.isValid(college)) {
+                return {
+                    isValid: false,
+                    message: 'Invalid College!',
+                }
+            }
+        } else {
+            return {
+                isValid: false,
+                message: 'College is a required field!',
+            }
+        }
+    } else {
+        if (collegeState || collegeCity || college) {
+            return {
+                isValid: false,
+                message: 'Cannot edit college data!',
+            }
+        }
+    }
 
     // validating email
     if (email) {
@@ -44,7 +101,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
 
     // validating username
     if (username) {
-        if (!email.match(USERNAME_REGEX)) {
+        if (!username.match(USERNAME_REGEX)) {
             return {
                 isValid: false,
                 message:
@@ -96,9 +153,11 @@ const validateUserInputs = (inputData, isEdit = false) => {
             }
         }
     } else {
-        return {
-            isValid: false,
-            message: 'Primary Phone Number is a required field!',
+        if (!isEdit) {
+            return {
+                isValid: false,
+                message: 'Primary Phone Number is a required field!',
+            }
         }
     }
 
@@ -108,6 +167,16 @@ const validateUserInputs = (inputData, isEdit = false) => {
             return {
                 isValid: false,
                 message: 'Invalid Secondary Phone Number!',
+            }
+        }
+    }
+
+    // checking if both the phone numbers are different
+    if (primaryPhone && secondaryPhone) {
+        if (primaryPhone === secondaryPhone) {
+            return {
+                isValid: false,
+                message: 'Phone numbers must be different!',
             }
         }
     }
@@ -127,6 +196,10 @@ const validateUserInputs = (inputData, isEdit = false) => {
                 message: 'Password is a required field!',
             }
         }
+    }
+
+    return {
+        isValid: true,
     }
 }
 

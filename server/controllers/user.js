@@ -1,10 +1,11 @@
 const asyncHandler = require('express-async-handler')
+const bcrypt = require('bcryptjs')
 
 const User = require('../models/User')
 const Product = require('../models/Product')
 const Bid = require('../models/Bid')
 const generateToken = require('../utils/generateToken')
-const { validateUserInputs } = require('../validators/user')
+const validateUserInputs = require('../validators/user')
 
 // to register new user
 const userRegister = asyncHandler(async (req, res) => {
@@ -115,45 +116,79 @@ const userDelete = asyncHandler(async (req, res) => {
 
 // to update details of existing user
 const userUpdate = asyncHandler(async (req, res) => {
-    const toUpdateUser = req.body
+    const { currentPassword, ...toUpdateUser } = req.body
 
-    const { isValid, message } = validateUserInputs(req.body, true)
-    if (!isValid) {
-        res.status(500)
-        throw new Error(message)
-    }
+    // finding the logged in user
+    const foundUser = await User.findById(req.authUser._id)
 
-    // checking for the uniqueness of username
-    if (toUpdateUser.username) {
-        const isUniqueUsername = await User.countDocuments({
-            username: toUpdateUser.username,
-        })
-        if (isUniqueUsername > 0) {
-            res.status(400)
-            throw new Error('Username is already taken!')
+    // matching the current password
+    if (
+        foundUser &&
+        currentPassword &&
+        (await foundUser.matchPassword(currentPassword))
+    ) {
+        const { isValid, message } = validateUserInputs(req.body, true)
+        if (!isValid) {
+            res.status(500)
+            throw new Error(message)
         }
-    }
 
-    //  checking for the uniqueness fo email address
-    if (toUpdateUser.email) {
-        const isUniqueEmail = await User.countDocuments({ email: toUpdateUser.email })
-        if (isUniqueEmail > 0) {
-            res.status(400)
-            throw new Error('This Email is already registered!')
+        // checking for the uniqueness of username
+        if (toUpdateUser.username) {
+            const isUniqueUsername = await User.countDocuments({
+                username: toUpdateUser.username,
+            })
+            if (isUniqueUsername) {
+                res.status(400)
+                throw new Error('Username is already taken!')
+            }
         }
-    }
 
-    const updatedUser = await User.findOneAndUpdate(
-        { _id: req.authUser._id },
-        { $set: toUpdateUser },
-        { new: true }
-    )
+        //  checking for the uniqueness fo email address
+        if (toUpdateUser.email) {
+            const isUniqueEmail = await User.countDocuments({ email: toUpdateUser.email })
+            if (isUniqueEmail > 0) {
+                res.status(400)
+                throw new Error('This Email is already registered!')
+            }
+        }
 
-    if (updatedUser) {
-        res.status(200).json({ message: 'User Details Updated' })
+        // checking if both the phone numbers are different
+        const { primaryPhone, secondaryPhone } = toUpdateUser
+        if (
+            (primaryPhone && primaryPhone === foundUser.secondaryPhone) ||
+            (secondaryPhone && secondaryPhone === foundUser.primaryPhone)
+        ) {
+            if (!primaryPhone || !secondaryPhone) {
+                res.status(400)
+                throw new Error('Phone numbers must be different!')
+            }
+        }
+
+        // if password needs to be updated, then hash it
+        if (toUpdateUser.password) {
+            const salt = await bcrypt.genSalt(13)
+            toUpdateUser.password = await bcrypt.hash(toUpdateUser.password, salt)
+        }
+
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: req.authUser._id },
+            { $set: toUpdateUser },
+            { new: true }
+        )
+
+        if (updatedUser) {
+            // removing the password before sending the document to client
+            updatedUser.password = null
+
+            res.status(200).json(updatedUser)
+        } else {
+            res.status(500)
+            throw new Error('Some Error occurred while updating the user!')
+        }
     } else {
-        res.status(500)
-        throw new Error('Some Error occurred while updating the user!')
+        res.status(401)
+        throw new Error('Wrong Credentials!')
     }
 })
 

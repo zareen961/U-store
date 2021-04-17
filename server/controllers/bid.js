@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const Bid = require('../models/Bid')
 const User = require('../models/User')
 const Product = require('../models/Product')
-const { validateBidInputs } = require('../validators/bid')
+const validateBidInputs = require('../validators/bid')
 
 // to place a bid on a product
 const bidPlace = asyncHandler(async (req, res) => {

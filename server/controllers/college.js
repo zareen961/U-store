@@ -81,8 +81,10 @@ const collegeGetAll = asyncHandler(async (req, res) => {
         .sort({ name: 'asc' })
         .populate({
             path: 'cities',
+            options: { sort: { name: 'asc' } },
             populate: {
                 path: 'colleges',
+                options: { sort: { name: 'asc' } },
             },
         })
 
@@ -101,7 +103,7 @@ const collegeDelete = asyncHandler(async (req, res) => {
     // finding the logged in admin
     const foundAdmin = await Admin.findById(req.authAdmin._id)
 
-    if (foundAdmin && (await foundAdmin.matchPassword(password))) {
+    if (foundAdmin && password && (await foundAdmin.matchPassword(password))) {
         //if college is passed we delete that specific college
         if (state && city && college) {
             const foundCollege = await College.findById(college)

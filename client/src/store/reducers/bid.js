@@ -73,7 +73,7 @@ export const bidUpdateReducer = (
     action
 ) => {
     switch (action.type) {
-        case actionTypes.BID_UPDATE_REQUEST:
+        case actionTypes.BID_STATUS_UPDATE_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -81,7 +81,7 @@ export const bidUpdateReducer = (
                 success: false,
             }
 
-        case actionTypes.BID_UPDATE_SUCCESS:
+        case actionTypes.BID_STATUS_UPDATE_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -89,7 +89,7 @@ export const bidUpdateReducer = (
                 success: true,
             }
 
-        case actionTypes.BID_UPDATE_FAIL:
+        case actionTypes.BID_STATUS_UPDATE_FAIL:
             return {
                 ...state,
                 loading: false,

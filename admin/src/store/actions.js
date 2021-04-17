@@ -135,7 +135,7 @@ export const adminDelete = (adminID, password) => async (dispatch) => {
             type: actionTypes.ADMIN_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete(`/api/admin/${adminID}`, { password })
+        await axiosInstance.delete(`/api/admin/${adminID}`, { data: { password } })
 
         dispatch({
             type: actionTypes.ADMIN_DELETE_SUCCESS,
@@ -216,13 +216,15 @@ export const collegeAdd = (collegeData) => async (dispatch) => {
     }
 }
 
-export const collegeDelete = (state, city, college, password) => async (dispatch) => {
+export const collegeDelete = ({ state, city, college, password }) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.COLLEGE_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete('/api/college', { state, city, college, password })
+        await axiosInstance.delete('/api/college', {
+            data: { state, city, college, password },
+        })
 
         dispatch({
             type: actionTypes.COLLEGE_DELETE_SUCCESS,

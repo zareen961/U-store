@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import jwtDecode from 'jwt-decode'
-import setAuthHeader from './utils/setAuthHeader'
 
-import { adminLogin, adminLogout, adminFetchAll, adminRegister } from './store/actions'
+import { adminLogout } from './store/actions'
+import setAuthHeader from './utils/setAuthHeader'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -21,10 +21,6 @@ const App = () => {
         // if a valid auth token is present then set the auth headers to all axios requests
         setAuthHeader(token)
     }
-
-    useEffect(() => {
-        dispatch(adminRegister({ username: 'JoruKaGulaam', password: 'ilovemybaby' }))
-    }, [dispatch])
 
     return <div>U-store | Bubble ❤ Batook</div>
 }

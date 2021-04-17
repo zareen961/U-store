@@ -30,6 +30,10 @@ const validateBidInputs = (inputData) => {
             }
         }
     }
+
+    return {
+        isValid: true,
+    }
 }
 
 module.exports = validateBidInputs
