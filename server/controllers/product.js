@@ -4,6 +4,7 @@ const Product = require('../models/Product')
 const User = require('../models/User')
 const Bid = require('../models/Bid')
 const validateProductInputs = require('../validators/product')
+
 // to upload new product
 const productUpload = asyncHandler(async (req, res) => {
     const { name, image, price, description } = req.body
@@ -48,9 +49,11 @@ const productUpload = asyncHandler(async (req, res) => {
 
 // to get all products for the logged in user’s college
 const productGetAll = asyncHandler(async (req, res) => {
-    const foundProducts = await Product.find({ college: req.authUser.college }).sort({
-        createdAt: -1,
-    })
+    const foundProducts = await Product.find({ college: req.authUser.college })
+        .populate('bids')
+        .sort({
+            createdAt: -1,
+        })
     res.status(200).json(foundProducts)
 })
 

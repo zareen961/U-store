@@ -3,21 +3,28 @@ import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './alert'
 
 // to place a new Bid
-export const bidPlace = (bidData) => async (dispatch) => {
+export const bidPlace = (productID, bidPrice) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.BID_PLACE_REQUEST,
         })
 
-        const { data } = await axiosInstance.post('/api/bid', bidData)
-
-        dispatch({
-            type: actionTypes.BID_PLACE_SUCCESS,
+        const { data } = await axiosInstance.post(`/api/bid/${productID}`, {
+            price: bidPrice,
         })
 
         dispatch({
             type: actionTypes.BID_PUSH_NEW,
+            payload: { productID, bid: data },
+        })
+
+        dispatch({
+            type: actionTypes.USER_BID_PUSH_NEW,
             payload: data,
+        })
+
+        dispatch({
+            type: actionTypes.BID_PLACE_SUCCESS,
         })
     } catch (err) {
         const errorMsg =
@@ -35,21 +42,26 @@ export const bidPlace = (bidData) => async (dispatch) => {
 }
 
 // to update a Bid status
-export const bidStatusUpdate = (bidID, newStatus) => async (dispatch) => {
+export const bidStatusUpdate = (productID, bidID, newBidStatus) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.BID_STATUS_UPDATE_REQUEST,
         })
 
-        await axiosInstance.patch(`/api/bid/${bidID}`, newStatus)
-
-        dispatch({
-            type: actionTypes.BID_STATUS_UPDATE_SUCCESS,
-        })
+        await axiosInstance.patch(`/api/bid/${bidID}`, { newBidStatus })
 
         dispatch({
             type: actionTypes.BID_UPDATE_UPDATED,
-            payload: newStatus,
+            payload: { productID, bidID, newBidStatus },
+        })
+
+        dispatch({
+            type: actionTypes.USER_BID_UPDATE_UPDATED,
+            payload: { productID, bidID, newBidStatus },
+        })
+
+        dispatch({
+            type: actionTypes.BID_STATUS_UPDATE_SUCCESS,
         })
 
         dispatch(alertAdd('Bid Status Updated!', 'success'))
@@ -69,7 +81,7 @@ export const bidStatusUpdate = (bidID, newStatus) => async (dispatch) => {
 }
 
 // to delete a Bid
-export const bidDelete = (bidID) => async (dispatch) => {
+export const bidDelete = (productID, bidID) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.BID_DELETE_REQUEST,
@@ -78,12 +90,17 @@ export const bidDelete = (bidID) => async (dispatch) => {
         await axiosInstance.delete(`/api/bid/${bidID}`)
 
         dispatch({
-            type: actionTypes.BID_DELETE_SUCCESS,
+            type: actionTypes.BID_REMOVE_DELETED,
+            payload: { productID, bidID },
         })
 
         dispatch({
-            type: actionTypes.BID_REMOVE_DELETED,
+            type: actionTypes.USER_BID_REMOVE_DELETED,
             payload: bidID,
+        })
+
+        dispatch({
+            type: actionTypes.BID_DELETE_SUCCESS,
         })
 
         dispatch(alertAdd('Bid Deleted!', 'success'))

@@ -84,13 +84,13 @@ const bidDelete = asyncHandler(async (req, res) => {
 
     const foundBid = await Bid.findById(bidID).populate('product')
 
-    // checking if the logged in user is the owner of the Bid being deleted
-    if (String(foundBid.bidOwner) !== String(req.authUser._id)) {
-        res.status(401)
-        throw new Error('Unauthorized to delete this bid!')
-    }
-
     if (foundBid) {
+        // checking if the logged in user is the owner of the Bid being deleted
+        if (String(foundBid.bidOwner) !== String(req.authUser._id)) {
+            res.status(401)
+            throw new Error('Unauthorized to delete this bid!')
+        }
+
         // removing the deleted Bid's ID from the bidOwner's bids array
         await User.updateOne({ _id: req.authUser._id }, { $pull: { bids: bidID } })
 
@@ -109,7 +109,7 @@ const bidDelete = asyncHandler(async (req, res) => {
 
 // to update a bid status
 const bidStatusUpdate = asyncHandler(async (req, res) => {
-    const { newStatus } = req.body
+    const { newBidStatus } = req.body
     const bidID = req.params.bidID
 
     const { isValid, message } = validateBidInputs(req.body, true)
@@ -120,16 +120,16 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
 
     const foundBid = await Bid.findById(bidID).populate('product')
 
-    // checking if the logged in user is the Product owner
-    if (String(foundBid.product.productOwner) !== String(req.authUser._id)) {
-        res.status(401)
-        throw new Error('Unauthorized to update this bid!')
-    }
-
     if (foundBid) {
+        // checking if the logged in user is the Product owner
+        if (String(foundBid.product.productOwner) !== String(req.authUser._id)) {
+            res.status(401)
+            throw new Error('Unauthorized to update this bid!')
+        }
+
         const updatedBid = await Bid.findOneAndUpdate(
             { _id: bidID },
-            { $set: { status: newStatus } },
+            { $set: { status: newBidStatus } },
             { new: true }
         )
 

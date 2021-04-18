@@ -7,6 +7,25 @@ const Bid = require('../models/Bid')
 const generateToken = require('../utils/generateToken')
 const validateUserInputs = require('../validators/user')
 
+// to get all the details of an User
+const userGet = asyncHandler(async (req, res) => {
+    const foundUser = await User.findById(req.authUser._id).populate({
+        path: 'products bids',
+        options: { sort: { createdAt: -1 } },
+        populate: {
+            path: 'bids',
+            options: { sort: { createdAt: -1 } },
+        },
+    })
+
+    if (foundUser) {
+        res.status(200).json(foundUser)
+    } else {
+        res.status(500)
+        throw new Error('Cannot find the requested user!')
+    }
+})
+
 // to register new user
 const userRegister = asyncHandler(async (req, res) => {
     const {
@@ -74,14 +93,21 @@ const userLogin = asyncHandler(async (req, res) => {
     // finding the user by either username or email
     const foundUser = await User.findOne({
         $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
-    }).populate('products bids')
+    }).populate({
+        path: 'products bids',
+        options: { sort: { createdAt: -1 } },
+        populate: {
+            path: 'bids',
+            options: { sort: { createdAt: -1 } },
+        },
+    })
 
     if (foundUser && (await foundUser.matchPassword(password))) {
         // now deleting the password from the foundUser object before sending to frontend
         foundUser.password = null
 
         res.send({
-            user: foundUser,
+            userInfo: foundUser,
             token: generateToken(foundUser._id),
         })
     } else {
@@ -178,10 +204,7 @@ const userUpdate = asyncHandler(async (req, res) => {
         )
 
         if (updatedUser) {
-            // removing the password before sending the document to client
-            updatedUser.password = null
-
-            res.status(200).json(updatedUser)
+            res.status(200).json({ message: 'User Details Updated!' })
         } else {
             res.status(500)
             throw new Error('Some Error occurred while updating the user!')
@@ -192,4 +215,4 @@ const userUpdate = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { userRegister, userLogin, userDelete, userUpdate }
+module.exports = { userGet, userRegister, userLogin, userDelete, userUpdate }

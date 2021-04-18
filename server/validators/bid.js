@@ -1,7 +1,7 @@
 const { PRICE_MAX, PRICE_MIN } = require('../utils/constants')
 
 const validateBidInputs = (inputData) => {
-    const { price, newStatus } = inputData
+    const { price, newBidStatus } = inputData
 
     // validating price
     if (price) {
@@ -21,9 +21,9 @@ const validateBidInputs = (inputData) => {
     }
 
     // validating bid status
-    if (newStatus) {
+    if (newBidStatus) {
         const allowed = ['ACCEPTED', 'REJECTED']
-        if (!allowed.includes(newStatus)) {
+        if (!allowed.includes(newBidStatus)) {
             return {
                 isValid: false,
                 message: 'Invalid Status',

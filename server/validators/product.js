@@ -1,19 +1,20 @@
 const {
     PRICE_MAX,
     PRICE_MIN,
-    DESCRIPTION_MAX,
-    PRODUCT_NAME_REGEX,
+    DESCRIPTION_LEN_MAX,
+    PRODUCT_LEN_MIN,
+    PRODUCT_LEN_MAX,
 } = require('../utils/constants')
 
 const validateProductInputs = (inputData, isEdit = false) => {
-    const { name, price, description } = inputData
+    const { name, image, price, description } = inputData
 
     //validating name
     if (name) {
-        if (!name.match(PRODUCT_NAME_REGEX)) {
+        if (name.length < PRODUCT_LEN_MIN || name.length > PRODUCT_LEN_MAX) {
             return {
                 isValid: false,
-                message: 'Invalid Name!',
+                message: 'Name must be upto 3-31 characters!',
             }
         }
     } else {
@@ -22,6 +23,14 @@ const validateProductInputs = (inputData, isEdit = false) => {
                 isValid: false,
                 message: 'Name is a required field!',
             }
+        }
+    }
+
+    //validating image
+    if (!image && !isEdit) {
+        return {
+            isValid: false,
+            message: 'Product Image is required!',
         }
     }
 
@@ -51,10 +60,10 @@ const validateProductInputs = (inputData, isEdit = false) => {
 
     // validating description
     if (description) {
-        if (description.length() < DESCRIPTION_MAX) {
+        if (description.length > DESCRIPTION_LEN_MAX) {
             return {
                 isValid: false,
-                message: `Please be precise and write the description within ${DESCRIPTION_MAX} characters!`,
+                message: `Please be precise and write the description within ${DESCRIPTION_LEN_MAX} characters!`,
             }
         }
     } else {

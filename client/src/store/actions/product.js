@@ -1,7 +1,7 @@
-import * as actionTypes from "../actionTypes"
-import axiosInstance from "../../utils/axiosInstance"
-import { alertAdd } from "./alert"
-import { handleCache } from "../../utils/handleCache"
+import * as actionTypes from '../actionTypes'
+import axiosInstance from '../../utils/axiosInstance'
+import { alertAdd } from './alert'
+import { handleCache } from '../../utils/handleCache'
 
 // to fetch all the Products of the logged in user's college
 export const productFetchAll = () => async (dispatch, getState) => {
@@ -13,7 +13,7 @@ export const productFetchAll = () => async (dispatch, getState) => {
                 type: actionTypes.PRODUCT_FETCH_ALL_REQUEST,
             })
 
-            const { data } = await axiosInstance.get("/api/product")
+            const { data } = await axiosInstance.get('/api/product')
 
             dispatch({
                 type: actionTypes.PRODUCT_FETCH_ALL_SUCCESS,
@@ -30,7 +30,7 @@ export const productFetchAll = () => async (dispatch, getState) => {
                 payload: errorMsg,
             })
 
-            dispatch(alertAdd(errorMsg, "error"))
+            dispatch(alertAdd(errorMsg, 'error'))
         }
     }
 }
@@ -42,10 +42,10 @@ export const productUpload = (productData) => async (dispatch) => {
             type: actionTypes.PRODUCT_UPLOAD_REQUEST,
         })
 
-        const { data } = await axiosInstance.post("/api/product", productData)
+        const { data } = await axiosInstance.post('/api/product', productData)
 
         dispatch({
-            type: actionTypes.PRODUCT_UPLOAD_SUCCESS,
+            type: actionTypes.USER_PRODUCT_PUSH_NEW,
             payload: data,
         })
 
@@ -54,7 +54,12 @@ export const productUpload = (productData) => async (dispatch) => {
             payload: data,
         })
 
-        dispatch(alertAdd("Product Uploaded!", "success"))
+        dispatch({
+            type: actionTypes.PRODUCT_UPLOAD_SUCCESS,
+            payload: data,
+        })
+
+        dispatch(alertAdd('Product Uploaded!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -66,7 +71,7 @@ export const productUpload = (productData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -80,15 +85,20 @@ export const productEdit = (productID, productData) => async (dispatch) => {
         await axiosInstance.patch(`/api/product/${productID}`, productData)
 
         dispatch({
-            type: actionTypes.PRODUCT_EDIT_SUCCESS,
+            type: actionTypes.USER_PRODUCT_UPDATE_EDITED,
+            payload: { _id: productID, ...productData },
         })
 
         dispatch({
             type: actionTypes.PRODUCT_UPDATE_EDITED,
-            payload: productData,
+            payload: { _id: productID, ...productData },
         })
 
-        dispatch(alertAdd("Product Edited!", "success"))
+        dispatch({
+            type: actionTypes.PRODUCT_EDIT_SUCCESS,
+        })
+
+        dispatch(alertAdd('Product Edited!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -100,7 +110,7 @@ export const productEdit = (productID, productData) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -111,10 +121,11 @@ export const productDelete = (productID) => async (dispatch) => {
             type: actionTypes.PRODUCT_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete(`/api/product/${productID}`, productData)
+        await axiosInstance.delete(`/api/product/${productID}`)
 
         dispatch({
-            type: actionTypes.PRODUCT_DELETE_SUCCESS,
+            type: actionTypes.USER_PRODUCT_REMOVE_DELETED,
+            payload: productID,
         })
 
         dispatch({
@@ -122,7 +133,11 @@ export const productDelete = (productID) => async (dispatch) => {
             payload: productID,
         })
 
-        dispatch(alertAdd("Product Deleted!", "success"))
+        dispatch({
+            type: actionTypes.PRODUCT_DELETE_SUCCESS,
+        })
+
+        dispatch(alertAdd('Product Deleted!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -134,6 +149,6 @@ export const productDelete = (productID) => async (dispatch) => {
             payload: errorMsg,
         })
 
-        dispatch(alertAdd(errorMsg, "error"))
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }

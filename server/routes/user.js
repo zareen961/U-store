@@ -1,9 +1,20 @@
 const express = require('express')
 
 const { protectUser } = require('../middleware/protect')
-const { userRegister, userLogin, userDelete, userUpdate } = require('../controllers/user')
+const {
+    userGet,
+    userRegister,
+    userLogin,
+    userDelete,
+    userUpdate,
+} = require('../controllers/user')
 
 const router = express.Router()
+
+// @route: GET /api/user
+// @desc: To fetch details of logged in user
+// @access: Private
+router.get('/', protectUser, userGet)
 
 // @route: POST /api/user
 // @desc: To register a new user

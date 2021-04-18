@@ -36,6 +36,39 @@ export const collegeFetchData = () => async (dispatch, getState) => {
     }
 }
 
+// to get all the details of logged in user
+export const userFetch = () => async (dispatch) => {
+    let token
+    if (localStorage.getItem('user')) {
+        token = JSON.parse(localStorage.getItem('user')).token
+    }
+
+    try {
+        dispatch({
+            type: actionTypes.USER_FETCH_REQUEST,
+        })
+
+        const { data } = await axiosInstance.get('/api/user')
+
+        dispatch({
+            type: actionTypes.USER_FETCH_SUCCESS,
+            payload: { userInfo: data, token },
+        })
+    } catch (err) {
+        const errorMsg =
+            err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+
+        dispatch({
+            type: actionTypes.USER_FETCH_FAIL,
+            payload: errorMsg,
+        })
+
+        dispatch(alertAdd(errorMsg, 'error'))
+    }
+}
+
 // to register a new User
 export const userRegister = (userData) => async (dispatch) => {
     try {
@@ -74,17 +107,19 @@ export const userLogin = (userData) => async (dispatch) => {
 
         const { data } = await axiosInstance.post('/api/user/login', userData)
 
-        dispatch({
-            type: actionTypes.USER_LOGIN_SUCCESS,
-            payload: data,
-        })
-
-        localStorage.setItem('user', JSON.stringify(data))
+        if (data && data.token) {
+            localStorage.setItem('user', JSON.stringify({ token: data.token }))
+        }
 
         if (localStorage.getItem('user')) {
             const token = JSON.parse(localStorage.getItem('user')).token
             setAuthHeader(token)
         }
+
+        dispatch({
+            type: actionTypes.USER_LOGIN_SUCCESS,
+            payload: data,
+        })
 
         dispatch(alertAdd('User Logged In!', 'success'))
     } catch (err) {
@@ -109,24 +144,19 @@ export const userUpdate = (userData, currentPassword) => async (dispatch) => {
             type: actionTypes.USER_UPDATE_REQUEST,
         })
 
-        const { data } = await axiosInstance.patch('/api/user', {
+        await axiosInstance.patch('/api/user', {
             ...userData,
             currentPassword,
         })
 
         dispatch({
-            type: actionTypes.USER_UPDATE_SUCCESS,
+            type: actionTypes.USER_UPDATE_UPDATED,
+            payload: { ...userData, password: null },
         })
 
         dispatch({
-            type: actionTypes.USER_UPDATE_UPDATED,
-            payload: data,
+            type: actionTypes.USER_UPDATE_SUCCESS,
         })
-
-        if (localStorage.getItem('user')) {
-            const token = JSON.parse(localStorage.getItem('user')).token
-            localStorage.setItem('user', JSON.stringify({ ...data, token }))
-        }
 
         dispatch(alertAdd('User Details Updated!', 'success'))
     } catch (err) {
@@ -161,11 +191,11 @@ export const userDelete = (password) => async (dispatch) => {
 
         await axiosInstance.delete('/api/user', { data: { password } })
 
+        dispatch(userLogout())
+
         dispatch({
             type: actionTypes.USER_DELETE_SUCCESS,
         })
-
-        dispatch(userLogout())
 
         dispatch(alertAdd('User Deleted!', 'success'))
     } catch (err) {

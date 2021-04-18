@@ -78,6 +78,7 @@ export const userLoginReducer = (
 ) => {
     switch (action.type) {
         case actionTypes.USER_LOGIN_REQUEST:
+        case actionTypes.USER_FETCH_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -87,6 +88,7 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_LOGIN_SUCCESS:
+        case actionTypes.USER_FETCH_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -96,6 +98,7 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_LOGIN_FAIL:
+        case actionTypes.USER_FETCH_FAIL:
             return {
                 ...state,
                 loading: false,
@@ -116,7 +119,99 @@ export const userLoginReducer = (
         case actionTypes.USER_UPDATE_UPDATED:
             return {
                 ...state,
-                user: action.payload,
+                user: {
+                    ...state.user,
+                    userInfo: { ...state.user.userInfo, ...action.payload },
+                },
+            }
+
+        case actionTypes.USER_PRODUCT_PUSH_NEW:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: [action.payload, ...state.user.userInfo.products],
+                    },
+                },
+            }
+
+        case actionTypes.USER_PRODUCT_REMOVE_DELETED:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: state.user.userInfo.products.filter(
+                            (product) => product._id !== action.payload
+                        ),
+                    },
+                },
+            }
+
+        case actionTypes.USER_PRODUCT_UPDATE_EDITED:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: state.user.userInfo.products.map((product) =>
+                            product._id === action.payload._id
+                                ? { ...product, ...action.payload }
+                                : product
+                        ),
+                    },
+                },
+            }
+
+        case actionTypes.USER_BID_PUSH_NEW:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        bids: [action.payload, ...state.user.userInfo.bids],
+                    },
+                },
+            }
+
+        case actionTypes.USER_BID_REMOVE_DELETED:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        bids: state.user.userInfo.bids.filter(
+                            (bid) => bid._id !== action.payload
+                        ),
+                    },
+                },
+            }
+
+        case actionTypes.USER_BID_UPDATE_UPDATED:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: state.user.userInfo.products.map((product) => {
+                            if (product._id === action.payload.productID) {
+                                product.bids = product.bids.map((bid) =>
+                                    bid._id === action.payload.bidID
+                                        ? { ...bid, status: action.payload.newBidStatus }
+                                        : bid
+                                )
+                            }
+                            return product
+                        }),
+                    },
+                },
             }
 
         default:

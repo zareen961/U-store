@@ -52,11 +52,14 @@ export const productFetchAllReducer = (
                 ...state,
                 products: [action.payload, ...state.products],
             }
+
         case actionTypes.PRODUCT_UPDATE_EDITED:
             return {
                 ...state,
                 products: state.products.map((product) =>
-                    product._id === action.payload._id ? action.payload : product
+                    product._id === action.payload._id
+                        ? { ...product, ...action.payload }
+                        : product
                 ),
             }
 
@@ -76,7 +79,7 @@ export const productFetchAllReducer = (
         case actionTypes.BID_PUSH_NEW:
             return {
                 ...state,
-                products: state.product.map((product) => {
+                products: state.products.map((product) => {
                     if (product._id === action.payload.productID) {
                         product.bids = [action.payload.bid, ...product.bids]
                     }
@@ -87,15 +90,13 @@ export const productFetchAllReducer = (
         case actionTypes.BID_UPDATE_UPDATED:
             return {
                 ...state,
-                products: state.product.map((product) => {
+                products: state.products.map((product) => {
                     if (product._id === action.payload.productID) {
-                        product.bids = product.bids.map((bid) => {
-                            bid.status =
-                                bid._id === action.payload.bidID
-                                    ? action.payload.newBidStatus
-                                    : bid.status
-                            return bid
-                        })
+                        product.bids = product.bids.map((bid) =>
+                            bid._id === action.payload.bidID
+                                ? { ...bid, status: action.payload.newBidStatus }
+                                : bid
+                        )
                     }
                     return product
                 }),
