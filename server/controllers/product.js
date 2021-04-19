@@ -43,7 +43,7 @@ const productUpload = asyncHandler(async (req, res) => {
         res.status(200).json(newProduct)
     } else {
         res.status(400)
-        throw new Error('Invalid Product data!')
+        throw new Error('Unable to upload your product at the moment! Try again.')
     }
 })
 
@@ -67,7 +67,7 @@ const productDelete = asyncHandler(async (req, res) => {
         // checking if the logged in user is the owner of the Product
         if (String(foundProduct.productOwner) !== String(req.authUser._id)) {
             res.status(401)
-            throw new Error('User is not the owner of the product!')
+            throw new Error('You are not authorized to delete this product!')
         }
 
         // removing the deleted productID from productOwner's products array
@@ -85,7 +85,7 @@ const productDelete = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(404)
-        throw new Error('No product found with this productID!')
+        throw new Error("The product you are trying to delete can't be found! Try again")
     }
 })
 
@@ -106,12 +106,12 @@ const productUpdate = asyncHandler(async (req, res) => {
         // checking if the logged in user is the owner of the Product
         if (String(foundProduct.productOwner) !== String(req.authUser._id)) {
             res.status(401)
-            throw new Error('User is not the owner of the product!')
+            throw new Error('You are not authorized to edit this product!')
         }
 
         if (foundProduct.bids.length > 0) {
             res.status(400)
-            throw new Error('Cannot update products with active bids!')
+            throw new Error('Sorry, you cannot edit the product while it is has bids!')
         }
 
         const updatedProduct = await Product.findOneAndUpdate(
@@ -124,11 +124,13 @@ const productUpdate = asyncHandler(async (req, res) => {
             res.status(200).json({ message: 'Product Updated!' })
         } else {
             res.status(500)
-            throw new Error('Some Error occurred while updating the product!')
+            throw new Error("The product couldn't be updated at the moment! Try again.")
         }
     } else {
         res.status(404)
-        throw new Error('No product found with this productID!')
+        throw new Error(
+            'The product you are trying to edit could not be found! Try again.'
+        )
     }
 })
 

@@ -52,14 +52,16 @@ const userRegister = asyncHandler(async (req, res) => {
     const isUniqueUsername = await User.countDocuments({ username })
     if (isUniqueUsername > 0) {
         res.status(400)
-        throw new Error('Username is already taken!')
+        throw new Error(
+            'This username belongs to someone else, be creative and get a unique one'
+        )
     }
 
     //  checking for the uniqueness fo email address
     const isUniqueEmail = await User.countDocuments({ email })
     if (isUniqueEmail > 0) {
         res.status(400)
-        throw new Error('Email is already registered! Try Login.')
+        throw new Error('Email is already registered! Try Logging in.')
     }
 
     const newUser = await User.create({
@@ -82,7 +84,7 @@ const userRegister = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(500)
-        throw new Error('Invalid User data!')
+        throw new Error("Your account couldn't be registered! Try again.")
     }
 })
 
@@ -112,7 +114,7 @@ const userLogin = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(401)
-        throw new Error('Wrong Credentials!')
+        throw new Error("Wrong Credentials! Can't log you in.")
     }
 })
 
@@ -136,7 +138,7 @@ const userDelete = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(400)
-        throw new Error('Wrong Credentials!')
+        throw new Error("Wrong Credentials! Can't delete your account.")
     }
 })
 
@@ -166,7 +168,9 @@ const userUpdate = asyncHandler(async (req, res) => {
             })
             if (isUniqueUsername) {
                 res.status(400)
-                throw new Error('Username is already taken!')
+                throw new Error(
+                    'This username belongs to someone else, be creative and get a unique one'
+                )
             }
         }
 
@@ -187,7 +191,7 @@ const userUpdate = asyncHandler(async (req, res) => {
         ) {
             if (!primaryPhone || !secondaryPhone) {
                 res.status(400)
-                throw new Error('Phone numbers must be different!')
+                throw new Error("Phone numbers can't be same!")
             }
         }
 
@@ -207,11 +211,11 @@ const userUpdate = asyncHandler(async (req, res) => {
             res.status(200).json({ message: 'User Details Updated!' })
         } else {
             res.status(500)
-            throw new Error('Some Error occurred while updating the user!')
+            throw new Error("Your details couldn't be updated at the moment! Try again.")
         }
     } else {
         res.status(401)
-        throw new Error('Wrong Credentials!')
+        throw new Error('Wrong Credentials! Try again.')
     }
 })
 

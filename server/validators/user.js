@@ -29,13 +29,13 @@ const validateUserInputs = (inputData, isEdit = false) => {
             if (!ObjectID.isValid(collegeState)) {
                 return {
                     isValid: false,
-                    message: 'Invalid College State!',
+                    message: 'Please select a valid college state!',
                 }
             }
         } else {
             return {
                 isValid: false,
-                message: 'College state is a required field!',
+                message: 'Please select the state of your college!',
             }
         }
 
@@ -43,13 +43,13 @@ const validateUserInputs = (inputData, isEdit = false) => {
             if (!ObjectID.isValid(collegeCity)) {
                 return {
                     isValid: false,
-                    message: 'Invalid College City!',
+                    message: 'Please select a valid college city!',
                 }
             }
         } else {
             return {
                 isValid: false,
-                message: 'College city is a required field!',
+                message: 'Please select the city of your college!',
             }
         }
 
@@ -57,20 +57,21 @@ const validateUserInputs = (inputData, isEdit = false) => {
             if (!ObjectID.isValid(college)) {
                 return {
                     isValid: false,
-                    message: 'Invalid College!',
+                    message: 'Please select a valid college!',
                 }
             }
         } else {
             return {
                 isValid: false,
-                message: 'College is a required field!',
+                message: 'Please select your college!',
             }
         }
     } else {
         if (collegeState || collegeCity || college) {
             return {
                 isValid: false,
-                message: 'Cannot edit college data!',
+                message:
+                    'You cannot change your college! Create a new account for your new college.',
             }
         }
     }
@@ -86,7 +87,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
             if (!email.match(EMAIL_REGEX)) {
                 return {
                     isValid: false,
-                    message: 'Invalid email address!',
+                    message: 'Please provide a valid email address!',
                 }
             }
         }
@@ -94,7 +95,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'Email address is a required field!',
+                message: 'Email address is needed!',
             }
         }
     }
@@ -105,6 +106,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
             return {
                 isValid: false,
                 message:
+                    // TODO: we 'll cum here again. Please remove this comment once this message makes sense.
                     'Invalid Username! It must be 6-17 characters long, can only have alphanumeric characters, underscore(_) and period(.), it can only start and end with alphanumeric characters and no allowed special characters can appear consecutively!',
             }
         }
@@ -112,7 +114,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'Username is a required field!',
+                message: 'Username is needed!',
             }
         }
     }
@@ -122,14 +124,15 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (!firstName.match(NAME_REGEX)) {
             return {
                 isValid: false,
-                message: 'Invalid First Name!',
+                message: 'Please enter a valid first name!',
             }
         }
     } else {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'First Name is a required field!',
+                message:
+                    'You cannot create an account without providing your first name!',
             }
         }
     }
@@ -139,7 +142,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (!lastName.match(NAME_REGEX)) {
             return {
                 isValid: false,
-                message: 'Invalid Last Name!',
+                message: 'Please enter a valid last name!',
             }
         }
     }
@@ -149,14 +152,14 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (!primaryPhone.match(PHONE_REGEX)) {
             return {
                 isValid: false,
-                message: 'Invalid Primary Phone number!',
+                message: 'Your primary phone number seems invalid to us!',
             }
         }
     } else {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'Primary Phone Number is a required field!',
+                message: 'Make sure to provide us your phone number!',
             }
         }
     }
@@ -166,7 +169,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (!secondaryPhone.match(PHONE_REGEX)) {
             return {
                 isValid: false,
-                message: 'Invalid Secondary Phone Number!',
+                message: 'Your secondary phone number seems invalid to us!',
             }
         }
     }
@@ -176,7 +179,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (primaryPhone === secondaryPhone) {
             return {
                 isValid: false,
-                message: 'Phone numbers must be different!',
+                message: 'Try giving different phone numbers for better reach!',
             }
         }
     }
@@ -186,14 +189,14 @@ const validateUserInputs = (inputData, isEdit = false) => {
         if (password.length < PASSWORD_LEN_MIN) {
             return {
                 isValid: false,
-                message: 'Password too short!',
+                message: 'Keeping short passwords is risky!',
             }
         }
     } else {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'Password is a required field!',
+                message: 'Password must be provided, in case you wish to login!',
             }
         }
     }

@@ -11,7 +11,7 @@ const adminRegister = asyncHandler(async (req, res) => {
     const isUniqueUsername = await Admin.countDocuments({ username })
     if (isUniqueUsername > 0) {
         res.status(400)
-        throw new Error('Username is already taken!')
+        throw new Error('Oops, this username already exists! Try a different one.')
     }
 
     const newAdmin = await Admin.create({
@@ -43,7 +43,7 @@ const adminLogin = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(401)
-        throw new Error('Wrong Credentials!')
+        throw new Error('Your credentials might be wrong! Try again.')
     }
 })
 
@@ -69,7 +69,7 @@ const adminDelete = asyncHandler(async (req, res) => {
         res.status(200).json({ message: 'Admin Deleted!' })
     } else {
         res.status(401)
-        throw new Error('Wrong Credentials!')
+        throw new Error('Your credentials might be wrong! Try again.')
     }
 })
 

@@ -21,7 +21,7 @@ const collegeAdd = asyncHandler(async (req, res) => {
 
         if (!newState) {
             res.status(500)
-            throw new Error('Some error occurred while creating a new State!')
+            throw new Error('Error occurred while creating a new State!')
         }
     }
 
@@ -34,7 +34,7 @@ const collegeAdd = asyncHandler(async (req, res) => {
 
         if (!newCity) {
             res.status(500)
-            throw new Error('Some error occurred while creating a new City!')
+            throw new Error('Error occurred while creating a new City!')
         }
 
         // finding and updating the state in which the new city is created
@@ -56,7 +56,7 @@ const collegeAdd = asyncHandler(async (req, res) => {
 
     if (!newCollege) {
         res.status(500)
-        throw new Error('Some Error occurred while adding the college')
+        throw new Error('Error occurred while adding the college!')
     }
 
     // finding and updating the city in which the new college is created
@@ -92,7 +92,7 @@ const collegeGetAll = asyncHandler(async (req, res) => {
         res.status(200).json(foundStates)
     } else {
         res.status(400)
-        throw new Error('Some Error occurred while fetching all the college data!')
+        throw new Error('Error occurred while fetching the college data!')
     }
 })
 
@@ -175,10 +175,10 @@ const collegeDelete = asyncHandler(async (req, res) => {
         }
 
         res.status(401)
-        throw new Error('No data provided')
+        throw new Error('At least provide some data to perform delete operation!')
     } else {
         res.status(401)
-        throw new Error('Wrong Credentials!')
+        throw new Error('Your credentials might be wrong! Try again.')
     }
 })
 

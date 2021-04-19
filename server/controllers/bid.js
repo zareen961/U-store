@@ -24,7 +24,7 @@ const bidPlace = asyncHandler(async (req, res) => {
 
     if (String(foundProduct.productOwner) === String(bidOwner)) {
         res.status(401)
-        throw new Error("User cannot place bid on it's own Product")
+        throw new Error('Sorry, you cannot place a bid on your own product!')
     }
 
     // checking if the User has already placed a Bid on the Product or NOT, if already placed then the
@@ -33,7 +33,7 @@ const bidPlace = asyncHandler(async (req, res) => {
         if (String(bid.bidOwner) === String(bidOwner) && bid.status !== 'REJECTED') {
             res.status(401)
             throw new Error(
-                'User has already placed a bid on the product which is active!'
+                'Your previous bid on this product is still pending! Wait for the owner to respond or delete this bid and place a new one.'
             )
         }
     })
@@ -44,37 +44,37 @@ const bidPlace = asyncHandler(async (req, res) => {
         bidOwner,
     })
 
-    // pushing the new bidID to the bidOwner's bids array
-    await User.updateOne(
-        { _id: req.authUser._id },
-        {
-            $push: {
-                bids: {
-                    $each: [newBid._id],
-                    $position: 0,
-                },
-            },
-        }
-    )
-
-    // pushing the new bidID to the Product's bids array
-    await Product.updateOne(
-        { _id: product },
-        {
-            $push: {
-                bids: {
-                    $each: [newBid._id],
-                    $position: 0,
-                },
-            },
-        }
-    )
-
     if (newBid) {
+        // pushing the new bidID to the bidOwner's bids array
+        await User.updateOne(
+            { _id: req.authUser._id },
+            {
+                $push: {
+                    bids: {
+                        $each: [newBid._id],
+                        $position: 0,
+                    },
+                },
+            }
+        )
+
+        // pushing the new bidID to the Product's bids array
+        await Product.updateOne(
+            { _id: product },
+            {
+                $push: {
+                    bids: {
+                        $each: [newBid._id],
+                        $position: 0,
+                    },
+                },
+            }
+        )
+
         res.status(200).json(newBid)
     } else {
         res.status(400)
-        throw new Error('Invalid Bid data!')
+        throw new Error('Bid details might be invalid!')
     }
 })
 
@@ -88,7 +88,7 @@ const bidDelete = asyncHandler(async (req, res) => {
         // checking if the logged in user is the owner of the Bid being deleted
         if (String(foundBid.bidOwner) !== String(req.authUser._id)) {
             res.status(401)
-            throw new Error('Unauthorized to delete this bid!')
+            throw new Error('You are authorized to delete your bids only!')
         }
 
         // removing the deleted Bid's ID from the bidOwner's bids array
@@ -103,7 +103,7 @@ const bidDelete = asyncHandler(async (req, res) => {
         })
     } else {
         res.status(404)
-        throw new Error('No bid found with this bidID!')
+        throw new Error('The bid you are trying to delete was not found!')
     }
 })
 
@@ -124,7 +124,7 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
         // checking if the logged in user is the Product owner
         if (String(foundBid.product.productOwner) !== String(req.authUser._id)) {
             res.status(401)
-            throw new Error('Unauthorized to update this bid!')
+            throw new Error('You can only respond to bids placed on your products!')
         }
 
         const updatedBid = await Bid.findOneAndUpdate(
@@ -137,11 +137,13 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
             res.status(200).json({ message: 'Bid Status Updated!' })
         } else {
             res.status(500)
-            throw new Error('Some Error occurred while updating the bid!')
+            throw new Error(
+                "The bid you responded can't be updated at the moment! Try again."
+            )
         }
     } else {
         res.status(404)
-        throw new Error('No bid found with this bidID!')
+        throw new Error("The bid you responded can't be found!")
     }
 })
 

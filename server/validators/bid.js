@@ -8,14 +8,14 @@ const validateBidInputs = (inputData) => {
         if (price < PRICE_MIN) {
             return {
                 isValid: false,
-                message: `Price must be more than ${PRICE_MIN} rupees!`,
+                message: `Please provide a valid amount!`,
             }
         }
 
         if (price > PRICE_MAX) {
             return {
                 isValid: false,
-                message: `Price must be less than ${PRICE_MAX} rupees!`,
+                message: `Price can't exceed ${PRICE_MAX} rupees!`,
             }
         }
     }
@@ -26,7 +26,7 @@ const validateBidInputs = (inputData) => {
         if (!allowed.includes(newBidStatus)) {
             return {
                 isValid: false,
-                message: 'Invalid Status',
+                message: 'Invalid Bid Status!',
             }
         }
     }

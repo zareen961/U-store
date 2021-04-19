@@ -16,13 +16,13 @@ const protectAdmin = asyncHandler(async (req, res, next) => {
         } catch (err) {
             console.error(err.message)
             res.status(401)
-            throw new Error('Not authorized, Invalid/Expired token! Login again.')
+            throw new Error('Not Authorized, Expired Session! Login Again.')
         }
     }
 
     if (!token) {
         res.status(401)
-        throw new Error('Not authorized! No token.')
+        throw new Error('Not Authorized!')
     }
 })
 
@@ -38,13 +38,13 @@ const protectUser = asyncHandler(async (req, res, next) => {
         } catch (err) {
             console.error(err.message)
             res.status(401)
-            throw new Error('Not authorized, Invalid/Expired token! Login again.')
+            throw new Error('Not Authorized, Expired Session! Login Again.')
         }
     }
 
     if (!token) {
         res.status(401)
-        throw new Error('Not authorized! No token.')
+        throw new Error('Not Authorized!')
     }
 })
 

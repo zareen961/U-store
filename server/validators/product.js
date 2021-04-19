@@ -21,7 +21,7 @@ const validateProductInputs = (inputData, isEdit = false) => {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'Name is a required field!',
+                message: 'Product name is needed!',
             }
         }
     }
@@ -30,7 +30,7 @@ const validateProductInputs = (inputData, isEdit = false) => {
     if (!image && !isEdit) {
         return {
             isValid: false,
-            message: 'Product Image is required!',
+            message: 'Product image is needed!',
         }
     }
 
@@ -39,21 +39,21 @@ const validateProductInputs = (inputData, isEdit = false) => {
         if (price < PRICE_MIN) {
             return {
                 isValid: false,
-                message: `Price must be more than ${PRICE_MIN} rupees!`,
+                message: `Please provide a valid amount!`,
             }
         }
 
         if (price > PRICE_MAX) {
             return {
                 isValid: false,
-                message: `Price must be less than ${PRICE_MAX} rupees!`,
+                message: `Price can't exceed ${PRICE_MAX} rupees!`,
             }
         }
     } else {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'Price is a required field!',
+                message: 'Product price is required!',
             }
         }
     }
@@ -70,7 +70,7 @@ const validateProductInputs = (inputData, isEdit = false) => {
         if (!isEdit) {
             return {
                 isValid: false,
-                message: 'Description is a required field!',
+                message: 'Product description is needed!',
             }
         }
     }
