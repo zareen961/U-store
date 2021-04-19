@@ -1,9 +1,18 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import jwtDecode from 'jwt-decode'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { adminLogout } from './store/actions'
 import setAuthHeader from './utils/setAuthHeader'
+import './App.css'
+
+//Screens
+import Login from './screens/Login'
+
+//Components
+import Sidebar from './components/Sidebar'
+import Alerts from './utils/components/Alerts'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -22,7 +31,14 @@ const App = () => {
         setAuthHeader(token)
     }
 
-    return <div>U-store | Bubble ❤ Batook</div>
+    return (
+        <div className="app">
+            <Router>
+                <Alerts />
+                {admin ? <Route component={Sidebar} /> : <Route component={Login} />}
+            </Router>
+        </div>
+    )
 }
 
 export default App

@@ -1,0 +1,13 @@
+.alerts {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+}
+
+.alerts .MuiAlert-root {
+    margin: 10px 0;
+    font-size: 1rem;
+    align-items: center;
+    padding: 10px 30px;
+}

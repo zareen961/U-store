@@ -1,0 +1,77 @@
+.login {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    background: linear-gradient(rgba(128, 0, 128, 0.137), rgba(128, 0, 128, 0.137)),
+        url('../../assets/images/loginBg.jpg');
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+}
+
+.login__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 370px;
+    margin-top: -200px;
+}
+
+.login__formLogo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.login__form h2 {
+    margin-bottom: 30px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.login__formInput {
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 30px;
+    background-color: #8080801a;
+    border: none;
+    padding: 15px 15px;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.login__formInput:focus {
+    outline: none;
+    border: 1px solid #fff;
+}
+
+.login__formInput::placeholder {
+    color: #eee;
+    font-weight: 400;
+}
+
+.login__formButton {
+    width: 100%;
+    background-color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 0;
+    color: #eacccf;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.login__formButton:hover {
+    box-shadow: 3px 3px 3px #8080801a;
+}
+
+.login__formButton:focus {
+    outline: none;
+    border: 1px solid #fff;
+    background-color: #8080801a;
+    color: #fff;
+}

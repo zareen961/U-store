@@ -1,0 +1,10 @@
+.sidebar .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar .logoutBtnWrapper {
+    display: flex;
+    align-items: center;
+}
