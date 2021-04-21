@@ -105,7 +105,7 @@ export const adminLogin = (adminData) => async (dispatch) => {
             setAuthHeader(token)
         }
 
-        dispatch(alertAdd('Admin Logged In!', 'error'))
+        dispatch(alertAdd('Admin Logged In!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message

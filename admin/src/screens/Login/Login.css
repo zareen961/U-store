@@ -4,7 +4,7 @@
     height: 100vh;
     width: 100vw;
     box-sizing: border-box;
-    background: linear-gradient(rgba(128, 0, 128, 0.137), rgba(128, 0, 128, 0.137)),
+    background: linear-gradient(var(--secondary-dull), var(--secondary-dull)),
         url('../../assets/images/loginBg.jpg');
     background-size: 100vw 100vh;
     background-repeat: no-repeat;
@@ -15,35 +15,40 @@
     flex-direction: column;
     align-items: center;
     width: 370px;
-    margin-top: -200px;
+    margin-top: -300px;
 }
 
 .login__formLogo {
-    width: 80px;
+    /* font: Yeon Sung - 400 */
+    width: 100px;
     margin-bottom: 20px;
+    border-radius: 50%;
+    padding: 10px;
+    background-color: #efa6ac;
+    border: 1px solid var(--primary);
 }
 
 .login__form h2 {
     margin-bottom: 30px;
     font-weight: 400;
-    color: #fff;
+    color: var(--primary);
 }
 
 .login__formInput {
     margin-bottom: 20px;
     width: 100%;
     border-radius: 30px;
-    background-color: #8080801a;
+    background-color: var(--secondary-dull);
     border: none;
     padding: 15px 15px;
     box-sizing: border-box;
-    color: #fff;
+    color: var(--primary);
     font-size: 1rem;
 }
 
 .login__formInput:focus {
     outline: none;
-    border: 1px solid #fff;
+    border: 1px solid var(--primary);
 }
 
 .login__formInput::placeholder {
@@ -53,11 +58,11 @@
 
 .login__formButton {
     width: 100%;
-    background-color: #fff;
+    background-color: var(--primary);
     border: none;
     border-radius: 30px;
     padding: 15px 0;
-    color: #eacccf;
+    color: var(--secondary-dark);
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -66,12 +71,12 @@
 }
 
 .login__formButton:hover {
-    box-shadow: 3px 3px 3px #8080801a;
+    box-shadow: 1px 7px 15px var(--secondary-dull);
 }
 
 .login__formButton:focus {
     outline: none;
-    border: 1px solid #fff;
-    background-color: #8080801a;
-    color: #fff;
+    border: 1px solid var(--primary);
+    background-color: var(--bg-dull);
+    color: var(--primary);
 }

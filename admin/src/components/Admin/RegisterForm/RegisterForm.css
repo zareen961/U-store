@@ -1,0 +1,20 @@
+.registerForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+.registerForm__input {
+    margin-bottom: 20px !important;
+}
+
+.registerForm__input .Mui-focused {
+    color: var(--secondary-dark);
+}
+
+.registerForm__button {
+    align-self: flex-end;
+    border: none !important;
+    background-color: var(--secondary-dark) !important;
+    color: var(--primary) !important;
+}

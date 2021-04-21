@@ -1,3 +1,7 @@
+.sidebar .MuiAppBar-root {
+    background-color: var(--secondary-dark);
+}
+
 .sidebar .toolbar {
     display: flex;
     justify-content: space-between;
@@ -7,4 +11,13 @@
 .sidebar .logoutBtnWrapper {
     display: flex;
     align-items: center;
+}
+
+.sidebar__logoutButton {
+    color: var(--danger);
+}
+
+.sidebar .MuiListItemText-root,
+.sidebar .MuiListItemIcon-root {
+    color: var(--secondary-dark);
 }

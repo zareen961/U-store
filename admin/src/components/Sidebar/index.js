@@ -10,12 +10,12 @@ import {
     ListItemIcon,
     ListItemText,
     IconButton,
-    Badge,
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew'
-import MessageIcon from '@material-ui/icons/Message'
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 
 import useStyles from './styles'
 import Routes from '../../Routes'
@@ -42,10 +42,10 @@ const Sidebar = () => {
                     </Typography>
                     <div className="logoutBtnWrapper">
                         <Typography variant="subtitle1">
-                            Hello! {admin?.username}
+                            Hello {admin?.username} !
                         </Typography>
                         <IconButton onClick={handleLogout}>
-                            <PowerSettingsNewIcon color="secondary" />
+                            <PowerSettingsNewIcon className="sidebar__logoutButton" />
                         </IconButton>
                     </div>
                 </Toolbar>
@@ -61,13 +61,20 @@ const Sidebar = () => {
                 <div className={classes.drawerContainer}>
                     <List>
                         <Link to="/">
-                            <ListItem button key={'Home'}>
+                            <ListItem button key={'Admins'}>
                                 <ListItemIcon>
-                                    <Badge badgeContent={0} color="primary">
-                                        <MessageIcon />
-                                    </Badge>
+                                    <PeopleAltIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={'Home'} />
+                                <ListItemText primary={'Admins'} />
+                            </ListItem>
+                        </Link>
+
+                        <Link to="/college">
+                            <ListItem button key={'Colleges'}>
+                                <ListItemIcon>
+                                    <AccountBalanceIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={'Colleges'} />
                             </ListItem>
                         </Link>
                     </List>

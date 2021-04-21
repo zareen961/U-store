@@ -1,0 +1,13 @@
+.admin {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin__leftPanel,
+.admin__rightPanel {
+    display: flex;
+    flex-direction: column;
+    flex: 0.5;
+    margin-top: 25px;
+    margin-left: 40px;
+}
