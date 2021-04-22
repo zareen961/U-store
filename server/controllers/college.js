@@ -9,6 +9,13 @@ const Admin = require('../models/Admin')
 // to add a new state
 const collegeAdd = asyncHandler(async (req, res) => {
     const { state, city, college, password } = req.body
+
+    // checking if all the fields are passed or not
+    if (!(state && city && college)) {
+        res.status(400)
+        throw new Error('Provide all three fields!')
+    }
+
     let newState = null,
         newCity = null
 

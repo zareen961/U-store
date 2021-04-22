@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import { IconButton } from '@material-ui/core'
 import Moment from 'react-moment'
@@ -8,9 +8,9 @@ import { adminDelete } from '../../../store/actions'
 import ConfirmModal from '../../utils/ConfirmModal'
 import './AdminItem.css'
 
-const AdminItem = ({ admin: { _id, username, createdAt } }) => {
+const AdminItem = ({ admin: { _id, username, createdAt }, isAdmin }) => {
     const dispatch = useDispatch()
-    const { loading } = useSelector((state) => state.adminDelete)
+    const { loading, success } = useSelector((state) => state.adminDelete)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [password, setPassword] = useState('')
@@ -19,9 +19,15 @@ const AdminItem = ({ admin: { _id, username, createdAt } }) => {
         dispatch(adminDelete(_id, password))
     }
 
+    useEffect(() => {
+        if (success) {
+            setPassword('')
+        }
+    }, [success])
+
     return (
         <>
-            <div className="adminItem">
+            <div className={isAdmin ? 'adminItem isAdmin' : 'adminItem'}>
                 <div className="adminItem__text">
                     <p>
                         <span className="adminItem__label">username : &nbsp;</span>{' '}
@@ -34,13 +40,15 @@ const AdminItem = ({ admin: { _id, username, createdAt } }) => {
                         </span>
                     </p>
                 </div>
-                <IconButton
-                    color="secondary"
-                    className="adminItem__deleteButton"
-                    onClick={() => setIsModalOpen(true)}
-                >
-                    <DeleteOutlineIcon />
-                </IconButton>
+                {!isAdmin && (
+                    <IconButton
+                        color="secondary"
+                        className="adminItem__deleteButton"
+                        onClick={() => setIsModalOpen(true)}
+                    >
+                        <DeleteOutlineIcon />
+                    </IconButton>
+                )}
             </div>
 
             <ConfirmModal

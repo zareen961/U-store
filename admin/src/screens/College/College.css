@@ -1,0 +1,13 @@
+.college {
+    display: flex;
+    justify-content: space-between;
+}
+
+.college__leftPanel,
+.college__rightPanel {
+    display: flex;
+    flex-direction: column;
+    flex: 0.5;
+    margin-top: 25px;
+    margin-left: 40px;
+}

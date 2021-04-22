@@ -45,6 +45,7 @@ const RegisterForm = () => {
         if (success) {
             handleReset()
             setIsModalOpen(false)
+            setAdminPassword('')
         }
     }, [success])
 

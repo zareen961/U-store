@@ -1,0 +1,23 @@
+.collegeForm {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+.collegeForm__input {
+    margin-bottom: 20px !important;
+}
+
+.collegeForm__helperText {
+    padding-top: 5px !important;
+    padding-left: 5px !important;
+}
+
+.collegeForm__helperText.hidden {
+    visibility: hidden;
+}
+
+.collegeForm__button {
+    margin-top: 15px !important;
+    min-height: 40px !important;
+}

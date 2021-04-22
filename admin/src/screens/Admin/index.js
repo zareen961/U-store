@@ -12,6 +12,9 @@ import './Admin.css'
 const Admin = () => {
     const dispatch = useDispatch()
     const { loading, admins } = useSelector((state) => state.adminFetchAll)
+    const {
+        admin: { username },
+    } = useSelector((state) => state.adminLogin)
 
     useEffect(() => {
         dispatch(adminFetchAll())
@@ -24,7 +27,13 @@ const Admin = () => {
                 {loading ? (
                     <Loader size={'3.5rem'} thickness={10} />
                 ) : (
-                    admins.map((admin) => <AdminItem admin={admin} key={admin._id} />)
+                    admins.map((admin) => (
+                        <AdminItem
+                            admin={admin}
+                            key={admin._id}
+                            isAdmin={username === admin.username}
+                        />
+                    ))
                 )}
             </section>
             <section className="admin__rightPanel">

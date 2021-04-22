@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { useForm } from '../../utils/useForm'
 import { adminLogin } from '../../store/actions'
-import logo from '../../assets/images/u-store-logo.png'
+import logo from '../../assets/images/logo.png'
 import './Login.css'
 
 const Login = () => {
@@ -44,7 +43,7 @@ const Login = () => {
                 />
                 {loading ? (
                     <div className="login__loader">
-                        <div class="path">
+                        <div className="path">
                             <div></div>
                             <div></div>
                             <div></div>

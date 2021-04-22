@@ -193,13 +193,15 @@ export const collegeFetchData = () => async (dispatch) => {
     }
 }
 
-export const collegeAdd = (collegeData) => async (dispatch) => {
+export const collegeAdd = (collegeData, password) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.COLLEGE_ADD_REQUEST,
         })
 
-        await axiosInstance.post('/api/college', collegeData)
+        await axiosInstance.post('/api/college', { ...collegeData, password })
+
+        dispatch(collegeFetchData()) // te get updated collegeData
 
         dispatch({
             type: actionTypes.COLLEGE_ADD_SUCCESS,
@@ -221,7 +223,7 @@ export const collegeAdd = (collegeData) => async (dispatch) => {
     }
 }
 
-export const collegeDelete = ({ state, city, college, password }) => async (dispatch) => {
+export const collegeDelete = ({ state, city, college }, password) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.COLLEGE_DELETE_REQUEST,
@@ -230,6 +232,8 @@ export const collegeDelete = ({ state, city, college, password }) => async (disp
         await axiosInstance.delete('/api/college', {
             data: { state, city, college, password },
         })
+
+        dispatch(collegeFetchData()) // te get updated collegeData
 
         dispatch({
             type: actionTypes.COLLEGE_DELETE_SUCCESS,
