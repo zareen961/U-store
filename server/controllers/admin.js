@@ -5,27 +5,35 @@ const generateToken = require('../utils/generateToken')
 
 // to register a new admin
 const adminRegister = asyncHandler(async (req, res) => {
-    const { username, password } = req.body
+    const { username, password, adminPassword } = req.body
 
-    // checking for the uniqueness of username
-    const isUniqueUsername = await Admin.countDocuments({ username })
-    if (isUniqueUsername > 0) {
-        res.status(400)
-        throw new Error('Oops, this username already exists! Try a different one.')
-    }
+    // finding the logged in admin and matching its credentials
+    const foundAdmin = await Admin.findById(req.authAdmin._id)
+    if (foundAdmin && (await foundAdmin.matchPassword(adminPassword))) {
+        // checking for the uniqueness of username
+        const isUniqueUsername = await Admin.countDocuments({ username })
+        if (isUniqueUsername > 0) {
+            res.status(400)
+            throw new Error('Oops, this username already exists! Try a different one.')
+        }
 
-    const newAdmin = await Admin.create({
-        username,
-        password,
-    })
+        const newAdmin = await Admin.create({
+            username,
+            password,
+        })
 
-    if (newAdmin) {
-        // removing password before sending to client
-        newAdmin.password = null
+        if (newAdmin) {
+            // removing password before sending to client
+            newAdmin.password = null
 
-        res.status(201).json(newAdmin)
+            res.status(201).json(newAdmin)
+        } else {
+            res.status(500)
+            throw new Error("New admin can't be registered at the moment! Try again.")
+        }
     } else {
-        res.status(500)
+        res.status(401)
+        throw new Error('Your credentials might be wrong! Try again.')
     }
 })
 
@@ -76,7 +84,6 @@ const adminDelete = asyncHandler(async (req, res) => {
 // to get all the Admins
 const adminGetAll = asyncHandler(async (req, res) => {
     const foundAdmins = await Admin.find().select('-password').sort({ createdAt: -1 })
-
     res.status(200).json(foundAdmins)
 })
 

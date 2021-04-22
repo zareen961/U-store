@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { useForm } from '../../utils/useForm'
 import { adminLogin } from '../../store/actions'
@@ -8,6 +9,7 @@ import './Login.css'
 
 const Login = () => {
     const dispatch = useDispatch()
+    const { loading } = useSelector((state) => state.adminLogin)
     const { inputVals, handleOnChange } = useForm({ username: '', password: '' })
 
     const handleOnSubmit = (e) => {
@@ -40,9 +42,23 @@ const Login = () => {
                     value={inputVals.password}
                     onChange={handleOnChange}
                 />
-                <button type="submit" className="login__formButton">
-                    Login
-                </button>
+                {loading ? (
+                    <div className="login__loader">
+                        <div class="path">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                ) : (
+                    <button type="submit" className="login__formButton">
+                        Login
+                    </button>
+                )}
             </form>
         </div>
     )

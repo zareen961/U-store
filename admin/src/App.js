@@ -12,7 +12,7 @@ import Login from './screens/Login'
 
 //Components
 import Sidebar from './components/Sidebar'
-import Alerts from './components/Alerts'
+import Alerts from './components/utils/Alerts'
 
 const App = () => {
     const dispatch = useDispatch()

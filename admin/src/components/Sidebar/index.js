@@ -35,7 +35,7 @@ const Sidebar = () => {
     return (
         <div className={`sidebar ${classes.root}`}>
             <CssBaseline />
-            <AppBar position="fixed" className={classes.appBar}>
+            <AppBar position="fixed" className={classes.appBar} color="secondary">
                 <Toolbar className="toolbar">
                     <Typography variant="h6" noWrap>
                         U-store | Admin

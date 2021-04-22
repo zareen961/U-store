@@ -1,7 +1,3 @@
-.sidebar .MuiAppBar-root {
-    background-color: var(--secondary-dark);
-}
-
 .sidebar .toolbar {
     display: flex;
     justify-content: space-between;

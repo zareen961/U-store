@@ -1,28 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { useForm } from '../../../utils/useForm'
 import { adminRegister, alertAdd } from '../../../store/actions'
+import ConfirmModal from '../../utils/ConfirmModal'
 import './RegisterForm.css'
-
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#fff',
-        },
-        secondary: {
-            main: '#f3818d',
-        },
-    },
-})
 
 const RegisterForm = () => {
     const dispatch = useDispatch()
-    const { loading, error, success } = useSelector((state) => state.adminRegister)
+    const { loading, success } = useSelector((state) => state.adminRegister)
 
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [adminPassword, setAdminPassword] = useState('')
     const { inputVals, handleOnChange, handleReset } = useForm({
         username: '',
         password: '',
@@ -33,26 +23,34 @@ const RegisterForm = () => {
         e.preventDefault()
 
         if (inputVals.password === inputVals.passwordConfirm) {
-            dispatch(
-                adminRegister({
-                    username: inputVals.username,
-                    password: inputVals.password,
-                })
-            )
+            setIsModalOpen(true)
         } else {
             dispatch(alertAdd('Passwords do not match!', 'error'))
         }
     }
 
+    const handleAdminRegister = () => {
+        dispatch(
+            adminRegister(
+                {
+                    username: inputVals.username,
+                    password: inputVals.password,
+                },
+                adminPassword
+            )
+        )
+    }
+
     useEffect(() => {
         if (success) {
             handleReset()
+            setIsModalOpen(false)
         }
     }, [success])
 
     return (
-        <form className="registerForm" onSubmit={handleOnSubmit}>
-            <ThemeProvider theme={theme}>
+        <>
+            <form className="registerForm" onSubmit={handleOnSubmit}>
                 <TextField
                     required
                     type="text"
@@ -88,12 +86,26 @@ const RegisterForm = () => {
                     value={inputVals.passwordConfirm}
                     onChange={handleOnChange}
                 />
-            </ThemeProvider>
 
-            <Button type="submit" variant="contained" className="registerForm__button">
-                Create Admin
-            </Button>
-        </form>
+                <Button
+                    type="submit"
+                    color="secondary"
+                    variant="contained"
+                    className="registerForm__button"
+                >
+                    Create Admin
+                </Button>
+            </form>
+
+            <ConfirmModal
+                isOpen={isModalOpen}
+                setIsOpen={setIsModalOpen}
+                handleOnConfirm={handleAdminRegister}
+                password={adminPassword}
+                setPassword={setAdminPassword}
+                loading={loading}
+            />
+        </>
     )
 }
 

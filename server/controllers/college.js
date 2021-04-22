@@ -8,71 +8,79 @@ const Admin = require('../models/Admin')
 
 // to add a new state
 const collegeAdd = asyncHandler(async (req, res) => {
-    const { state, city, college } = req.body
+    const { state, city, college, password } = req.body
     let newState = null,
         newCity = null
 
-    // if a new state is passed then create it **************************************
-    if (!ObjectID.isValid(state)) {
-        newState = await State.create({
-            name: state,
-            cities: [],
+    // finding the logged in admin
+    const foundAdmin = await Admin.findById(req.authAdmin._id)
+
+    if (foundAdmin && (await foundAdmin.matchPassword(password))) {
+        // if a new state is passed then create it **************************************
+        if (!ObjectID.isValid(state)) {
+            newState = await State.create({
+                name: state,
+                cities: [],
+            })
+
+            if (!newState) {
+                res.status(500)
+                throw new Error('Error occurred while creating a new State!')
+            }
+        }
+
+        // if a new city is passed then create it *****************************************
+        if (!ObjectID.isValid(city)) {
+            newCity = await City.create({
+                name: city,
+                colleges: [],
+            })
+
+            if (!newCity) {
+                res.status(500)
+                throw new Error('Error occurred while creating a new City!')
+            }
+
+            // finding and updating the state in which the new city is created
+            const foundState = await State.findById(newState ? newState._id : state)
+
+            if (!foundState) {
+                res.status(500)
+                throw new Error('Cannot find the State in which the new City is created!')
+            }
+
+            foundState.cities.push(newCity._id)
+            foundState.save()
+        }
+
+        // Adding a new college ******************************************************
+        const newCollege = await College.create({
+            name: college,
         })
 
-        if (!newState) {
+        if (!newCollege) {
             res.status(500)
-            throw new Error('Error occurred while creating a new State!')
+            throw new Error('Error occurred while adding the college!')
         }
-    }
 
-    // if a new city is passed then create it *****************************************
-    if (!ObjectID.isValid(city)) {
-        newCity = await City.create({
-            name: city,
-            colleges: [],
+        // finding and updating the city in which the new college is created
+        const foundCity = await City.findById(newCity ? newCity._id : city)
+
+        if (!foundCity) {
+            res.status(500)
+            throw new Error('Cannot find the City in which the new College is created!')
+        }
+
+        foundCity.colleges.push(newCollege._id)
+        foundCity.save()
+
+        res.status(200).send({
+            message: 'College Data Added!',
         })
-
-        if (!newCity) {
-            res.status(500)
-            throw new Error('Error occurred while creating a new City!')
-        }
-
-        // finding and updating the state in which the new city is created
-        const foundState = await State.findById(newState ? newState._id : state)
-
-        if (!foundState) {
-            res.status(500)
-            throw new Error('Cannot find the State in which the new City is created!')
-        }
-
-        foundState.cities.push(newCity._id)
-        foundState.save()
+    } else {
+        res.status(401)
+        throw new Error('Your credentials might be wrong! Try again.')
     }
-
-    // Adding a new college ******************************************************
-    const newCollege = await College.create({
-        name: college,
-    })
-
-    if (!newCollege) {
-        res.status(500)
-        throw new Error('Error occurred while adding the college!')
-    }
-
-    // finding and updating the city in which the new college is created
-    const foundCity = await City.findById(newCity ? newCity._id : city)
-
-    if (!foundCity) {
-        res.status(500)
-        throw new Error('Cannot find the City in which the new College is created!')
-    }
-
-    foundCity.colleges.push(newCollege._id)
-    foundCity.save()
-
-    res.status(200).send({
-        message: 'College Data Added!',
-    })
 })
 
 // to add a new city

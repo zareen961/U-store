@@ -51,13 +51,16 @@ export const adminFetchAll = () => async (dispatch) => {
 }
 
 // to register a new Admin
-export const adminRegister = (adminData) => async (dispatch) => {
+export const adminRegister = (adminData, adminPassword) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.ADMIN_REGISTER_REQUEST,
         })
 
-        const { data } = await axiosInstance.post('/api/admin', adminData)
+        const { data } = await axiosInstance.post('/api/admin', {
+            ...adminData,
+            adminPassword,
+        })
 
         dispatch({
             type: actionTypes.ADMIN_REGISTER_SUCCESS,
@@ -68,7 +71,7 @@ export const adminRegister = (adminData) => async (dispatch) => {
             payload: data,
         })
 
-        dispatch(alertAdd('New Admin Registered!', 'error'))
+        dispatch(alertAdd('New Admin Registered!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -146,7 +149,7 @@ export const adminDelete = (adminID, password) => async (dispatch) => {
             payload: adminID,
         })
 
-        dispatch(alertAdd('Admin Removed!', 'error'))
+        dispatch(alertAdd('Admin Removed!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -201,6 +204,8 @@ export const collegeAdd = (collegeData) => async (dispatch) => {
         dispatch({
             type: actionTypes.COLLEGE_ADD_SUCCESS,
         })
+
+        dispatch(alertAdd('New College Added!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
@@ -229,6 +234,19 @@ export const collegeDelete = ({ state, city, college, password }) => async (disp
         dispatch({
             type: actionTypes.COLLEGE_DELETE_SUCCESS,
         })
+
+        if (college) {
+            dispatch(alertAdd('College Removed!', 'success'))
+        } else if (city) {
+            dispatch(alertAdd("City and it's corresponding colleges removed!", 'success'))
+        } else if (state) {
+            dispatch(
+                alertAdd(
+                    "State and it's corresponding cities and colleges removed!",
+                    'success'
+                )
+            )
+        }
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
