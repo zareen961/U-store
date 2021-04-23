@@ -17,7 +17,7 @@ import {
 import { bidPlaceReducer, bidDeleteReducer, bidUpdateReducer } from './bid'
 
 export default combineReducers({
-    alert: alertReducer,
+    alerts: alertReducer,
     college: collegeReducer,
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,

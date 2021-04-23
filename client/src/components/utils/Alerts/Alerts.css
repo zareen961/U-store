@@ -1,0 +1,32 @@
+.alerts {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+}
+
+.alerts__box {
+    margin: 10px 0;
+    font-size: 1rem;
+    align-items: center;
+    padding: 10px 30px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.alerts__box > p {
+    margin-left: 10px;
+    letter-spacing: 1.5px;
+}
+
+.alerts__box.success {
+    background-color: var(--secondary-dark);
+    color: var(--primary);
+}
+
+.alerts__box.error {
+    background-color: var(--primary);
+    color: var(--secondary-dark);
+    border: 2px solid var(--secondary-dark);
+}

@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import jwtDecode from 'jwt-decode'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './App.css'
 import { userLogout, userFetch } from './store/actions/user'
 import setAuthHeader from './utils/setAuthHeader'
+import Home from './screens/Home'
+import Landing from './screens/Landing'
+import Alerts from './components/utils/Alerts'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -28,8 +32,11 @@ const App = () => {
     }, [dispatch])
 
     return (
-        <div>
-            <h1>Batook 💖 Bubble</h1>
+        <div className="app">
+            <Router>
+                <Alerts />
+                {user ? <Route component={Home} /> : <Route component={Landing} />}
+            </Router>
         </div>
     )
 }

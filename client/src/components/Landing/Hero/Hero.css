@@ -1,0 +1,19 @@
+.hero {
+    height: 85vh;
+    background: linear-gradient(
+            150deg,
+            rgba(70, 141, 189, 0.603) 10%,
+            rgba(143, 110, 213, 0.582) 65%,
+            rgba(24, 137, 182, 0.63) 94%
+        ),
+        url(../../../assets/images/hero-wall.jpg) no-repeat center;
+    background-size: cover;
+    position: relative;
+}
+
+.hero__wave {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+}
