@@ -22,6 +22,13 @@ const ConfirmModal = ({
         setPassword('')
     }
 
+    // to submit the form functionality on pressing enter
+    const handleOnKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleOnConfirm()
+        }
+    }
+
     return (
         <>
             <Dialog open={isOpen} onClose={handleClose}>
@@ -40,6 +47,7 @@ const ConfirmModal = ({
                         color="secondary"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        onKeyPress={handleOnKeyPress}
                     />
                 </DialogContent>
                 <DialogActions>

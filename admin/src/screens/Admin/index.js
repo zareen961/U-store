@@ -12,9 +12,7 @@ import './Admin.css'
 const Admin = () => {
     const dispatch = useDispatch()
     const { loading, admins } = useSelector((state) => state.adminFetchAll)
-    const {
-        admin: { username },
-    } = useSelector((state) => state.adminLogin)
+    const { admin: adminStore } = useSelector((state) => state.adminLogin)
 
     useEffect(() => {
         dispatch(adminFetchAll())
@@ -31,7 +29,7 @@ const Admin = () => {
                         <AdminItem
                             admin={admin}
                             key={admin._id}
-                            isAdmin={username === admin.username}
+                            isAdmin={adminStore && adminStore.username === admin.username}
                         />
                     ))
                 )}
