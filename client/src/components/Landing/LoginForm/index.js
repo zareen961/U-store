@@ -5,7 +5,11 @@ import './LoginForm.css'
 const LoginForm = () => {
     return (
         <div className="loginForm">
-            <h1>Login Form</h1>
+            <form>
+                <input type="text" className="loginForm__input" />
+                <input type="password" className="loginForm__input" />
+                <button>Login</button>
+            </form>
         </div>
     )
 }

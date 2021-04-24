@@ -10,7 +10,7 @@ const Landing = () => {
         <div className="landing">
             <Navbar />
             <Hero />
-            <Overview />
+            {/* <Overview /> */}
             {/* Feature x N */}
             {/* FAQ */}
             {/* CallToAction */}

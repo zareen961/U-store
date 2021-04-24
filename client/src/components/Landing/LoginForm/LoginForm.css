@@ -1,0 +1,25 @@
+.loginForm {
+    border: 5px solid #769fcd;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    padding: 3rem;
+    border-radius: 10% 30%;
+}
+
+.loginForm > form {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginForm__input {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #769fcd;
+    border-radius: 20px;
+}
+
+.loginForm button {
+    border-radius: 50%;
+    width: 4rem;
+}
