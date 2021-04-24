@@ -1,25 +1,24 @@
 .loginForm {
-    border: 5px solid #769fcd;
     width: 100%;
+    box-sizing: border-box;
+    padding: 30px 50px;
+    background-color: var(--primary-dark);
     position: relative;
     z-index: 10;
-    padding: 3rem;
-    border-radius: 10% 30%;
 }
 
-.loginForm > form {
+.loginForm form {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .loginForm__input {
     margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #769fcd;
-    border-radius: 20px;
+    height: 40px;
+    background: linear-gradient(150deg, #f7fbfc80, rgba(143, 110, 213, 0.89));
+    border: 0;
 }
 
-.loginForm button {
-    border-radius: 50%;
-    width: 4rem;
+.loginForm__loginButton {
 }

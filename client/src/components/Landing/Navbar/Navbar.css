@@ -21,8 +21,8 @@
 }
 
 .navbar__logoWrapper {
-    width: 80px;
-    height: 80px;
+    width: fit-content;
+    height: fit-content;
 }
 
 .navbar__logoWrapper img {
@@ -32,10 +32,40 @@
 
 .navbar__linksWrapper {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
 
 .navbar__linksWrapper > a {
     text-decoration: none;
-    color: #f7fbfc;
+    color: var(--secondary-light);
+    margin: 0 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar__linksWrapper > a:hover {
+    border-top: 3px solid var(--primary-dark);
+    padding-top: 2px;
+}
+
+.navbar__linksWrapper > button {
+    font-size: 0.8rem;
+    margin-left: 15px;
+    background-color: var(--primary-dark);
+    border: none;
+    padding: 10px 40px;
+    color: var(--secondary-light);
+    border-radius: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar__linksWrapper > button:hover {
+    transform: scale(1.05);
+    box-shadow: 2px 2px 3px var(--shadow-secondary), -2px 2px 3px var(--shadow-secondary),
+        2px -2px 3px var(--shadow-secondary), -2px -2px 3px var(--shadow-secondary);
 }

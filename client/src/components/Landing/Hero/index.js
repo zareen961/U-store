@@ -9,11 +9,13 @@ const Hero = () => {
         <div className="hero">
             <div className="hero__container">
                 <div className="hero__taglineWrapper">
-                    <h1>U-store</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                        nisi, natus accusantium non eius ad?
-                    </p>
+                    <h1>
+                        <span className="overLine">Buy</span> and{' '}
+                        <span className="overLine">Sell</span> with
+                        <span className="highlight">in</span> your{' '}
+                        <span className="buttonHighlight">College</span>
+                    </h1>
+                    <button>How It Works?</button>
                 </div>
                 <div className="hero__loginFormWrapper">
                     <LoginForm />

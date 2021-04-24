@@ -8,7 +8,7 @@ const LoginForm = () => {
             <form>
                 <input type="text" className="loginForm__input" />
                 <input type="password" className="loginForm__input" />
-                <button>Login</button>
+                <button className="loginForm__loginButton">Login</button>
             </form>
         </div>
     )
