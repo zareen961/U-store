@@ -9,6 +9,16 @@ const Hero = () => {
             {/* <h1>Hero</h1> */}
             <div className="hero__wave">
                 <img src={waveImage} alt="wave" />
+                <svg>
+                    <filter id="wave-acid">
+                        <feComponentTransfer>
+                            <feFuncR type="table" tableValues="0.97" />
+                            <feFuncG type="table" tableValues="0.9843137255" />
+                            <feFuncB type="table" tableValues="0.99" />
+                            <feFuncA type="table" tableValues="0 1" />
+                        </feComponentTransfer>
+                    </filter>
+                </svg>
             </div>
         </div>
     )

@@ -1,11 +1,8 @@
 .hero {
     height: 85vh;
-    background: linear-gradient(
-            150deg,
-            rgba(70, 141, 189, 0.603) 10%,
-            rgba(143, 110, 213, 0.582) 65%,
-            rgba(24, 137, 182, 0.63) 94%
-        ),
+    /* background: linear-gradient(150deg, #b9d7eabe, #769fcdd0, #d6e6f2cc),
+        url(../../../assets/images/hero-wall.jpg) no-repeat center; */
+    background: linear-gradient(150deg, #b9d7ea, #769fcd, #d6e6f2),
         url(../../../assets/images/hero-wall.jpg) no-repeat center;
     background-size: cover;
     position: relative;
@@ -17,3 +14,23 @@
     left: 0;
     width: 100%;
 }
+
+.hero__wave > img {
+    filter: url(#wave-acid);
+    width: 100vw;
+}
+
+.hero__wave > svg {
+    display: none;
+}
+
+/* .hero__wave::after {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 0, 0, 1);
+} */
