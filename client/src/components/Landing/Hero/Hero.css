@@ -22,7 +22,7 @@
 
 .hero__wave > img {
     filter: url(#wave-acid);
-    width: 100vw;
+    width: 100%;
 }
 
 .hero__wave > svg {
@@ -47,6 +47,8 @@
 
 .hero__loginFormWrapper {
     flex: 0.3;
+    align-self: flex-end;
+    margin-bottom: 90px;
 }
 
 .hero__taglineWrapper h1 {
@@ -75,7 +77,7 @@
 .hero__taglineWrapper > button {
     border: none;
     padding: 15px 30px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     margin-top: 20px;
     background-color: indigo;
     color: var(--secondary-light);

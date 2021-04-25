@@ -5,7 +5,7 @@ import './Overview.css'
 const Overview = () => {
     return (
         <div className="overview">
-            {/* <h1>Overview</h1> */}
+            <h1>Overview</h1>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quidem nulla
             ullam quasi quam minus modi cum, beatae dignissimos repellat distinctio. Sed
             nemo reprehenderit eaque tempora culpa doloremque, ducimus esse natus alias

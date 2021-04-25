@@ -9,9 +9,14 @@
     --secondary-light: #f7fbfc;
     --shadow-primary: rgba(76, 0, 130, 0.4);
     --shadow-secondary: #f7fbfc7e;
-    --logo-size: 50px;
+    --logo-size: 40px;
 }
 
 body {
     background-color: var(--secondary-light);
+}
+
+button:focus,
+input:focus {
+    outline: none;
 }

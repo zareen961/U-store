@@ -3,12 +3,19 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 100;
     width: 100%;
+    transition: all 0.3s ease-in-out;
 }
 
 .filled {
-    background-color: #769fcd;
+    background: linear-gradient(
+        150deg,
+        rgba(215, 130, 217, 0.9) 10%,
+        rgba(143, 110, 213, 0.9) 20%,
+        rgba(40, 20, 131, 0.7) 70%
+    );
+    transform: translateY(-10px);
 }
 
 .navbar__container {

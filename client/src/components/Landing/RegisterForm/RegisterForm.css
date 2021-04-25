@@ -1,0 +1,111 @@
+.MuiDialog-paper {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+}
+
+.registerForm {
+    background: linear-gradient(
+        -45deg,
+        rgba(76, 0, 130, 0.746) 15%,
+        rgba(143, 110, 213, 0.9) 70%,
+        rgba(216, 130, 217, 0.74) 94%
+    );
+    padding: 30px 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.registerForm h1 {
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: 'Raleway', sans-serif;
+    margin-bottom: 20px;
+    color: var(--secondary-light);
+}
+
+.registerForm__firstWrapper,
+.registerForm__secondWrapper,
+.registerForm__thirdWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.registerForm__nameWrapper,
+.registerForm__phoneWrapper,
+.registerForm__avatarWrapper {
+    flex: 1;
+}
+
+.registerForm__avatarWrapper {
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 180px !important;
+}
+
+.registerForm__secondWrapper .registerForm__formGroup,
+.registerForm__thirdWrapper .registerForm__formGroup {
+    flex: 1;
+}
+
+.registerForm__secondWrapper .registerForm__formGroup:nth-child(2),
+.registerForm__thirdWrapper .registerForm__formGroup:nth-child(2) {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.registerForm__select .MuiSelect-root {
+    width: 290px !important;
+}
+
+.registerForm__formGroup {
+    margin-bottom: 30px;
+    height: 40px;
+    background: linear-gradient(
+        150deg,
+        rgba(247, 251, 252, 0.596),
+        rgba(143, 110, 213, 0.89),
+        rgba(247, 251, 252, 0.596)
+    );
+    border: 0;
+    display: flex;
+    align-items: center;
+}
+
+.registerForm__formGroup > label {
+    padding: 0 10px;
+}
+
+.registerForm__formGroup > input {
+    flex: 1;
+    height: 100%;
+    background-color: transparent;
+    border: 0;
+    color: var(--secondary-light);
+    font-weight: 600 !important;
+    letter-spacing: 3px !important;
+}
+
+.registerForm__formGroup > input::placeholder {
+    color: var(--secondary-light);
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.MuiOutlinedInput-notchedOutline {
+    border: none !important;
+}
+
+/* .MuiPaper-root {
+    background-color: transparent !important;
+    background: radial-gradient(
+        ellipse,
+        rgba(143, 110, 213, 0.89),
+        rgba(247, 251, 252, 0.596),
+        rgba(247, 251, 252, 0.596)
+    );
+    border-radius: 0 !important;
+    color: var(--secondary-light) !important;
+} */
