@@ -1,4 +1,35 @@
 .overview {
     width: 85vw;
     margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.overview__headerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overview__headerWrapper h1 {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 3rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
+
+.overview__headerWrapper p {
+    width: 60%;
+    text-align: center;
+}
+
+.overview__bodyWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.overview__section {
+    display: flex;
+    flex-direction: column;
 }
