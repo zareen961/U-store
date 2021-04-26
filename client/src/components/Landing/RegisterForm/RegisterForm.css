@@ -6,9 +6,9 @@
 .registerForm {
     background: linear-gradient(
         -45deg,
-        rgba(76, 0, 130, 0.746) 15%,
-        rgba(143, 110, 213, 0.9) 70%,
-        rgba(216, 130, 217, 0.74) 94%
+        rgba(var(--primary-dark), 0.746) 15%,
+        rgba(var(--primary-light), 0.9) 70%,
+        rgba(var(--gradient-extra), 0.74) 94%
     );
     padding: 30px 50px;
     box-sizing: border-box;
@@ -22,32 +22,40 @@
     font-weight: 500;
     font-family: 'Raleway', sans-serif;
     margin-bottom: 20px;
-    color: var(--secondary-light);
+    color: rgba(var(--secondary-light), 1);
 }
 
 .registerForm__firstWrapper,
 .registerForm__secondWrapper,
-.registerForm__thirdWrapper {
+.registerForm__thirdWrapper,
+.registerForm__fourthWrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .registerForm__nameWrapper,
-.registerForm__phoneWrapper,
-.registerForm__avatarWrapper {
+.registerForm__phoneWrapper {
     flex: 1;
 }
 
 .registerForm__avatarWrapper {
-    margin-left: 20px;
-    margin-right: 20px;
-    height: 150px !important;
-    border-radius: 50%;
+    margin-left: 30px;
+    margin-right: 30px;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    background: transparent !important;
+}
+
+.registerForm__avatarWrapper .avatar {
+    height: 120px !important;
+    width: 120px !important;
 }
 
 .registerForm__secondWrapper .registerForm__formGroup,
-.registerForm__thirdWrapper .registerForm__formGroup {
+.registerForm__thirdWrapper .registerForm__formGroup,
+.registerForm__fourthWrapper .registerForm__formGroup {
     flex: 1;
 }
 
@@ -57,32 +65,44 @@
     margin-right: 20px;
 }
 
+.registerForm__fourthWrapper .registerForm__formGroup:nth-child(1) {
+    margin-right: 20px;
+}
+
+.registerForm__fourthWrapper .registerForm__formGroup:nth-child(2) {
+    margin-left: 20px;
+}
+
 .registerForm__select .MuiSelect-root {
-    width: 290px !important;
+    width: 180px !important;
 }
 
 .registerForm__formGroup {
     margin-bottom: 30px;
     height: 40px;
-    /* background: linear-gradient(
-        150deg,
-        rgba(143, 110, 213, 1),
-        rgba(247, 251, 252, 0.4),
-        rgba(143, 110, 213, 1)
-    ); */
     background: linear-gradient(
         150deg,
-        /* rgba(247, 251, 252, 0.796), */ rgba(143, 110, 213, 0.79),
-        rgba(247, 251, 252, 0.696)
+        rgba(var(--primary-light), 0.49),
+        rgba(var(--secondary-light), 0.5) 30% 70%,
+        rgba(var(--primary-light), 0.49)
     );
     border: 0;
     display: flex;
     align-items: center;
 }
 
+.registerForm__formGroup.left {
+    background: linear-gradient(
+        150deg,
+        rgba(var(--primary-light), 0.49),
+        rgba(var(--secondary-light), 0.5),
+        rgba(var(--primary-light), 0.49)
+    );
+}
+
 .registerForm__formGroup > label {
     padding: 0 10px;
-    color: var(--secondary-light);
+    color: rgba(var(--secondary-light), 1);
 }
 
 .registerForm__formGroup > input {
@@ -90,14 +110,14 @@
     height: 100%;
     background-color: transparent;
     border: 0;
-    color: var(--secondary-light);
+    color: rgba(var(--secondary-light), 1);
     font-weight: 600 !important;
     letter-spacing: 3px !important;
 }
 
 .registerForm__formGroup > input::placeholder {
-    color: var(--secondary-light);
-    font-weight: 500;
+    color: rgba(var(--secondary-light), 1);
+    font-weight: 600;
     letter-spacing: 1px;
 }
 
@@ -109,16 +129,16 @@
 .MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded {
     background-color: transparent;
     border-radius: 0;
-    color: var(--primary-dark);
+    color: rgba(var(--secondary-light), 1);
 }
 
 /* drop down box */
 .MuiMenu-list {
     background: linear-gradient(
         210deg,
-        rgba(247, 251, 252, 0.796),
-        rgba(143, 110, 213, 0.79),
-        rgba(247, 251, 252, 0.796)
+        rgba(var(--secondary-light), 0.796),
+        rgba(var(--primary-light), 0.79),
+        rgba(var(--secondary-light), 0.796)
     );
     font-weight: 600;
 }
@@ -126,7 +146,8 @@
 /* Selected Menu */
 .MuiListItem-root.Mui-selected,
 .MuiListItem-root.Mui-selected:hover {
-    background-color: var(--shadow-primary) !important;
+    background-color: rgba(var(--secondary-light), 0.7) !important;
+    color: rgba(var(--primary-dark), 1);
 }
 
 /* Menu Hover */
@@ -136,12 +157,12 @@
 
 /* small drop down icon */
 .MuiSelect-icon {
-    color: var(--primary-dark) !important;
+    color: rgba(var(--secondary-light), 1) !important;
 }
 
 /* drop down items */
 .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input {
-    color: var(--primary-dark);
+    color: rgba(var(--secondary-light), 1);
 }
 
 /*  */

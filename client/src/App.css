@@ -5,15 +5,21 @@
 }
 
 :root {
-    --primary-dark: indigo;
-    --secondary-light: #f7fbfc;
-    --shadow-primary: rgba(76, 0, 130, 0.4);
-    --shadow-secondary: #f7fbfc7e;
+    --primary-dark: 75, 0, 130;
+    --primary-light: 143, 110, 213;
+    --secondary-light: 247, 251, 252;
+    --gradient-extra: 215, 130, 217;
+    /* --primary-dark: 255, 113, 113;
+    --primary-light: 255, 180, 180;
+    --secondary-light: 34, 40, 49;
+    --gradient-extra: 255, 255, 217; */
+    --shadow-primary: rgba(var(--primary-dark), 0.4);
+    --shadow-secondary: rgba(var(--secondary-light), 0.5);
     --logo-size: 40px;
 }
 
 body {
-    background-color: var(--secondary-light);
+    background-color: rgba(var(--secondary-light), 1);
 }
 
 button:focus,

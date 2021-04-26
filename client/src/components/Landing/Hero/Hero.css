@@ -3,13 +3,13 @@
     width: 100%;
     background: linear-gradient(
             150deg,
-            rgba(40, 20, 131, 0.76) 15%,
-            rgba(143, 110, 213, 0.89) 70%,
-            rgba(215, 130, 217, 0.74) 94%
+            rgba(var(--gradient-extra), 0.74),
+            rgba(var(--primary-light), 0.89) 20%,
+            rgba(var(--primary-dark), 0.9) 80%
         ),
         url(../../../assets/images/hero-wall.jpg) no-repeat center;
     background-size: cover;
-    color: var(--secondary-light);
+    color: rgba(var(--secondary-light), 1);
     position: relative;
 }
 
@@ -59,16 +59,16 @@
 }
 
 .hero__taglineWrapper h1 .overLine {
-    border-top: 10px solid var(--secondary-light);
+    border-top: 10px solid rgba(var(--secondary-light), 1);
 }
 
 .hero__taglineWrapper h1 .highlight {
-    color: indigo;
+    color: rgba(var(--primary-dark), 1);
 }
 
 .hero__taglineWrapper h1 .buttonHighlight {
     background-color: var(--shadow-secondary);
-    color: indigo;
+    color: rgba(var(--primary-dark), 1);
     padding: 0px 5px;
     border-radius: 0;
     font-weight: 600;
@@ -79,8 +79,8 @@
     padding: 15px 30px;
     font-size: 0.8rem;
     margin-top: 20px;
-    background-color: indigo;
-    color: var(--secondary-light);
+    background-color: rgba(var(--primary-dark), 1);
+    color: rgba(var(--secondary-light), 1);
     text-transform: uppercase;
     letter-spacing: 1px;
     border-radius: 25px;

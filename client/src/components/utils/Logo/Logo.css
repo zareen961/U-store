@@ -10,7 +10,7 @@
 .logo__icon {
     height: var(--logo-size);
     width: var(--logo-size);
-    background-color: var(--secondary-light);
+    background-color: rgba(var(--secondary-light), 1);
     display: flex;
     justify-content: space-between;
     transition: all 0.3s ease-in-out;
@@ -32,7 +32,7 @@
 .logo__iconLine {
     height: calc(var(--logo-size) / 10);
     width: calc(var(--logo-size) / 2 + calc(var(--logo-size) * 0.3));
-    background-color: var(--primary-dark);
+    background-color: rgba(var(--primary-dark), 1);
 }
 
 .logo .behind {
@@ -44,8 +44,8 @@
     font-size: calc(var(--logo-size) * 0.608);
     font-family: 'Raleway', sans-serif;
     font-weight: 500;
-    margin-left: calc(var(--logo-size) / 2);
-    color: var(--secondary-light);
+    margin-left: calc(var(--logo-size) / 2 + 5px);
+    color: rgba(var(--secondary-light), 1);
 }
 
 .logo:hover .logo__icon .logo__leftLines {
@@ -57,5 +57,17 @@
 }
 
 .logo:hover .logo__icon {
+    transform: rotateZ(180deg);
+}
+
+.filled .logo__icon .logo__leftLines {
+    transform: translateX(var(--logo-size));
+}
+
+.filled .logo__icon .logo__rightLines {
+    transform: translateX(calc(var(--logo-size) * -1));
+}
+
+.filled .logo__icon {
     transform: rotateZ(180deg);
 }

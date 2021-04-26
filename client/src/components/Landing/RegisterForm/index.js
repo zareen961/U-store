@@ -1,27 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
 import PersonIcon from '@material-ui/icons/Person'
 import Select from '@material-ui/core/Select'
 import FormControl from '@material-ui/core/FormControl'
 import MenuItem from '@material-ui/core/MenuItem'
+import Badge from '@material-ui/core/Badge'
+import Avatar from '@material-ui/core/Avatar'
+import Fab from '@material-ui/core/Fab'
+import EditIcon from '@material-ui/icons/Edit'
 
+import avatarImage from '../../../assets/images/avatar.png'
 import './RegisterForm.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="bottom" ref={ref} {...props} />
+    return <Slide direction="up" ref={ref} {...props} />
 })
 
-const RegisterForm = ({ isOpen, setIsOpen, direction }) => {
+const RegisterForm = ({ isOpen, setIsOpen }) => {
     const handleModalClose = () => {
         setIsOpen(false)
     }
 
     return (
         <Dialog
+            disableScrollLock
             hideBackdrop
             fullWidth
-            maxWidth={'lg'}
+            maxWidth={'md'}
             open={isOpen}
             TransitionComponent={Transition}
             onClose={handleModalClose}
@@ -32,27 +38,34 @@ const RegisterForm = ({ isOpen, setIsOpen, direction }) => {
                 {/* Name , Username, Avatar, Phones, Email */}
                 <div className="registerForm__firstWrapper">
                     <div className="registerForm__nameWrapper">
-                        <div className="registerForm__formGroup">
+                        <div className="registerForm__formGroup left">
                             <label>
                                 <PersonIcon />
                             </label>
                             <input required type="text" placeholder="First Name" />
                         </div>
-                        <div className="registerForm__formGroup">
+                        <div className="registerForm__formGroup left ">
                             <label>
                                 <PersonIcon />
                             </label>
                             <input type="text" placeholder="Last Name" />
                         </div>
-                        <div className="registerForm__formGroup">
-                            <label>
-                                <PersonIcon />
-                            </label>
-                            <input required type="text" placeholder="A Cool Username" />
-                        </div>
                     </div>
                     <div className="registerForm__formGroup registerForm__avatarWrapper">
-                        Avatar
+                        <Badge
+                            overlap="circle"
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'right',
+                            }}
+                            badgeContent={
+                                <Fab color="primary">
+                                    <EditIcon />
+                                </Fab>
+                            }
+                        >
+                            <Avatar alt="Avatar" src={avatarImage} className="avatar" />
+                        </Badge>
                     </div>
                     <div className="registerForm__phoneWrapper">
                         <div className="registerForm__formGroup">
@@ -67,18 +80,27 @@ const RegisterForm = ({ isOpen, setIsOpen, direction }) => {
                             </label>
                             <input type="text" placeholder="Secondary Phone" />
                         </div>
-                        <div className="registerForm__formGroup">
-                            <label>
-                                <PersonIcon />
-                            </label>
-                            <input required type="email" placeholder="Email" />
-                        </div>
+                    </div>
+                </div>
+
+                <div className="registerForm__fourthWrapper">
+                    <div className="registerForm__formGroup left">
+                        <label>
+                            <PersonIcon />
+                        </label>
+                        <input required type="text" placeholder="Create Your Username" />
+                    </div>
+                    <div className="registerForm__formGroup">
+                        <label>
+                            <PersonIcon />
+                        </label>
+                        <input required type="email" placeholder="Email Address" />
                     </div>
                 </div>
 
                 {/* State, City, College */}
                 <div className="registerForm__secondWrapper">
-                    <div className="registerForm__formGroup registerForm__select">
+                    <div className="registerForm__formGroup registerForm__select left">
                         <label>
                             <PersonIcon />
                         </label>
@@ -139,7 +161,7 @@ const RegisterForm = ({ isOpen, setIsOpen, direction }) => {
 
                 {/* Password, Confirm Password, Submit */}
                 <div className="registerForm__thirdWrapper">
-                    <div className="registerForm__formGroup">
+                    <div className="registerForm__formGroup left">
                         <label>
                             <PersonIcon />
                         </label>

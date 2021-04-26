@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import waveImage from '../../../assets/images/hero-wave.png'
 import LoginForm from '../LoginForm'
@@ -33,6 +33,9 @@ const Hero = ({ isOpen, setIsOpen }) => {
                             <feFuncR type="table" tableValues="0.97" />
                             <feFuncG type="table" tableValues="0.9843137255" />
                             <feFuncB type="table" tableValues="0.99" />
+                            {/* <feFuncR type="table" tableValues="0.1333333333" />
+                            <feFuncG type="table" tableValues="0.15686274509" />
+                            <feFuncB type="table" tableValues="0.192156862745" /> */}
                             <feFuncA type="table" tableValues="0 1" />
                         </feComponentTransfer>
                     </filter>

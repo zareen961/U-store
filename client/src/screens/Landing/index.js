@@ -22,11 +22,7 @@ const Landing = () => {
                 {/* Footer */}
             </div>
 
-            <RegisterForm
-                isOpen={isRegisterFormOpen}
-                setIsOpen={setIsRegisterFormOpen}
-                direction={'left'}
-            />
+            <RegisterForm isOpen={isRegisterFormOpen} setIsOpen={setIsRegisterFormOpen} />
         </>
     )
 }

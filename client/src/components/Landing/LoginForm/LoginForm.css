@@ -11,9 +11,9 @@
     box-sizing: border-box;
     background: linear-gradient(
         -45deg,
-        rgba(76, 0, 130, 0.95) 15%,
-        rgba(143, 110, 213, 0.89) 70%,
-        rgba(216, 130, 217, 0.448) 94%
+        rgba(var(--primary-dark), 0.9) 15%,
+        rgba(var(--primary-light), 0.89) 70%,
+        rgba(var(--gradient-extra), 0.448) 94%
     );
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@
     font-weight: 500;
     font-family: 'Raleway', sans-serif;
     margin-bottom: 20px;
-    color: var(--secondary-light);
+    color: rgba(var(--secondary-light), 1);
 }
 
 .loginForm form {
@@ -38,9 +38,9 @@
     height: 40px;
     background: linear-gradient(
         150deg,
-        rgba(247, 251, 252, 0.596),
-        rgba(143, 110, 213, 0.89),
-        rgba(247, 251, 252, 0.596)
+        rgba(var(--secondary-light), 0.6),
+        rgba(var(--primary-light), 0.89),
+        rgba(var(--secondary-light), 0.6)
     );
     border: 0;
     display: flex;
@@ -56,13 +56,13 @@
     height: 100%;
     background-color: transparent;
     border: 0;
-    color: var(--secondary-light);
+    color: rgba(var(--secondary-light), 1);
     font-weight: 600 !important;
     letter-spacing: 3px !important;
 }
 
 .loginForm__input::placeholder {
-    color: var(--secondary-light);
+    color: rgba(var(--secondary-light), 1);
     font-weight: 500;
     letter-spacing: 1px;
 }
@@ -71,11 +71,11 @@
     margin-top: 10px;
     height: 40px;
     border: none;
-    color: var(--primary-dark);
+    color: rgba(var(--primary-dark), 1);
     background: linear-gradient(
         150deg,
-        rgba(247, 251, 252, 0.596),
-        rgba(143, 110, 213, 0.89)
+        rgba(var(--secondary-light), 0.6),
+        rgba(var(--primary-light), 0.89)
     );
     box-shadow: 5px 5px 10px var(--shadow-primary);
     cursor: pointer;
@@ -105,15 +105,15 @@
 
 .loginForm__dividerWrapper > span.line {
     flex: 1;
-    border-top: 2px solid var(--secondary-light);
+    border-top: 2px solid rgba(var(--secondary-light), 1);
 }
 
 .loginForm__registerButton {
-    border: 3px solid var(--secondary-light);
+    border: 3px solid rgba(var(--secondary-light), 1);
     width: fit-content;
     align-self: center;
-    background-color: var(--primary-dark);
-    color: var(--secondary-light);
+    background-color: rgba(var(--primary-dark), 1);
+    color: rgba(var(--secondary-light), 1);
     padding: 5px 30px;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -125,7 +125,7 @@
 }
 
 .loginForm__registerButton:hover {
-    background-color: var(--secondary-light);
-    color: var(--primary-dark);
-    border-color: var(--primary-dark);
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-dark), 1);
+    border-color: rgba(var(--primary-dark), 1);
 }
