@@ -42,7 +42,8 @@
 .registerForm__avatarWrapper {
     margin-left: 20px;
     margin-right: 20px;
-    height: 180px !important;
+    height: 150px !important;
+    border-radius: 50%;
 }
 
 .registerForm__secondWrapper .registerForm__formGroup,
@@ -63,11 +64,16 @@
 .registerForm__formGroup {
     margin-bottom: 30px;
     height: 40px;
+    /* background: linear-gradient(
+        150deg,
+        rgba(143, 110, 213, 1),
+        rgba(247, 251, 252, 0.4),
+        rgba(143, 110, 213, 1)
+    ); */
     background: linear-gradient(
         150deg,
-        rgba(247, 251, 252, 0.596),
-        rgba(143, 110, 213, 0.89),
-        rgba(247, 251, 252, 0.596)
+        /* rgba(247, 251, 252, 0.796), */ rgba(143, 110, 213, 0.79),
+        rgba(247, 251, 252, 0.696)
     );
     border: 0;
     display: flex;
@@ -76,6 +82,7 @@
 
 .registerForm__formGroup > label {
     padding: 0 10px;
+    color: var(--secondary-light);
 }
 
 .registerForm__formGroup > input {
@@ -98,14 +105,46 @@
     border: none !important;
 }
 
-/* .MuiPaper-root {
-    background-color: transparent !important;
-    background: radial-gradient(
-        ellipse,
-        rgba(143, 110, 213, 0.89),
-        rgba(247, 251, 252, 0.596),
-        rgba(247, 251, 252, 0.596)
+/* drop down container */
+.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded {
+    background-color: transparent;
+    border-radius: 0;
+    color: var(--primary-dark);
+}
+
+/* drop down box */
+.MuiMenu-list {
+    background: linear-gradient(
+        210deg,
+        rgba(247, 251, 252, 0.796),
+        rgba(143, 110, 213, 0.79),
+        rgba(247, 251, 252, 0.796)
     );
-    border-radius: 0 !important;
-    color: var(--secondary-light) !important;
-} */
+    font-weight: 600;
+}
+
+/* Selected Menu */
+.MuiListItem-root.Mui-selected,
+.MuiListItem-root.Mui-selected:hover {
+    background-color: var(--shadow-primary) !important;
+}
+
+/* Menu Hover */
+.MuiListItem-button:hover {
+    background-color: var(--shadow-primary) !important;
+}
+
+/* small drop down icon */
+.MuiSelect-icon {
+    color: var(--primary-dark) !important;
+}
+
+/* drop down items */
+.MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input {
+    color: var(--primary-dark);
+}
+
+/*  */
+.MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input:focus {
+    background-color: transparent;
+}

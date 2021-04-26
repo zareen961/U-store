@@ -7,13 +7,13 @@ import RegisterForm from '../../components/Landing/RegisterForm'
 import './Landing.css'
 
 const Landing = () => {
-    const [isRegisterFormOpen, setIsRegisterFormOpen] = useState(!false)
+    const [isRegisterFormOpen, setIsRegisterFormOpen] = useState(false)
 
     return (
         <>
             <div className="landing">
-                <Navbar />
-                <Hero isOpen={isRegisterFormOpen} />
+                <Navbar setIsOpen={setIsRegisterFormOpen} />
+                <Hero isOpen={isRegisterFormOpen} setIsOpen={setIsRegisterFormOpen} />
                 <Overview />
                 {/* Feature x N */}
                 {/* FAQ */}

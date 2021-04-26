@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
 import PersonIcon from '@material-ui/icons/Person'
@@ -8,18 +8,17 @@ import MenuItem from '@material-ui/core/MenuItem'
 
 import './RegisterForm.css'
 
-const RegisterForm = ({ isOpen, setIsOpen, direction }) => {
-    const Transition = React.forwardRef(function Transition(props, ref) {
-        return <Slide direction={direction} ref={ref} {...props} />
-    })
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="bottom" ref={ref} {...props} />
+})
 
+const RegisterForm = ({ isOpen, setIsOpen, direction }) => {
     const handleModalClose = () => {
         setIsOpen(false)
     }
 
     return (
         <Dialog
-            keepMounted
             hideBackdrop
             fullWidth
             maxWidth={'lg'}

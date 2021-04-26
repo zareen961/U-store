@@ -4,7 +4,7 @@ import { HashLink } from 'react-router-hash-link'
 import Logo from '../../utils/Logo'
 import './Navbar.css'
 
-const Navbar = () => {
+const Navbar = ({ setIsOpen }) => {
     const [backgroundClass, setBackgroundClass] = useState('navbar')
     useEffect(() => {
         const listener = document.addEventListener('scroll', () => {
@@ -30,7 +30,7 @@ const Navbar = () => {
                     <HashLink to="#featuresID">Features</HashLink>
                     <HashLink to="#faqID">FAQs</HashLink>
                     <HashLink to="#contactID">Contact</HashLink>
-                    <button>Sign Up</button>
+                    <button onClick={() => setIsOpen(true)}>Sign Up</button>
                 </div>
             </div>
         </div>

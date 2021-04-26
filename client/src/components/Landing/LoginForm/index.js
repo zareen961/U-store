@@ -4,7 +4,7 @@ import LockIcon from '@material-ui/icons/Lock'
 
 import './LoginForm.css'
 
-const LoginForm = () => {
+const LoginForm = ({ setIsOpen }) => {
     return (
         <div className="loginForm">
             <div className="loginForm__front">
@@ -50,7 +50,12 @@ const LoginForm = () => {
                     <span>Don't have an account?</span>
                     <span className="line"></span>
                 </div>
-                <button className="loginForm__registerButton">Sign Up</button>
+                <button
+                    className="loginForm__registerButton"
+                    onClick={() => setIsOpen(true)}
+                >
+                    Sign Up
+                </button>
             </div>
         </div>
     )

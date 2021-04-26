@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import waveImage from '../../../assets/images/hero-wave.png'
 import LoginForm from '../LoginForm'
 import './Hero.css'
 
-const Hero = ({ isOpen }) => {
+const Hero = ({ isOpen, setIsOpen }) => {
     return (
         <div className="hero">
             <div className="hero__container">
@@ -20,7 +20,7 @@ const Hero = ({ isOpen }) => {
                             <button>How It Works?</button>
                         </div>
                         <div className="hero__loginFormWrapper">
-                            <LoginForm />
+                            <LoginForm setIsOpen={setIsOpen} />
                         </div>
                     </>
                 )}
