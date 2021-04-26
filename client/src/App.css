@@ -2,6 +2,7 @@
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     /* font-family: 'Raleway', sans-serif; */
+    scroll-behavior: smooth;
 }
 
 :root {
@@ -12,7 +13,7 @@
     /* --primary-dark: 255, 113, 113;
     --primary-light: 255, 180, 180;
     --secondary-light: 34, 40, 49;
-    --gradient-extra: 255, 255, 217; */
+    --gradient-extra: 255, 130, 100; */
     --shadow-primary: rgba(var(--primary-dark), 0.4);
     --shadow-secondary: rgba(var(--secondary-light), 0.5);
     --logo-size: 40px;
@@ -20,6 +21,7 @@
 
 body {
     background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-dark), 1);
 }
 
 button:focus,

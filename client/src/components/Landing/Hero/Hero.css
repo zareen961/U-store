@@ -56,10 +56,12 @@
     font-weight: 400;
     font-family: 'Raleway', sans-serif;
     line-height: 5.8rem;
+    color: rgba(var(--secondary-light), 1);
 }
 
 .hero__taglineWrapper h1 .overLine {
     border-top: 10px solid rgba(var(--secondary-light), 1);
+    color: rgba(var(--secondary-light), 1);
 }
 
 .hero__taglineWrapper h1 .highlight {
@@ -68,10 +70,10 @@
 
 .hero__taglineWrapper h1 .buttonHighlight {
     background-color: var(--shadow-secondary);
-    color: rgba(var(--primary-dark), 1);
     padding: 0px 5px;
     border-radius: 0;
     font-weight: 600;
+    color: rgba(var(--primary-dark), 1);
 }
 
 .hero__taglineWrapper > button {

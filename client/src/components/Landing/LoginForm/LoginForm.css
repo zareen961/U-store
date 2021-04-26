@@ -49,6 +49,7 @@
 
 .loginForm__inputGroup > label {
     padding: 0 10px;
+    color: rgba(var(--primary-dark), 1);
 }
 
 .loginForm__input {
@@ -71,7 +72,7 @@
     margin-top: 10px;
     height: 40px;
     border: none;
-    color: rgba(var(--primary-dark), 1);
+    color: rgba(var(--secondary-light), 1);
     background: linear-gradient(
         150deg,
         rgba(var(--secondary-light), 0.6),
@@ -101,6 +102,7 @@
     width: fit-content;
     margin: 0 5px;
     font-size: 0.9rem;
+    color: rgba(var(--secondary-light), 1);
 }
 
 .loginForm__dividerWrapper > span.line {

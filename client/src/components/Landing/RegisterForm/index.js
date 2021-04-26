@@ -9,6 +9,17 @@ import Badge from '@material-ui/core/Badge'
 import Avatar from '@material-ui/core/Avatar'
 import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
+import PhoneIcon from '@material-ui/icons/Phone'
+import PhonePausedIcon from '@material-ui/icons/PhonePaused'
+import EmailIcon from '@material-ui/icons/Email'
+import LockOpenIcon from '@material-ui/icons/LockOpen'
+import LockIcon from '@material-ui/icons/Lock'
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail'
+import MapIcon from '@material-ui/icons/Map'
+import RoomIcon from '@material-ui/icons/Room'
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
+import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
+import GpsFixedIcon from '@material-ui/icons/GpsFixed'
 
 import avatarImage from '../../../assets/images/avatar.png'
 import './RegisterForm.css'
@@ -27,7 +38,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
             disableScrollLock
             hideBackdrop
             fullWidth
-            maxWidth={'md'}
+            maxWidth={'lg'}
             open={isOpen}
             TransitionComponent={Transition}
             onClose={handleModalClose}
@@ -46,7 +57,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                         </div>
                         <div className="registerForm__formGroup left ">
                             <label>
-                                <PersonIcon />
+                                <PersonOutlineOutlinedIcon />
                             </label>
                             <input type="text" placeholder="Last Name" />
                         </div>
@@ -59,7 +70,10 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                 horizontal: 'right',
                             }}
                             badgeContent={
-                                <Fab color="primary">
+                                <Fab
+                                    size="small"
+                                    className="registerForm__avatarEditButton"
+                                >
                                     <EditIcon />
                                 </Fab>
                             }
@@ -70,13 +84,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                     <div className="registerForm__phoneWrapper">
                         <div className="registerForm__formGroup">
                             <label>
-                                <PersonIcon />
+                                <PhoneIcon />
                             </label>
                             <input required type="text" placeholder="Primary Phone" />
                         </div>
                         <div className="registerForm__formGroup">
                             <label>
-                                <PersonIcon />
+                                <PhonePausedIcon />
                             </label>
                             <input type="text" placeholder="Secondary Phone" />
                         </div>
@@ -86,13 +100,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                 <div className="registerForm__fourthWrapper">
                     <div className="registerForm__formGroup left">
                         <label>
-                            <PersonIcon />
+                            <AlternateEmailIcon />
                         </label>
                         <input required type="text" placeholder="Create Your Username" />
                     </div>
                     <div className="registerForm__formGroup">
                         <label>
-                            <PersonIcon />
+                            <EmailIcon />
                         </label>
                         <input required type="email" placeholder="Email Address" />
                     </div>
@@ -102,7 +116,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                 <div className="registerForm__secondWrapper">
                     <div className="registerForm__formGroup registerForm__select left">
                         <label>
-                            <PersonIcon />
+                            <GpsFixedIcon />
                         </label>
                         <FormControl>
                             <Select
@@ -121,7 +135,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                     </div>
                     <div className="registerForm__formGroup registerForm__select">
                         <label>
-                            <PersonIcon />
+                            <RoomIcon />
                         </label>
                         <FormControl>
                             <Select
@@ -140,7 +154,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                     </div>
                     <div className="registerForm__formGroup registerForm__select">
                         <label>
-                            <PersonIcon />
+                            <AccountBalanceIcon />
                         </label>
                         <FormControl>
                             <Select
@@ -163,17 +177,18 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                 <div className="registerForm__thirdWrapper">
                     <div className="registerForm__formGroup left">
                         <label>
-                            <PersonIcon />
+                            <LockOpenIcon />
                         </label>
                         <input required type="password" placeholder="Password" />
                     </div>
                     <div className="registerForm__formGroup">
                         <label>
-                            <PersonIcon />
+                            <LockIcon />
                         </label>
                         <input required type="password" placeholder="Confirm Password" />
                     </div>
-                    <div className="registerForm__formGroup">
+                    <div className="registerForm__formGroup buttonWrapper">
+                        <p>Register</p>
                         <button className="registerForm__registerButton">Register</button>
                     </div>
                 </div>

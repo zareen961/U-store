@@ -6,7 +6,7 @@ import './Hero.css'
 
 const Hero = ({ isOpen, setIsOpen }) => {
     return (
-        <div className="hero">
+        <div className="hero" id="homeID">
             <div className="hero__container">
                 {!isOpen && (
                     <>
