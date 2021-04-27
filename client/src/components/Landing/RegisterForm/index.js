@@ -52,13 +52,22 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             <label>
                                 <PersonIcon />
                             </label>
-                            <input required type="text" placeholder="First Name" />
+                            <input
+                                required
+                                type="text"
+                                placeholder="First Name"
+                                autoComplete="new-password"
+                            />
                         </div>
                         <div className="registerForm__formGroup left ">
                             <label>
                                 <PersonOutlineOutlinedIcon />
                             </label>
-                            <input type="text" placeholder="Last Name" />
+                            <input
+                                type="text"
+                                placeholder="Last Name"
+                                autoComplete="new-password"
+                            />
                         </div>
                     </div>
                     <div className="registerForm__formGroup registerForm__avatarWrapper">
@@ -85,13 +94,22 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             <label>
                                 <PhoneIcon />
                             </label>
-                            <input required type="text" placeholder="Primary Phone" />
+                            <input
+                                required
+                                type="text"
+                                placeholder="Primary Phone"
+                                autoComplete="new-password"
+                            />
                         </div>
                         <div className="registerForm__formGroup">
                             <label>
                                 <PhonePausedIcon />
                             </label>
-                            <input type="text" placeholder="Secondary Phone" />
+                            <input
+                                type="text"
+                                placeholder="Secondary Phone"
+                                autoComplete="new-password"
+                            />
                         </div>
                     </div>
                 </div>
@@ -101,13 +119,23 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                         <label>
                             <AlternateEmailIcon />
                         </label>
-                        <input required type="text" placeholder="Create Your Username" />
+                        <input
+                            required
+                            type="text"
+                            placeholder="Create Username"
+                            autoComplete="new-password"
+                        />
                     </div>
                     <div className="registerForm__formGroup">
                         <label>
                             <EmailIcon />
                         </label>
-                        <input required type="email" placeholder="Email Address" />
+                        <input
+                            required
+                            type="email"
+                            placeholder="Email Address"
+                            autoComplete="new-password"
+                        />
                     </div>
                 </div>
 

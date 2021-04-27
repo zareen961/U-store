@@ -36,6 +36,9 @@ const Hero = ({ isOpen, setIsOpen }) => {
                             {/* <feFuncR type="table" tableValues="0.1333333333" />
                             <feFuncG type="table" tableValues="0.15686274509" />
                             <feFuncB type="table" tableValues="0.192156862745" /> */}
+                            {/* <feFuncR type="table" tableValues="0" />
+                            <feFuncG type="table" tableValues="0" />
+                            <feFuncB type="table" tableValues="0" /> */}
                             <feFuncA type="table" tableValues="0 1" />
                         </feComponentTransfer>
                     </filter>

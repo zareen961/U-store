@@ -9,13 +9,7 @@ const LoginForm = ({ setIsOpen }) => {
         <div className="loginForm">
             <div className="loginForm__front">
                 <h1>Login Here!</h1>
-                <form autoComplete="off">
-                    <input
-                        autoComplete="off"
-                        name="hidden"
-                        type="text"
-                        style={{ display: 'none' }}
-                    />
+                <form>
                     <div className="loginForm__inputGroup">
                         <label>
                             <PersonIcon />
@@ -23,7 +17,7 @@ const LoginForm = ({ setIsOpen }) => {
                         <input
                             required
                             type="text"
-                            autoComplete="off"
+                            autoComplete="new-password"
                             className="loginForm__input"
                             placeholder="Username or Email"
                         />
