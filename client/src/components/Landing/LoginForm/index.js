@@ -1,21 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PersonIcon from '@material-ui/icons/Person'
 import LockIcon from '@material-ui/icons/Lock'
 
+import FormLoader from '../../utils/FormLoader'
 import './LoginForm.css'
 
 const LoginForm = ({ setIsOpen }) => {
+    const [loading, setLoading] = useState(false)
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+        setLoading(true)
+    }
+
     return (
         <div className="loginForm">
-            <div className="loginForm__front">
+            <div className="loginForm__main">
                 <h1>Login Here!</h1>
-                <form>
+                <form onSubmit={handleLogin}>
                     <div className="loginForm__inputGroup">
                         <label>
                             <PersonIcon />
                         </label>
                         <input
-                            required
+                            // required
                             type="text"
                             autoComplete="new-password"
                             className="loginForm__input"
@@ -27,7 +35,7 @@ const LoginForm = ({ setIsOpen }) => {
                             <LockIcon />
                         </label>
                         <input
-                            required
+                            // required
                             type="password"
                             className="loginForm__input"
                             placeholder="Password"
@@ -51,6 +59,8 @@ const LoginForm = ({ setIsOpen }) => {
                     Sign Up
                 </button>
             </div>
+
+            <FormLoader loading={loading} />
         </div>
     )
 }

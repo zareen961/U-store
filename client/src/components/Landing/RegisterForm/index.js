@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
 import PersonIcon from '@material-ui/icons/Person'
@@ -23,6 +23,7 @@ import CloseSharpIcon from '@material-ui/icons/CloseSharp'
 import IconButton from '@material-ui/core/IconButton'
 
 import avatarImage from '../../../assets/images/avatar.png'
+import FormLoader from '../../utils/FormLoader'
 import './RegisterForm.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -30,12 +31,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 const RegisterForm = ({ isOpen, setIsOpen }) => {
+    const [loading, setLoading] = useState(false)
+
+    const handleRegister = (e) => {
+        e.preventDefault()
+        setLoading(true)
+    }
+
     const handleModalClose = () => {
         setIsOpen(false)
     }
 
     return (
         <Dialog
+            disableBackdropClick={loading}
             disableScrollLock
             hideBackdrop
             fullWidth
@@ -43,193 +52,212 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
             open={isOpen}
             TransitionComponent={Transition}
             onClose={handleModalClose}
+            className="registerForm"
         >
-            <form className="registerForm">
-                <div className="registerForm__header">
-                    <h1>Sign Up Here!</h1>
-                    <IconButton
-                        className="registerForm__closeButton"
-                        onClick={() => setIsOpen(false)}
-                    >
-                        <CloseSharpIcon />
-                    </IconButton>
-                </div>
+            <div className="registerForm__main">
+                <form onSubmit={handleRegister}>
+                    <div className="registerForm__header">
+                        <h1>Sign Up Here!</h1>
+                        <IconButton
+                            className="registerForm__closeButton"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <CloseSharpIcon />
+                        </IconButton>
+                    </div>
 
-                {/* Name , Username, Avatar, Phones, Email */}
-                <div className="registerForm__firstWrapper">
-                    <div className="registerForm__nameWrapper">
+                    {/* Name , Username, Avatar, Phones, Email */}
+                    <div className="registerForm__firstWrapper">
+                        <div className="registerForm__nameWrapper">
+                            <div className="registerForm__formGroup left">
+                                <label>
+                                    <PersonIcon />
+                                </label>
+                                <input
+                                    // required
+                                    type="text"
+                                    placeholder="First Name"
+                                    autoComplete="new-password"
+                                />
+                            </div>
+                            <div className="registerForm__formGroup left ">
+                                <label>
+                                    <PersonOutlineOutlinedIcon />
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Last Name"
+                                    autoComplete="new-password"
+                                />
+                            </div>
+                        </div>
+                        <div className="registerForm__formGroup registerForm__avatarWrapper">
+                            <Badge
+                                overlap="circle"
+                                anchorOrigin={{
+                                    vertical: 'bottom',
+                                    horizontal: 'right',
+                                }}
+                                badgeContent={
+                                    <Fab
+                                        size="small"
+                                        className="registerForm__avatarEditButton"
+                                    >
+                                        <EditIcon />
+                                    </Fab>
+                                }
+                            >
+                                <Avatar
+                                    alt="Avatar"
+                                    src={avatarImage}
+                                    className="avatar"
+                                />
+                            </Badge>
+                        </div>
+                        <div className="registerForm__phoneWrapper">
+                            <div className="registerForm__formGroup">
+                                <label>
+                                    <PhoneIcon />
+                                </label>
+                                <input
+                                    // required
+                                    type="text"
+                                    placeholder="Primary Phone"
+                                    autoComplete="new-password"
+                                />
+                            </div>
+                            <div className="registerForm__formGroup">
+                                <label>
+                                    <PhonePausedIcon />
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Secondary Phone"
+                                    autoComplete="new-password"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="registerForm__fourthWrapper">
                         <div className="registerForm__formGroup left">
                             <label>
-                                <PersonIcon />
+                                <AlternateEmailIcon />
                             </label>
                             <input
-                                required
+                                // required
                                 type="text"
-                                placeholder="First Name"
+                                placeholder="Create Username"
                                 autoComplete="new-password"
                             />
                         </div>
-                        <div className="registerForm__formGroup left ">
+                        <div className="registerForm__formGroup">
                             <label>
-                                <PersonOutlineOutlinedIcon />
+                                <EmailIcon />
                             </label>
                             <input
-                                type="text"
-                                placeholder="Last Name"
+                                // required
+                                type="email"
+                                placeholder="Email Address"
                                 autoComplete="new-password"
                             />
                         </div>
                     </div>
-                    <div className="registerForm__formGroup registerForm__avatarWrapper">
-                        <Badge
-                            overlap="circle"
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                            badgeContent={
-                                <Fab
-                                    size="small"
-                                    className="registerForm__avatarEditButton"
+
+                    {/* State, City, College */}
+                    <div className="registerForm__secondWrapper">
+                        <div className="registerForm__formGroup registerForm__select left">
+                            <label>
+                                <GpsFixedIcon />
+                            </label>
+                            <FormControl>
+                                <Select
+                                    //   value={age}
+                                    //   onChange={handleChange}
+                                    variant="outlined"
                                 >
-                                    <EditIcon />
-                                </Fab>
-                            }
-                        >
-                            <Avatar alt="Avatar" src={avatarImage} className="avatar" />
-                        </Badge>
-                    </div>
-                    <div className="registerForm__phoneWrapper">
-                        <div className="registerForm__formGroup">
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="registerForm__formGroup registerForm__select">
                             <label>
-                                <PhoneIcon />
+                                <RoomIcon />
+                            </label>
+                            <FormControl>
+                                <Select
+                                    //   value={age}
+                                    //   onChange={handleChange}
+                                    variant="outlined"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                        <div className="registerForm__formGroup registerForm__select">
+                            <label>
+                                <AccountBalanceIcon />
+                            </label>
+                            <FormControl>
+                                <Select
+                                    //   value={age}
+                                    //   onChange={handleChange}
+                                    variant="outlined"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </div>
+                    </div>
+
+                    {/* Password, Confirm Password, Submit */}
+                    <div className="registerForm__thirdWrapper">
+                        <div className="registerForm__formGroup left">
+                            <label>
+                                <LockOpenIcon />
                             </label>
                             <input
-                                required
-                                type="text"
-                                placeholder="Primary Phone"
-                                autoComplete="new-password"
+                                // required
+                                type="password"
+                                placeholder="Password"
                             />
                         </div>
                         <div className="registerForm__formGroup">
                             <label>
-                                <PhonePausedIcon />
+                                <LockIcon />
                             </label>
                             <input
-                                type="text"
-                                placeholder="Secondary Phone"
-                                autoComplete="new-password"
+                                // required
+                                type="password"
+                                placeholder="Confirm Password"
                             />
                         </div>
+                        <div className="registerForm__formGroup buttonWrapper">
+                            <p>Register</p>
+                            <button className="registerForm__registerButton">
+                                Register
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
+            </div>
 
-                <div className="registerForm__fourthWrapper">
-                    <div className="registerForm__formGroup left">
-                        <label>
-                            <AlternateEmailIcon />
-                        </label>
-                        <input
-                            required
-                            type="text"
-                            placeholder="Create Username"
-                            autoComplete="new-password"
-                        />
-                    </div>
-                    <div className="registerForm__formGroup">
-                        <label>
-                            <EmailIcon />
-                        </label>
-                        <input
-                            required
-                            type="email"
-                            placeholder="Email Address"
-                            autoComplete="new-password"
-                        />
-                    </div>
-                </div>
-
-                {/* State, City, College */}
-                <div className="registerForm__secondWrapper">
-                    <div className="registerForm__formGroup registerForm__select left">
-                        <label>
-                            <GpsFixedIcon />
-                        </label>
-                        <FormControl>
-                            <Select
-                                //   value={age}
-                                //   onChange={handleChange}
-                                variant="outlined"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div className="registerForm__formGroup registerForm__select">
-                        <label>
-                            <RoomIcon />
-                        </label>
-                        <FormControl>
-                            <Select
-                                //   value={age}
-                                //   onChange={handleChange}
-                                variant="outlined"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                    <div className="registerForm__formGroup registerForm__select">
-                        <label>
-                            <AccountBalanceIcon />
-                        </label>
-                        <FormControl>
-                            <Select
-                                //   value={age}
-                                //   onChange={handleChange}
-                                variant="outlined"
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </div>
-                </div>
-
-                {/* Password, Confirm Password, Submit */}
-                <div className="registerForm__thirdWrapper">
-                    <div className="registerForm__formGroup left">
-                        <label>
-                            <LockOpenIcon />
-                        </label>
-                        <input required type="password" placeholder="Password" />
-                    </div>
-                    <div className="registerForm__formGroup">
-                        <label>
-                            <LockIcon />
-                        </label>
-                        <input required type="password" placeholder="Confirm Password" />
-                    </div>
-                    <div className="registerForm__formGroup buttonWrapper">
-                        <p>Register</p>
-                        <button className="registerForm__registerButton">Register</button>
-                    </div>
-                </div>
-            </form>
+            <FormLoader loading={loading} size={70} />
         </Dialog>
     )
 }
