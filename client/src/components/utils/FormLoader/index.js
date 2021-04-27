@@ -6,7 +6,7 @@ const FormLoader = ({ size = 50, loading }) => {
     return (
         <div className={loading ? 'formLoader__overlay show' : 'formLoader__overlay'}>
             <div
-                class="spinner"
+                className="spinner"
                 style={{ height: `${size}px`, width: `${size}px` }}
             ></div>
         </div>

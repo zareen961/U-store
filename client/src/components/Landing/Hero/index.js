@@ -4,6 +4,21 @@ import waveImage from '../../../assets/images/hero-wave.png'
 import LoginForm from '../LoginForm'
 import './Hero.css'
 
+// PURPLE THEME
+let R = 247,
+    G = 251,
+    B = 252
+
+// RED THEME
+// let R = 34,
+//     G = 40,
+//     B = 49
+
+// BLUE THEME
+// let R = 0,
+//     G = 0,
+//     B = 0
+
 const Hero = ({ isOpen, setIsOpen }) => {
     return (
         <div className="hero" id="homeID">
@@ -30,15 +45,9 @@ const Hero = ({ isOpen, setIsOpen }) => {
                 <svg>
                     <filter id="wave-acid">
                         <feComponentTransfer>
-                            <feFuncR type="table" tableValues="0.97" />
-                            <feFuncG type="table" tableValues="0.9843137255" />
-                            <feFuncB type="table" tableValues="0.99" />
-                            {/* <feFuncR type="table" tableValues="0.1333333333" />
-                            <feFuncG type="table" tableValues="0.15686274509" />
-                            <feFuncB type="table" tableValues="0.192156862745" /> */}
-                            {/* <feFuncR type="table" tableValues="0" />
-                            <feFuncG type="table" tableValues="0" />
-                            <feFuncB type="table" tableValues="0" /> */}
+                            <feFuncR type="table" tableValues={R / 255} />
+                            <feFuncG type="table" tableValues={G / 255} />
+                            <feFuncB type="table" tableValues={B / 255} />
                             <feFuncA type="table" tableValues="0 1" />
                         </feComponentTransfer>
                     </filter>

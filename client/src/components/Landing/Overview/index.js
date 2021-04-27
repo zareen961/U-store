@@ -3,6 +3,7 @@ import React from 'react'
 import laptopImage from '../../../assets/images/laptop.png'
 import OverviewItem from './OverviewItem'
 import overviewData from '../../../utils/overviewData'
+import Logo from '../../utils/Logo'
 import './Overview.css'
 
 const Overview = () => {
@@ -29,6 +30,9 @@ const Overview = () => {
                     ))}
                 </section>
                 <section className="overview__centerSection">
+                    <div className="overview__laptopOverlay">
+                        <Logo isAnimate />
+                    </div>
                     <img src={laptopImage} alt="overview-laptop" />
                 </section>
                 <section className="overview__section">
