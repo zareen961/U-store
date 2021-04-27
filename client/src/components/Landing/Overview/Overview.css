@@ -27,9 +27,22 @@
 .overview__bodyWrapper {
     display: flex;
     justify-content: center;
+    margin: 70px 0;
 }
 
 .overview__section {
+    flex: 0.3;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+}
+
+.overview__centerSection {
+    flex: 0.4;
+    margin: 0 40px;
+}
+
+.overview__centerSection > img {
+    width: 100%;
+    margin-top: 20px;
 }

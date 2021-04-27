@@ -25,6 +25,17 @@
     color: rgba(var(--secondary-light), 1);
 }
 
+.registerForm__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.registerForm__closeButton {
+    color: rgba(var(--secondary-light), 1) !important;
+    align-self: flex-start;
+}
+
 .registerForm__firstWrapper,
 .registerForm__secondWrapper,
 .registerForm__thirdWrapper,

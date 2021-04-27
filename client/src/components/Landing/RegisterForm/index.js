@@ -19,6 +19,8 @@ import RoomIcon from '@material-ui/icons/Room'
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import GpsFixedIcon from '@material-ui/icons/GpsFixed'
+import CloseSharpIcon from '@material-ui/icons/CloseSharp'
+import IconButton from '@material-ui/core/IconButton'
 
 import avatarImage from '../../../assets/images/avatar.png'
 import './RegisterForm.css'
@@ -43,7 +45,15 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
             onClose={handleModalClose}
         >
             <form className="registerForm">
-                <h1>Sign Up Here!</h1>
+                <div className="registerForm__header">
+                    <h1>Sign Up Here!</h1>
+                    <IconButton
+                        className="registerForm__closeButton"
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <CloseSharpIcon />
+                    </IconButton>
+                </div>
 
                 {/* Name , Username, Avatar, Phones, Email */}
                 <div className="registerForm__firstWrapper">
