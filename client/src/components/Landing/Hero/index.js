@@ -1,25 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import waveImage from '../../../assets/images/hero-wave.png'
 import LoginForm from '../LoginForm'
 import './Hero.css'
 
-// PURPLE THEME
-let R = 247,
-    G = 251,
-    B = 252
-
-// RED THEME
-// let R = 34,
-//     G = 40,
-//     B = 49
-
-// BLUE THEME
-// let R = 0,
-//     G = 0,
-//     B = 0
-
 const Hero = ({ isOpen, setIsOpen }) => {
+    const { secondaryColor } = useSelector((state) => state.theme)
+
     return (
         <div className="hero" id="homeID">
             <div className="hero__container">
@@ -45,9 +33,9 @@ const Hero = ({ isOpen, setIsOpen }) => {
                 <svg>
                     <filter id="wave-acid">
                         <feComponentTransfer>
-                            <feFuncR type="table" tableValues={R / 255} />
-                            <feFuncG type="table" tableValues={G / 255} />
-                            <feFuncB type="table" tableValues={B / 255} />
+                            <feFuncR type="table" tableValues={secondaryColor.R / 255} />
+                            <feFuncG type="table" tableValues={secondaryColor.G / 255} />
+                            <feFuncB type="table" tableValues={secondaryColor.B / 255} />
                             <feFuncA type="table" tableValues="0 1" />
                         </feComponentTransfer>
                     </filter>

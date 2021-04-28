@@ -13,6 +13,13 @@ import Alerts from './components/utils/Alerts'
 const App = () => {
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.userLogin)
+    const { name } = useSelector((state) => state.theme)
+
+    // applying the selected theme class to the body tag
+    useEffect(() => {
+        document.body.className = ''
+        document.body.classList.add(name)
+    }, [name])
 
     useEffect(() => {
         if (localStorage.getItem('user')) {

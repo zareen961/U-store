@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 
+import { themeReducer } from './theme'
 import { alertReducer } from './alert'
 import {
     collegeReducer,
@@ -17,6 +18,7 @@ import {
 import { bidPlaceReducer, bidDeleteReducer, bidUpdateReducer } from './bid'
 
 export default combineReducers({
+    theme: themeReducer,
     alerts: alertReducer,
     college: collegeReducer,
     userRegister: userRegisterReducer,

@@ -5,31 +5,35 @@
     scroll-behavior: smooth;
 }
 
-:root {
-    /* PURPLE THEME */
+.theme__PURPLE {
     --primary-dark: 75, 0, 130;
     --primary-light: 143, 110, 213;
     --secondary-light: 247, 251, 252;
     --gradient-extra: 215, 130, 217;
-
-    /* RED THEME */
-    /* --primary-dark: 255, 113, 113;
-    --primary-light: 255, 180, 180;
-    --secondary-light: 34, 40, 49;
-    --gradient-extra: 255, 130, 100; */
-
-    /* BLUE THEME */
-    /* --primary-dark: 14, 148, 200;
-    --primary-light: 56, 191, 245;
-    --secondary-light: 0, 0, 0;
-    --gradient-extra: 116, 249, 255; */
-
     --shadow-primary: rgba(var(--primary-dark), 0.4);
     --shadow-secondary: rgba(var(--secondary-light), 0.5);
-    --logo-size: 40px;
 }
 
-body {
+.theme__RED {
+    --primary-dark: 255, 113, 113;
+    --primary-light: 255, 180, 180;
+    --secondary-light: 34, 40, 49;
+    --gradient-extra: 255, 130, 100;
+    --shadow-primary: rgba(var(--primary-dark), 0.4);
+    --shadow-secondary: rgba(var(--secondary-light), 0.5);
+}
+
+.theme__BLUE {
+    --primary-dark: 14, 148, 200;
+    --primary-light: 56, 191, 245;
+    --secondary-light: 0, 0, 0;
+    --gradient-extra: 116, 249, 255;
+    --shadow-primary: rgba(var(--primary-dark), 0.4);
+    --shadow-secondary: rgba(var(--secondary-light), 0.5);
+}
+
+.app {
+    --logo-size: 40px;
     background-color: rgba(var(--secondary-light), 1);
     color: rgba(var(--primary-dark), 1);
 }
