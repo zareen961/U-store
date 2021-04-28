@@ -1,0 +1,32 @@
+.featureItem {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    position: relative;
+}
+
+.featureItem > img {
+    position: absolute;
+    width: 450px;
+    top: 25%;
+    right: 25%;
+    z-index: 2;
+}
+
+.featureItem__contentWrapper {
+    flex: 0.55;
+    border: 1px solid black;
+}
+
+.featureItem__shape {
+    flex: 0.45;
+    /* background-color: teal; */
+    background: linear-gradient(
+            150deg,
+            rgba(var(--primary-light), 0.5),
+            rgba(var(--primary-dark), 0.8)
+        ),
+        url(../../../../assets/images/register-feature-wall.png);
+    background-attachment: fixed;
+    clip-path: ellipse(100% 50% at 100% 50%);
+}

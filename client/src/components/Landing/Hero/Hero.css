@@ -76,8 +76,9 @@
     color: rgba(var(--primary-dark), 1);
 }
 
-.hero__taglineWrapper > button {
+.hero__taglineWrapper > a {
     border: none;
+    display: inline-block;
     padding: 15px 30px;
     font-size: 0.8rem;
     margin-top: 20px;
@@ -94,6 +95,6 @@
     position: relative;
 }
 
-.hero__taglineWrapper > button:hover {
+.hero__taglineWrapper > a:hover {
     transform: scale(1.025);
 }

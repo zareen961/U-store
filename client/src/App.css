@@ -38,6 +38,10 @@
     color: rgba(var(--primary-dark), 1);
 }
 
+a {
+    text-decoration: none;
+}
+
 button:focus,
 input:focus {
     outline: none;

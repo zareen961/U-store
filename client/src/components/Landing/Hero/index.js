@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { HashLink } from 'react-router-hash-link'
 
 import waveImage from '../../../assets/images/hero-wave.png'
 import LoginForm from '../LoginForm'
@@ -20,7 +21,7 @@ const Hero = ({ isOpen, setIsOpen }) => {
                                 <span className="highlight">in</span> your{' '}
                                 <span className="buttonHighlight">College</span>
                             </h1>
-                            <button>How It Works?</button>
+                            <HashLink to="#featuresID">How It Works?</HashLink>
                         </div>
                         <div className="hero__loginFormWrapper">
                             <LoginForm setIsOpen={setIsOpen} />
