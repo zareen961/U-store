@@ -3,30 +3,68 @@
     height: 80vh;
     display: flex;
     position: relative;
+    margin-bottom: 100px;
 }
 
 .featureItem > img {
     position: absolute;
-    width: 450px;
-    top: 25%;
+    width: 500px;
+    top: 35%;
     right: 25%;
     z-index: 2;
 }
 
 .featureItem__contentWrapper {
-    flex: 0.55;
-    border: 1px solid black;
+    margin: auto;
+    height: 100%;
+    width: 85vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.featureItem__content {
+    width: 40%;
+}
+
+.featureItem__content h2 {
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
 }
 
 .featureItem__shape {
-    flex: 0.45;
-    /* background-color: teal; */
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 50vw;
     background: linear-gradient(
             150deg,
-            rgba(var(--primary-light), 0.5),
-            rgba(var(--primary-dark), 0.8)
+            rgba(var(--primary-light), 0.6) 20%,
+            rgba(var(--primary-dark), 0.8) 70%
         ),
-        url(../../../../assets/images/register-feature-wall.png);
+        url(../../../../assets/images/hero-wall.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 400px 0px;
     background-attachment: fixed;
+    /* filter: blur(3px); */
     clip-path: ellipse(100% 50% at 100% 50%);
+}
+
+/* Converting the shape to align on left-side */
+.featureItem.left .featureItem__shape {
+    left: 0;
+    clip-path: ellipse(100% 50% at 0% 50%);
+    background-position: -50px 0px;
+}
+
+.featureItem.left .featureItem__contentWrapper {
+    align-items: flex-end;
+}
+
+.featureItem.left > img {
+    top: 35%;
+    left: 26%;
 }

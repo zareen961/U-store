@@ -54,7 +54,6 @@
 .hero__taglineWrapper h1 {
     font-size: 4rem;
     font-weight: 400;
-    font-family: 'Raleway', sans-serif;
     line-height: 5.8rem;
     color: rgba(var(--secondary-light), 1);
 }

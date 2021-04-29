@@ -27,8 +27,8 @@ const Navbar = ({ setIsOpen }) => {
                 </div>
                 <div className="navbar__linksWrapper">
                     <HashLink to="#homeID">Home</HashLink>
+                    <HashLink to="#overviewID">Overview</HashLink>
                     <HashLink to="#featuresID">Features</HashLink>
-                    <HashLink to="#faqID">FAQs</HashLink>
                     <HashLink to="#contactID">Contact</HashLink>
                     <button onClick={() => setIsOpen(true)}>Sign Up</button>
                 </div>

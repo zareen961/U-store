@@ -1,7 +1,6 @@
 * {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
-    /* font-family: 'Raleway', sans-serif; */
     scroll-behavior: smooth;
 }
 
@@ -36,6 +35,15 @@
     --logo-size: 40px;
     background-color: rgba(var(--secondary-light), 1);
     color: rgba(var(--primary-dark), 1);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Raleway', sans-serif;
 }
 
 a {
