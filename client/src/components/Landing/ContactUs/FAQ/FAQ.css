@@ -1,3 +1,14 @@
 .faq {
     flex: 1;
 }
+
+.faq > h3 {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.faq > p {
+    margin-bottom: 20px;
+    width: 85%;
+}

@@ -1,22 +1,22 @@
 const faqData = [
     {
         title: 'How to begin?',
-        content:
+        answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque reprehenderit omnis temporibus!',
     },
     {
         title: 'Is it for all college students or schools as well?',
-        content:
+        answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque reprehenderit omnis temporibus!',
     },
     {
         title: 'What after graduation?',
-        content:
+        answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque reprehenderit omnis temporibus!',
     },
     {
         title: 'What about fake accounts?',
-        content:
+        answer:
             'Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque reprehenderit omnis temporibus!',
     },
 ]
