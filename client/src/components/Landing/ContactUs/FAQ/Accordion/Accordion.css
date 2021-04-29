@@ -1,0 +1,47 @@
+.accordion {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    position: relative;
+    background-color: rgba(var(--gradient-extra), 0.1);
+}
+
+.accordion::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 8px;
+    background: linear-gradient(
+        to bottom,
+        rgba(var(--primary-dark), 1),
+        rgba(var(--primary-light), 1),
+        rgba(var(--gradient-extra), 1)
+    );
+}
+
+.accordion__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.accordion__header > h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.accordion__showButton {
+    color: rgba(var(--primary-dark), 0.7) !important;
+}
+
+.accordion > p {
+    margin-top: 15px;
+    display: none;
+    transition: all 2s linear;
+}
+
+.accordion > p.show {
+    display: block;
+}
