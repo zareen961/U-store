@@ -3,12 +3,12 @@
 }
 
 .faq > h3 {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 2rem;
     margin-bottom: 20px;
 }
 
 .faq > p {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     width: 85%;
 }

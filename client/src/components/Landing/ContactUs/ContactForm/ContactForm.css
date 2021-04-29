@@ -1,3 +1,57 @@
 .contactForm {
     flex: 1;
 }
+
+.contactForm > h3 {
+    font-weight: 500;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contactForm > p {
+    margin-bottom: 40px;
+    width: 85%;
+}
+
+.contactForm > form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contactForm__form > div {
+    display: flex;
+}
+
+.contactForm__form > div > input {
+    flex: 1;
+}
+
+.contactForm__form input[type='email'] {
+    margin-left: 25px;
+}
+
+.contactForm__form input {
+    height: 40px;
+}
+
+.contactForm__form > input {
+    margin: 25px 0;
+}
+
+.contactForm__form input,
+.contactForm__form textarea {
+    border: none;
+    background-color: rgba(var(--gradient-extra), 0.1);
+    color: rgba(var(--primary-dark), 1);
+    font-size: 1.05rem;
+}
+
+.contactForm__form input::placeholder,
+.contactForm__form textarea::placeholder {
+    color: rgba(var(--primary-dark), 0.6);
+}
+
+.contactForm__form > button {
+    margin-top: 35px;
+    align-self: flex-end;
+}

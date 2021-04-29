@@ -10,8 +10,7 @@ const FAQ = () => {
             <h3>FAQ 's</h3>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quasi in
-                nesciunt placeat sint consequatur, consequuntur commodi dolore vitae
-                error.
+                nesciunt placeat sint.
             </p>
             {faqData.map((query) => (
                 <Accordion key={query.title} query={query} />

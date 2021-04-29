@@ -37,11 +37,11 @@
 }
 
 .accordion > p {
-    margin-top: 15px;
-    display: none;
-    transition: all 2s linear;
+    overflow: hidden;
+    max-height: 0;
+    transition: all 1s linear;
 }
 
 .accordion > p.show {
-    display: block;
+    max-height: 500px;
 }
