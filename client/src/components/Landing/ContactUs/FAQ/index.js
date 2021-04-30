@@ -7,7 +7,7 @@ import './FAQ.css'
 const FAQ = () => {
     return (
         <div className="faq">
-            <h3>FAQ 's</h3>
+            <h3>FAQ's</h3>
             <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quasi in
                 nesciunt placeat sint.

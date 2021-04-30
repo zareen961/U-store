@@ -41,9 +41,15 @@
 .contactForm__form input,
 .contactForm__form textarea {
     border: none;
+    padding: 5px 10px;
     background-color: rgba(var(--gradient-extra), 0.1);
     color: rgba(var(--primary-dark), 1);
     font-size: 1.05rem;
+}
+
+.contactForm__form textarea {
+    resize: none;
+    padding-top: 10px;
 }
 
 .contactForm__form input::placeholder,
@@ -51,7 +57,33 @@
     color: rgba(var(--primary-dark), 0.6);
 }
 
-.contactForm__form > button {
-    margin-top: 35px;
+.contactForm__sendButton {
+    margin-top: 30px;
     align-self: flex-end;
+    color: rgba(var(--secondary-light), 1);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: rgba(var(--primary-dark), 1);
+    border-radius: 3px;
+    padding: 0px 20px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.contactForm__sendButton > span {
+    margin-right: 8px;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+.contactForm__sendIcon {
+    font-size: 1.2rem;
+}
+
+.contactForm__sendButton:hover {
+    border-radius: 30px;
 }

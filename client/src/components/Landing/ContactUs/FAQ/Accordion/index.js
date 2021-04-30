@@ -21,7 +21,9 @@ const Accordion = ({ query }) => {
                 </IconButton>
             </div>
 
-            <p className={show ? 'show' : ''}>{query.answer}</p>
+            <p className={show ? 'accordion__answer show' : 'accordion__answer'}>
+                {query.answer}
+            </p>
         </div>
     )
 }
