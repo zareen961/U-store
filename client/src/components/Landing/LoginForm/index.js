@@ -26,6 +26,7 @@ const LoginForm = ({ setIsOpen }) => {
                             // required
                             type="text"
                             autoComplete="new-password"
+                            id="loginFormInputID"
                             className="loginForm__input"
                             placeholder="Username or Email"
                         />

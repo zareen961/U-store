@@ -34,7 +34,6 @@
     width: calc(var(--logo-size) / 2 + calc(var(--logo-size) * 0.3));
     background-color: rgba(var(--primary-dark), 1);
 }
-
 .logo .behind {
     z-index: -1;
 }

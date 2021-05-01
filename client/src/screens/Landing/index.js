@@ -23,9 +23,9 @@ const Landing = () => {
                 <Hero isOpen={isRegisterFormOpen} setIsOpen={setIsRegisterFormOpen} />
                 <Overview />
                 <Features />
-                <CallToAction />
+                <CallToAction setIsOpen={setIsRegisterFormOpen} />
                 <ContactUs />
-                <Footer />
+                {/* <Footer /> */}
 
                 <div>
                     <button
