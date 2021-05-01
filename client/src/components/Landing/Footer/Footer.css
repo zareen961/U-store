@@ -1,0 +1,17 @@
+.footer {
+    height: 25vh;
+    background: linear-gradient(
+        -30deg,
+        rgba(var(--gradient-extra), 0.84),
+        rgba(var(--primary-light), 0.89),
+        rgba(var(--primary-dark), 0.8)
+    );
+    position: relative;
+}
+
+.footer__wave {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: url(../../../assets/images/wave.svg);
+}

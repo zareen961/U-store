@@ -4,8 +4,11 @@ import './CallToAction.css'
 
 const CallToAction = () => {
     return (
-        <div>
-            <h1>CallToAction</h1>
+        <div className="callToAction">
+            <div className="callToAction__buttonsWrapper">
+                <button className="callToAction__registerButton">Sign Up</button>
+                <button className="callToAction__loginButton">Login</button>
+            </div>
         </div>
     )
 }

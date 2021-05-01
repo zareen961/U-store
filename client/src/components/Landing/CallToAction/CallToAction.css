@@ -1,0 +1,25 @@
+.callToAction {
+    margin: 180px 0 100px 0;
+    height: 45vh;
+    background: linear-gradient(
+            150deg,
+            rgba(var(--gradient-extra), 0.64),
+            rgba(var(--primary-light), 0.69),
+            rgba(var(--primary-dark), 0.6)
+        ),
+        url(../../../assets/images/call-to-action-wall.jpg);
+    background-attachment: fixed;
+    background-position: bottom;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.callToAction button {
+    margin: 40px;
+    background: rgba(var(--gradient-extra), 0.14);
+    border: 1px solid rgba(var(--primary-dark), 1);
+    padding: 20px 40px;
+    color: rgba(var(--primary-dark), 1);
+    font-weight: 600;
+}

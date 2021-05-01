@@ -8,6 +8,8 @@ import RegisterForm from '../../components/Landing/RegisterForm'
 import Features from '../../components/Landing/Features'
 import * as actionTypes from '../../store/actionTypes'
 import ContactUs from '../../components/Landing/ContactUs'
+import CallToAction from '../../components/Landing/CallToAction'
+import Footer from '../../components/Landing/Footer'
 import './Landing.css'
 
 const Landing = () => {
@@ -21,9 +23,9 @@ const Landing = () => {
                 <Hero isOpen={isRegisterFormOpen} setIsOpen={setIsRegisterFormOpen} />
                 <Overview />
                 <Features />
-                {/* CallToAction */}
+                <CallToAction />
                 <ContactUs />
-                {/* Footer */}
+                <Footer />
 
                 <div>
                     <button
