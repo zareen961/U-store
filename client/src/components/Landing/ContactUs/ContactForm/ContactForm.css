@@ -72,6 +72,7 @@
     border: 2px solid transparent;
     transition: all 0.3s ease-in-out;
     overflow: hidden;
+    z-index: 0;
 }
 
 .contactForm__sendButton > span {

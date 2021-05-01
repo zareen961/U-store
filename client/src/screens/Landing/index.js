@@ -25,7 +25,7 @@ const Landing = () => {
                 <Features />
                 <CallToAction setIsOpen={setIsRegisterFormOpen} />
                 <ContactUs />
-                {/* <Footer /> */}
+                <Footer />
 
                 <div>
                     <button
