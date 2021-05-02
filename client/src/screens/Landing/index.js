@@ -27,7 +27,7 @@ const Landing = () => {
                 <ContactUs />
                 <Footer />
 
-                <div>
+                {/* <div>
                     <button
                         onClick={() => dispatch({ type: actionTypes.THEME_SET_PURPLE })}
                     >
@@ -41,7 +41,7 @@ const Landing = () => {
                     >
                         BLUE
                     </button>
-                </div>
+                </div> */}
             </div>
 
             <RegisterForm isOpen={isRegisterFormOpen} setIsOpen={setIsRegisterFormOpen} />
