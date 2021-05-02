@@ -9,7 +9,9 @@
         ),
         url(../../../assets/images/call-to-action-wall.jpg);
     background-attachment: fixed;
-    background-position: bottom;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
 }
@@ -82,12 +84,11 @@
     );
     backdrop-filter: blur(7px);
     border: 2px solid rgba(var(--primary-light), 1);
-    color: var(--shadow-secondary);
-
+    color: rgba(var(--secondary-light), 0.8);
     transition: all 0.3s ease-in-out;
 }
 
 .callToAction__loginButton:hover {
     background-color: rgba(var(--primary-light), 0.6);
-    color: rgba(var(--secondary-light), 0.8);
+    color: rgba(var(--secondary-light), 1);
 }

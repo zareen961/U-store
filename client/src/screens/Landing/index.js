@@ -11,6 +11,7 @@ import ContactUs from '../../components/Landing/ContactUs'
 import CallToAction from '../../components/Landing/CallToAction'
 import Footer from '../../components/Landing/Footer'
 import './Landing.css'
+import ScrollToTop from '../../components/utils/ScrollToTop'
 
 const Landing = () => {
     const dispatch = useDispatch()
@@ -22,6 +23,7 @@ const Landing = () => {
                 <Navbar setIsOpen={setIsRegisterFormOpen} />
                 <Hero isOpen={isRegisterFormOpen} setIsOpen={setIsRegisterFormOpen} />
                 <Overview />
+                <ScrollToTop />
                 <Features />
                 <CallToAction setIsOpen={setIsRegisterFormOpen} />
                 <ContactUs />
