@@ -37,9 +37,9 @@ const Footer = () => {
 
                 <div className="footer__developers">
                     <h3>Developers</h3>
-                    <p className="footer__developerCard card1">
+                    <div className="footer__developerCard card1">
                         <img src={developerImage1} alt="Developer 1" />
-                        <p>
+                        <div>
                             <span>Shubham Kumar Singh</span>
                             <p>
                                 <a
@@ -59,11 +59,11 @@ const Footer = () => {
                                     <LinkedInIcon />
                                 </a>
                             </p>
-                        </p>
-                    </p>
-                    <p className="footer__developerCard">
+                        </div>
+                    </div>
+                    <div className="footer__developerCard">
                         <img src={developerImage2} alt="Developer 2" />
-                        <p>
+                        <div>
                             <span>Ifa Zareen</span>
                             <p>
                                 <a
@@ -83,8 +83,8 @@ const Footer = () => {
                                     <LinkedInIcon />
                                 </a>
                             </p>
-                        </p>
-                    </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <p className="footer__copyright">

@@ -9,6 +9,7 @@ import setAuthHeader from './utils/setAuthHeader'
 import Home from './screens/Home'
 import Landing from './screens/Landing'
 import Alerts from './components/utils/Alerts'
+import ThemeSwitch from './components/utils/ThemeSwitch'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -41,6 +42,7 @@ const App = () => {
     return (
         <div className="app">
             <Router>
+                <ThemeSwitch />
                 <Alerts />
                 {user ? <Route component={Home} /> : <Route component={Landing} />}
             </Router>

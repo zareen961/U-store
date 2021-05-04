@@ -43,7 +43,7 @@
     margin-bottom: 15px;
 }
 
-.footer__contentWrapper p {
+.footer__contentWrapper {
     font-weight: 500;
     color: rgba(var(--secondary-light), 1);
 }
@@ -79,12 +79,12 @@
     margin-bottom: 30px;
 }
 
-.footer__developerCard > p {
+.footer__developerCard > div {
     display: flex;
     flex-direction: column;
 }
 
-.footer__developerCard > p > span {
+.footer__developerCard > div > span {
     margin-bottom: 10px;
     letter-spacing: 1px;
 }
