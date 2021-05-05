@@ -5,23 +5,22 @@ import IconButton from '@material-ui/core/IconButton'
 
 import './Accordion.css'
 
-const Accordion = ({ query }) => {
-    const [show, setShow] = useState(false)
-
-    const handleShow = () => {
-        setShow(!show)
-    }
-
+const Accordion = ({ query, handleShow, index }) => {
     return (
         <div className="accordion">
             <div className="accordion__header">
                 <h3>{query.title}</h3>
-                <IconButton className="accordion__showButton" onClick={handleShow}>
-                    {show ? <IndeterminateCheckBoxIcon /> : <AddBoxIcon />}
+                <IconButton
+                    className="accordion__showButton"
+                    onClick={() => handleShow(index)}
+                    disableRipple="true"
+                    disableFocusRipple="true"
+                >
+                    {query.show ? <IndeterminateCheckBoxIcon /> : <AddBoxIcon />}
                 </IconButton>
             </div>
 
-            <p className={show ? 'accordion__answer show' : 'accordion__answer'}>
+            <p className={query.show ? 'accordion__answer show' : 'accordion__answer'}>
                 {query.answer}
             </p>
         </div>
