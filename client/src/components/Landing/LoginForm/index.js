@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import PersonIcon from '@material-ui/icons/Person'
 import LockIcon from '@material-ui/icons/Lock'
 
+import { userLogin } from '../../../store/actions/user'
+import { useForm } from '../../../utils/hooks/useForm'
 import FormLoader from '../../utils/FormLoader'
 import './LoginForm.css'
 
 const LoginForm = ({ setIsOpen }) => {
-    const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
+    const { loading } = useSelector((state) => state.userLogin)
+
+    const initialInputVals = {
+        usernameOrEmail: '',
+        password: '',
+    }
+    const { inputVals, handleOnChange } = useForm(initialInputVals)
 
     const handleLogin = (e) => {
         e.preventDefault()
-        setLoading(true)
+        dispatch(userLogin(inputVals))
     }
 
     return (
@@ -23,12 +33,15 @@ const LoginForm = ({ setIsOpen }) => {
                             <PersonIcon />
                         </label>
                         <input
-                            // required
+                            required
                             type="text"
                             autoComplete="new-password"
                             id="loginFormInputID"
                             className="loginForm__input"
                             placeholder="Username or Email"
+                            name="usernameOrEmail"
+                            value={inputVals.usernameOrEmail}
+                            onChange={handleOnChange}
                         />
                     </div>
                     <div className="loginForm__inputGroup">
@@ -36,10 +49,13 @@ const LoginForm = ({ setIsOpen }) => {
                             <LockIcon />
                         </label>
                         <input
-                            // required
+                            required
                             type="password"
                             className="loginForm__input"
                             placeholder="Password"
+                            name="password"
+                            value={inputVals.password}
+                            onChange={handleOnChange}
                         />
                     </div>
 

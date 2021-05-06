@@ -13,14 +13,14 @@ const Accordion = ({ query, handleShow, index }) => {
                 <IconButton
                     className="accordion__showButton"
                     onClick={() => handleShow(index)}
-                    disableRipple="true"
-                    disableFocusRipple="true"
+                    disableRipple={true}
+                    disableFocusRipple={true}
                 >
                     {query.show ? <IndeterminateCheckBoxIcon /> : <AddBoxIcon />}
                 </IconButton>
             </div>
 
-            <p className={query.show ? 'accordion__answer show' : 'accordion__answer'}>
+            <p className={query.show ? 'accordion__answerShow' : 'accordion__answer'}>
                 {query.answer}
             </p>
         </div>

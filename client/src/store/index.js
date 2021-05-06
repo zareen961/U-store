@@ -3,7 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
 
 import rootReducer from './reducers'
-import themeData from '../utils/themeData'
+import themeData from '../utils/constants/themeData'
 
 // persisting the last theme of the browser
 const themeFromLocalStorage = localStorage.getItem('theme')

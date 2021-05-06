@@ -36,7 +36,7 @@
     color: rgba(var(--primary-dark), 0.7) !important;
 }
 
-.accordion .accordion__answer.show {
+.accordion .accordion__answerShow {
     max-height: 500px;
     transition: max-height 5s linear;
 }
@@ -44,4 +44,5 @@
 .accordion .accordion__answer {
     overflow: hidden;
     max-height: 0;
+    transition: max-height 2s linear;
 }

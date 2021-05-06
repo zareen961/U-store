@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
 import PersonIcon from '@material-ui/icons/Person'
@@ -23,6 +24,9 @@ import CloseSharpIcon from '@material-ui/icons/CloseSharp'
 import IconButton from '@material-ui/core/IconButton'
 
 import avatarImage from '../../../assets/images/avatar.png'
+import { useForm } from '../../../utils/hooks/useForm'
+import { userRegister, collegeFetchData } from '../../../store/actions/user'
+import { alertAdd } from '../../../store/actions/alert'
 import FormLoader from '../../utils/FormLoader'
 import './RegisterForm.css'
 
@@ -31,20 +35,56 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 })
 
 const RegisterForm = ({ isOpen, setIsOpen }) => {
-    const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
+    const { loading: loadingRegister, success: successRegister } = useSelector(
+        (state) => state.userRegister
+    )
+    const { loading: loadingColleges, data } = useSelector((state) => state.college)
+
+    const initialInputVals = {
+        firstName: '',
+        lastName: '',
+        username: '',
+        email: '',
+        avatar: '',
+        primaryPhone: '',
+        secondaryPhone: '',
+        collegeState: 'Choose Your College State',
+        collegeCity: 'Choose Your College City',
+        college: 'Choose Your College',
+        password: '',
+        passwordConfirm: '',
+    }
+    const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
+
+    useEffect(() => {
+        dispatch(collegeFetchData())
+    }, [dispatch])
 
     const handleRegister = (e) => {
         e.preventDefault()
-        setLoading(true)
+
+        if (inputVals.password === inputVals.passwordConfirm) {
+            dispatch(userRegister(inputVals))
+        } else {
+            dispatch(alertAdd("Passwords didn't match!", 'danger'))
+        }
     }
 
     const handleModalClose = () => {
         setIsOpen(false)
+        handleReset()
     }
+
+    useEffect(() => {
+        if (successRegister) {
+            handleModalClose()
+        }
+    }, [successRegister])
 
     return (
         <Dialog
-            disableBackdropClick={loading}
+            disableBackdropClick={loadingRegister}
             disableScrollLock
             hideBackdrop
             fullWidth
@@ -74,10 +114,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <PersonIcon />
                                 </label>
                                 <input
-                                    // required
+                                    required
                                     type="text"
                                     placeholder="First Name"
                                     autoComplete="new-password"
+                                    name="firstName"
+                                    value={inputVals.firstName}
+                                    onChange={handleOnChange}
                                 />
                             </div>
                             <div className="registerForm__formGroup left ">
@@ -88,6 +131,9 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     type="text"
                                     placeholder="Last Name"
                                     autoComplete="new-password"
+                                    name="lastName"
+                                    value={inputVals.lastName}
+                                    onChange={handleOnChange}
                                 />
                             </div>
                         </div>
@@ -120,10 +166,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <PhoneIcon />
                                 </label>
                                 <input
-                                    // required
+                                    required
                                     type="text"
                                     placeholder="Primary Phone"
                                     autoComplete="new-password"
+                                    name="primaryPhone"
+                                    value={inputVals.primaryPhone}
+                                    onChange={handleOnChange}
                                 />
                             </div>
                             <div className="registerForm__formGroup">
@@ -134,6 +183,9 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     type="text"
                                     placeholder="Secondary Phone"
                                     autoComplete="new-password"
+                                    name="secondaryPhone"
+                                    value={inputVals.secondaryPhone}
+                                    onChange={handleOnChange}
                                 />
                             </div>
                         </div>
@@ -145,10 +197,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                 <AlternateEmailIcon />
                             </label>
                             <input
-                                // required
+                                required
                                 type="text"
                                 placeholder="Create Username"
                                 autoComplete="new-password"
+                                name="username"
+                                value={inputVals.username}
+                                onChange={handleOnChange}
                             />
                         </div>
                         <div className="registerForm__formGroup">
@@ -156,10 +211,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                 <EmailIcon />
                             </label>
                             <input
-                                // required
+                                required
                                 type="email"
                                 placeholder="Email Address"
                                 autoComplete="new-password"
+                                name="email"
+                                value={inputVals.email}
+                                onChange={handleOnChange}
                             />
                         </div>
                     </div>
@@ -172,16 +230,19 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             </label>
                             <FormControl>
                                 <Select
-                                    //   value={age}
-                                    //   onChange={handleChange}
+                                    name="collegeState"
+                                    value={inputVals.collegeState}
+                                    onChange={handleOnChange}
                                     variant="outlined"
                                 >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {data.map((state) => (
+                                        <MenuItem key={state._id} value={state._id}>
+                                            {state.name}
+                                        </MenuItem>
+                                    ))}
                                 </Select>
                             </FormControl>
                         </div>
@@ -191,16 +252,16 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             </label>
                             <FormControl>
                                 <Select
-                                    //   value={age}
-                                    //   onChange={handleChange}
+                                    value={inputVals.collegeCity}
+                                    onChange={handleOnChange}
                                     variant="outlined"
                                 >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {/* {inputVals.collegeState.cities.map((city) => (
+                                        <MenuItem key={city._id} value={city._id}>{city.name}</MenuItem>
+                                    ))} */}
                                 </Select>
                             </FormControl>
                         </div>
@@ -210,16 +271,18 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             </label>
                             <FormControl>
                                 <Select
-                                    //   value={age}
-                                    //   onChange={handleChange}
+                                    value={inputVals.collegeCity}
+                                    onChange={handleOnChange}
                                     variant="outlined"
                                 >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    {/* {inputVals.collegeCity.colleges.map((college) => (
+                                        <MenuItem key={college._id} value={college._id}>
+                                            {college.name}
+                                        </MenuItem>
+                                    ))} */}
                                 </Select>
                             </FormControl>
                         </div>
@@ -232,9 +295,12 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                 <LockOpenIcon />
                             </label>
                             <input
-                                // required
+                                required
                                 type="password"
                                 placeholder="Password"
+                                name="password"
+                                value={inputVals.password}
+                                onChange={handleOnChange}
                             />
                         </div>
                         <div className="registerForm__formGroup">
@@ -242,9 +308,12 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                 <LockIcon />
                             </label>
                             <input
-                                // required
+                                required
                                 type="password"
                                 placeholder="Confirm Password"
+                                name="passwordConfirm"
+                                value={inputVals.passwordConfirm}
+                                onChange={handleOnChange}
                             />
                         </div>
                         <div className="registerForm__formGroup buttonWrapper">
@@ -257,7 +326,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                 </form>
             </div>
 
-            <FormLoader loading={loading} size={70} />
+            <FormLoader loading={loadingRegister} size={70} />
         </Dialog>
     )
 }

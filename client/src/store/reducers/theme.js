@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes'
-import themeData from '../../utils/themeData'
+import themeData from '../../utils/constants/themeData'
 
 export const themeReducer = (state = themeData.purple, action) => {
     switch (action.type) {
