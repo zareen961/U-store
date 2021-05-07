@@ -55,9 +55,9 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
         passwordConfirm: '',
     }
     const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
-    const [collegeState, setCollegeState] = useState('')
-    const [collegeCity, setCollegeCity] = useState('')
-    const [college, setCollege] = useState('')
+    const [collegeState, setCollegeState] = useState('0')
+    const [collegeCity, setCollegeCity] = useState('0')
+    const [college, setCollege] = useState('0')
 
     // to fetch all the college data on page load
     useEffect(() => {
@@ -73,33 +73,47 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
 
     // to clear out city and college field if the state is changed
     useEffect(() => {
-        setCollegeCity('')
-        setCollege('')
+        setCollegeCity('0')
+        setCollege('0')
     }, [collegeState])
 
     // to clear out college field if the city is changed
     useEffect(() => {
-        setCollege('')
+        setCollege('0')
     }, [collegeCity])
-
-    useEffect(() => {
-        console.log('State: ', collegeState)
-        console.log('City: ', collegeCity)
-        console.log('College: ', college)
-    }, [collegeState, collegeCity, college])
 
     const handleRegister = (e) => {
         e.preventDefault()
 
-        if (inputVals.password === inputVals.passwordConfirm) {
-            dispatch(userRegister({ ...inputVals, collegeState, collegeCity, college }))
-        } else {
+        let isError = false
+
+        if (collegeState === '0') {
+            isError = true
+            dispatch(alertAdd('College State!', 'danger'))
+        }
+        if (collegeCity === '0') {
+            isError = true
+            dispatch(alertAdd('College City!', 'danger'))
+        }
+        if (college === '0') {
+            isError = true
+            dispatch(alertAdd('College!', 'danger'))
+        }
+        if (inputVals.password !== inputVals.passwordConfirm) {
+            isError = true
             dispatch(alertAdd("Passwords didn't match!", 'danger'))
+        }
+
+        if (!isError) {
+            dispatch(userRegister({ ...inputVals, collegeState, collegeCity, college }))
         }
     }
 
     const handleModalClose = () => {
         setIsOpen(false)
+        setCollegeState('0')
+        setCollegeCity('0')
+        setCollege('0')
         handleReset()
     }
 
@@ -121,7 +135,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                         <h1>Sign Up Here!</h1>
                         <IconButton
                             className="registerForm__closeButton"
-                            onClick={() => setIsOpen(false)}
+                            onClick={handleModalClose}
                         >
                             <CloseSharpIcon />
                         </IconButton>
@@ -255,14 +269,18 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     value={collegeState}
                                     onChange={(e) => setCollegeState(e.target.value)}
                                 >
-                                    <MenuItem value="">
-                                        <em>None</em>
+                                    <MenuItem value="0">
+                                        <em>Select College State</em>
                                     </MenuItem>
-                                    {collegesData.map((state) => (
-                                        <MenuItem key={state._id} value={state._id}>
-                                            {state.name}
-                                        </MenuItem>
-                                    ))}
+                                    {loadingColleges ? (
+                                        <MenuItem value="0">Please Wait...</MenuItem>
+                                    ) : (
+                                        collegesData.map((state) => (
+                                            <MenuItem key={state._id} value={state._id}>
+                                                {state.name}
+                                            </MenuItem>
+                                        ))
+                                    )}
                                 </Select>
                             </FormControl>
                         </div>
@@ -276,17 +294,21 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     value={collegeCity}
                                     onChange={(e) => setCollegeCity(e.target.value)}
                                 >
-                                    <MenuItem value="">
-                                        <em>None</em>
+                                    <MenuItem value="0">
+                                        <em>Select College City</em>
                                     </MenuItem>
-                                    {collegeState &&
+                                    {loadingColleges ? (
+                                        <MenuItem value="0">Please Wait...</MenuItem>
+                                    ) : (
+                                        collegeState &&
                                         collegesData
                                             .find((state) => state._id === collegeState)
                                             ?.cities.map((city) => (
                                                 <MenuItem key={city._id} value={city._id}>
                                                     {city.name}
                                                 </MenuItem>
-                                            ))}
+                                            ))
+                                    )}
                                 </Select>
                             </FormControl>
                         </div>
@@ -300,10 +322,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     value={college}
                                     onChange={(e) => setCollege(e.target.value)}
                                 >
-                                    <MenuItem value="">
-                                        <em>None</em>
+                                    <MenuItem value="0">
+                                        <em>Choose Your College</em>
                                     </MenuItem>
-                                    {collegeState &&
+                                    {loadingColleges ? (
+                                        <MenuItem value="0">Please wait...</MenuItem>
+                                    ) : (
+                                        collegeState &&
                                         collegeCity &&
                                         collegesData
                                             .find((state) => state._id === collegeState)
@@ -317,7 +342,8 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                                 >
                                                     {college.name}
                                                 </MenuItem>
-                                            ))}
+                                            ))
+                                    )}
                                 </Select>
                             </FormControl>
                         </div>
