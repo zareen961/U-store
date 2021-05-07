@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
@@ -39,7 +39,9 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
     const { loading: loadingRegister, success: successRegister } = useSelector(
         (state) => state.userRegister
     )
-    const { loading: loadingColleges, data } = useSelector((state) => state.college)
+    const { loading: loadingColleges, data: collegesData } = useSelector(
+        (state) => state.college
+    )
 
     const initialInputVals = {
         firstName: '',
@@ -49,23 +51,48 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
         avatar: '',
         primaryPhone: '',
         secondaryPhone: '',
-        collegeState: 'Choose Your College State',
-        collegeCity: 'Choose Your College City',
-        college: 'Choose Your College',
         password: '',
         passwordConfirm: '',
     }
     const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
+    const [collegeState, setCollegeState] = useState('')
+    const [collegeCity, setCollegeCity] = useState('')
+    const [college, setCollege] = useState('')
 
+    // to fetch all the college data on page load
     useEffect(() => {
         dispatch(collegeFetchData())
     }, [dispatch])
+
+    // to automatically clear the register form on successful signup
+    useEffect(() => {
+        if (successRegister) {
+            handleModalClose()
+        }
+    }, [successRegister])
+
+    // to clear out city and college field if the state is changed
+    useEffect(() => {
+        setCollegeCity('')
+        setCollege('')
+    }, [collegeState])
+
+    // to clear out college field if the city is changed
+    useEffect(() => {
+        setCollege('')
+    }, [collegeCity])
+
+    useEffect(() => {
+        console.log('State: ', collegeState)
+        console.log('City: ', collegeCity)
+        console.log('College: ', college)
+    }, [collegeState, collegeCity, college])
 
     const handleRegister = (e) => {
         e.preventDefault()
 
         if (inputVals.password === inputVals.passwordConfirm) {
-            dispatch(userRegister(inputVals))
+            dispatch(userRegister({ ...inputVals, collegeState, collegeCity, college }))
         } else {
             dispatch(alertAdd("Passwords didn't match!", 'danger'))
         }
@@ -75,12 +102,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
         setIsOpen(false)
         handleReset()
     }
-
-    useEffect(() => {
-        if (successRegister) {
-            handleModalClose()
-        }
-    }, [successRegister])
 
     return (
         <Dialog
@@ -230,15 +251,14 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             </label>
                             <FormControl>
                                 <Select
-                                    name="collegeState"
-                                    value={inputVals.collegeState}
-                                    onChange={handleOnChange}
                                     variant="outlined"
+                                    value={collegeState}
+                                    onChange={(e) => setCollegeState(e.target.value)}
                                 >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    {data.map((state) => (
+                                    {collegesData.map((state) => (
                                         <MenuItem key={state._id} value={state._id}>
                                             {state.name}
                                         </MenuItem>
@@ -252,16 +272,21 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             </label>
                             <FormControl>
                                 <Select
-                                    value={inputVals.collegeCity}
-                                    onChange={handleOnChange}
                                     variant="outlined"
+                                    value={collegeCity}
+                                    onChange={(e) => setCollegeCity(e.target.value)}
                                 >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    {/* {inputVals.collegeState.cities.map((city) => (
-                                        <MenuItem key={city._id} value={city._id}>{city.name}</MenuItem>
-                                    ))} */}
+                                    {collegeState &&
+                                        collegesData
+                                            .find((state) => state._id === collegeState)
+                                            ?.cities.map((city) => (
+                                                <MenuItem key={city._id} value={city._id}>
+                                                    {city.name}
+                                                </MenuItem>
+                                            ))}
                                 </Select>
                             </FormControl>
                         </div>
@@ -271,18 +296,28 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                             </label>
                             <FormControl>
                                 <Select
-                                    value={inputVals.collegeCity}
-                                    onChange={handleOnChange}
                                     variant="outlined"
+                                    value={college}
+                                    onChange={(e) => setCollege(e.target.value)}
                                 >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    {/* {inputVals.collegeCity.colleges.map((college) => (
-                                        <MenuItem key={college._id} value={college._id}>
-                                            {college.name}
-                                        </MenuItem>
-                                    ))} */}
+                                    {collegeState &&
+                                        collegeCity &&
+                                        collegesData
+                                            .find((state) => state._id === collegeState)
+                                            ?.cities.find(
+                                                (city) => city._id === collegeCity
+                                            )
+                                            ?.colleges.map((college) => (
+                                                <MenuItem
+                                                    key={college._id}
+                                                    value={college._id}
+                                                >
+                                                    {college.name}
+                                                </MenuItem>
+                                            ))}
                                 </Select>
                             </FormControl>
                         </div>
