@@ -51,7 +51,7 @@ const userSchema = new Schema(
         },
         avatar: {
             type: Number,
-            default: 1,
+            default: 0,
         },
         primaryPhone: {
             type: String,

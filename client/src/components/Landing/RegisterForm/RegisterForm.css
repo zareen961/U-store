@@ -23,7 +23,6 @@
 .registerForm h1 {
     font-size: 2rem;
     font-weight: 500;
-    font-family: 'Raleway', sans-serif;
     margin-bottom: 20px;
     color: rgba(var(--secondary-light), 1);
 }
@@ -73,6 +72,7 @@
     border-left-width: 2px;
     border-right-width: 2px;
     transform: rotateZ(-40deg);
+    background-color: rgba(var(--primary-light), 1);
 }
 
 .registerForm__avatarWrapper .avatar img {
