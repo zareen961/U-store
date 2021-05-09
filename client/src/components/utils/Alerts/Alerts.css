@@ -3,16 +3,20 @@
     bottom: 20px;
     right: 20px;
     z-index: 10000;
+    max-width: 50vw;
 }
 
 .alerts__box {
-    margin: 10px 0;
+    margin: 15px 0;
     font-size: 1rem;
     align-items: center;
     padding: 10px 30px;
     display: flex;
     align-items: center;
     box-sizing: border-box;
+    border-radius: 3px;
+    border: 2px solid;
+    box-shadow: 7px 7px 10px var(--shadow-primary);
 }
 
 .alerts__box > p {
@@ -21,12 +25,13 @@
 }
 
 .alerts__box.success {
-    background-color: var(--secondary-dark);
-    color: var(--primary);
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-dark), 1);
+    border-color: rgba(var(--primary-light), 1);
 }
 
 .alerts__box.error {
-    background-color: var(--primary);
-    color: var(--secondary-dark);
-    border: 2px solid var(--secondary-dark);
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    border-color: rgba(var(--primary-light), 1);
 }

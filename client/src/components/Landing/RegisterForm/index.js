@@ -90,19 +90,19 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
 
         if (collegeState === '0') {
             isError = true
-            dispatch(alertAdd('College State!', 'danger'))
+            dispatch(alertAdd('Select your college state!', 'error'))
         }
         if (collegeCity === '0') {
             isError = true
-            dispatch(alertAdd('College City!', 'danger'))
+            dispatch(alertAdd('Select your college city!', 'error'))
         }
         if (college === '0') {
             isError = true
-            dispatch(alertAdd('College!', 'danger'))
+            dispatch(alertAdd('Select your college!', 'error'))
         }
         if (inputVals.password !== inputVals.passwordConfirm) {
             isError = true
-            dispatch(alertAdd("Passwords didn't match!", 'danger'))
+            dispatch(alertAdd("Passwords didn't match!", 'error'))
         }
 
         if (!isError) {
