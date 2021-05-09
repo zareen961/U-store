@@ -16,10 +16,12 @@ import {
     productUploadReducer,
 } from './product'
 import { bidPlaceReducer, bidDeleteReducer, bidUpdateReducer } from './bid'
+import { contactMailReducer } from './contact'
 
 export default combineReducers({
     theme: themeReducer,
     alerts: alertReducer,
+    contactMail: contactMailReducer,
     college: collegeReducer,
     userRegister: userRegisterReducer,
     userLogin: userLoginReducer,

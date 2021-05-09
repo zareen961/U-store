@@ -88,3 +88,27 @@
 .contactForm__sendButton:hover {
     border-radius: 30px;
 }
+
+@keyframes animate-contact-button {
+    0% {
+        border-radius: 3px;
+    }
+    100% {
+        border-radius: 30px;
+    }
+}
+
+.contactForm__sendButton.animate {
+    animation: animate-contact-button 0.5s infinite linear;
+    animation-direction: alternate;
+}
+
+.contactForm__sendButton.animate .contactForm__sendIcon {
+    transform: translate(60px);
+    transition: all 0.5s ease-in;
+}
+
+.contactForm__sendButton.animate span {
+    transform: translate(15px);
+    transition: all 0.5s ease-in;
+}

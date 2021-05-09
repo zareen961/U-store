@@ -80,5 +80,10 @@ export const BID_REMOVE_DELETED = 'BID_REMOVE_DELETED'
 export const BID_PUSH_NEW = 'BID_PUSH_NEW'
 export const BID_UPDATE_UPDATED = 'BID_UPDATE_UPDATED'
 
+// CONTACT FORM ********************************************************************************
+export const CONTACT_MAIL_REQUEST = 'CONTACT_MAIL_REQUEST'
+export const CONTACT_MAIL_SUCCESS = 'CONTACT_MAIL_SUCCESS'
+export const CONTACT_MAIL_FAIL = 'CONTACT_MAIL_FAIL'
+
 // CLEAN-UP ************************************************************************************
 export const PRODUCT_CLEANUP = 'PRODUCT_CLEANUP'

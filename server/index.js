@@ -11,6 +11,7 @@ const userRoutes = require('./routes/user')
 const productRoutes = require('./routes/product')
 const bidRoutes = require('./routes/bid')
 const collegeRoutes = require('./routes/college')
+const contactRoutes = require('./routes/contact')
 
 // connecting to database
 connectDB()
@@ -37,6 +38,7 @@ app.use('/api/user', userRoutes)
 app.use('/api/college', collegeRoutes)
 app.use('/api/product', productRoutes)
 app.use('/api/bid', bidRoutes)
+app.use('/api/contact', contactRoutes)
 
 // Error Handler middleware
 app.use(notFoundHandler)

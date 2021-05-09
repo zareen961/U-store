@@ -9,6 +9,8 @@ const NAME_REGEX = /^[a-zA-Z\s]{3,20}$/
 const PHONE_REGEX = /^[6-9]\d{9}$/
 const PRODUCT_LEN_MIN = 3
 const PRODUCT_LEN_MAX = 31
+const CONTACT_SUBJECT_LENGTH = 5
+const CONTACT_MESSAGE_LENGTH = 10
 
 module.exports = {
     PRICE_MAX,
@@ -22,4 +24,6 @@ module.exports = {
     PHONE_REGEX,
     PRODUCT_LEN_MIN,
     PRODUCT_LEN_MAX,
+    CONTACT_SUBJECT_LENGTH,
+    CONTACT_MESSAGE_LENGTH,
 }
