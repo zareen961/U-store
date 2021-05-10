@@ -43,7 +43,7 @@ const AvatarForm = ({ isAvatarOpen, setIsAvatarOpen, avatar, setAvatar }) => {
                 </div>
                 <div className="avatarForm__avatarsWrapper">
                     {shuffledArray.map((avatarNumber) => (
-                        <div className="avatarForm__inputGroup">
+                        <div className="avatarForm__inputGroup" key={avatarNumber}>
                             <input
                                 type="radio"
                                 name="avatar"
@@ -51,8 +51,11 @@ const AvatarForm = ({ isAvatarOpen, setIsAvatarOpen, avatar, setAvatar }) => {
                                 value={avatarNumber + 1}
                                 onChange={setAvatar}
                             />
-                            <label for={`avatar${avatarNumber + 1}`}>
-                                <img src={`avatars/avatar${avatarNumber + 1}.png`} />
+                            <label htmlFor={`avatar${avatarNumber + 1}`}>
+                                <img
+                                    src={`avatars/avatar${avatarNumber + 1}.png`}
+                                    alt={`avatar-${avatarNumber + 1}`}
+                                />
                             </label>
                         </div>
                     ))}

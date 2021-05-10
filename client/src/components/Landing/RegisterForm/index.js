@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Dialog from '@material-ui/core/Dialog'
 import Slide from '@material-ui/core/Slide'
@@ -34,6 +34,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />
 })
 
+const initialInputVals = {
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    avatar: 0,
+    primaryPhone: '',
+    secondaryPhone: '',
+    password: '',
+    passwordConfirm: '',
+}
+
 const RegisterForm = ({ isOpen, setIsOpen }) => {
     const dispatch = useDispatch()
     const { loading: loadingRegister, success: successRegister } = useSelector(
@@ -43,17 +55,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
         (state) => state.college
     )
 
-    const initialInputVals = {
-        firstName: '',
-        lastName: '',
-        username: '',
-        email: '',
-        avatar: 0,
-        primaryPhone: '',
-        secondaryPhone: '',
-        password: '',
-        passwordConfirm: '',
-    }
     const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
     const [collegeState, setCollegeState] = useState('0')
     const [collegeCity, setCollegeCity] = useState('0')
@@ -65,12 +66,20 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
         dispatch(collegeFetchData())
     }, [dispatch])
 
+    const handleModalClose = useCallback(() => {
+        setIsOpen(false)
+        setCollegeState('0')
+        setCollegeCity('0')
+        setCollege('0')
+        handleReset()
+    }, [handleReset, setIsOpen])
+
     // to automatically clear the register form on successful signup
     useEffect(() => {
         if (successRegister) {
             handleModalClose()
         }
-    }, [successRegister])
+    }, [successRegister, handleModalClose])
 
     // to clear out city and college field if the state is changed
     useEffect(() => {
@@ -108,14 +117,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
         if (!isError) {
             dispatch(userRegister({ ...inputVals, collegeState, collegeCity, college }))
         }
-    }
-
-    const handleModalClose = () => {
-        setIsOpen(false)
-        setCollegeState('0')
-        setCollegeCity('0')
-        setCollege('0')
-        handleReset()
     }
 
     return (

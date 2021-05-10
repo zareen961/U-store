@@ -6,23 +6,24 @@ import { useForm } from '../../../../utils/hooks/useForm'
 import { contactMailSend } from '../../../../store/actions/contact'
 import './ContactForm.css'
 
+const initialInputVals = {
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+}
+
 const ContactForm = () => {
     const dispatch = useDispatch()
     const { loading, success } = useSelector((state) => state.contactMail)
 
-    const initialInputVals = {
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-    }
     const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
 
     useEffect(() => {
         if (success) {
             handleReset()
         }
-    }, [success])
+    }, [success, handleReset])
 
     const handleOnSubmit = (e) => {
         e.preventDefault()

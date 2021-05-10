@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 
 export const useForm = (initialVals = {}) => {
     const [inputVals, setInputVals] = useState(initialVals)
@@ -10,9 +10,9 @@ export const useForm = (initialVals = {}) => {
         })
     }
 
-    const handleReset = () => {
+    const handleReset = useCallback(() => {
         setInputVals(initialVals)
-    }
+    }, [initialVals])
 
     return { inputVals, handleOnChange, handleReset }
 }
