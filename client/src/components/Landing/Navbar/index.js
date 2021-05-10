@@ -22,9 +22,9 @@ const Navbar = ({ setIsOpen }) => {
     return (
         <div className={backgroundClass}>
             <div className="navbar__container">
-                <div className="navbar__logoWrapper">
+                <a href="#" className="navbar__logoWrapper">
                     <Logo />
-                </div>
+                </a>
                 <div className="navbar__linksWrapper">
                     <HashLink to="#homeID">Home</HashLink>
                     <HashLink to="#overviewID">Overview</HashLink>

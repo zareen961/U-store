@@ -37,6 +37,7 @@
 }
 
 .accordion .accordion__answerShow {
+    overflow: hidden;
     max-height: 500px;
     transition: max-height 5s linear;
 }

@@ -18,6 +18,7 @@
 }
 
 .navbar__logoWrapper {
+    display: block;
     width: fit-content;
     height: fit-content;
 }

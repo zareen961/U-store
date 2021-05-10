@@ -65,7 +65,7 @@
     display: flex;
     align-items: center;
     border: none;
-    background-color: rgba(var(--primary-dark), 1);
+    background-color: rgba(var(--primary-light), 1);
     border-radius: 3px;
     padding: 0px 20px;
     cursor: pointer;
