@@ -119,6 +119,13 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
         }
     }
 
+    const handlePhoneInput = (e) => {
+        const regEx = /[0-9]+/
+        if (regEx.test(e.nativeEvent.data)) {
+            handleOnChange(e)
+        }
+    }
+
     return (
         <>
             <Dialog
@@ -211,7 +218,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                         autoComplete="new-password"
                                         name="primaryPhone"
                                         value={inputVals.primaryPhone}
-                                        onChange={handleOnChange}
+                                        onChange={handlePhoneInput}
                                     />
                                 </div>
                                 <div className="registerForm__formGroup">
@@ -224,7 +231,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                         autoComplete="new-password"
                                         name="secondaryPhone"
                                         value={inputVals.secondaryPhone}
-                                        onChange={handleOnChange}
+                                        onChange={handlePhoneInput}
                                     />
                                 </div>
                             </div>
