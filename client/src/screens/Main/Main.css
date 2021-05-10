@@ -1,0 +1,15 @@
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.main__sidebar {
+    flex: 0.2;
+}
+
+.main__wrapper {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+}

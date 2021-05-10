@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css'
 import { userLogout, userFetch } from './store/actions/user'
 import setAuthHeader from './utils/setAuthHeader'
-import Home from './screens/Home'
+import Main from './screens/Main'
 import Landing from './screens/Landing'
 import Alerts from './components/utils/Alerts'
 import ThemeSwitch from './components/utils/ThemeSwitch'
@@ -44,7 +44,7 @@ const App = () => {
             <Router>
                 <ThemeSwitch />
                 <Alerts />
-                {user ? <Route component={Home} /> : <Route component={Landing} />}
+                {user ? <Route component={Main} /> : <Route component={Landing} />}
             </Router>
         </div>
     )

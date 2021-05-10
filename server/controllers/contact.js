@@ -29,7 +29,7 @@ const sendContactMail = asyncHandler((req, res) => {
         transporter.sendMail(emailTemplate, (err, info) => {
             if (err) {
                 res.status(500).json({
-                    message: 'Error sending mail!',
+                    message: 'Unable to contact right now, try again later!',
                 })
                 // throw new Error('Error sending mail!')
             } else {
