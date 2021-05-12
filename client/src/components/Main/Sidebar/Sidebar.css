@@ -8,21 +8,23 @@
 
 .sidebar__logoWrapper {
     display: block;
-    margin: 0 50px 80px 30px;
+    margin: 0 30px 80px 30px;
+    background-color: rgba(var(--primary-light), 1);
+    box-shadow: -3px 5px 8px var(--shadow-primary);
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .sidebar__logoWrapper .logo {
-    background-color: rgba(var(--primary-light), 1);
-    border-radius: 8px;
-    padding: 20px 15px;
+    margin: auto;
     position: relative;
     z-index: 1;
-    box-shadow: -3px 5px 8px var(--shadow-primary);
 }
 
 .sidebar__heading {
     font-weight: 600;
-    margin-bottom: 30px;
+    letter-spacing: 1px;
+    font-size: 1.3rem;
     color: rgba(var(--primary-dark), 1);
     padding-left: 30px;
 }
@@ -31,6 +33,7 @@
     display: flex;
     flex-direction: column;
     background-color: rgba(var(--primary-light), 0.04);
+    margin-top: 30px;
 }
 
 .sidebar__menu a {
@@ -52,8 +55,6 @@
 .sidebar__menu .text {
     font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 1px;
-    /* font-family: 'Raleway', sans-serif; */
     font-family: 'Open Sans', sans-serif;
     color: rgba(var(--primary-light), 0.4);
     padding-bottom: 2px;
@@ -71,4 +72,55 @@
 
 .sidebar__menu a.active .text {
     color: rgba(var(--primary-dark), 0.7);
+}
+
+.sidebar__accountHeadingWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-right: 30px;
+}
+
+.sidebar__accountExpandIcon {
+    transition: all 0.5s ease !important;
+}
+
+.sidebar__accountExpandIcon.rotate {
+    transition: all 0.5s ease !important;
+    transform: rotateZ(180deg);
+}
+
+.sidebar__accountWrapper {
+    display: flex;
+    padding-left: 30px;
+    margin-top: 20px;
+    transition: all 0.8s ease;
+    max-height: 0;
+    overflow: hidden;
+}
+
+.sidebar__accountWrapper.show {
+    transition: all 0.8s ease;
+    max-height: 400px;
+}
+
+.sidebar__avatar {
+    background-color: rgba(var(--primary-light), 0.3);
+    padding: 5px;
+}
+
+.sidebar__accountDetailsWrapper {
+    margin-left: 15px;
+}
+
+.sidebar__accountDetailsWrapper h3 {
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: rgba(var(--primary-dark), 1);
+}
+
+.sidebar__accountDetailsWrapper p {
+    font-size: 0.95rem;
+    color: rgba(var(--primary-light), 0.8);
 }

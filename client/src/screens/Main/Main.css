@@ -4,6 +4,10 @@
     display: flex;
 }
 
+.main * {
+    font-family: 'Roboto', sans-serif !important;
+}
+
 .main__sidebar {
     flex: 0.2;
 }

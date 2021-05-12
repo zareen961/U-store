@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HomeIcon from '@material-ui/icons/Home'
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import IconButton from '@material-ui/core/IconButton'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import Avatar from '@material-ui/core/Avatar'
 
 import Logo from '../../utils/Logo'
 import './Sidebar.css'
@@ -8,7 +13,9 @@ import './Sidebar.css'
 const Sidebar = () => {
     const path =
         window.location.pathname === '/' ? 'home' : window.location.pathname.substr(1)
+
     const [activeItem, setActiveItem] = useState(path)
+    const [isAccountOpen, setIsAccountOpen] = useState(true)
 
     useEffect(() => {
         setActiveItem(path)
@@ -32,17 +39,52 @@ const Sidebar = () => {
                     className={activeItem === 'products' ? 'active' : ''}
                 >
                     <span className="icon">
-                        <HomeIcon />
+                        <ShoppingBasketIcon />
                     </span>
                     <span className="text">My Products</span>
                 </Link>
                 <Link to="/bids" className={activeItem === 'bids' ? 'active' : ''}>
                     <span className="icon">
-                        <HomeIcon />
+                        <ShoppingCartIcon />
                     </span>
                     <span className="text">My Bids</span>
                 </Link>
             </div>
+
+            <div className="sidebar__accountHeadingWrapper">
+                <h2 className="sidebar__heading">Account</h2>
+                <IconButton
+                    onClick={() =>
+                        setIsAccountOpen((prevIsAccountOpen) => !prevIsAccountOpen)
+                    }
+                >
+                    <ExpandMoreIcon
+                        className={
+                            isAccountOpen
+                                ? 'sidebar__accountExpandIcon'
+                                : 'sidebar__accountExpandIcon rotate'
+                        }
+                    />
+                </IconButton>
+            </div>
+            <Link
+                to="/account"
+                className={
+                    isAccountOpen
+                        ? 'sidebar__accountWrapper show'
+                        : 'sidebar__accountWrapper'
+                }
+            >
+                <Avatar
+                    alt="First Name"
+                    src="avatars/avatar1.png"
+                    className="sidebar__avatar"
+                />
+                <div className="sidebar__accountDetailsWrapper">
+                    <h3>Shubham</h3>
+                    <p>@blck_tie</p>
+                </div>
+            </Link>
         </div>
     )
 }
