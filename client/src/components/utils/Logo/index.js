@@ -2,9 +2,9 @@ import React from 'react'
 
 import './Logo.css'
 
-const Logo = ({ isAnimate }) => {
+const Logo = ({ isAnimate, sizeClass }) => {
     return (
-        <div className={isAnimate ? 'logo animate' : 'logo'}>
+        <div className={isAnimate ? `logo animate ${sizeClass}` : `logo ${sizeClass}`}>
             <div className="logo__icon">
                 <div className="logo__leftLines">
                     <div className="logo__iconLine behind"></div>

@@ -85,3 +85,8 @@
     animation: animate-box 1s infinite ease-in-out;
     animation-direction: alternate;
 }
+
+/* Size classes */
+.logo.small {
+    --logo-size: 30px !important;
+}

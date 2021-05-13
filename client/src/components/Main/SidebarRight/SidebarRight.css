@@ -1,0 +1,4 @@
+.sidebarRight {
+    background-color: rgba(var(--primary-light), 0.08);
+    height: 100%;
+}

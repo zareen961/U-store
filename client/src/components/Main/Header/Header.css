@@ -1,3 +1,72 @@
 .header {
+    height: 100%;
+    background-color: rgba(var(--secondary-light), 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px 0 20px;
+    z-index: 10;
+}
+
+.header__logoWrapper {
+    display: block;
+    background-color: rgba(var(--primary-light), 1);
+    padding: 15px 30px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+.header__rightWrapper {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.header__searchWrapper {
+    display: flex;
+    align-items: center;
     background-color: rgba(var(--primary-light), 0.08);
+    height: 100%;
+    padding-left: 12px;
+    border-radius: 10px;
+    width: 300px;
+    color: rgba(var(--primary-light), 0.8);
+}
+
+.header__searchWrapper > input {
+    background-color: transparent;
+    border: 0;
+    flex: 1;
+    margin-left: 10px;
+}
+
+.header__searchWrapper > input::placeholder {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.header__menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.header__uploadButton {
+    margin: 0 20px;
+    border: none;
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 10px;
+    padding: 0 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.header__uploadButton > span {
+    margin-left: 5px;
 }
