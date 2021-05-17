@@ -139,6 +139,7 @@
     font-size: 0.9rem;
     cursor: pointer;
     padding: 6px 20px;
+    text-align: center;
 }
 
 .header__menu a:hover,

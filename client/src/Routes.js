@@ -6,6 +6,7 @@ import Products from './screens/Main/Products'
 import Bids from './screens/Main/Bids'
 import Following from './screens/Main/Following'
 import Account from './screens/Main/Account'
+import Settings from './screens/Main/Settings'
 
 const Routes = () => {
     return (
@@ -16,6 +17,7 @@ const Routes = () => {
                 <Route exact path="/bids" component={Bids} />
                 <Route exact path="/following" component={Following} />
                 <Route exact path="/account" component={Account} />
+                <Route exact path="/settings" component={Settings} />
             </Switch>
         </>
     )

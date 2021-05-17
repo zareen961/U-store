@@ -8,6 +8,7 @@ import {
     PinIcon,
     MegaphoneIcon,
     TagIcon,
+    GearIcon,
 } from '@primer/octicons-react'
 import Badge from '@material-ui/core/Badge'
 
@@ -109,6 +110,15 @@ const SidebarLeft = () => {
                         <PersonIcon size={20} />
                     </span>
                     <span className="sidebarLeft__menuText">Account</span>
+                </Link>
+
+                <span className="line"></span>
+
+                <Link to="/settings" className={active === 'settings' ? 'active' : ''}>
+                    <span className="sidebarLeft__menuIcon">
+                        <GearIcon size={20} />
+                    </span>
+                    <span className="sidebarLeft__menuText">Settings</span>
                 </Link>
             </div>
         </div>

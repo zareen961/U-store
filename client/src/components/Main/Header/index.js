@@ -56,6 +56,8 @@ const Header = () => {
                         >
                             <Link to="/account">My Account</Link>
                             <span className="line"></span>
+                            <Link to="/settings">Settings</Link>
+                            <span className="line"></span>
                             <button onClick={logoutHandler}>Logout</button>
                         </div>
                     </div>
