@@ -4,7 +4,7 @@ import './Products.css'
 
 const Products = () => {
     return (
-        <div>
+        <div className="products">
             <h1>Products</h1>
         </div>
     )

@@ -4,8 +4,8 @@ import './Account.css'
 
 const Account = () => {
     return (
-        <div>
-            <h3>Account</h3>
+        <div className="account">
+            <h1>Account</h1>
         </div>
     )
 }

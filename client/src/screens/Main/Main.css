@@ -2,38 +2,36 @@
     font-family: 'Poppins', sans-serif !important;
 }
 
+.main a:active,
+.main a:focus {
+    color: inherit;
+}
+
 .main {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 0.4fr 1fr 0.43fr;
+    grid-template-rows: auto;
     position: relative;
 }
 
 .main__header {
+    grid-column: 1 / 4;
     height: 10vh;
     position: sticky;
     top: 0;
-}
-
-.main__wrapper {
-    display: flex;
+    z-index: 3;
 }
 
 .main__sidebarLeft {
-    flex: 0.25;
     height: 90vh;
     position: sticky;
     top: 10vh;
 }
 
 .main__sidebarRight {
-    flex: 0.3;
     height: 90vh;
     position: sticky;
     top: 10vh;
-}
-
-.main__screen {
-    flex: 1;
 }

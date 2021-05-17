@@ -12,16 +12,14 @@ const Main = () => {
             <div className="main__header">
                 <Header />
             </div>
-            <div className="main__wrapper">
-                <div className="main__sidebarLeft">
-                    <SidebarLeft />
-                </div>
-                <div className="main__screen">
-                    <Routes />
-                </div>
-                <div className="main__sidebarRight">
-                    <SidebarRight />
-                </div>
+            <div className="main__sidebarLeft">
+                <SidebarLeft />
+            </div>
+            <div className="main__screen">
+                <Routes />
+            </div>
+            <div className="main__sidebarRight">
+                <SidebarRight />
             </div>
         </div>
     )

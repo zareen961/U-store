@@ -8,23 +8,8 @@ html {
     overflow-x: hidden;
 }
 
-/* removing the scrollbar */
-::-webkit-scrollbar {
-    width: 10px;
-}
-
+/* styling scrollbar */
 ::-webkit-scrollbar-track {
-    background: rgba(var(--primary-dark), 0.1);
-    box-shadow: 1px 1px 5px var(--shadow-primary) inset;
-    width: 2px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: rgba(var(--primary-light), 1);
-    border-radius: 10px;
-}
-
-/* ::-webkit-scrollbar-track {
     border: 5px solid rgba(var(--secondary-light), 1);
     background-color: rgba(var(--primary-light), 1);
 }
@@ -35,9 +20,9 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(var(--primary-dark), 1);
+    background-color: rgba(var(--primary-light), 0.8);
     border-radius: 10px;
-} */
+}
 
 .theme__PURPLE {
     --primary-dark: 75, 0, 130;

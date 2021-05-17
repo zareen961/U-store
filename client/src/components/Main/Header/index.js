@@ -4,12 +4,20 @@ import Avatar from '@material-ui/core/Avatar'
 import { Link } from 'react-router-dom'
 import { SearchIcon, DiffAddedIcon } from '@primer/octicons-react'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import { useDispatch } from 'react-redux'
 
+import { userLogout } from '../../../store/actions/user'
 import Logo from '../../utils/Logo'
 import './Header.css'
 
 const Header = () => {
+    const dispatch = useDispatch()
+
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+    const logoutHandler = () => {
+        dispatch(userLogout())
+    }
 
     return (
         <div className="header">
@@ -45,7 +53,7 @@ const Header = () => {
                         >
                             <Link to="/account">My Account</Link>
                             <span className="line"></span>
-                            <button>Logout</button>
+                            <button onClick={logoutHandler}>Logout</button>
                         </div>
                     </div>
                 </ClickAwayListener>
