@@ -6,6 +6,7 @@ const SidebarRight = () => {
     return (
         <div className="sidebarRight">
             <h1>Sidebar Right</h1>
+            <a href="http://google.com">google</a>
         </div>
     )
 }

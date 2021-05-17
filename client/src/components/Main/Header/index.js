@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
 import { Link } from 'react-router-dom'
 import { SearchIcon, DiffAddedIcon } from '@primer/octicons-react'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
 import Logo from '../../utils/Logo'
 import './Header.css'
 
 const Header = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+
     return (
         <div className="header">
             <a href="#" className="header__logoWrapper">
                 <Logo sizeClass={'small'} />
+                <div className="header__logoIconWrapper"></div>
             </a>
             <div className="header__rightWrapper">
                 <div className="header__searchWrapper">
@@ -24,15 +28,27 @@ const Header = () => {
                     <span>Upload</span>
                 </button>
 
-                <div className="header__menuWrapper">
-                    <IconButton>
-                        <Avatar src="avatars/avatar3.png" />
-                    </IconButton>
-                    <div className="header__menu">
-                        <Link to="/account">My Account</Link>
-                        <button>Logout</button>
+                <ClickAwayListener onClickAway={() => setIsMenuOpen(false)}>
+                    <div className="header__menuWrapper">
+                        <IconButton
+                            onClick={() =>
+                                setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen)
+                            }
+                        >
+                            <Avatar
+                                src="avatars/avatar3.png"
+                                className="header__avatar"
+                            />
+                        </IconButton>
+                        <div
+                            className={isMenuOpen ? 'header__menu show' : 'header__menu'}
+                        >
+                            <Link to="/account">My Account</Link>
+                            <span className="line"></span>
+                            <button>Logout</button>
+                        </div>
                     </div>
-                </div>
+                </ClickAwayListener>
             </div>
         </div>
     )
