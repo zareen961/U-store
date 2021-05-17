@@ -4,7 +4,7 @@ import Avatar from '@material-ui/core/Avatar'
 import { Link } from 'react-router-dom'
 import { SearchIcon, DiffAddedIcon } from '@primer/octicons-react'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { userLogout } from '../../../store/actions/user'
 import Logo from '../../utils/Logo'
@@ -12,6 +12,7 @@ import './Header.css'
 
 const Header = () => {
     const dispatch = useDispatch()
+    const { user } = useSelector((state) => state.userLogin)
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -44,7 +45,9 @@ const Header = () => {
                             }
                         >
                             <Avatar
-                                src="avatars/avatar3.png"
+                                src={`avatars/avatar${
+                                    user && user.userInfo ? user.userInfo.avatar : '0'
+                                }.png`}
                                 className="header__avatar"
                             />
                         </IconButton>

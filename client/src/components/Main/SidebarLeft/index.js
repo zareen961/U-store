@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import {
     HomeIcon,
     PersonIcon,
@@ -13,6 +14,8 @@ import Badge from '@material-ui/core/Badge'
 import './SidebarLeft.css'
 
 const SidebarLeft = () => {
+    const { user } = useSelector((state) => state.userLogin)
+
     const path =
         window.location.pathname === '/' ? 'home' : window.location.pathname.substr(1)
     const [active, setActive] = useState(path)
@@ -25,9 +28,20 @@ const SidebarLeft = () => {
         <div className="sidebarLeft">
             {/* Account */}
             <Link to="/account" className="sidebarLeft__account">
-                <Avatar src="avatars/avatar3.png" className="sidebarLeft__avatar" />
-                <span className="sidebarLeft__name">Ifa Zareen</span>
-                <span className="sidebarLeft__username">@sMaRt_sHeVeNoM</span>
+                <Avatar
+                    src={`avatars/avatar${
+                        user && user.userInfo ? user.userInfo.avatar : 0
+                    }.png`}
+                    className="sidebarLeft__avatar"
+                />
+                <span className="sidebarLeft__name">
+                    {user && user.userInfo
+                        ? `${user.userInfo.firstName} ${user.userInfo.lastName}`
+                        : 'John Doe'}
+                </span>
+                <span className="sidebarLeft__username">
+                    {user && user.userInfo ? `@${user.userInfo.username}` : '@john_doe'}
+                </span>
             </Link>
 
             {/* Menu */}
@@ -47,7 +61,9 @@ const SidebarLeft = () => {
                     </span>
                     <span className="sidebarLeft__menuText">Products</span>
                     <Badge
-                        badgeContent={4}
+                        badgeContent={
+                            user && user.userInfo ? user.userInfo.products.length : 0
+                        }
                         max={9}
                         color="primary"
                         className="sidebarLeft__menuBadge"
@@ -62,7 +78,9 @@ const SidebarLeft = () => {
                     </span>
                     <span className="sidebarLeft__menuText">Bids</span>
                     <Badge
-                        badgeContent={4}
+                        badgeContent={
+                            user && user.userInfo ? user.userInfo.bids.length : 0
+                        }
                         max={9}
                         color="primary"
                         className="sidebarLeft__menuBadge"
