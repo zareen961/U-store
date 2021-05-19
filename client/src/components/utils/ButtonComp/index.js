@@ -2,15 +2,14 @@ import React from 'react'
 
 import './ButtonComp.css'
 
-const Button = ({ typeClass, text, handleOnClick, isModify, children }) => {
+const Button = ({ typeClass, text, handleOnClick, modifyClass, children }) => {
     return (
         <button
-            className={
-                isModify ? `buttonComp ${typeClass} modify` : `buttonComp ${typeClass}`
-            }
+            className={`buttonComp ${typeClass} ${modifyClass}`}
             onClick={handleOnClick}
+            disabled={modifyClass === 'disabled'}
         >
-            <span className="icon">{children}</span>
+            {children && <span className="icon">{children}</span>}
             <span className="text">{text}</span>
         </button>
     )

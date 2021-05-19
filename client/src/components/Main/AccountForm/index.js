@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Badge from '@material-ui/core/Badge'
 import Avatar from '@material-ui/core/Avatar'
 import Fab from '@material-ui/core/Fab'
 import EditIcon from '@material-ui/icons/Edit'
-import { PencilIcon, CheckCircleIcon } from '@primer/octicons-react'
+import { CheckCircleIcon } from '@primer/octicons-react'
 import { useDispatch, useSelector } from 'react-redux'
 import PhoneIcon from '@material-ui/icons/Phone'
 import PhonePausedIcon from '@material-ui/icons/PhonePaused'
@@ -17,12 +17,19 @@ import PersonIcon from '@material-ui/icons/Person'
 import { useForm } from '../../../utils/hooks/useForm'
 import ButtonComp from '../../utils/ButtonComp'
 import AvatarForm from '../../Landing/RegisterForm/AvatarForm'
+import ConfirmModal from '../../utils/ConfirmModal'
+import { userUpdate } from '../../../store/actions/user'
+import { alertAdd } from '../../../store/actions/alert'
 import './AccountForm.css'
 
 const AccountForm = ({ isEdit }) => {
+    const dispatch = useDispatch()
     const { user } = useSelector((state) => state.userLogin)
+    const { loading, success } = useSelector((state) => state.userUpdate)
 
     const [isAvatarOpen, setIsAvatarOpen] = useState(false)
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false)
+    const [currentPassword, setCurrentPassword] = useState('')
 
     const initialInputVals = {
         firstName: user && user.userInfo ? `${user.userInfo.firstName}` : '',
@@ -38,9 +45,54 @@ const AccountForm = ({ isEdit }) => {
 
     const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
 
+    const handleOnSubmit = (e) => {
+        e.preventDefault()
+        let toUpdate = {}
+
+        if (initialInputVals.firstName !== inputVals.firstName.trim()) {
+            toUpdate.firstName = inputVals.firstName
+        }
+        if (initialInputVals.lastName !== inputVals.lastName.trim()) {
+            toUpdate.lastName = inputVals.lastName
+        }
+        if (initialInputVals.username !== inputVals.username.trim()) {
+            toUpdate.username = inputVals.username
+        }
+        if (initialInputVals.email !== inputVals.email.trim()) {
+            toUpdate.email = inputVals.email
+        }
+        if (initialInputVals.avatar !== inputVals.avatar) {
+            toUpdate.avatar = inputVals.avatar
+        }
+        if (initialInputVals.primaryPhone !== inputVals.primaryPhone.trim()) {
+            toUpdate.primaryPhone = inputVals.primaryPhone
+        }
+        if (initialInputVals.secondaryPhone !== inputVals.secondaryPhone.trim()) {
+            toUpdate.secondaryPhone = inputVals.secondaryPhone
+        }
+
+        if (inputVals.password || inputVals.passwordConfirm) {
+            if (inputVals.password === inputVals.passwordConfirm) {
+                toUpdate.password = inputVals.password
+            } else {
+                dispatch(alertAdd('Passwords do not match', 'error'))
+                return
+            }
+        }
+
+        console.log(toUpdate)
+    }
+
+    useEffect(() => {
+        if (success) {
+            setIsConfirmOpen(false)
+            setCurrentPassword('')
+        }
+    }, [success])
+
     return (
         <>
-            <form className="accountForm">
+            <form className="accountForm" onSubmit={(e) => e.preventDefault()}>
                 {/* username */}
                 <div
                     className={
@@ -51,6 +103,7 @@ const AccountForm = ({ isEdit }) => {
                         <AlternateEmailIcon />
                     </span>
                     <input
+                        required
                         type="text"
                         disabled={!isEdit}
                         placeholder="Enter Username"
@@ -95,6 +148,7 @@ const AccountForm = ({ isEdit }) => {
                         <EmailIcon />
                     </span>
                     <input
+                        required
                         type="email"
                         disabled={!isEdit}
                         placeholder="Enter Email"
@@ -114,6 +168,7 @@ const AccountForm = ({ isEdit }) => {
                         <PersonIcon />
                     </span>
                     <input
+                        required
                         type="text"
                         disabled={!isEdit}
                         placeholder="Enter First Name"
@@ -152,6 +207,7 @@ const AccountForm = ({ isEdit }) => {
                         <PhoneIcon />
                     </span>
                     <input
+                        required
                         type="text"
                         disabled={!isEdit}
                         placeholder="Enter Primary Phone"
@@ -220,9 +276,8 @@ const AccountForm = ({ isEdit }) => {
                 <ButtonComp
                     typeClass={'primary'}
                     text={'Update'}
-                    isModify={!isEdit}
-                    disabled={!isEdit}
-                    handleOnClick={() => {}}
+                    modifyClass={!isEdit && 'disabled'}
+                    handleOnClick={() => setIsConfirmOpen(true)}
                 >
                     <CheckCircleIcon />
                 </ButtonComp>
@@ -233,6 +288,14 @@ const AccountForm = ({ isEdit }) => {
                 setIsAvatarOpen={setIsAvatarOpen}
                 avatar={inputVals.avatar}
                 setAvatar={handleOnChange}
+            />
+
+            <ConfirmModal
+                isOpen={isConfirmOpen}
+                setIsOpen={setIsConfirmOpen}
+                currentPassword={currentPassword}
+                setCurrentPassword={setCurrentPassword}
+                handleOnConfirm={handleOnSubmit}
             />
         </>
     )

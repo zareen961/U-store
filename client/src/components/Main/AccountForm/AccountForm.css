@@ -67,6 +67,7 @@
     color: rgba(var(--primary-dark), 0.5);
     transition: all 0.5s ease-in;
     animation: none;
+    margin-top: 5px;
 }
 
 .accountForm__input.active .icon {
@@ -105,11 +106,11 @@
     margin-top: 15px;
 }
 
-.accountForm .buttonComp.modify {
+.accountForm .buttonComp.disabled {
     background-color: rgba(var(--primary-light), 0.5);
 }
 
-.accountForm .buttonComp.modify:hover {
+.accountForm .buttonComp.disabled:hover {
     background-color: rgba(var(--primary-light), 0.5);
     color: rgba(var(--secondary-light), 1);
     border-color: transparent;
