@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { userLogout } from '../../../store/actions/user'
 import Logo from '../../utils/Logo'
+import ButtonComp from '../../utils/ButtonComp'
 import './Header.css'
 
 const Header = () => {
@@ -32,10 +33,13 @@ const Header = () => {
                     <input type="text" placeholder="Search" />
                 </div>
 
-                <button className="header__uploadButton">
+                <ButtonComp
+                    typeClass={'primary'}
+                    text={'Upload'}
+                    handleOnClick={() => {}}
+                >
                     <DiffAddedIcon size={16} />
-                    <span>Upload</span>
-                </button>
+                </ButtonComp>
 
                 <ClickAwayListener onClickAway={() => setIsMenuOpen(false)}>
                     <div className="header__menuWrapper">

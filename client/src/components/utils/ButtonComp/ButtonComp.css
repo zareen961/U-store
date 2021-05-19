@@ -1,0 +1,45 @@
+.buttonComp {
+    border: 2px solid transparent;
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 10px;
+    padding: 0 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 40px;
+    box-sizing: border-box;
+}
+
+.buttonComp .icon {
+    margin-right: 5px;
+    margin-top: -4px;
+}
+
+.buttonComp.primary {
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    border-color: transparent;
+}
+
+.buttonComp.primary:hover {
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-light), 1);
+    border-color: rgba(var(--primary-light), 0.7);
+}
+
+.buttonComp.secondary {
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-light), 1);
+    border-color: rgba(var(--primary-light), 0.7);
+}
+
+.buttonComp.secondary:hover {
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    border-color: transparent;
+}

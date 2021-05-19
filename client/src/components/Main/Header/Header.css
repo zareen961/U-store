@@ -52,6 +52,7 @@
     padding-left: 12px;
     border-radius: 10px;
     color: rgba(var(--primary-light), 0.8);
+    margin-right: 20px;
 }
 
 .header__searchWrapper > input {
@@ -73,25 +74,6 @@
 
 .header__searchWrapper > input:focus {
     width: 300px;
-}
-
-.header__uploadButton {
-    margin: 0 5px 0 20px;
-    border: none;
-    background-color: rgba(var(--primary-light), 1);
-    color: rgba(var(--secondary-light), 1);
-    display: flex;
-    align-items: center;
-    height: 100%;
-    border-radius: 10px;
-    padding: 0 20px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    cursor: pointer;
-}
-
-.header__uploadButton > span {
-    margin-left: 5px;
 }
 
 .header__menuWrapper {

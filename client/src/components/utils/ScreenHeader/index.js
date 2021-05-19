@@ -1,5 +1,6 @@
 import React from 'react'
 
+import ButtonComp from '../ButtonComp'
 import './ScreenHeader.css'
 
 const ScreenHeader = ({ title, handleButtonPress, buttonText, children }) => {
@@ -7,10 +8,13 @@ const ScreenHeader = ({ title, handleButtonPress, buttonText, children }) => {
         <div className="screenHeader">
             <h1>{title}</h1>
             {handleButtonPress && (
-                <button className="screenHeader__button" onClick={handleButtonPress}>
-                    <span className="icon">{children}</span>
-                    <span className="text">{buttonText}</span>
-                </button>
+                <ButtonComp
+                    typeClass={'secondary'}
+                    text={buttonText}
+                    handleOnClick={handleButtonPress}
+                >
+                    {children}
+                </ButtonComp>
             )}
         </div>
     )

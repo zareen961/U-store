@@ -22,7 +22,7 @@ const shuffle = (array) => {
     return array
 }
 
-const AvatarForm = ({ isAvatarOpen, setIsAvatarOpen, avatar, setAvatar }) => {
+const AvatarForm = ({ isAvatarOpen, setIsAvatarOpen, setAvatar }) => {
     const [shuffledArray, setShuffledArray] = useState([...Array(30).keys()])
 
     useEffect(() => {

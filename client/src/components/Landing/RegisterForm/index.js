@@ -417,7 +417,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                 isAvatarOpen={isAvatarOpen}
                 setIsAvatarOpen={setIsAvatarOpen}
                 avatar={inputVals.avatar}
-                // avatar={1}
                 setAvatar={handleOnChange}
             />
         </>
