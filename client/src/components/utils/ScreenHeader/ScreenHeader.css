@@ -1,0 +1,32 @@
+.screenHeader {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-left: 10px;
+}
+
+.screenHeader h1 {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.screenHeader__button {
+    border: none;
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 10px;
+    padding: 0 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    height: 40px;
+}
+
+.screenHeader__button .icon {
+    margin-right: 5px;
+}

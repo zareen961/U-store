@@ -30,7 +30,7 @@ const ThemeSwitch = () => {
                                 <div className="placeholder">
                                     <div className="upside">
                                         <a
-                                            href="/#"
+                                            href="#"
                                             className="button"
                                             onClick={() =>
                                                 dispatch({
@@ -47,7 +47,7 @@ const ThemeSwitch = () => {
                                 <div className="placeholder">
                                     <div className="upside">
                                         <a
-                                            href="/#"
+                                            href="#"
                                             className="button"
                                             onClick={() =>
                                                 dispatch({
@@ -64,7 +64,7 @@ const ThemeSwitch = () => {
                                 <div className="placeholder">
                                     <div className="upside">
                                         <a
-                                            href="/#"
+                                            href="#"
                                             className="button"
                                             onClick={() =>
                                                 dispatch({

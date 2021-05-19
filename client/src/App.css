@@ -8,6 +8,17 @@ html {
     overflow-x: hidden;
 }
 
+/* styling autofill elements */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: rgba(var(--primary-dark), 1);
+    -webkit-box-shadow: 0 0 0px 1000px rgba(var(--secondary-light), 1) inset;
+}
+
 /* styling scrollbar */
 ::-webkit-scrollbar-track {
     border: 4px solid rgba(var(--secondary-light), 1);
