@@ -21,7 +21,7 @@ const Account = () => {
                     </ScreenHeader>
                 </div>
                 <div className="account__formWrapper">
-                    <AccountForm isEdit={isEdit} />
+                    <AccountForm isEdit={isEdit} setIsEdit={setIsEdit} />
                 </div>
             </div>
         </div>

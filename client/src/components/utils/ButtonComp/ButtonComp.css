@@ -20,6 +20,7 @@
     margin-top: -4px;
 }
 
+/* Primary Button Styles ***********************************************************************/
 .buttonComp.primary {
     background-color: rgba(var(--primary-light), 1);
     color: rgba(var(--secondary-light), 1);
@@ -32,6 +33,18 @@
     border-color: rgba(var(--primary-light), 0.7);
 }
 
+.buttonComp.primary.disabled {
+    background-color: rgba(var(--primary-light), 0.5);
+}
+
+.buttonComp.primary.disabled:hover {
+    background-color: rgba(var(--primary-light), 0.5);
+    color: rgba(var(--secondary-light), 1);
+    border-color: transparent;
+    cursor: not-allowed;
+}
+
+/* Secondary Button Styles *********************************************************************/
 .buttonComp.secondary {
     background-color: rgba(var(--secondary-light), 1);
     color: rgba(var(--primary-light), 1);

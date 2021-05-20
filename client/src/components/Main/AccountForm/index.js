@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Badge from '@material-ui/core/Badge'
 import Avatar from '@material-ui/core/Avatar'
 import Fab from '@material-ui/core/Fab'
@@ -22,7 +22,7 @@ import { userUpdate } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/alert'
 import './AccountForm.css'
 
-const AccountForm = ({ isEdit }) => {
+const AccountForm = ({ isEdit, setIsEdit }) => {
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.userLogin)
     const { loading, success } = useSelector((state) => state.userUpdate)
@@ -31,7 +31,7 @@ const AccountForm = ({ isEdit }) => {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
     const [currentPassword, setCurrentPassword] = useState('')
 
-    const initialInputVals = {
+    const initialInputVals = useRef({
         firstName: user && user.userInfo ? `${user.userInfo.firstName}` : '',
         lastName: user && user.userInfo ? `${user.userInfo.lastName}` : '',
         username: user && user.userInfo ? `${user.userInfo.username}` : '',
@@ -41,33 +41,32 @@ const AccountForm = ({ isEdit }) => {
         secondaryPhone: user && user.userInfo ? `${user.userInfo.secondaryPhone}` : '',
         password: '',
         passwordConfirm: '',
-    }
+    })
 
-    const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
+    const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals.current)
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault()
+    const handleOnSubmit = () => {
         let toUpdate = {}
 
-        if (initialInputVals.firstName !== inputVals.firstName.trim()) {
+        if (initialInputVals.current.firstName !== inputVals.firstName.trim()) {
             toUpdate.firstName = inputVals.firstName
         }
-        if (initialInputVals.lastName !== inputVals.lastName.trim()) {
+        if (initialInputVals.current.lastName !== inputVals.lastName.trim()) {
             toUpdate.lastName = inputVals.lastName
         }
-        if (initialInputVals.username !== inputVals.username.trim()) {
+        if (initialInputVals.current.username !== inputVals.username.trim()) {
             toUpdate.username = inputVals.username
         }
-        if (initialInputVals.email !== inputVals.email.trim()) {
+        if (initialInputVals.current.email !== inputVals.email.trim()) {
             toUpdate.email = inputVals.email
         }
-        if (initialInputVals.avatar !== inputVals.avatar) {
+        if (initialInputVals.current.avatar !== inputVals.avatar) {
             toUpdate.avatar = inputVals.avatar
         }
-        if (initialInputVals.primaryPhone !== inputVals.primaryPhone.trim()) {
+        if (initialInputVals.current.primaryPhone !== inputVals.primaryPhone.trim()) {
             toUpdate.primaryPhone = inputVals.primaryPhone
         }
-        if (initialInputVals.secondaryPhone !== inputVals.secondaryPhone.trim()) {
+        if (initialInputVals.current.secondaryPhone !== inputVals.secondaryPhone.trim()) {
             toUpdate.secondaryPhone = inputVals.secondaryPhone
         }
 
@@ -80,15 +79,26 @@ const AccountForm = ({ isEdit }) => {
             }
         }
 
-        console.log(toUpdate)
+        if (Object.keys(toUpdate).length > 0) {
+            dispatch(userUpdate(toUpdate, currentPassword))
+        } else {
+            dispatch(alertAdd('Nothing to update!', 'error'))
+        }
     }
 
     useEffect(() => {
         if (success) {
-            setIsConfirmOpen(false)
             setCurrentPassword('')
+            setIsConfirmOpen(false)
+            setIsEdit(false)
         }
-    }, [success])
+    }, [success, setIsEdit])
+
+    useEffect(() => {
+        if (!isEdit && !success) {
+            handleReset()
+        }
+    }, [isEdit, success, handleReset])
 
     return (
         <>
@@ -296,6 +306,7 @@ const AccountForm = ({ isEdit }) => {
                 currentPassword={currentPassword}
                 setCurrentPassword={setCurrentPassword}
                 handleOnConfirm={handleOnSubmit}
+                isLoading={loading}
             />
         </>
     )

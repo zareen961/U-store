@@ -105,14 +105,3 @@
     justify-self: end;
     margin-top: 15px;
 }
-
-.accountForm .buttonComp.disabled {
-    background-color: rgba(var(--primary-light), 0.5);
-}
-
-.accountForm .buttonComp.disabled:hover {
-    background-color: rgba(var(--primary-light), 0.5);
-    color: rgba(var(--secondary-light), 1);
-    border-color: transparent;
-    cursor: not-allowed;
-}

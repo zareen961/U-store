@@ -11,17 +11,28 @@ const ConfirmModal = ({
     currentPassword,
     setCurrentPassword,
     handleOnConfirm,
+    isLoading,
 }) => {
     const handleOnCancel = () => {
         setIsOpen(false)
         setCurrentPassword('')
     }
 
+    // to submit the form functionality on pressing enter
+    const handleOnKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleOnConfirm()
+        }
+    }
+
     return (
         <ModalComp isOpen={isOpen} setIsOpen={setIsOpen}>
             <div className="confirmModal">
                 <h1>Are you sure?</h1>
-                <p>Enter your current password to proceed.</p>
+                <p>
+                    Enter your current password to proceed. Once confirmed then it can't
+                    be reverted. Proceed cautiously!
+                </p>
                 <div className="confirmModal__input">
                     <span className="icon">
                         <KeyIcon size={18} />
@@ -34,12 +45,14 @@ const ConfirmModal = ({
                         name="currentPassword"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
+                        onKeyPress={handleOnKeyPress}
                     />
                 </div>
 
                 <div className="confirmModal__buttonsWrapper">
                     <ButtonComp
                         typeClass={'primary'}
+                        modifyClass={(isLoading || !currentPassword) && 'disabled'}
                         text={'Confirm'}
                         handleOnClick={handleOnConfirm}
                     />
