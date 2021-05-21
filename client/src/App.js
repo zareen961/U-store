@@ -43,7 +43,7 @@ const App = () => {
         <div className="app">
             <Router>
                 <ThemeSwitch />
-                <Alerts />
+                <Alerts isRounded={user ? true : false} />
                 {user ? <Route component={Main} /> : <Route component={Landing} />}
             </Router>
         </div>

@@ -74,7 +74,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
             if (inputVals.password === inputVals.passwordConfirm) {
                 toUpdate.password = inputVals.password
             } else {
-                dispatch(alertAdd('Passwords do not match', 'error'))
+                dispatch(alertAdd('Passwords do not match!', 'error'))
                 return
             }
         }
@@ -136,7 +136,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         required
                         type="text"
                         disabled={!isEdit}
-                        placeholder="Enter Username"
+                        placeholder="Try new username!"
                         autoComplete="new-password"
                         name="username"
                         value={inputVals.username}
@@ -181,7 +181,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         required
                         type="email"
                         disabled={!isEdit}
-                        placeholder="Enter Email"
+                        placeholder="Change your email"
                         autoComplete="new-password"
                         name="email"
                         value={inputVals.email}
@@ -240,7 +240,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         required
                         type="text"
                         disabled={!isEdit}
-                        placeholder="Enter Primary Phone"
+                        placeholder="Primary contact changed?"
                         autoComplete="new-password"
                         name="primaryPhone"
                         value={inputVals.primaryPhone}

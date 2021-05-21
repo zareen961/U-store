@@ -16,7 +16,7 @@ const userFromStorage = localStorage.getItem('user')
     : null
 
 const initialState = {
-    userLogin: { user: userFromStorage },
+    userLogin: { user: userFromStorage, loading: false, error: null, success: false },
     theme: themeFromLocalStorage,
 }
 

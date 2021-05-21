@@ -8,20 +8,20 @@
 
 .alerts__box {
     margin: 15px 0;
-    font-size: 1rem;
     align-items: center;
-    padding: 10px 30px;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
     box-sizing: border-box;
     border-radius: 3px;
     border: 2px solid;
-    box-shadow: 7px 7px 10px var(--shadow-primary);
+    box-shadow: 3px 3px 5px var(--shadow-primary);
 }
 
 .alerts__box > p {
+    font-size: 0.95rem;
     margin-left: 10px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
 }
 
 .alerts__box.success {
@@ -31,6 +31,40 @@
 }
 
 .alerts__box.error {
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    border-color: rgba(var(--primary-light), 1);
+}
+
+/* Rounded Alerts Styling *****************************************************************/
+.alerts__box.rounded {
+    margin: 15px 0;
+    align-items: center;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 2px solid;
+    /* box-shadow: 2px 2px 3px var(--shadow-primary); */
+    box-shadow: none;
+}
+
+.alerts__box.rounded > p {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500;
+}
+
+.alerts__box.rounded.success {
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-dark), 0.8);
+    border-color: rgba(var(--primary-light), 0.8);
+}
+
+.alerts__box.rounded.error {
     background-color: rgba(var(--primary-light), 1);
     color: rgba(var(--secondary-light), 1);
     border-color: rgba(var(--primary-light), 1);

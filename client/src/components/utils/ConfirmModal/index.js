@@ -39,6 +39,7 @@ const ConfirmModal = ({
                         <KeyIcon size={18} />
                     </span>
                     <input
+                        autoFocus
                         required
                         type="password"
                         placeholder="Enter Password"

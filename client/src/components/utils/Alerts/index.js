@@ -5,23 +5,37 @@ import ErrorIcon from '@material-ui/icons/Error'
 
 import './Alerts.css'
 
-const Alerts = () => {
+const Alerts = ({ isRounded }) => {
     const alerts = useSelector((state) => state.alerts)
 
     return (
         <div className="alerts">
             {alerts !== null &&
                 alerts.length > 0 &&
-                alerts.map((alert) => (
-                    <div className={`alerts__box ${alert.alertType}`} key={alert._id}>
-                        {alert.alertType === 'success' ? (
-                            <CheckCircleIcon />
-                        ) : (
-                            <ErrorIcon />
-                        )}
-                        <p>{alert.msg}</p>
-                    </div>
-                ))}
+                alerts.map((alert) =>
+                    isRounded ? (
+                        <div
+                            className={`alerts__box rounded ${alert.alertType}`}
+                            key={alert._id}
+                        >
+                            {alert.alertType === 'success' ? (
+                                <CheckCircleIcon fontSize="small" />
+                            ) : (
+                                <ErrorIcon fontSize="small" />
+                            )}
+                            <p>{alert.msg}</p>
+                        </div>
+                    ) : (
+                        <div className={`alerts__box ${alert.alertType}`} key={alert._id}>
+                            {alert.alertType === 'success' ? (
+                                <CheckCircleIcon fontSize="small" />
+                            ) : (
+                                <ErrorIcon fontSize="small" />
+                            )}
+                            <p>{alert.msg}</p>
+                        </div>
+                    )
+                )}
         </div>
     )
 }

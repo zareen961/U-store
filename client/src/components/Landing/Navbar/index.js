@@ -6,6 +6,7 @@ import './Navbar.css'
 
 const Navbar = ({ setIsOpen }) => {
     const [backgroundClass, setBackgroundClass] = useState('navbar')
+
     useEffect(() => {
         const listener = document.addEventListener('scroll', () => {
             if (window.scrollY > 200) {

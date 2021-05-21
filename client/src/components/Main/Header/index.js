@@ -41,8 +41,8 @@ const Header = () => {
                     <DiffAddedIcon size={16} />
                 </ButtonComp>
 
-                <ClickAwayListener onClickAway={() => setIsMenuOpen(false)}>
-                    <div className="header__menuWrapper">
+                <div className="header__menuWrapper">
+                    <ClickAwayListener onClickAway={() => setIsMenuOpen(false)}>
                         <IconButton
                             onClick={() =>
                                 setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen)
@@ -55,17 +55,15 @@ const Header = () => {
                                 className="header__avatar"
                             />
                         </IconButton>
-                        <div
-                            className={isMenuOpen ? 'header__menu show' : 'header__menu'}
-                        >
-                            <Link to="/account">My Account</Link>
-                            <span className="line"></span>
-                            <Link to="/settings">Settings</Link>
-                            <span className="line"></span>
-                            <button onClick={logoutHandler}>Logout</button>
-                        </div>
+                    </ClickAwayListener>
+                    <div className={isMenuOpen ? 'header__menu show' : 'header__menu'}>
+                        <Link to="/account">My Account</Link>
+                        <span className="line"></span>
+                        <Link to="/settings">Settings</Link>
+                        <span className="line"></span>
+                        <button onClick={logoutHandler}>Logout</button>
                     </div>
-                </ClickAwayListener>
+                </div>
             </div>
         </div>
     )
