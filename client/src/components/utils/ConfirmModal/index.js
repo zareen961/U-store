@@ -10,6 +10,7 @@ const ConfirmModal = ({
     setIsOpen,
     currentPassword,
     setCurrentPassword,
+    handleOnChange,
     handleOnConfirm,
     isLoading,
 }) => {
@@ -20,7 +21,7 @@ const ConfirmModal = ({
 
     // to submit the form functionality on pressing enter
     const handleOnKeyPress = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && currentPassword) {
             handleOnConfirm()
         }
     }
@@ -44,7 +45,7 @@ const ConfirmModal = ({
                         autoComplete="new-password"
                         name="currentPassword"
                         value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        onChange={handleOnChange}
                         onKeyPress={handleOnKeyPress}
                     />
                 </div>

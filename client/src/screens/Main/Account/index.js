@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PencilIcon } from '@primer/octicons-react'
+import { PencilIcon, XCircleIcon } from '@primer/octicons-react'
 
 import AccountForm from '../../../components/Main/AccountForm'
 import ScreenHeader from '../../../components/utils/ScreenHeader'
@@ -15,9 +15,9 @@ const Account = () => {
                     <ScreenHeader
                         title={'Account'}
                         handleButtonPress={() => setIsEdit((prevIsEdit) => !prevIsEdit)}
-                        buttonText={'Edit Profile'}
+                        buttonText={isEdit ? 'Cancel' : 'Edit Profile'}
                     >
-                        <PencilIcon size={16} />
+                        {isEdit ? <XCircleIcon size={16} /> : <PencilIcon size={16} />}
                     </ScreenHeader>
                 </div>
                 <div className="account__formWrapper">

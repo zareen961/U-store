@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Badge from '@material-ui/core/Badge'
 import Avatar from '@material-ui/core/Avatar'
 import Fab from '@material-ui/core/Fab'
@@ -29,9 +29,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
 
     const [isAvatarOpen, setIsAvatarOpen] = useState(false)
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
-    const [currentPassword, setCurrentPassword] = useState('')
-
-    const initialInputVals = useRef({
+    const [initialInputVals, setInitialInputVals] = useState({
         firstName: user && user.userInfo ? `${user.userInfo.firstName}` : '',
         lastName: user && user.userInfo ? `${user.userInfo.lastName}` : '',
         username: user && user.userInfo ? `${user.userInfo.username}` : '',
@@ -41,32 +39,34 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
         secondaryPhone: user && user.userInfo ? `${user.userInfo.secondaryPhone}` : '',
         password: '',
         passwordConfirm: '',
+        currentPassword: '',
     })
 
-    const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals.current)
+    const { inputVals, customSetInputVals, handleOnChange, handleReset } =
+        useForm(initialInputVals)
 
     const handleOnSubmit = () => {
         let toUpdate = {}
 
-        if (initialInputVals.current.firstName !== inputVals.firstName.trim()) {
+        if (initialInputVals.firstName !== inputVals.firstName.trim()) {
             toUpdate.firstName = inputVals.firstName
         }
-        if (initialInputVals.current.lastName !== inputVals.lastName.trim()) {
+        if (initialInputVals.lastName !== inputVals.lastName.trim()) {
             toUpdate.lastName = inputVals.lastName
         }
-        if (initialInputVals.current.username !== inputVals.username.trim()) {
+        if (initialInputVals.username !== inputVals.username.trim()) {
             toUpdate.username = inputVals.username
         }
-        if (initialInputVals.current.email !== inputVals.email.trim()) {
+        if (initialInputVals.email !== inputVals.email.trim()) {
             toUpdate.email = inputVals.email
         }
-        if (initialInputVals.current.avatar !== inputVals.avatar) {
+        if (initialInputVals.avatar !== inputVals.avatar) {
             toUpdate.avatar = inputVals.avatar
         }
-        if (initialInputVals.current.primaryPhone !== inputVals.primaryPhone.trim()) {
+        if (initialInputVals.primaryPhone !== inputVals.primaryPhone.trim()) {
             toUpdate.primaryPhone = inputVals.primaryPhone
         }
-        if (initialInputVals.current.secondaryPhone !== inputVals.secondaryPhone.trim()) {
+        if (initialInputVals.secondaryPhone !== inputVals.secondaryPhone.trim()) {
             toUpdate.secondaryPhone = inputVals.secondaryPhone
         }
 
@@ -80,7 +80,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
         }
 
         if (Object.keys(toUpdate).length > 0) {
-            dispatch(userUpdate(toUpdate, currentPassword))
+            dispatch(userUpdate(toUpdate, inputVals.currentPassword))
         } else {
             dispatch(alertAdd('Nothing to update!', 'error'))
         }
@@ -88,17 +88,37 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
 
     useEffect(() => {
         if (success) {
-            setCurrentPassword('')
+            customSetInputVals('currentPassword', '')
+            customSetInputVals('password', '')
+            customSetInputVals('passwordConfirm', '')
             setIsConfirmOpen(false)
             setIsEdit(false)
         }
-    }, [success, setIsEdit])
+    }, [success, setIsEdit, customSetInputVals])
 
     useEffect(() => {
-        if (!isEdit && !success) {
+        if (!isEdit) {
             handleReset()
         }
-    }, [isEdit, success, handleReset])
+    }, [isEdit, handleReset])
+
+    useEffect(() => {
+        if (success) {
+            setInitialInputVals({
+                firstName: user && user.userInfo ? `${user.userInfo.firstName}` : '',
+                lastName: user && user.userInfo ? `${user.userInfo.lastName}` : '',
+                username: user && user.userInfo ? `${user.userInfo.username}` : '',
+                email: user && user.userInfo ? `${user.userInfo.email}` : '',
+                avatar: user && user.userInfo ? user.userInfo.avatar : 0,
+                primaryPhone:
+                    user && user.userInfo ? `${user.userInfo.primaryPhone}` : '',
+                secondaryPhone:
+                    user && user.userInfo ? `${user.userInfo.secondaryPhone}` : '',
+                password: '',
+                passwordConfirm: '',
+            })
+        }
+    }, [success, user])
 
     return (
         <>
@@ -135,11 +155,11 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                             <Fab
                                 size="small"
                                 className={isEdit ? 'editButton active' : 'editButton'}
+                                onClick={() => setIsAvatarOpen(true)}
                             >
                                 <EditIcon />
                             </Fab>
                         }
-                        onClick={() => setIsAvatarOpen(true)}
                     >
                         <Avatar
                             alt="Avatar"
@@ -303,8 +323,11 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
             <ConfirmModal
                 isOpen={isConfirmOpen}
                 setIsOpen={setIsConfirmOpen}
-                currentPassword={currentPassword}
-                setCurrentPassword={setCurrentPassword}
+                currentPassword={inputVals.currentPassword}
+                setCurrentPassword={(newVal) =>
+                    customSetInputVals('currentPassword', newVal)
+                }
+                handleOnChange={handleOnChange}
                 handleOnConfirm={handleOnSubmit}
                 isLoading={loading}
             />

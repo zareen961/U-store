@@ -37,10 +37,12 @@
     color: rgba(var(--secondary-light), 1) !important;
     transition: all 0.3s ease;
     opacity: 0;
+    visibility: hidden;
 }
 
 .accountForm__avatar .editButton.active {
     opacity: 1;
+    visibility: visible;
 }
 
 .accountForm__input {
@@ -54,25 +56,13 @@
     align-items: center;
 }
 
-@keyframes animate-account-icon {
-    0% {
-        color: rgba(var(--primary-dark), 0.8);
-    }
-    100% {
-        color: rgba(var(--primary-dark), 0.4);
-    }
-}
-
 .accountForm__input .icon {
     color: rgba(var(--primary-dark), 0.5);
     transition: all 0.5s ease-in;
-    animation: none;
     margin-top: 5px;
 }
 
 .accountForm__input.active .icon {
-    animation: animate-account-icon 1s infinite ease-in;
-    animation-direction: alternate;
     color: rgba(var(--primary-dark), 0.7);
 }
 

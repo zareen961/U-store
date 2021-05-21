@@ -193,11 +193,11 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                         <Fab
                                             size="small"
                                             className="registerForm__avatarEditButton"
+                                            onClick={() => setIsAvatarOpen(true)}
                                         >
                                             <EditIcon />
                                         </Fab>
                                     }
-                                    onClick={() => setIsAvatarOpen(true)}
                                 >
                                     <Avatar
                                         alt="Avatar"
