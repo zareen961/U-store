@@ -10,7 +10,7 @@ const validateUserInputs = require('../validators/user')
 // to get all the details of an User
 const userGet = asyncHandler(async (req, res) => {
     const foundUser = await User.findById(req.authUser._id).populate({
-        path: 'products bids',
+        path: 'products bids following',
         options: { sort: { createdAt: -1 } },
         populate: {
             path: 'bids',
@@ -96,7 +96,7 @@ const userLogin = asyncHandler(async (req, res) => {
     const foundUser = await User.findOne({
         $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
     }).populate({
-        path: 'products bids',
+        path: 'products bids following',
         options: { sort: { createdAt: -1 } },
         populate: {
             path: 'bids',

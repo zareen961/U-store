@@ -91,6 +91,12 @@ const userSchema = new Schema(
                 ref: 'Product',
             },
         ],
+        following: [
+            {
+                type: Types.ObjectId,
+                ref: 'Product',
+            },
+        ],
         notifications: [notificationSchema],
     },
     {

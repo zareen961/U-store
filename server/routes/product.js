@@ -6,6 +6,7 @@ const {
     productGetAll,
     productDelete,
     productUpdate,
+    productFollowToggle,
 } = require('../controllers/product')
 
 const router = express.Router()
@@ -29,5 +30,10 @@ router.delete('/:productID', protectUser, productDelete)
 // @desc: To update one’s product until no bid is placed
 // @access: Private
 router.patch('/:productID', protectUser, productUpdate)
+
+// @route: PATCH /api/product/follow
+// @desc: To follow/unfollow a product
+// @access: Private
+router.patch('/follow/:productID', protectUser, productFollowToggle)
 
 module.exports = router

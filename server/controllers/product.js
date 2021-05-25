@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler')
+const { ObjectID } = require('mongodb')
 
 const Product = require('../models/Product')
 const User = require('../models/User')
@@ -134,4 +135,58 @@ const productUpdate = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { productUpload, productGetAll, productDelete, productUpdate }
+// to follow/unfollow a product
+const productFollowToggle = asyncHandler(async (req, res) => {
+    const { productID } = req.params
+    const userID = req.authUser._id
+
+    // checking if the productID exists in following array of the user
+    const foundUser = await User.findById(userID).select()
+    if (foundUser && ObjectID.isValid(productID)) {
+        const isProductFollowed = foundUser.following.includes(productID)
+        if (isProductFollowed) {
+            await User.updateOne({ _id: userID }, { $pull: { following: productID } })
+
+            res.status(200).json({ message: 'Product Unfollowed!' })
+        } else {
+            /*checking if the product belongs to user's college and
+              checking if the user does not own the product*/
+            const foundProduct = await Product.findById(productID).select(
+                'college productOwner'
+            )
+
+            if (
+                String(foundProduct.college) === String(req.authUser.college) &&
+                String(foundProduct.productOwner) !== String(userID)
+            ) {
+                await User.updateOne(
+                    { _id: userID },
+                    {
+                        $push: {
+                            following: {
+                                $each: [productID],
+                                $position: 0,
+                            },
+                        },
+                    }
+                )
+
+                res.status(200).json({ message: 'Product Followed!' })
+            } else {
+                res.status(402)
+                throw new Error('Unauthorized to follow this product!')
+            }
+        }
+    } else {
+        res.status(500)
+        throw new Error("Can't follow/unfollow the product at the moment! Try again.")
+    }
+})
+
+module.exports = {
+    productUpload,
+    productGetAll,
+    productDelete,
+    productUpdate,
+    productFollowToggle,
+}
