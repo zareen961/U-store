@@ -116,6 +116,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                     user && user.userInfo ? `${user.userInfo.secondaryPhone}` : '',
                 password: '',
                 passwordConfirm: '',
+                currentPassword: '',
             })
         }
     }, [success, user])

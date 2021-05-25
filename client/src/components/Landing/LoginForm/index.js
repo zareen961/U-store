@@ -51,6 +51,7 @@ const LoginForm = ({ setIsOpen }) => {
                         <input
                             required
                             type="password"
+                            autoComplete="current-password"
                             className="loginForm__input"
                             placeholder="Password"
                             name="password"

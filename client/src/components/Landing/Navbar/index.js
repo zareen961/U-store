@@ -8,15 +8,16 @@ const Navbar = ({ setIsOpen }) => {
     const [backgroundClass, setBackgroundClass] = useState('navbar')
 
     useEffect(() => {
-        const listener = document.addEventListener('scroll', () => {
+        const listenerFunc = () => {
             if (window.scrollY > 200) {
                 setBackgroundClass('navbar filled')
             } else {
                 setBackgroundClass('navbar')
             }
-        })
+        }
+        document.addEventListener('scroll', listenerFunc)
         return () => {
-            document.removeEventListener('scroll', listener)
+            document.removeEventListener('scroll', listenerFunc)
         }
     }, [])
 
