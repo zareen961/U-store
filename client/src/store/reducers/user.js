@@ -214,6 +214,22 @@ export const userLoginReducer = (
                 },
             }
 
+        case actionTypes.USER_FOLLOWING_UPDATE:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        following: state.user.userInfo.following.includes(action.payload)
+                            ? state.user.userInfo.following.filter(
+                                  (productID) => productID !== action.payload
+                              )
+                            : [action.payload, ...state.user.userInfo.following],
+                    },
+                },
+            }
+
         default:
             return state
     }

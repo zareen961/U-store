@@ -214,3 +214,36 @@ export const productDeleteReducer = (
             return state
     }
 }
+
+export const productFollowToggle = (
+    state = { loading: false, error: null, success: false },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.PRODUCT_FOLLOW_TOGGLE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                success: false,
+            }
+
+        case actionTypes.PRODUCT_FOLLOW_TOGGLE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                success: true,
+            }
+
+        case actionTypes.PRODUCT_FOLLOW_TOGGLE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                success: false,
+            }
+        default:
+            return state
+    }
+}

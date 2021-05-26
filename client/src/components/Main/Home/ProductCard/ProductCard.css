@@ -1,0 +1,232 @@
+.productCard {
+    background-color: rgba(var(--secondary-light), 1);
+    margin: 40px 0;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 30px;
+    gap: 20px;
+}
+
+.productCard__header {
+    grid-column: 1/-1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.productCard__avatar {
+    background-color: rgba(var(--primary-light), 0.5);
+    border-radius: 10px !important;
+    align-self: center;
+    height: 50px !important;
+    width: 50px !important;
+    margin-right: 10px;
+}
+
+.productCard__nameTime p {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: -5px;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCard__nameTime span {
+    font-size: 0.85rem;
+    color: rgba(var(--primary-dark), 0.5);
+}
+
+.productCard__header .icon {
+    margin-left: auto;
+    color: rgba(var(--primary-light), 0.5);
+    border: 1px solid rgba(var(--primary-light), 0.3);
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.productCard .menuTray {
+    box-sizing: border-box;
+    position: absolute;
+    top: 90%;
+    left: 90%;
+    list-style: none;
+    background-color: rgba(var(--secondary-light), 1);
+    border-radius: 10px;
+    opacity: 0;
+    padding: 10px 0;
+    overflow: hidden;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.productCard .menuTray.open {
+    opacity: 1;
+    box-shadow: 1px 1px 10px var(--shadow-primary);
+}
+
+.productCard .menuTray li {
+    color: rgba(var(--primary-dark), 0.9);
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 6px 25px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.productCard .menuTray li:hover {
+    background-color: rgba(var(--primary-light), 0.03);
+}
+
+.productCard .menuTray .line {
+    width: 80%;
+    margin: 0 auto;
+    padding: 0;
+    border-top: 1px solid rgba(var(--primary-light), 0.15);
+}
+
+.productCard__productDetails {
+    grid-column: 1/-1;
+}
+
+.productCard__productDetails .name {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCard__productDetails .description {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.productCard__image {
+    grid-row: 3/6;
+}
+
+.productCard__image img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.productCard__price {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(var(--primary-light), 0.3);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.productCard__price h3 {
+    margin-left: 5px;
+    font-weight: 500;
+    font-size: 1.3rem;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCard__price .price {
+    margin-left: auto;
+    font-weight: 500;
+    font-size: 1.5rem;
+}
+
+.productCard__bids {
+    display: flex;
+    flex-direction: column;
+}
+
+.productCard__bidMore {
+    width: fit-content;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.productCard__bidMore .avatar {
+    height: 30px;
+    width: 30px;
+    background-color: rgba(var(--primary-light), 1);
+    margin-left: -10px !important;
+    border-color: rgba(var(--primary-dark), 0.2);
+    z-index: 1 !important;
+}
+
+.productCard__bidMore .MuiAvatar-colorDefault {
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    height: 33px;
+    width: 33px;
+    font-size: 1rem;
+    margin-left: -10px !important;
+}
+
+.productCard__action {
+    display: flex;
+    align-items: center;
+}
+
+.productCard__bidPlace {
+    display: flex;
+    align-items: center;
+    background-color: rgba(var(--primary-light), 0.08);
+    height: 100%;
+    padding-left: 12px;
+    border-radius: 10px;
+    color: rgba(var(--primary-light), 0.8);
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.productCard__bidPlace > input {
+    background-color: transparent;
+    border: 0;
+    flex: 1;
+    margin: 0 10px;
+    color: rgba(var(--primary-dark), 0.8);
+    letter-spacing: 2px;
+    width: 100%;
+    transition: all 0.5s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.productCard__bidPlace > input::placeholder {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+/* Image Modal Styles *********************************************************/
+.productCard__imageModal {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    border-radius: 5px;
+    position: relative;
+}
+
+.productCard__imageModal img {
+    width: 100%;
+    height: 100%;
+}
+
+.productCard__imageModal .closeButtonWrapper {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 10000;
+}
+
+/* More Bids Modal Styles ***********************************************************/
+.productCard__moreBids {
+    background-color: rgba(var(--secondary-light), 1);
+    padding: 30px;
+    height: 500px;
+    overflow: auto;
+    border-radius: 5px;
+}

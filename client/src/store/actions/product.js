@@ -152,3 +152,35 @@ export const productDelete = (productID) => async (dispatch) => {
         dispatch(alertAdd(errorMsg, 'error'))
     }
 }
+
+// to follow/unfollow a product
+export const productFollowToggle = (productID) => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.PRODUCT_FOLLOW_TOGGLE_REQUEST,
+        })
+
+        await axiosInstance.patch(`/api/product/follow/${productID}`)
+
+        dispatch({
+            type: actionTypes.USER_FOLLOWING_UPDATE,
+            payload: productID,
+        })
+
+        dispatch({
+            type: actionTypes.PRODUCT_FOLLOW_TOGGLE_SUCCESS,
+        })
+    } catch (err) {
+        const errorMsg =
+            err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+
+        dispatch({
+            type: actionTypes.PRODUCT_FOLLOW_TOGGLE_FAIL,
+            payload: errorMsg,
+        })
+
+        dispatch(alertAdd(errorMsg, 'error'))
+    }
+}

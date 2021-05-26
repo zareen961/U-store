@@ -10,7 +10,7 @@ const Button = ({ typeClass, text, handleOnClick, modifyClass, children }) => {
             disabled={modifyClass === 'disabled'}
         >
             {children && <span className="icon">{children}</span>}
-            <span className="text">{text}</span>
+            {text && <span className="text">{text}</span>}
         </button>
     )
 }

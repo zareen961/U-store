@@ -4,7 +4,6 @@
     color: rgba(var(--secondary-light), 1);
     display: flex;
     align-items: center;
-    height: 100%;
     border-radius: 10px;
     padding: 0 10px;
     font-weight: 600;
@@ -55,4 +54,17 @@
     background-color: rgba(var(--primary-light), 1);
     color: rgba(var(--secondary-light), 1);
     border-color: transparent;
+}
+
+/* Modify Class Styles ****************************************************************************/
+.buttonComp.iconButton {
+    margin-left: 5px;
+}
+
+.buttonComp.iconButton .icon {
+    margin: 0 !important;
+}
+
+.insideInputButton {
+    margin: 10px;
 }

@@ -1,59 +1,15 @@
 import React from 'react'
 
+import ProductCard from '../../../components/Main/Home/ProductCard'
+import ProductUploadForm from '../../../components/Main/Home/ProductUploadForm'
 import './Home.css'
 
 const Home = () => {
     return (
         <div className="home">
-            <h1>Homoe</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
-            <h1>Home</h1>
+            <ProductUploadForm />
+            <ProductCard />
+            <ProductCard />
         </div>
     )
 }
