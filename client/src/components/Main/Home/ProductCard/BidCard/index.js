@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThumbsupIcon, ThumbsdownIcon, PencilIcon } from '@primer/octicons-react'
+import { ThumbsupIcon, ThumbsdownIcon } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 
 import ButtonComp from '../../../../utils/ButtonComp'

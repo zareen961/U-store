@@ -57,7 +57,7 @@
     opacity: 0;
     padding: 10px 0;
     overflow: hidden;
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
 }
@@ -110,7 +110,7 @@
 .productCard__image img {
     height: 100%;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 15px;
     cursor: pointer;
 }
 
@@ -162,6 +162,7 @@
     width: 33px;
     font-size: 1rem;
     margin-left: -10px !important;
+    border-color: rgba(var(--primary-dark), 0.2);
 }
 
 .productCard__action {
@@ -225,8 +226,29 @@
 /* More Bids Modal Styles ***********************************************************/
 .productCard__moreBids {
     background-color: rgba(var(--secondary-light), 1);
-    padding: 30px;
+    padding: 0 30px;
     height: 500px;
     overflow: auto;
     border-radius: 5px;
+}
+
+.productCard__moreBidsHeader {
+    display: flex;
+    align-items: center;
+    padding: 20px 0 10px 0;
+    border-bottom: 1px solid rgba(var(--primary-dark), 0.2);
+    margin-bottom: 15px;
+    position: sticky;
+    top: 0;
+    background-color: rgba(var(--secondary-light), 1);
+    z-index: 100;
+}
+
+.productCard__moreBidsHeader h1 {
+    flex: 1;
+    text-align: center;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 1.1rem !important;
+    color: rgba(var(--primary-dark), 0.8) !important;
 }

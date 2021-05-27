@@ -1,12 +1,6 @@
 import React, { useState } from 'react'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import {
-    PencilIcon,
-    TagIcon,
-    MegaphoneIcon,
-    PinIcon,
-    XIcon,
-} from '@primer/octicons-react'
+import { TagIcon, MegaphoneIcon, PinIcon, XIcon } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import IconButton from '@material-ui/core/IconButton'
@@ -140,6 +134,16 @@ const ProductCard = () => {
 
             <ModalComp isOpen={isBidMoreOpen} setIsOpen={setIsBidMoreOpen}>
                 <div className="productCard__moreBids">
+                    <div className="productCard__moreBidsHeader">
+                        <h1>All Bids</h1>
+                        <ButtonComp
+                            typeClass={'secondary'}
+                            modifyClass={'iconButton'}
+                            handleOnClick={() => setIsBidMoreOpen(false)}
+                        >
+                            <XIcon size={18} />
+                        </ButtonComp>
+                    </div>
                     <BidCard />
                     <BidCard />
                     <BidCard />
