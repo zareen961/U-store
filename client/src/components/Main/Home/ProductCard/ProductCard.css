@@ -20,8 +20,8 @@
     background-color: rgba(var(--primary-light), 0.5);
     border-radius: 10px !important;
     align-self: center;
-    height: 50px !important;
-    width: 50px !important;
+    height: 40px !important;
+    width: 40px !important;
     margin-right: 10px;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .productCard__nameTime span {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: rgba(var(--primary-dark), 0.5);
 }
 
@@ -133,6 +133,7 @@
     margin-left: auto;
     font-weight: 500;
     font-size: 1.5rem;
+    color: rgba(var(--primary-dark), 0.8);
 }
 
 .productCard__bids {
@@ -163,6 +164,14 @@
     font-size: 1rem;
     margin-left: -10px !important;
     border-color: rgba(var(--primary-dark), 0.2);
+    box-sizing: border-box;
+}
+
+.productCard__bidMore:hover .MuiAvatar-colorDefault {
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-light), 1);
+    font-weight: 500;
+    border-color: rgba(var(--primary-light), 1);
 }
 
 .productCard__action {

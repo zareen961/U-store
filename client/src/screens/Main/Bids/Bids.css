@@ -1,3 +1,18 @@
 .bids {
     background-color: rgba(var(--primary-light), 0.08);
+    display: flex;
+    padding-top: 30px;
+    min-height: 90vh;
+    box-sizing: border-box;
+}
+
+.bids__left,
+.bids__right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.bids__left {
+    margin-right: 30px;
 }

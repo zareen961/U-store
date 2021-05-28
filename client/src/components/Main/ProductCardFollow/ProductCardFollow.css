@@ -1,0 +1,146 @@
+.productCardFollow {
+    background-color: rgba(var(--secondary-light), 1);
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+}
+
+.productCardFollow__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+
+.productCardFollow__avatar {
+    background-color: rgba(var(--primary-light), 0.5);
+    border-radius: 10px !important;
+    align-self: center;
+    height: 40px !important;
+    width: 40px !important;
+    margin-right: 10px;
+}
+
+.productCardFollow__nameTime p {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: -5px;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCardFollow__nameTime span {
+    font-size: 0.8rem;
+    color: rgba(var(--primary-dark), 0.5);
+}
+
+.productCardFollow__header .contact {
+    margin-left: auto;
+}
+
+.productCardFollow__image {
+    height: 300px;
+    margin: 20px 0;
+}
+
+.productCardFollow__image img {
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.productCardFollow__productDetails .name {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCardFollow__productDetails .description {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.productCardFollow__productDetails .readMoreButton {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-weight: 500;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCardFollow__productDetails .readMoreButton:hover {
+    text-decoration: underline;
+}
+
+.productCardFollow__price {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(var(--primary-light), 0.3);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px 0;
+    justify-content: space-between;
+}
+
+.productCardFollow__price h3 {
+    margin-left: 5px;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.productCardFollow__price .priceWrapper {
+    color: rgba(var(--primary-light), 0.8);
+    display: flex;
+    align-items: center;
+}
+
+.productCardFollow__price .price {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCardFollow__bids {
+    display: flex;
+    align-items: center;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCardFollow__bidPlace {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: rgba(var(--primary-light), 0.08);
+    height: 100%;
+    padding-left: 12px;
+    border-radius: 10px;
+    color: rgba(var(--primary-light), 0.8);
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.productCardFollow__bidPlace > input {
+    background-color: transparent;
+    border: 0;
+    flex: 1;
+    margin: 0 10px;
+    color: rgba(var(--primary-dark), 0.8);
+    letter-spacing: 2px;
+    width: 100%;
+    transition: all 0.5s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.productCardFollow__bidPlace > input::placeholder {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}

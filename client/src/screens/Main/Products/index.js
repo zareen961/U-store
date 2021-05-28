@@ -1,11 +1,19 @@
 import React from 'react'
 
+import ProductCardProduct from '../../../components/Main/ProductCardProduct'
 import './Products.css'
 
 const Products = () => {
     return (
         <div className="products">
-            <h1>Products</h1>
+            <div className="products__left">
+                <ProductCardProduct />
+                <ProductCardProduct />
+            </div>
+            <div className="products__right">
+                <ProductCardProduct />
+                <ProductCardProduct />
+            </div>
         </div>
     )
 }

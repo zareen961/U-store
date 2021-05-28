@@ -20,6 +20,7 @@ const ProductCard = () => {
     return (
         <>
             <div className="productCard">
+                {/* Header */}
                 <div className="productCard__header">
                     <Avatar src="avatars/avatar10.png" className="productCard__avatar" />
                     <div className="productCard__nameTime">
@@ -40,6 +41,8 @@ const ProductCard = () => {
                         <li>Delete</li>
                     </ul>
                 </div>
+
+                {/* Details */}
                 <div className="productCard__productDetails">
                     <h2 className="name">Camera 500X</h2>
                     <p className="description">
@@ -47,6 +50,8 @@ const ProductCard = () => {
                         doloribus mollitia neque nemo labore doloremque!
                     </p>
                 </div>
+
+                {/* Image */}
                 <div className="productCard__image">
                     <img
                         src={sampleProduct}
@@ -54,11 +59,15 @@ const ProductCard = () => {
                         onClick={() => setIsImageOpen(true)}
                     />
                 </div>
+
+                {/* Price */}
                 <div className="productCard__price">
                     <TagIcon size={18} />
                     <h3>Price</h3>
                     <span className="price">Rs 1,499</span>
                 </div>
+
+                {/* Bids */}
                 <div className="productCard__bids">
                     <BidCard />
                     <BidCard />
@@ -96,6 +105,8 @@ const ProductCard = () => {
                         </AvatarGroup>
                     </div>
                 </div>
+
+                {/* Action */}
                 <div className="productCard__action">
                     <div className="productCard__bidPlace">
                         <MegaphoneIcon size={20} />
@@ -117,6 +128,7 @@ const ProductCard = () => {
                 </div>
             </div>
 
+            {/* Image Modal */}
             <ModalComp isOpen={isImageOpen} setIsOpen={setIsImageOpen} maxWidth={'lg'}>
                 <div className="productCard__imageModal">
                     <img src={sampleProduct} alt="sample-product" />
@@ -132,6 +144,7 @@ const ProductCard = () => {
                 </div>
             </ModalComp>
 
+            {/* All Bids Modal */}
             <ModalComp isOpen={isBidMoreOpen} setIsOpen={setIsBidMoreOpen}>
                 <div className="productCard__moreBids">
                     <div className="productCard__moreBidsHeader">
