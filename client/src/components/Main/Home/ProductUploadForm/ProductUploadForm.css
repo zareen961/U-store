@@ -1,0 +1,74 @@
+.productUploadForm {
+    display: grid;
+    grid-template-columns: 1fr 10fr 3fr;
+    grid-template-rows: 1fr;
+    gap: 10px;
+    border-radius: 15px;
+    background-color: rgba(var(--secondary-light), 1);
+    padding: 20px;
+}
+
+.productUploadForm__avatar {
+    background-color: rgba(var(--primary-light), 0.5);
+    border-radius: 10px !important;
+    height: 60px !important;
+    width: 60px !important;
+    margin-right: 10px;
+}
+
+.productUploadForm input,
+.productUploadForm textarea {
+    background-color: rgba(var(--primary-light), 0.08);
+    /* background-color: transparent; */
+    border: 0;
+    color: rgba(var(--primary-light), 1);
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 10px;
+    padding: 0;
+    /* padding: 10px; */
+    resize: none;
+}
+
+.productUploadForm input::placeholder,
+.productUploadForm textarea::placeholder {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+}
+
+.productUploadForm__name {
+    padding: 10px;
+}
+
+.productUploadForm__price {
+    height: 0;
+}
+
+.productUploadForm__avatar {
+    grid-row: 1/4;
+    justify-self: center;
+}
+
+.productUploadForm__imageWrapper {
+    height: 0;
+    overflow: hidden;
+}
+
+.productUploadForm__imageWrapper img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.productUploadForm__description {
+    grid-row: 2/4;
+    height: 0;
+    overflow: hidden;
+}
+
+.productUploadForm .uploadButton {
+    grid-row: 1/2;
+    grid-column: 3/4;
+}
