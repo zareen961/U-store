@@ -1,8 +1,6 @@
 .productUploadForm {
-    display: grid;
-    grid-template-columns: 1fr 10fr 3fr;
-    grid-template-rows: 1fr;
-    gap: 10px;
+    display: flex;
+    align-items: center;
     border-radius: 15px;
     background-color: rgba(var(--secondary-light), 1);
     padding: 20px;
@@ -11,64 +9,215 @@
 .productUploadForm__avatar {
     background-color: rgba(var(--primary-light), 0.5);
     border-radius: 10px !important;
-    height: 60px !important;
-    width: 60px !important;
+    height: 55px !important;
+    width: 55px !important;
     margin-right: 10px;
+    cursor: pointer;
 }
-
-.productUploadForm input,
-.productUploadForm textarea {
+.productUploadForm__inputWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
     background-color: rgba(var(--primary-light), 0.08);
-    /* background-color: transparent; */
-    border: 0;
-    color: rgba(var(--primary-light), 1);
-    font-weight: 500;
-    font-size: 1rem;
+    height: 55px;
+    padding-left: 12px;
     border-radius: 10px;
-    padding: 0;
-    /* padding: 10px; */
-    resize: none;
+    color: rgba(var(--primary-light), 0.8);
+    margin-right: 10px;
+    box-sizing: border-box;
 }
 
-.productUploadForm input::placeholder,
-.productUploadForm textarea::placeholder {
+.productUploadForm__inputWrapper > input {
+    background-color: transparent;
+    border: 0;
+    margin: 0 10px;
+    flex: 1;
+    color: rgba(var(--primary-dark), 0.8);
+    letter-spacing: 2px;
+    width: 100%;
+    transition: all 0.5s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.productUploadForm__inputWrapper > input::placeholder {
     color: rgba(var(--primary-light), 0.8);
     font-weight: 600;
     letter-spacing: 1px;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
-.productUploadForm__name {
+/* Modal Form Styles ******************************************************************************************************/
+.productUploadForm__modal {
+    background-color: rgba(var(--secondary-light), 1);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.productUploadForm__modalHeader {
+    display: flex;
+    align-items: center;
+}
+
+.productUploadForm__modalAvatar {
+    background-color: rgba(var(--primary-light), 0.5);
+    border-radius: 10px !important;
+    align-self: center;
+    height: 40px !important;
+    width: 40px !important;
+}
+
+.productUploadForm__modalHeader .close {
+    margin-left: auto;
+}
+
+.productUploadForm__modalHeader > input {
+    border: 0;
+    flex: 1;
     padding: 10px;
+    margin: 0 10px;
+    color: rgba(var(--primary-dark), 0.8);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: rgba(var(--primary-light), 0.08);
+    height: 40px;
+    box-sizing: border-box;
 }
 
-.productUploadForm__price {
-    height: 0;
+.productUploadForm__modalHeader > input::placeholder {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
 }
 
-.productUploadForm__avatar {
-    grid-row: 1/4;
-    justify-self: center;
-}
-
-.productUploadForm__imageWrapper {
-    height: 0;
+.productUploadForm__modalImage {
+    height: 300px;
+    width: 100%;
+    margin: 15px 0;
+    border-radius: 15px;
     overflow: hidden;
+    position: relative;
 }
 
-.productUploadForm__imageWrapper img {
+.productUploadForm__modalImage img {
     height: 100%;
     width: 100%;
+    cursor: pointer;
+}
+
+.productUploadForm__modalImage .progressIndicator {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    z-index: 2;
+}
+
+.productUploadForm__modalImage .progressIndicator .MuiCircularProgress-colorPrimary {
+    color: rgba(var(--primary-light), 1);
+}
+
+.productUploadForm__modalImage .removeImageButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: rgba(var(--primary-dark), 1);
+}
+
+.productUploadForm__modalImage .imageInputWrapper {
+    height: 98%;
+    display: grid;
+    place-items: center;
+    border: 2px solid rgba(var(--primary-light), 0.5);
+    border-radius: 15px;
+}
+
+.productUploadForm__modalImage input {
+    display: none;
+}
+
+.productUploadForm__modalImage label {
+    height: 30px;
+    border: 2px solid rgba(var(--primary-light), 0.8);
     border-radius: 10px;
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(var(--primary-light), 1);
+    font-weight: 600;
+    padding: 8px 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.productUploadForm__description {
-    grid-row: 2/4;
-    height: 0;
-    overflow: hidden;
+.productUploadForm__modalImage label span {
+    margin-left: 10px;
 }
 
-.productUploadForm .uploadButton {
-    grid-row: 1/2;
-    grid-column: 3/4;
+.productUploadForm__modalImage label:hover {
+    color: rgba(var(--secondary-light), 1);
+    background-color: rgba(var(--primary-light), 1);
+}
+
+.productUploadForm__modalDescription {
+    border: 0;
+    flex: 1;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: rgba(var(--primary-dark), 0.8);
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 10px;
+    background-color: rgba(var(--primary-light), 0.08);
+    box-sizing: border-box;
+    min-height: 100px;
+    resize: none;
+}
+
+.productUploadForm__modalDescription::placeholder {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.productUploadForm__modalFooter {
+    display: flex;
+    align-items: center;
+}
+
+.productUploadForm__modalFooter {
+    display: flex;
+    align-items: center;
+    background-color: rgba(var(--primary-light), 0.08);
+    height: 100%;
+    padding-left: 12px;
+    border-radius: 10px;
+    color: rgba(var(--primary-light), 0.8);
+    box-sizing: border-box;
+}
+
+.productUploadForm__modalFooter > input {
+    background-color: transparent;
+    border: 0;
+    flex: 1;
+    margin: 0 10px;
+    color: rgba(var(--primary-dark), 0.8);
+    letter-spacing: 2px;
+    width: 100%;
+    transition: all 0.5s ease;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.productUploadForm__modalFooter > input::placeholder {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
 }

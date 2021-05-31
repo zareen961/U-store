@@ -1,13 +1,13 @@
-const {
+import {
     PRICE_MAX,
     PRICE_MIN,
     DESCRIPTION_LEN_MAX,
     PRODUCT_LEN_MIN,
     PRODUCT_LEN_MAX,
-} = require('../utils/constants')
+} from '../utils/constants/validators'
 
-const validateProductInputs = (inputData, isEdit = false) => {
-    const { name, image, price, description } = inputData
+export const validateProductInputs = (inputData, isEdit = false) => {
+    const { name, price, description } = inputData
 
     //validating name
     if (name) {
@@ -23,14 +23,6 @@ const validateProductInputs = (inputData, isEdit = false) => {
                 isValid: false,
                 message: 'Product name is needed!',
             }
-        }
-    }
-
-    //validating image
-    if (Object.keys(image).length === 0 && !image.fileName && !image.url && !isEdit) {
-        return {
-            isValid: false,
-            message: 'Product image is needed!',
         }
     }
 
@@ -79,5 +71,3 @@ const validateProductInputs = (inputData, isEdit = false) => {
         isValid: true,
     }
 }
-
-module.exports = validateProductInputs

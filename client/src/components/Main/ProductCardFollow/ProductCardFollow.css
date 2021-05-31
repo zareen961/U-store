@@ -133,7 +133,6 @@
     color: rgba(var(--primary-dark), 0.8);
     letter-spacing: 2px;
     width: 100%;
-    transition: all 0.5s ease;
     font-size: 1rem;
     font-weight: 600;
 }
