@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Badge from '@material-ui/core/Badge'
 import Avatar from '@material-ui/core/Avatar'
 import Fab from '@material-ui/core/Fab'
@@ -24,9 +24,18 @@ import './AccountForm.css'
 
 const AccountForm = ({ isEdit, setIsEdit }) => {
     const dispatch = useDispatch()
+
+    const { loading: loadingCollege, data: collegeData } = useSelector(
+        (state) => state.college
+    )
     const { user } = useSelector((state) => state.userLogin)
     const { loading, success } = useSelector((state) => state.userUpdate)
 
+    const [collegeInfo, setCollegeInfo] = useState({
+        state: '',
+        city: '',
+        college: '',
+    })
     const [isAvatarOpen, setIsAvatarOpen] = useState(false)
     const [isConfirmOpen, setIsConfirmOpen] = useState(false)
     const [initialInputVals, setInitialInputVals] = useState({
@@ -44,6 +53,44 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
 
     const { inputVals, customSetInputVals, handleOnChange, handleReset } =
         useForm(initialInputVals)
+
+    // function to get the college info of the logged in user
+    const getCollegeInfo = useCallback(() => {
+        let collegeInfoObj = {
+            state: '',
+            city: '',
+            college: '',
+        }
+        if (!loadingCollege && !loading && collegeData && user && user.userInfo) {
+            collegeData.forEach((state) => {
+                if (String(state._id) === String(user.userInfo.collegeState)) {
+                    collegeInfoObj.state = state.name
+
+                    state.cities.forEach((city) => {
+                        if (String(city._id) === String(user.userInfo.collegeCity)) {
+                            collegeInfoObj.city = city.name
+
+                            city.colleges.forEach((college) => {
+                                if (
+                                    String(college._id) === String(user.userInfo.college)
+                                ) {
+                                    collegeInfoObj.college = college.name
+                                    return collegeInfoObj
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+        return collegeInfoObj
+    }, [loadingCollege, loading, collegeData, user])
+
+    useEffect(() => {
+        if (!loading && !loadingCollege) {
+            setCollegeInfo(getCollegeInfo())
+        }
+    }, [loading, loadingCollege, getCollegeInfo])
 
     const handleOnSubmit = () => {
         let toUpdate = {}
@@ -124,6 +171,20 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
     return (
         <>
             <form className="accountForm" onSubmit={(e) => e.preventDefault()}>
+                {/* College Info */}
+                <div className="accountForm__collegeInfo">
+                    <h1>
+                        {collegeInfo.college !== ''
+                            ? collegeInfo.college
+                            : 'Your College Name'}
+                    </h1>
+                    <h2>
+                        {collegeInfo.city !== '' && collegeInfo.state !== ''
+                            ? `${collegeInfo.city}, ${collegeInfo.state}`
+                            : 'Your College City, State'}
+                    </h2>
+                </div>
+
                 {/* username */}
                 <div
                     className={
@@ -280,6 +341,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         type="password"
                         disabled={!isEdit}
                         placeholder="Update your password"
+                        autoComplete="new-password"
                         name="password"
                         value={inputVals.password}
                         onChange={handleOnChange}
@@ -298,6 +360,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         type="password"
                         disabled={!isEdit}
                         placeholder="Confirm your updated password"
+                        autoComplete="new-password"
                         name="passwordConfirm"
                         value={inputVals.passwordConfirm}
                         onChange={handleOnChange}

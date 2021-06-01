@@ -5,8 +5,25 @@
     padding: 10px;
 }
 
+.accountForm__collegeInfo {
+    grid-column: 1/-1;
+    text-align: center;
+    color: rgba(var(--primary-light), 1);
+    margin-bottom: 30px;
+}
+
+.accountForm__collegeInfo h1 {
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+
+.accountForm__collegeInfo h2 {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
 .accountForm .accountForm__avatar {
-    grid-row: 1/ 3;
+    grid-row: 2/ 4;
     grid-column: 2/3;
     align-self: center;
     justify-self: center;

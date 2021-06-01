@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
@@ -57,13 +57,13 @@ const ProductUploadForm = () => {
         }
     }
 
-    const handleOnClose = () => {
+    const handleOnClose = useCallback(() => {
         handleReset()
         setUploadProgress(0)
         setFile('')
         setImagePreview('')
         setIsUploadFormOpen(false)
-    }
+    }, [handleReset])
 
     const handleImageUpload = () => {
         let fileName = uuid() + '.' + file?.name.split('.').pop()
@@ -119,13 +119,13 @@ const ProductUploadForm = () => {
         if (isValid && inputVals.image.fileName && inputVals.image.url) {
             dispatch(productUpload(inputVals))
         }
-    }, [inputVals.image, dispatch])
+    }, [inputVals, dispatch])
 
     useEffect(() => {
         if (success) {
             handleOnClose()
         }
-    }, [success])
+    }, [success, handleOnClose])
 
     return (
         <>
