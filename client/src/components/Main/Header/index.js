@@ -11,7 +11,7 @@ import Logo from '../../utils/Logo'
 import ButtonComp from '../../utils/ButtonComp'
 import './Header.css'
 
-const Header = () => {
+const Header = ({ setIsUploadFormOpen }) => {
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.userLogin)
 
@@ -36,7 +36,7 @@ const Header = () => {
                 <ButtonComp
                     typeClass={'primary'}
                     text={'Upload'}
-                    handleOnClick={() => {}}
+                    handleOnClick={() => setIsUploadFormOpen(true)}
                 >
                     <DiffAddedIcon size={16} />
                 </ButtonComp>

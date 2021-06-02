@@ -24,12 +24,11 @@ const initialInputVals = {
     price: '',
 }
 
-const ProductUploadForm = () => {
+const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const { loading, success } = useSelector((state) => state.productUpload)
 
-    const [isUploadFormOpen, setIsUploadFormOpen] = useState(false)
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [uploadProgress, setUploadProgress] = useState(0)
     const [file, setFile] = useState('')

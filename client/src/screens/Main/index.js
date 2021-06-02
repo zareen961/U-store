@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import SidebarLeft from '../../components/Main/SidebarLeft'
 import SidebarRight from '../../components/Main/SidebarRight'
@@ -7,16 +7,21 @@ import Routes from '../../Routes'
 import './Main.css'
 
 const Main = () => {
+    const [isUploadFormOpen, setIsUploadFormOpen] = useState(false)
+
     return (
         <div className="main">
             <div className="main__header">
-                <Header />
+                <Header setIsUploadFormOpen={setIsUploadFormOpen} />
             </div>
             <div className="main__sidebarLeft">
                 <SidebarLeft />
             </div>
             <div className="main__screen">
-                <Routes />
+                <Routes
+                    isUploadFormOpen={isUploadFormOpen}
+                    setIsUploadFormOpen={setIsUploadFormOpen}
+                />
             </div>
             <div className="main__sidebarRight">
                 <SidebarRight />

@@ -8,11 +8,16 @@ import Following from './screens/Main/Following'
 import Account from './screens/Main/Account'
 import Settings from './screens/Main/Settings'
 
-const Routes = () => {
+const Routes = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     return (
         <>
             <Switch>
-                <Route exact path="/" component={Home} />
+                <Route exact path="/">
+                    <Home
+                        isUploadFormOpen={isUploadFormOpen}
+                        setIsUploadFormOpen={setIsUploadFormOpen}
+                    />
+                </Route>
                 <Route exact path="/products" component={Products} />
                 <Route exact path="/bids" component={Bids} />
                 <Route exact path="/following" component={Following} />

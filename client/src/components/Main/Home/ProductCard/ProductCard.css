@@ -112,6 +112,7 @@
     width: 100%;
     border-radius: 15px;
     cursor: pointer;
+    max-height: 400px;
 }
 
 .productCard__price {

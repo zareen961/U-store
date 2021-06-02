@@ -26,6 +26,12 @@ export const bidPlace = (productID, bidPrice) => async (dispatch) => {
         dispatch({
             type: actionTypes.BID_PLACE_SUCCESS,
         })
+        dispatch(
+            alertAdd(
+                'Sit and bid on the next product while this gets responded',
+                'success'
+            )
+        )
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message
