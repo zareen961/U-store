@@ -3,16 +3,25 @@ import { ThumbsupIcon, ThumbsdownIcon } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
+import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../../utils/ButtonComp'
 import './BidCard.css'
 
 const BidCard = ({ bid }) => {
+    const history = useHistory()
+
     return (
         <div className="bidCard">
-            <Avatar src="avatars/avatar24.png" className="bidCard__avatar" />
+            <Avatar
+                src={`avatars/avatar${bid.bidOwner.avatar}.png`}
+                className="bidCard__avatar"
+                onClick={() => history.push(`/contact/${bid.bidOwner._id}`)}
+            />
             <div className="bidCard__nameTime">
-                <p>{bid.bidOwner}</p>
+                <p onClick={() => history.push(`/contact/${bid.bidOwner._id}`)}>
+                    {bid.bidOwner.username}
+                </p>
                 <span>{moment(bid.createdAt).fromNow()}</span>
             </div>
             <div className="bidCard__price">

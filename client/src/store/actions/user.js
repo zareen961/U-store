@@ -37,7 +37,7 @@ export const collegeFetchData = () => async (dispatch, getState) => {
 }
 
 // to get all the details of logged in user
-export const userFetch = () => async (dispatch) => {
+export const userFetch = (userID) => async (dispatch) => {
     let token
     if (localStorage.getItem('user')) {
         token = JSON.parse(localStorage.getItem('user')).token
@@ -48,7 +48,7 @@ export const userFetch = () => async (dispatch) => {
             type: actionTypes.USER_FETCH_REQUEST,
         })
 
-        const { data } = await axiosInstance.get('/api/user')
+        const { data } = await axiosInstance.get(`/api/user/${userID}`)
 
         dispatch({
             type: actionTypes.USER_FETCH_SUCCESS,

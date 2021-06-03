@@ -9,6 +9,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
+import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../utils/ButtonComp'
 import ModalComp from '../../../utils/ModalComp'
@@ -20,6 +21,7 @@ import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const { user } = useSelector((state) => state.userLogin)
     const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
@@ -30,7 +32,7 @@ const ProductCard = ({ product }) => {
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
-    const [isUserEligibleToBid, setIsUserEligibleToBid] = useState(true)
+    const [isUserEligibleToBid, setIsUserEligibleToBid] = useState({ canPlaceBid: true })
 
     const handleBidPlace = () => {
         if (bidVal >= 0 && bidVal !== '') {
@@ -40,16 +42,17 @@ const ProductCard = ({ product }) => {
         }
     }
 
+    // function to check if the logged in user can place a bid on the current product
     const checkUserCanPlaceBid = useCallback(() => {
         for (let i = 0; i < product.bids.length; i++) {
             if (
-                String(product.bids[i].bidOwner) === String(user.userInfo._id) &&
+                String(product.bids[i].bidOwner._id) === String(user.userInfo._id) &&
                 product.bids[i].status !== 'REJECTED'
             ) {
-                return false
+                return { canPlaceBid: false, bidPrice: product.bids[i].price }
             }
         }
-        return true
+        return { canPlaceBid: true }
     }, [product.bids, user])
 
     useEffect(() => {
@@ -70,12 +73,24 @@ const ProductCard = ({ product }) => {
             <div className="productCard">
                 {/* Header */}
                 <div className="productCard__header">
-                    <Avatar src="avatars/avatar10.png" className="productCard__avatar" />
+                    <Avatar
+                        src={`avatars/avatar${product.productOwner.avatar}.png`}
+                        className="productCard__avatar"
+                        onClick={() =>
+                            history.push(`/contact/${product.productOwner._id}`)
+                        }
+                    />
                     <div className="productCard__nameTime">
-                        <p>{product.productOwner}</p>
+                        <p
+                            onClick={() =>
+                                history.push(`/contact/${product.productOwner._id}`)
+                            }
+                        >
+                            {product.productOwner.username}
+                        </p>
                         <span>{moment(product.createdAt).fromNow()}</span>
                     </div>
-                    {String(user.userInfo._id) === String(product.productOwner) && (
+                    {String(user.userInfo._id) === String(product.productOwner._id) && (
                         <>
                             <ClickAwayListener
                                 onClickAway={() => setIsMenuTrayOpen(false)}
@@ -131,58 +146,50 @@ const ProductCard = ({ product }) => {
 
                 {/* Bids */}
                 <div className="productCard__bids">
-                    {_.orderBy(product.bids, ['price'], ['desc'])
-                        .slice(0, 2)
-                        .map((bid) => (
-                            <BidCard key={bid._id} bid={bid} />
-                        ))}
+                    {product.bids.length > 0 ? (
+                        _.orderBy(product.bids, ['price'], ['desc'])
+                            .slice(0, 2)
+                            .map((bid) => <BidCard key={bid._id} bid={bid} />)
+                    ) : (
+                        <div className="productCard__noBid">
+                            <h3>No attention seeked yet!</h3>
+                        </div>
+                    )}
 
-                    <div
-                        className="productCard__bidMore"
-                        onClick={() => setIsBidMoreOpen(true)}
-                    >
-                        <AvatarGroup max={3}>
-                            <Avatar
-                                alt="Remy Sharp"
-                                src="avatars/avatar6.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Travis Howard"
-                                src="avatars/avatar2.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Cindy Baker"
-                                src="avatars/avatar5.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Agnes Walker"
-                                src="avatars/avatar9.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Trevor Henderson"
-                                src="avatars/avatar1.png"
-                                className="avatar"
-                            />
-                        </AvatarGroup>
-                    </div>
+                    {product.bids.length > 2 && (
+                        <div
+                            className="productCard__bidMore"
+                            onClick={() => setIsBidMoreOpen(true)}
+                        >
+                            <AvatarGroup max={3}>
+                                {_.orderBy(product.bids, ['price'], ['desc'])
+                                    .slice(2)
+                                    .map((bid) => (
+                                        <Avatar
+                                            alt={bid.bidOwner.username}
+                                            src={`avatars/avatar${bid.bidOwner.avatar}.png`}
+                                            className="avatar"
+                                        />
+                                    ))}
+                            </AvatarGroup>
+                        </div>
+                    )}
                 </div>
 
                 {/* Action */}
-                {String(user.userInfo._id) !== String(product.productOwner) && (
+                {String(user.userInfo._id) !== String(product.productOwner._id) && (
                     <div className="productCard__action">
                         <div className="productCard__bidPlace">
                             <MegaphoneIcon size={20} />
                             <input
                                 type="number"
                                 placeholder={
-                                    isUserEligibleToBid ? 'Place a bid' : 'Active: Rs___'
+                                    isUserEligibleToBid.canPlaceBid
+                                        ? 'Place a bid'
+                                        : `Active: Rs ${isUserEligibleToBid?.bidPrice}`
                                 }
                                 value={bidVal}
-                                disabled={!isUserEligibleToBid}
+                                disabled={!isUserEligibleToBid.canPlaceBid}
                                 onChange={(e) => setBidVal(e.target.value)}
                             />
                             <ButtonComp
@@ -243,7 +250,7 @@ const ProductCard = ({ product }) => {
                             <XIcon size={18} />
                         </ButtonComp>
                     </div>
-                    {product.bids.map((bid) => (
+                    {_.orderBy(product.bids, ['price'], ['desc']).map((bid) => (
                         <BidCard key={bid._id} bid={bid} />
                     ))}
                 </div>

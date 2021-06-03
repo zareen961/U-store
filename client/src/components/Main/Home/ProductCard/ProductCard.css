@@ -4,6 +4,7 @@
     border-radius: 15px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 1fr 3fr 0.7fr;
     padding: 30px;
     gap: 20px;
 }
@@ -23,6 +24,7 @@
     height: 40px !important;
     width: 40px !important;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .productCard__nameTime p {
@@ -30,11 +32,13 @@
     font-size: 1rem;
     margin-bottom: -5px;
     color: rgba(var(--primary-dark), 0.8);
+    cursor: pointer;
 }
 
 .productCard__nameTime span {
     font-size: 0.8rem;
     color: rgba(var(--primary-dark), 0.5);
+    cursor: auto;
 }
 
 .productCard__header .icon {
@@ -108,8 +112,9 @@
 }
 
 .productCard__image img {
-    height: 100%;
+    height: 400px;
     width: 100%;
+    object-fit: cover;
     border-radius: 15px;
     cursor: pointer;
     max-height: 400px;
@@ -140,6 +145,20 @@
 .productCard__bids {
     display: flex;
     flex-direction: column;
+}
+
+.productCard__noBid {
+    border: 1px solid rgba(var(--primary-light), 0.3);
+    border-radius: 15px;
+    display: grid;
+    place-items: center;
+    min-height: 100%;
+}
+
+.productCard__noBid h3 {
+    font-weight: 500;
+    font-size: 1rem;
+    color: rgba(var(--primary-light), 0.6);
 }
 
 .productCard__bidMore {

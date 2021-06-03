@@ -7,6 +7,7 @@ import Bids from './screens/Main/Bids'
 import Following from './screens/Main/Following'
 import Account from './screens/Main/Account'
 import Settings from './screens/Main/Settings'
+import Contact from './screens/Main/Contact'
 
 const Routes = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     return (
@@ -23,6 +24,7 @@ const Routes = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                 <Route exact path="/following" component={Following} />
                 <Route exact path="/account" component={Account} />
                 <Route exact path="/settings" component={Settings} />
+                <Route path="/contact/:userID" component={Contact} />
             </Switch>
         </>
     )

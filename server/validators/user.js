@@ -107,7 +107,7 @@ const validateUserInputs = (inputData, isEdit = false) => {
                 isValid: false,
                 message:
                     // TODO: we 'll cum here again. Please remove this comment once this message makes sense.
-                    'Invalid Username! It must be 6-17 characters long, can only have alphanumeric characters, underscore(_) and period(.), it can only start and end with alphanumeric characters and no allowed special characters can appear consecutively!',
+                    'Invalid Username! It must be 3-13 characters long, can only have alphanumeric characters, underscore(_) and period(.), it can only start and end with alphanumeric characters and no allowed special characters can appear consecutively!',
             }
         }
     } else {

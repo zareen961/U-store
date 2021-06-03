@@ -51,7 +51,18 @@ const productUpload = asyncHandler(async (req, res) => {
 // to get all products for the logged in user’s college
 const productGetAll = asyncHandler(async (req, res) => {
     const foundProducts = await Product.find({ college: req.authUser.college })
-        .populate('bids')
+        .populate({
+            path: 'bids',
+            options: { sort: { price: -1 } },
+            populate: {
+                path: 'bidOwner',
+                select: '_id avatar username',
+            },
+        })
+        .populate({
+            path: 'productOwner',
+            select: '_id avatar username',
+        })
         .sort({
             createdAt: -1,
         })

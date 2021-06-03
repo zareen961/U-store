@@ -120,8 +120,9 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
     }
 
     const handlePhoneInput = (e) => {
-        const regEx = /[0-9]+/
-        if (regEx.test(e.nativeEvent.data)) {
+        const regEx = /[0-9]+\b/
+        const pressedKey = e.nativeEvent.data
+        if (regEx.test(pressedKey) || pressedKey === null) {
             handleOnChange(e)
         }
     }

@@ -11,10 +11,10 @@ const {
 
 const router = express.Router()
 
-// @route: GET /api/user
+// @route: GET /api/user/:userID
 // @desc: To fetch details of logged in user
 // @access: Private
-router.get('/', protectUser, userGet)
+router.get('/:userID', protectUser, userGet)
 
 // @route: POST /api/user
 // @desc: To register a new user

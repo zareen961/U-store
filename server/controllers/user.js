@@ -6,10 +6,11 @@ const Product = require('../models/Product')
 const Bid = require('../models/Bid')
 const generateToken = require('../utils/generateToken')
 const validateUserInputs = require('../validators/user')
+const { capitalize } = require('../utils/capitalize')
 
 // to get all the details of an User
 const userGet = asyncHandler(async (req, res) => {
-    const foundUser = await User.findById(req.authUser._id).populate({
+    const foundUser = await User.findById(req.params.userID).populate({
         path: 'products bids following',
         options: { sort: { createdAt: -1 } },
         populate: {
@@ -67,8 +68,8 @@ const userRegister = asyncHandler(async (req, res) => {
     const newUser = await User.create({
         email,
         username,
-        firstName,
-        lastName,
+        firstName: capitalize(firstName),
+        lastName: capitalize(lastName),
         avatar,
         primaryPhone,
         secondaryPhone,
@@ -200,6 +201,14 @@ const userUpdate = asyncHandler(async (req, res) => {
             const salt = await bcrypt.genSalt(13)
             toUpdateUser.password = await bcrypt.hash(toUpdateUser.password, salt)
         }
+
+        // if Name is updated Capitalize it
+        toUpdateUser.firstName = toUpdateUser.firstName
+            ? capitalize(toUpdateUser.firstName)
+            : toUpdateUser.firstName
+        toUpdateUser.lastName = toUpdateUser.lastName
+            ? capitalize(toUpdateUser.lastName)
+            : toUpdateUser.lastName
 
         const updatedUser = await User.findOneAndUpdate(
             { _id: req.authUser._id },
