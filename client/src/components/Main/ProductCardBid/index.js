@@ -189,7 +189,11 @@ const ProductCardBid = () => {
             </div>
 
             {/* Image Modal */}
-            <ModalComp isOpen={isImageOpen} setIsOpen={setIsImageOpen} maxWidth={'lg'}>
+            <ModalComp
+                isOpen={isImageOpen}
+                handleOnClose={() => setIsImageOpen(false)}
+                maxWidth={'lg'}
+            >
                 <div className="productCard__imageModal">
                     <img src={sampleProduct} alt="sample-product" />
                     <div className="closeButtonWrapper">
@@ -205,7 +209,10 @@ const ProductCardBid = () => {
             </ModalComp>
 
             {/* All Bids Modal */}
-            <ModalComp isOpen={isBidMoreOpen} setIsOpen={setIsBidMoreOpen}>
+            <ModalComp
+                isOpen={isBidMoreOpen}
+                handleOnClose={() => setIsBidMoreOpen(false)}
+            >
                 <div className="productCard__moreBids">
                     <div className="productCard__moreBidsHeader">
                         <h1>All Bids</h1>
@@ -217,16 +224,9 @@ const ProductCardBid = () => {
                             <XIcon size={18} />
                         </ButtonComp>
                     </div>
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
-                    <BidCard />
+                    {/* {product.bids.map((bid) => (
+                        <BidCard key={bid._id} bid={bid} />
+                    ))} */}
                 </div>
             </ModalComp>
         </>

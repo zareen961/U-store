@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { TagIcon, MegaphoneIcon, PinIcon, XIcon } from '@primer/octicons-react'
@@ -6,8 +6,10 @@ import Avatar from '@material-ui/core/Avatar'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import IconButton from '@material-ui/core/IconButton'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import moment from 'moment'
+import NumberFormat from 'react-number-format'
+import _ from 'lodash'
 
-import sampleProduct from '../../../../assets/images/sample-product.jpg'
 import ButtonComp from '../../../utils/ButtonComp'
 import ModalComp from '../../../utils/ModalComp'
 import BidCard from './BidCard'
@@ -28,7 +30,7 @@ const ProductCard = ({ product }) => {
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
-    const [isUserReadyToBid, setIsUserReadyToBid] = useState(true)
+    const [isUserEligibleToBid, setIsUserEligibleToBid] = useState(true)
 
     const handleBidPlace = () => {
         if (bidVal >= 0 && bidVal !== '') {
@@ -38,25 +40,30 @@ const ProductCard = ({ product }) => {
         }
     }
 
-    const checkUserCanPlaceBid = () => {
-        product.bids.forEach((bid) => {
+    const checkUserCanPlaceBid = useCallback(() => {
+        for (let i = 0; i < product.bids.length; i++) {
             if (
-                String(bid.bidOwner) === String(user.userInfo._id) &&
-                bid.status !== 'REJECTED'
+                String(product.bids[i].bidOwner) === String(user.userInfo._id) &&
+                product.bids[i].status !== 'REJECTED'
             ) {
-                console.log(bid.price + '----' + bid.status)
                 return false
             }
-        })
+        }
         return true
-    }
+    }, [product.bids, user])
 
     useEffect(() => {
         if (user && user.userInfo) {
-            // setIsUserReadyToBid(checkUserCanPlaceBid())
-            console.log(checkUserCanPlaceBid())
+            setIsUserEligibleToBid(checkUserCanPlaceBid())
         }
-    }, [isUserReadyToBid, user, user.userInfo])
+    }, [user, user.userInfo, checkUserCanPlaceBid])
+
+    useEffect(() => {
+        if (successBidPlace) {
+            setBidVal('')
+            setIsUserEligibleToBid(checkUserCanPlaceBid())
+        }
+    }, [successBidPlace, checkUserCanPlaceBid])
 
     return (
         <>
@@ -66,7 +73,7 @@ const ProductCard = ({ product }) => {
                     <Avatar src="avatars/avatar10.png" className="productCard__avatar" />
                     <div className="productCard__nameTime">
                         <p>{product.productOwner}</p>
-                        <span>2 hours ago</span>
+                        <span>{moment(product.createdAt).fromNow()}</span>
                     </div>
                     {String(user.userInfo._id) === String(product.productOwner) && (
                         <>
@@ -108,13 +115,27 @@ const ProductCard = ({ product }) => {
                 <div className="productCard__price">
                     <TagIcon size={18} />
                     <h3>Price</h3>
-                    <span className="price">{product.price}</span>
+                    <span className="price">
+                        {product.price === 0 ? (
+                            'Free'
+                        ) : (
+                            <NumberFormat
+                                value={product.price}
+                                prefix={'Rs '}
+                                thousandSeparator={true}
+                                displayType={'text'}
+                            />
+                        )}
+                    </span>
                 </div>
 
                 {/* Bids */}
                 <div className="productCard__bids">
-                    <BidCard />
-                    <BidCard />
+                    {_.orderBy(product.bids, ['price'], ['desc'])
+                        .slice(0, 2)
+                        .map((bid) => (
+                            <BidCard key={bid._id} bid={bid} />
+                        ))}
 
                     <div
                         className="productCard__bidMore"
@@ -157,15 +178,21 @@ const ProductCard = ({ product }) => {
                             <MegaphoneIcon size={20} />
                             <input
                                 type="number"
-                                placeholder="Place a bid"
+                                placeholder={
+                                    isUserEligibleToBid ? 'Place a bid' : 'Active: Rs___'
+                                }
                                 value={bidVal}
-                                disabled={!isUserReadyToBid}
+                                disabled={!isUserEligibleToBid}
                                 onChange={(e) => setBidVal(e.target.value)}
                             />
                             <ButtonComp
                                 typeClass={'primary'}
                                 handleOnClick={handleBidPlace}
-                                modifyClass={'insideInputButton'}
+                                modifyClass={
+                                    isUserEligibleToBid
+                                        ? 'insideInputButton'
+                                        : 'insideInputButton disabled'
+                                }
                                 text={'Place'}
                             />
                         </div>
@@ -181,7 +208,11 @@ const ProductCard = ({ product }) => {
             </div>
 
             {/* Image Modal */}
-            <ModalComp isOpen={isImageOpen} setIsOpen={setIsImageOpen} maxWidth={'lg'}>
+            <ModalComp
+                isOpen={isImageOpen}
+                handleOnClose={() => setIsImageOpen(false)}
+                maxWidth={'lg'}
+            >
                 <div className="productCard__imageModal">
                     <img src={product.image.url} alt={product.name} />
                     <div className="closeButtonWrapper">
@@ -197,7 +228,10 @@ const ProductCard = ({ product }) => {
             </ModalComp>
 
             {/* All Bids Modal */}
-            <ModalComp isOpen={isBidMoreOpen} setIsOpen={setIsBidMoreOpen}>
+            <ModalComp
+                isOpen={isBidMoreOpen}
+                handleOnClose={() => setIsBidMoreOpen(false)}
+            >
                 <div className="productCard__moreBids">
                     <div className="productCard__moreBidsHeader">
                         <h1>All Bids</h1>

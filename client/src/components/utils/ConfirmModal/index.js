@@ -27,7 +27,7 @@ const ConfirmModal = ({
     }
 
     return (
-        <ModalComp isOpen={isOpen} setIsOpen={setIsOpen}>
+        <ModalComp isOpen={isOpen} handleOnClose={handleOnCancel}>
             <div className="confirmModal">
                 <h1>Are you sure?</h1>
                 <p>

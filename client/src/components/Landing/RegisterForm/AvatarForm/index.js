@@ -30,7 +30,11 @@ const AvatarForm = ({ isAvatarOpen, setIsAvatarOpen, setAvatar }) => {
     }, [])
 
     return (
-        <ModalComp isOpen={isAvatarOpen} setIsOpen={setIsAvatarOpen} maxWidth={'lg'}>
+        <ModalComp
+            isOpen={isAvatarOpen}
+            handleOnClose={() => setIsAvatarOpen(false)}
+            maxWidth={'lg'}
+        >
             <div className="avatarForm">
                 <div className="avatarForm__header">
                     <h1>Choose Your Favorite!</h1>

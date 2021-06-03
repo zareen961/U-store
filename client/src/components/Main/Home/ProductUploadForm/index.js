@@ -27,6 +27,8 @@ const initialInputVals = {
 const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     const dispatch = useDispatch()
     const history = useHistory()
+
+    const { user } = useSelector((state) => state.userLogin)
     const { loading, success } = useSelector((state) => state.productUpload)
 
     const [isImageOpen, setIsImageOpen] = useState(false)
@@ -62,7 +64,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         setFile('')
         setImagePreview('')
         setIsUploadFormOpen(false)
-    }, [handleReset])
+    }, [handleReset, setIsUploadFormOpen])
 
     const handleImageUpload = () => {
         let fileName = uuid() + '.' + file?.name.split('.').pop()
@@ -130,7 +132,11 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         <>
             <div className="productUploadForm">
                 <Avatar
-                    src="avatars/avatar10.png"
+                    src={
+                        user && user.userInfo
+                            ? `avatars/avatar${user.userInfo.avatar}.png`
+                            : 'avatars/avatar0.png'
+                    }
                     className="productUploadForm__avatar"
                     onClick={() => history.push('/account')}
                 />
@@ -151,7 +157,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
 
             <ModalComp
                 isOpen={isUploadFormOpen}
-                setIsOpen={setIsUploadFormOpen}
+                handleOnClose={handleOnClose}
                 maxWidth={'xs'}
             >
                 <form
@@ -161,7 +167,11 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                     {/* Header */}
                     <div className="productUploadForm__modalHeader">
                         <Avatar
-                            src="avatars/avatar14.png"
+                            src={
+                                user && user.userInfo
+                                    ? `avatars/avatar${user.userInfo.avatar}.png`
+                                    : 'avatars/avatar0.png'
+                            }
                             className="productUploadForm__modalAvatar"
                         />
                         <input
@@ -266,7 +276,11 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
             </ModalComp>
 
             {/* Image Modal */}
-            <ModalComp isOpen={isImageOpen} setIsOpen={setIsImageOpen} maxWidth={'lg'}>
+            <ModalComp
+                isOpen={isImageOpen}
+                handleOnClose={() => setIsImageOpen(false)}
+                maxWidth={'lg'}
+            >
                 <div className="productCard__imageModal">
                     <img src={imagePreview} alt="uploaded-product" />
                     <div className="closeButtonWrapper">

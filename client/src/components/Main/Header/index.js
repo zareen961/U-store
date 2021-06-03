@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { SearchIcon, DiffAddedIcon } from '@primer/octicons-react'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,12 +13,19 @@ import './Header.css'
 
 const Header = ({ setIsUploadFormOpen }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
+
     const { user } = useSelector((state) => state.userLogin)
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const logoutHandler = () => {
         dispatch(userLogout())
+    }
+
+    const handleUploadFormOpen = () => {
+        history.push('../')
+        setIsUploadFormOpen(true)
     }
 
     return (
@@ -36,7 +43,7 @@ const Header = ({ setIsUploadFormOpen }) => {
                 <ButtonComp
                     typeClass={'primary'}
                     text={'Upload'}
-                    handleOnClick={() => setIsUploadFormOpen(true)}
+                    handleOnClick={handleUploadFormOpen}
                 >
                     <DiffAddedIcon size={16} />
                 </ButtonComp>
