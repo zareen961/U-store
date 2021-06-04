@@ -19,7 +19,10 @@ const BidCard = ({ bid }) => {
                 onClick={() => history.push(`/contact/${bid.bidOwner._id}`)}
             />
             <div className="bidCard__nameTime">
-                <p onClick={() => history.push(`/contact/${bid.bidOwner._id}`)}>
+                <p
+                    className="username"
+                    onClick={() => history.push(`/contact/${bid.bidOwner._id}`)}
+                >
                     {bid.bidOwner.username}
                 </p>
                 <span>{moment(bid.createdAt).fromNow()}</span>

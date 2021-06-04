@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import {
     HomeIcon,
@@ -15,10 +15,11 @@ import Badge from '@material-ui/core/Badge'
 import './SidebarLeft.css'
 
 const SidebarLeft = () => {
+    const location = useLocation()
+
     const { user } = useSelector((state) => state.userLogin)
 
-    const path =
-        window.location.pathname === '/' ? 'home' : window.location.pathname.substr(1)
+    const path = location.pathname === '/' ? 'home' : location.pathname.substr(1)
     const [active, setActive] = useState(path)
 
     useEffect(() => {

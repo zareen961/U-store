@@ -15,8 +15,10 @@ import ButtonComp from '../../../utils/ButtonComp'
 import ModalComp from '../../../utils/ModalComp'
 import BidCard from './BidCard'
 import { bidPlace } from '../../../../store/actions/bid'
-import { productFollowToggle } from '../../../../store/actions/product'
+import { productFollowToggle, productDelete } from '../../../../store/actions/product'
 import { alertAdd } from '../../../../store/actions/alert'
+import ConfirmModal from '../../../utils/ConfirmModal'
+import BidInputLoader from '../../../utils/BidInputLoader'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
@@ -27,12 +29,16 @@ const ProductCard = ({ product }) => {
     const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
         (state) => state.bidPlace
     )
+    const { loading: loadingProductDelete, success: successProductDelete } = useSelector(
+        (state) => state.productDelete
+    )
 
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
     const [isUserEligibleToBid, setIsUserEligibleToBid] = useState({ canPlaceBid: true })
+    const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
 
     const handleBidPlace = () => {
         if (bidVal >= 0 && bidVal !== '') {
@@ -68,6 +74,18 @@ const ProductCard = ({ product }) => {
         }
     }, [successBidPlace, checkUserCanPlaceBid])
 
+    // product delete function
+    const handleProductDelete = () => {
+        dispatch(productDelete(product._id))
+    }
+
+    // to close the confirm modal on product delete success
+    useEffect(() => {
+        if (successProductDelete) {
+            setIsProductDeleteOpen(false)
+        }
+    }, [successProductDelete])
+
     return (
         <>
             <div className="productCard">
@@ -82,6 +100,7 @@ const ProductCard = ({ product }) => {
                     />
                     <div className="productCard__nameTime">
                         <p
+                            className="username"
                             onClick={() =>
                                 history.push(`/contact/${product.productOwner._id}`)
                             }
@@ -105,7 +124,9 @@ const ProductCard = ({ product }) => {
                             <ul className={isMenuTrayOpen ? 'menuTray open' : 'menuTray'}>
                                 <li>Edit</li>
                                 <li className="line"></li>
-                                <li>Delete</li>
+                                <li onClick={() => setIsProductDeleteOpen(true)}>
+                                    Delete
+                                </li>
                             </ul>
                         </>
                     )}
@@ -202,6 +223,8 @@ const ProductCard = ({ product }) => {
                                 }
                                 text={'Place'}
                             />
+
+                            <BidInputLoader isLoading={loadingBidPlace} />
                         </div>
                         <ButtonComp
                             typeClass={'secondary'}
@@ -255,6 +278,15 @@ const ProductCard = ({ product }) => {
                     ))}
                 </div>
             </ModalComp>
+
+            {/* Confirm Delete Modal */}
+            <ConfirmModal
+                isOpen={isProductDeleteOpen}
+                setIsOpen={setIsProductDeleteOpen}
+                handleOnConfirm={handleProductDelete}
+                isSecure={false}
+                isLoading={loadingProductDelete}
+            />
         </>
     )
 }

@@ -15,6 +15,11 @@
     height: 50px !important;
     width: 50px !important;
     margin-right: 10px;
+    border: 1px solid transparent;
+}
+
+.bidCard__avatar:hover {
+    border-color: rgba(var(--primary-dark), 0.8);
 }
 
 .bidCard__nameTime p {
@@ -24,6 +29,15 @@
     color: rgba(var(--primary-dark), 0.8);
     font-family: 'Poppins', sans-serif !important;
     cursor: pointer;
+}
+
+.bidCard__nameTime p.username {
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+}
+
+.bidCard__nameTime p.username:hover {
+    border-bottom-color: rgba(var(--primary-dark), 0.8);
 }
 
 .bidCard__nameTime span {

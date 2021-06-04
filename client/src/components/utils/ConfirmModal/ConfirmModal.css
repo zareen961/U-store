@@ -4,6 +4,24 @@
     background-color: rgba(var(--secondary-light), 1);
     padding: 25px;
     border-radius: 15px;
+    overflow-x: hidden !important;
+}
+
+.confirmModal .loaderLinear {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 4px;
+    width: 98%;
+    border-radius: 15px !important;
+}
+
+.confirmModal .loaderLinear.MuiLinearProgress-colorPrimary {
+    background-color: rgba(var(--primary-light), 0.6);
+}
+
+.confirmModal .loaderLinear .MuiLinearProgress-barColorPrimary {
+    background-color: rgba(var(--primary-light), 1);
 }
 
 .confirmModal h1 {
