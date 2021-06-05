@@ -15,7 +15,3 @@
 .bidInputLoader.active {
     height: 100%;
 }
-
-.loaderWrapper {
-    display: flex;
-}

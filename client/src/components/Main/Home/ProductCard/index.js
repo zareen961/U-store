@@ -187,6 +187,7 @@ const ProductCard = ({ product }) => {
                                     .slice(2)
                                     .map((bid) => (
                                         <Avatar
+                                            key={bid._id}
                                             alt={bid.bidOwner.username}
                                             src={`avatars/avatar${bid.bidOwner.avatar}.png`}
                                             className="avatar"
@@ -217,7 +218,7 @@ const ProductCard = ({ product }) => {
                                 typeClass={'primary'}
                                 handleOnClick={handleBidPlace}
                                 modifyClass={
-                                    isUserEligibleToBid
+                                    isUserEligibleToBid.canPlaceBid
                                         ? 'insideInputButton'
                                         : 'insideInputButton disabled'
                                 }
