@@ -4,18 +4,15 @@ import IconButton from '@material-ui/core/IconButton'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { TagIcon, MegaphoneIcon, XIcon, ArrowUpIcon } from '@primer/octicons-react'
 import ButtonComp from '../../utils/ButtonComp'
+import moment from 'moment'
+import NumberFormat from 'react-number-format'
+import _ from 'lodash'
 
-import sampleProduct from '../../../assets/images/sample-product.jpg'
 import ModalComp from '../../utils/ModalComp'
 import BidCard from '../Home/ProductCard/BidCard'
 import './ProductCardProduct.css'
 
-const description = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi
-veritatis consectetur debitis, nostrum laboriosam exercitationem
-inventore cum! Nemo eos error deleniti dolore excepturi culpa
-blanditiis aperiam deserunt perspiciatis, delectus fugiat!`
-
-const ProductCardProduct = () => {
+const ProductCardProduct = ({ product }) => {
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
@@ -27,8 +24,8 @@ const ProductCardProduct = () => {
                 {/* Header */}
                 <div className="productCardProduct__header">
                     <div className="productCardProduct__nameTime">
-                        <h2>Camera 500X</h2>
-                        <span>2 hours ago</span>
+                        <h2>{product.name}</h2>
+                        <span>{moment(product.createdAt).fromNow()}</span>
                     </div>
 
                     <ClickAwayListener onClickAway={() => setIsMenuTrayOpen(false)}>
@@ -49,23 +46,25 @@ const ProductCardProduct = () => {
                 {/* Image */}
                 <div className="productCardProduct__image">
                     <img
-                        src={sampleProduct}
-                        alt="sample-product"
+                        src={product.image.url}
+                        alt={product.name}
                         onClick={() => setIsImageOpen(true)}
                     />
                 </div>
 
                 {/* Details */}
                 <div className="productCardProduct__productDetails">
-                    {description.length > 90 ? (
+                    {product.description.length > 90 ? (
                         <p
                             className={
                                 isReadMoreOpen ? 'description open' : 'description'
                             }
                         >
-                            {description.substring(0, 80)}
+                            {product.description.substring(0, 80)}
                             <span>
-                                {isReadMoreOpen ? description.substring(80) : '...'}
+                                {isReadMoreOpen
+                                    ? product.description.substring(80)
+                                    : '...'}
                             </span>
                             <button
                                 className="readMoreButton"
@@ -75,7 +74,7 @@ const ProductCardProduct = () => {
                             </button>
                         </p>
                     ) : (
-                        <p className="description">{description}</p>
+                        <p className="description">{product.description}</p>
                     )}
                 </div>
 
@@ -86,14 +85,34 @@ const ProductCardProduct = () => {
                             <TagIcon size={18} />
                             <h3>Price</h3>
                         </div>
-                        <span className="price">Rs 1,499</span>
+                        <span className="price">
+                            {product.price === 0 ? (
+                                'Free'
+                            ) : (
+                                <NumberFormat
+                                    value={product.price}
+                                    prefix={'Rs '}
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                />
+                            )}
+                        </span>
                     </div>
                     <div className="highestBid">
                         <div className="priceWrapper">
                             <ArrowUpIcon size={18} />
                             <h3>Highest Bid</h3>
                         </div>
-                        <span className="price">Rs 1,499</span>
+                        <span className="price">
+                            <NumberFormat
+                                value={
+                                    _.orderBy(product.bids, ['price'], ['desc'])[0].price
+                                }
+                                prefix={'Rs '}
+                                thousandSeparator={true}
+                                displayType={'text'}
+                            />
+                        </span>
                     </div>
                 </div>
 
@@ -102,7 +121,7 @@ const ProductCardProduct = () => {
                     <div className="productCardProduct__bidsCount">
                         <MegaphoneIcon size={18} />
                         <h3>Total Bids:</h3>
-                        <span className="bidsCount">7</span>
+                        <span className="bidsCount">{product.bids.length}</span>
                     </div>
                     <ButtonComp
                         typeClass={'secondary'}
@@ -119,7 +138,7 @@ const ProductCardProduct = () => {
                 maxWidth={'lg'}
             >
                 <div className="productCard__imageModal">
-                    <img src={sampleProduct} alt="sample-product" />
+                    <img src={product.image.url} alt={product.name} />
                     <div className="closeButtonWrapper">
                         <ButtonComp
                             typeClass={'secondary'}
@@ -148,9 +167,9 @@ const ProductCardProduct = () => {
                             <XIcon size={18} />
                         </ButtonComp>
                     </div>
-                    {/* {product.bids.map((bid) => (
+                    {_.orderBy(product.bids, ['price'], ['desc']).map((bid) => (
                         <BidCard key={bid._id} bid={bid} />
-                    ))} */}
+                    ))}
                 </div>
             </ModalComp>
         </>

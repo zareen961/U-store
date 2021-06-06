@@ -35,9 +35,10 @@ export const bidPlace = (productID, bidPrice) => async (dispatch, getState) => {
         dispatch({
             type: actionTypes.BID_PLACE_SUCCESS,
         })
+
         dispatch(
             alertAdd(
-                'Sit and bid on the next product while this gets responded',
+                'Sit back and bid on the next product while this gets responded.',
                 'success'
             )
         )

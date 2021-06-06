@@ -37,7 +37,7 @@ export const collegeFetchData = () => async (dispatch, getState) => {
 }
 
 // to get all the details of logged in user
-export const userFetch = (userID) => async (dispatch) => {
+export const userFetch = () => async (dispatch) => {
     let token
     if (localStorage.getItem('user')) {
         token = JSON.parse(localStorage.getItem('user')).token
@@ -48,7 +48,7 @@ export const userFetch = (userID) => async (dispatch) => {
             type: actionTypes.USER_FETCH_REQUEST,
         })
 
-        const { data } = await axiosInstance.get(`/api/user/${userID}`)
+        const { data } = await axiosInstance.get('/api/user')
 
         dispatch({
             type: actionTypes.USER_FETCH_SUCCESS,
@@ -175,10 +175,11 @@ export const userUpdate = (userData, currentPassword) => async (dispatch) => {
 }
 
 // to logout an User
-export const userLogout = () => (dispatch) => {
+export const userLogout = (history) => (dispatch) => {
     localStorage.removeItem('user')
     dispatch({ type: actionTypes.USER_LOGOUT })
     dispatch({ type: actionTypes.PRODUCT_CLEANUP })
+    history.replace('/')
     dispatch(alertAdd('User Logged out!', 'success'))
 }
 
@@ -210,5 +211,141 @@ export const userDelete = (password) => async (dispatch) => {
         })
 
         dispatch(alertAdd(errorMsg, 'error'))
+    }
+}
+
+// to get the contact details of any user
+export const userFetchContact = (username) => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.USER_FETCH_CONTACT_REQUEST,
+        })
+
+        const { data } = await axiosInstance.get(`/api/user/contact/${username}`)
+
+        dispatch({
+            type: actionTypes.USER_FETCH_CONTACT_SUCCESS,
+            payload: data,
+        })
+    } catch (err) {
+        const errorMsg =
+            err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+
+        dispatch({
+            type: actionTypes.USER_FETCH_CONTACT_FAIL,
+            payload: errorMsg,
+        })
+
+        dispatch(alertAdd(errorMsg, 'error'))
+    }
+}
+
+// to fetch all the products of logged in user
+export const userFetchProducts = () => async (dispatch, getState) => {
+    const { lastFetch } = getState().userProducts
+
+    if (!handleCache(lastFetch)) {
+        try {
+            dispatch({
+                type: actionTypes.USER_FETCH_PRODUCTS_REQUEST,
+            })
+
+            const { data } = await axiosInstance.get('/api/user/products')
+
+            dispatch({
+                type: actionTypes.USER_POPULATE_PRODUCTS,
+                payload: data,
+            })
+
+            dispatch({
+                type: actionTypes.USER_FETCH_PRODUCTS_SUCCESS,
+            })
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
+
+            dispatch({
+                type: actionTypes.USER_FETCH_PRODUCTS_FAIL,
+                payload: errorMsg,
+            })
+
+            dispatch(alertAdd(errorMsg, 'error'))
+        }
+    }
+}
+
+// to fetch all the bids of logged in user
+export const userFetchBids = () => async (dispatch, getState) => {
+    const { lastFetch } = getState().userBids
+
+    if (!handleCache(lastFetch)) {
+        try {
+            dispatch({
+                type: actionTypes.USER_FETCH_BIDS_REQUEST,
+            })
+
+            const { data } = await axiosInstance.get('/api/user/bids')
+
+            dispatch({
+                type: actionTypes.USER_POPULATE_BIDS,
+                payload: data,
+            })
+
+            dispatch({
+                type: actionTypes.USER_FETCH_BIDS_SUCCESS,
+            })
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
+
+            dispatch({
+                type: actionTypes.USER_FETCH_BIDS_FAIL,
+                payload: errorMsg,
+            })
+
+            dispatch(alertAdd(errorMsg, 'error'))
+        }
+    }
+}
+
+// to fetch all the followed products of logged in user
+export const userFetchFollowing = () => async (dispatch, getState) => {
+    const { lastFetch } = getState().userProducts
+
+    if (!handleCache(lastFetch)) {
+        try {
+            dispatch({
+                type: actionTypes.USER_FETCH_FOLLOWING_REQUEST,
+            })
+
+            const { data } = await axiosInstance.get('/api/user/following')
+
+            dispatch({
+                type: actionTypes.USER_POPULATE_FOLLOWING,
+                payload: data,
+            })
+
+            dispatch({
+                type: actionTypes.USER_FETCH_FOLLOWING_SUCCESS,
+            })
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
+
+            dispatch({
+                type: actionTypes.USER_FETCH_FOLLOWING_FAIL,
+                payload: errorMsg,
+            })
+
+            dispatch(alertAdd(errorMsg, 'error'))
+        }
     }
 }

@@ -18,7 +18,6 @@
 .productCardProduct__nameTime > h2 {
     font-weight: 600;
     font-size: 1.25rem;
-    color: rgba(var(--primary-dark), 0.8);
     margin-bottom: -7px;
 }
 
@@ -88,6 +87,7 @@
     width: 100%;
     border-radius: 15px;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .productCardProduct__productDetails .description {

@@ -10,19 +10,19 @@ import {
     ArrowUpIcon,
 } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
+import moment from 'moment'
+import NumberFormat from 'react-number-format'
+import _ from 'lodash'
+import { useHistory } from 'react-router-dom'
 
-import sampleProduct from '../../../assets/images/sample-product.jpg'
 import ButtonComp from '../../utils/ButtonComp'
 import ModalComp from '../../utils/ModalComp'
 import BidCard from '../Home/ProductCard/BidCard'
 import './ProductCardBid.css'
 
-const description = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi
-veritatis consectetur debitis, nostrum laboriosam exercitationem
-inventore cum! Nemo eos error deleniti dolore excepturi culpa
-blanditiis aperiam deserunt perspiciatis, delectus fugiat!`
+const ProductCardBid = ({ bid }) => {
+    const history = useHistory()
 
-const ProductCardBid = () => {
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
@@ -34,12 +34,24 @@ const ProductCardBid = () => {
                 {/* Header */}
                 <div className="productCardBid__header">
                     <Avatar
-                        src="avatars/avatar10.png"
+                        src={`avatars/avatar${bid.product.productOwner.avatar}.png`}
                         className="productCardBid__avatar"
+                        onClick={() =>
+                            history.push(`/contact/${bid.product.productOwner.username}`)
+                        }
                     />
                     <div className="productCardBid__nameTime">
-                        <p>@blck_tie</p>
-                        <span>2 hours ago</span>
+                        <p
+                            className="username"
+                            onClick={() =>
+                                history.push(
+                                    `/contact/${bid.product.productOwner.username}`
+                                )
+                            }
+                        >
+                            {bid.product.productOwner.username}
+                        </p>
+                        <span>{moment(bid.product.createdAt).fromNow()}</span>
                     </div>
 
                     <div className="contact">
@@ -56,7 +68,7 @@ const ProductCardBid = () => {
                 {/* Image */}
                 <div className="productCardBid__image">
                     <img
-                        src={sampleProduct}
+                        src={bid.product.image.url}
                         alt="sample-product"
                         onClick={() => setIsImageOpen(true)}
                     />
@@ -64,16 +76,18 @@ const ProductCardBid = () => {
 
                 {/* Details */}
                 <div className="productCardBid__productDetails">
-                    <h2 className="name">Camera 500X</h2>
-                    {description.length > 90 ? (
+                    <h2 className="name">{bid.product.name}</h2>
+                    {bid.product.description.length > 90 ? (
                         <p
                             className={
                                 isReadMoreOpen ? 'description open' : 'description'
                             }
                         >
-                            {description.substring(0, 80)}
+                            {bid.product.description.substring(0, 80)}
                             <span>
-                                {isReadMoreOpen ? description.substring(80) : '...'}
+                                {isReadMoreOpen
+                                    ? bid.product.description.substring(80)
+                                    : '...'}
                             </span>
                             <button
                                 className="readMoreButton"
@@ -83,7 +97,7 @@ const ProductCardBid = () => {
                             </button>
                         </p>
                     ) : (
-                        <p className="description">{description}</p>
+                        <p className="description">{bid.product.description}</p>
                     )}
                 </div>
 
@@ -94,14 +108,31 @@ const ProductCardBid = () => {
                             <TagIcon size={18} />
                             <h3>Price</h3>
                         </div>
-                        <span className="price">Rs 1,499</span>
+                        <span className="price">
+                            <NumberFormat
+                                value={bid.product.price}
+                                prefix={'Rs '}
+                                thousandSeparator={true}
+                                displayType={'text'}
+                            />
+                        </span>
                     </div>
                     <div className="highestBid">
                         <div className="priceWrapper">
                             <ArrowUpIcon size={18} />
                             <h3>Highest Bid</h3>
                         </div>
-                        <span className="price">Rs 1,499</span>
+                        <span className="price">
+                            <NumberFormat
+                                value={
+                                    _.orderBy(bid.product.bids, ['price'], ['desc'])[0]
+                                        .price
+                                }
+                                prefix={'Rs '}
+                                thousandSeparator={true}
+                                displayType={'text'}
+                            />
+                        </span>
                     </div>
                 </div>
 
@@ -110,7 +141,14 @@ const ProductCardBid = () => {
                     <div className="productCardBid__myBid">
                         <MegaphoneIcon size={18} />
                         <h3>My Bid:</h3>
-                        <span className="bidsCount">Rs 1,200</span>
+                        <span className="myBidPrice">
+                            <NumberFormat
+                                value={bid.price}
+                                prefix={'Rs '}
+                                thousandSeparator={true}
+                                displayType={'text'}
+                            />
+                        </span>
                     </div>
                     <ButtonComp
                         typeClass={'primary'}
@@ -131,31 +169,16 @@ const ProductCardBid = () => {
                         onClick={() => setIsBidMoreOpen(true)}
                     >
                         <AvatarGroup max={3}>
-                            <Avatar
-                                alt="Remy Sharp"
-                                src="avatars/avatar6.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Travis Howard"
-                                src="avatars/avatar2.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Cindy Baker"
-                                src="avatars/avatar5.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Agnes Walker"
-                                src="avatars/avatar9.png"
-                                className="avatar"
-                            />
-                            <Avatar
-                                alt="Trevor Henderson"
-                                src="avatars/avatar1.png"
-                                className="avatar"
-                            />
+                            {_.orderBy(bid.product.bids, ['price'], ['desc']).map(
+                                (bid) => (
+                                    <Avatar
+                                        key={bid._id}
+                                        alt={bid.bidOwner.username}
+                                        src={`avatars/avatar${bid.bidOwner.avatar}.png`}
+                                        className="avatar"
+                                    />
+                                )
+                            )}
                         </AvatarGroup>
                     </div>
                 </div>
@@ -195,7 +218,7 @@ const ProductCardBid = () => {
                 maxWidth={'lg'}
             >
                 <div className="productCard__imageModal">
-                    <img src={sampleProduct} alt="sample-product" />
+                    <img src={bid.product.image.url} alt={bid.product.name} />
                     <div className="closeButtonWrapper">
                         <ButtonComp
                             typeClass={'secondary'}
@@ -224,9 +247,9 @@ const ProductCardBid = () => {
                             <XIcon size={18} />
                         </ButtonComp>
                     </div>
-                    {/* {product.bids.map((bid) => (
+                    {_.orderBy(bid.product.bids, ['price'], ['desc']).map((bid) => (
                         <BidCard key={bid._id} bid={bid} />
-                    ))} */}
+                    ))}
                 </div>
             </ModalComp>
         </>

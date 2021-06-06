@@ -125,6 +125,33 @@ export const userLoginReducer = (
                 },
             }
 
+        case actionTypes.USER_POPULATE_PRODUCTS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: { ...state.user.userInfo, products: action.payload },
+                },
+            }
+
+        case actionTypes.USER_POPULATE_BIDS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: { ...state.user.userInfo, bids: action.payload },
+                },
+            }
+
+        case actionTypes.USER_POPULATE_FOLLOWING:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: { ...state.user.userInfo, following: action.payload },
+                },
+            }
+
         case actionTypes.USER_PRODUCT_PUSH_NEW:
             return {
                 ...state,
@@ -296,6 +323,154 @@ export const userDeleteReducer = (
                 loading: false,
                 error: action.payload,
                 success: false,
+            }
+
+        default:
+            return state
+    }
+}
+
+export const userContactDetailsReducer = (
+    state = { loading: false, contactDetails: {}, error: null, success: false },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.USER_FETCH_CONTACT_REQUEST:
+            return {
+                ...state,
+                contactDetails: {},
+                loading: true,
+                error: null,
+                success: false,
+            }
+
+        case actionTypes.USER_FETCH_CONTACT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                contactDetails: action.payload,
+                error: null,
+                success: true,
+            }
+
+        case actionTypes.USER_FETCH_CONTACT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                contactDetails: {},
+                error: action.payload,
+                success: false,
+            }
+
+        default:
+            return state
+    }
+}
+
+export const userProductsReducer = (
+    state = { loading: false, error: null, success: false, lastFetch: null },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.USER_FETCH_PRODUCTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                success: false,
+                lastFetch: null,
+            }
+
+        case actionTypes.USER_FETCH_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                success: true,
+                lastFetch: Date.now(),
+            }
+
+        case actionTypes.USER_FETCH_PRODUCTS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                success: false,
+                lastFetch: null,
+            }
+
+        default:
+            return state
+    }
+}
+
+export const userBidsReducer = (
+    state = { loading: false, error: null, success: false, lastFetch: null },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.USER_FETCH_BIDS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                success: false,
+                lastFetch: null,
+            }
+
+        case actionTypes.USER_FETCH_BIDS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                success: true,
+                lastFetch: Date.now(),
+            }
+
+        case actionTypes.USER_FETCH_BIDS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                success: false,
+                lastFetch: null,
+            }
+
+        default:
+            return state
+    }
+}
+
+export const userFollowingReducer = (
+    state = { loading: false, error: null, success: false, lastFetch: null },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.USER_FETCH_FOLLOWING_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                success: false,
+                lastFetch: null,
+            }
+
+        case actionTypes.USER_FETCH_FOLLOWING_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                success: true,
+                lastFetch: Date.now(),
+            }
+
+        case actionTypes.USER_FETCH_FOLLOWING_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                success: false,
+                lastFetch: null,
             }
 
         default:

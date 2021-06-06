@@ -3,6 +3,7 @@ const express = require('express')
 const chalk = require('chalk')
 const cors = require('cors')
 const morgan = require('morgan')
+const compression = require('compression')
 
 const connectDB = require('./config/db')
 const { notFoundHandler, errorHandler } = require('./middleware/error')
@@ -26,6 +27,7 @@ if ((process.env.NODE_ENV = 'development')) {
 // Middleware
 app.use(express.urlencoded({ limit: '30mb', extended: true }))
 app.use(express.json({ limit: '30mb', extended: true }))
+app.use(compression({ level: 9 }))
 app.use(cors())
 
 app.get('/', (req, res) => {

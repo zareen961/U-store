@@ -52,16 +52,13 @@ const productUpload = asyncHandler(async (req, res) => {
 const productGetAll = asyncHandler(async (req, res) => {
     const foundProducts = await Product.find({ college: req.authUser.college })
         .populate({
-            path: 'bids',
+            path: 'bids productOwner',
             options: { sort: { price: -1 } },
+            select: '_id avatar username bidOwner price status createdAt',
             populate: {
                 path: 'bidOwner',
                 select: '_id avatar username',
             },
-        })
-        .populate({
-            path: 'productOwner',
-            select: '_id avatar username',
         })
         .sort({
             createdAt: -1,

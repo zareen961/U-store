@@ -24,7 +24,7 @@ const Routes = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                 <Route exact path="/following" component={Following} />
                 <Route exact path="/account" component={Account} />
                 <Route exact path="/settings" component={Settings} />
-                <Route path="/contact/:userID" component={Contact} />
+                <Route path="/contact/:username" component={Contact} />
             </Switch>
         </>
     )

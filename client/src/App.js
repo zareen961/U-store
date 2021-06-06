@@ -33,7 +33,7 @@ const App = () => {
             } else {
                 // if a valid auth token is present then set the auth headers to all axios requests
                 setAuthHeader(token)
-                dispatch(userFetch(decodedToken._id))
+                dispatch(userFetch())
             }
         }
     }, [dispatch])

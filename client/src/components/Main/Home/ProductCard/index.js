@@ -95,14 +95,14 @@ const ProductCard = ({ product }) => {
                         src={`avatars/avatar${product.productOwner.avatar}.png`}
                         className="productCard__avatar"
                         onClick={() =>
-                            history.push(`/contact/${product.productOwner._id}`)
+                            history.push(`/contact/${product.productOwner.username}`)
                         }
                     />
                     <div className="productCard__nameTime">
                         <p
                             className="username"
                             onClick={() =>
-                                history.push(`/contact/${product.productOwner._id}`)
+                                history.push(`/contact/${product.productOwner.username}`)
                             }
                         >
                             {product.productOwner.username}

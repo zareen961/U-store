@@ -8,16 +8,23 @@ const generateToken = require('../utils/generateToken')
 const validateUserInputs = require('../validators/user')
 const { capitalize } = require('../utils/capitalize')
 
-// to get all the details of an User
+// to get all the details of logged in User
 const userGet = asyncHandler(async (req, res) => {
-    const foundUser = await User.findById(req.params.userID).populate({
-        path: 'products bids following',
-        options: { sort: { createdAt: -1 } },
-        populate: {
-            path: 'bids',
-            options: { sort: { createdAt: -1 } },
-        },
-    })
+    const foundUser = await User.findById(req.authUser._id)
+
+    if (foundUser) {
+        res.status(200).json(foundUser)
+    } else {
+        res.status(500)
+        throw new Error('Cannot find the requested user!')
+    }
+})
+
+// to get the contact details of an user
+const userGetContact = asyncHandler(async (req, res) => {
+    const foundUser = await User.findOne({ username: req.params.username }).select(
+        '_id firstName lastName username email primaryPhone secondaryPhone avatar'
+    )
 
     if (foundUser) {
         res.status(200).json(foundUser)
@@ -96,14 +103,16 @@ const userLogin = asyncHandler(async (req, res) => {
     // finding the user by either username or email
     const foundUser = await User.findOne({
         $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
-    }).populate({
-        path: 'products bids following',
-        options: { sort: { createdAt: -1 } },
-        populate: {
-            path: 'bids',
-            options: { sort: { createdAt: -1 } },
-        },
     })
+
+    // .populate({
+    //     path: 'products bids following',
+    //     options: { sort: { createdAt: -1 } },
+    //     populate: {
+    //         path: 'bids',
+    //         options: { sort: { createdAt: -1 } },
+    //     },
+    // })
 
     if (foundUser && (await foundUser.matchPassword(password))) {
         // now deleting the password from the foundUser object before sending to frontend
@@ -228,4 +237,96 @@ const userUpdate = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = { userGet, userRegister, userLogin, userDelete, userUpdate }
+// to get all the products of logged in user
+const userGetProducts = asyncHandler(async (req, res) => {
+    const foundUser = await User.findById(req.authUser._id)
+        .select('products')
+        .populate({
+            path: 'products',
+            options: { sort: { createdAt: -1 } },
+            populate: {
+                path: 'bids',
+                options: { sort: { price: -1 } },
+                select: '-product -updatedAt',
+                populate: {
+                    path: 'bidOwner',
+                    select: '_id username avatar',
+                },
+            },
+        })
+
+    if (foundUser && foundUser.products) {
+        res.status(200).json(foundUser.products)
+    } else {
+        res.status(500)
+        throw new Error("Cannot find the requested user's products!")
+    }
+})
+
+// to get all the bids of logged in user
+const userGetBids = asyncHandler(async (req, res) => {
+    const foundUser = await User.findById(req.authUser._id)
+        .select('bids')
+        .populate({
+            path: 'bids',
+            options: { sort: { createdAt: -1 } },
+            populate: {
+                path: 'product',
+                select: '-college -updatedAt',
+                populate: {
+                    path: 'productOwner bids',
+                    select: '_id username avatar price createdAt',
+                    options: { sort: { price: -1 } },
+                    populate: {
+                        path: 'bidOwner',
+                        select: '_id avatar username',
+                    },
+                },
+            },
+        })
+
+    if (foundUser && foundUser.bids) {
+        res.status(200).json(foundUser.bids)
+    } else {
+        res.status(500)
+        throw new Error("Cannot find the requested user's bids!")
+    }
+})
+
+// to get all the following of logged in user
+const userGetFollowing = asyncHandler(async (req, res) => {
+    const foundUser = await User.findById(req.authUser._id)
+        .select('following')
+        .populate({
+            path: 'following',
+            select: '-updateAt -college',
+            populate: {
+                path: 'bids',
+                select: '-updatedAt -product',
+                populate: {
+                    path: 'bidOwner',
+                    select: '_id username avatar price',
+                    options: { sort: { price: -1 } },
+                },
+            },
+        })
+
+    if (foundUser && foundUser.following) {
+        res.status(200).json(foundUser.following)
+    } else {
+        res.status(500)
+        throw new Error("Cannot find the requested user's following!")
+    }
+})
+
+module.exports = {
+    userGet,
+    userRegister,
+    userLogin,
+    userDelete,
+    userUpdate,
+    userGetContact,
+    userGetProducts,
+    userGetBids,
+    userGetFollowing,
+}

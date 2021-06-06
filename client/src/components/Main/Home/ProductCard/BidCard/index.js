@@ -16,12 +16,12 @@ const BidCard = ({ bid }) => {
             <Avatar
                 src={`avatars/avatar${bid.bidOwner.avatar}.png`}
                 className="bidCard__avatar"
-                onClick={() => history.push(`/contact/${bid.bidOwner._id}`)}
+                onClick={() => history.push(`/contact/${bid.bidOwner.username}`)}
             />
             <div className="bidCard__nameTime">
                 <p
                     className="username"
-                    onClick={() => history.push(`/contact/${bid.bidOwner._id}`)}
+                    onClick={() => history.push(`/contact/${bid.bidOwner.username}`)}
                 >
                     {bid.bidOwner.username}
                 </p>

@@ -20,7 +20,7 @@ const Header = ({ setIsUploadFormOpen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const logoutHandler = () => {
-        dispatch(userLogout())
+        dispatch(userLogout(history))
     }
 
     const handleUploadFormOpen = () => {
