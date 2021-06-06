@@ -109,12 +109,16 @@ const ProductCardBid = ({ bid }) => {
                             <h3>Price</h3>
                         </div>
                         <span className="price">
-                            <NumberFormat
-                                value={bid.product.price}
-                                prefix={'Rs '}
-                                thousandSeparator={true}
-                                displayType={'text'}
-                            />
+                            {bid.product.price === 0 ? (
+                                'Free'
+                            ) : (
+                                <NumberFormat
+                                    value={bid.product.price}
+                                    prefix={'Rs '}
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                />
+                            )}
                         </span>
                     </div>
                     <div className="highestBid">
@@ -123,15 +127,22 @@ const ProductCardBid = ({ bid }) => {
                             <h3>Highest Bid</h3>
                         </div>
                         <span className="price">
-                            <NumberFormat
-                                value={
-                                    _.orderBy(bid.product.bids, ['price'], ['desc'])[0]
-                                        .price
-                                }
-                                prefix={'Rs '}
-                                thousandSeparator={true}
-                                displayType={'text'}
-                            />
+                            {_.orderBy(bid.product.bids, ['price'], ['desc'])[0] ? (
+                                <NumberFormat
+                                    value={
+                                        _.orderBy(
+                                            bid.product.bids,
+                                            ['price'],
+                                            ['desc']
+                                        )[0].price
+                                    }
+                                    prefix={'Rs '}
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                />
+                            ) : (
+                                <small>No bids yet!</small>
+                            )}
                         </span>
                     </div>
                 </div>

@@ -7,19 +7,19 @@ import {
     PinIcon,
 } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
+import moment from 'moment'
+import NumberFormat from 'react-number-format'
+import _ from 'lodash'
+import { useHistory } from 'react-router-dom'
 
-import sampleProduct from '../../../assets/images/sample-product.jpg'
 import ButtonComp from '../../utils/ButtonComp'
 import ModalComp from '../../utils/ModalComp'
 import BidCard from '../Home/ProductCard/BidCard'
 import './ProductCardFollow.css'
 
-const description = `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi
-veritatis consectetur debitis, nostrum laboriosam exercitationem
-inventore cum! Nemo eos error deleniti dolore excepturi culpa
-blanditiis aperiam deserunt perspiciatis, delectus fugiat!`
+const ProductCardFollow = ({ product }) => {
+    const history = useHistory()
 
-const ProductCardFollow = () => {
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
@@ -30,12 +30,22 @@ const ProductCardFollow = () => {
                 {/* Header */}
                 <div className="productCardFollow__header">
                     <Avatar
-                        src="avatars/avatar10.png"
+                        src={`avatars/avatar${product.productOwner.avatar}.png`}
                         className="productCardFollow__avatar"
+                        onClick={() =>
+                            history.push(`/contact/${product.productOwner.username}`)
+                        }
                     />
                     <div className="productCardFollow__nameTime">
-                        <p>@blck_tie</p>
-                        <span>2 hours ago</span>
+                        <p
+                            className="username"
+                            onClick={() =>
+                                history.push(`/contact/${product.productOwner.username}`)
+                            }
+                        >
+                            {product.productOwner.username}
+                        </p>
+                        <span>{moment(product.createdAt).fromNow()}</span>
                     </div>
 
                     <div className="contact">
@@ -52,7 +62,7 @@ const ProductCardFollow = () => {
                 {/* Image */}
                 <div className="productCardFollow__image">
                     <img
-                        src={sampleProduct}
+                        src={product.image.url}
                         alt="sample-product"
                         onClick={() => setIsImageOpen(true)}
                     />
@@ -60,16 +70,18 @@ const ProductCardFollow = () => {
 
                 {/* Details */}
                 <div className="productCardFollow__productDetails">
-                    <h2 className="name">Camera 500X</h2>
-                    {description.length > 90 ? (
+                    <h2 className="name">{product.name}</h2>
+                    {product.description.length > 90 ? (
                         <p
                             className={
                                 isReadMoreOpen ? 'description open' : 'description'
                             }
                         >
-                            {description.substring(0, 80)}
+                            {product.description.substring(0, 80)}
                             <span>
-                                {isReadMoreOpen ? description.substring(80) : '...'}
+                                {isReadMoreOpen
+                                    ? product.description.substring(80)
+                                    : '...'}
                             </span>
                             <button
                                 className="readMoreButton"
@@ -79,7 +91,7 @@ const ProductCardFollow = () => {
                             </button>
                         </p>
                     ) : (
-                        <p className="description">{description}</p>
+                        <p className="description">{product.description}</p>
                     )}
                 </div>
 
@@ -90,14 +102,39 @@ const ProductCardFollow = () => {
                             <TagIcon size={18} />
                             <h3>Price</h3>
                         </div>
-                        <span className="price">Rs 1,499</span>
+                        <span className="price">
+                            {product.price === 0 ? (
+                                'Free'
+                            ) : (
+                                <NumberFormat
+                                    value={product.price}
+                                    prefix={'Rs '}
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                />
+                            )}
+                        </span>
                     </div>
                     <div className="highestBid">
                         <div className="priceWrapper">
                             <ArrowUpIcon size={18} />
                             <h3>Highest Bid</h3>
                         </div>
-                        <span className="price">Rs 1,499</span>
+                        <span className="price">
+                            {_.orderBy(product.bids, ['price'], ['desc'])[0] ? (
+                                <NumberFormat
+                                    value={
+                                        _.orderBy(product.bids, ['price'], ['desc'])[0]
+                                            .price
+                                    }
+                                    prefix={'Rs '}
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                />
+                            ) : (
+                                <small>No bids yet!</small>
+                            )}
+                        </span>
                     </div>
                 </div>
 
@@ -129,7 +166,7 @@ const ProductCardFollow = () => {
                 maxWidth={'lg'}
             >
                 <div className="productCard__imageModal">
-                    <img src={sampleProduct} alt="sample-product" />
+                    <img src={product.image.url} alt={product.name} />
                     <div className="closeButtonWrapper">
                         <ButtonComp
                             typeClass={'secondary'}
@@ -158,9 +195,9 @@ const ProductCardFollow = () => {
                             <XIcon size={18} />
                         </ButtonComp>
                     </div>
-                    {/* {product.bids.map((bid) => (
+                    {_.orderBy(product.bids, ['price'], ['desc']).map((bid) => (
                         <BidCard key={bid._id} bid={bid} />
-                    ))} */}
+                    ))}
                 </div>
             </ModalComp>
         </>

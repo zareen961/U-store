@@ -104,14 +104,19 @@ const ProductCardProduct = ({ product }) => {
                             <h3>Highest Bid</h3>
                         </div>
                         <span className="price">
-                            <NumberFormat
-                                value={
-                                    _.orderBy(product.bids, ['price'], ['desc'])[0].price
-                                }
-                                prefix={'Rs '}
-                                thousandSeparator={true}
-                                displayType={'text'}
-                            />
+                            {_.orderBy(product.bids, ['price'], ['desc'])[0] ? (
+                                <NumberFormat
+                                    value={
+                                        _.orderBy(product.bids, ['price'], ['desc'])[0]
+                                            .price
+                                    }
+                                    prefix={'Rs '}
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                />
+                            ) : (
+                                <small>No bids yet!</small>
+                            )}
                         </span>
                     </div>
                 </div>

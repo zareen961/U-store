@@ -23,6 +23,12 @@
     height: 40px !important;
     width: 40px !important;
     margin-right: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.productCardFollow__avatar:hover {
+    border-color: rgba(var(--primary-dark), 0.8);
 }
 
 .productCardFollow__nameTime p {
@@ -30,6 +36,15 @@
     font-size: 1rem;
     margin-bottom: -5px;
     color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCardFollow__nameTime p.username {
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+}
+
+.productCardFollow__nameTime p.username:hover {
+    border-bottom-color: rgba(var(--primary-dark), 0.8);
 }
 
 .productCardFollow__nameTime span {
@@ -51,6 +66,7 @@
     width: 100%;
     border-radius: 15px;
     cursor: pointer;
+    object-fit: cover;
 }
 
 .productCardFollow__productDetails .name {

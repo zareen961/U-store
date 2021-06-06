@@ -165,33 +165,52 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_PRODUCT_REMOVE_DELETED:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    userInfo: {
-                        ...state.user.userInfo,
-                        products: state.user.userInfo.products.filter(
-                            (product) => product._id !== action.payload
-                        ),
+            if (typeof state.user.userInfo.product[0] !== 'object') {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            products: state.user.userInfo.products.filter(
+                                (productID) => productID !== action.payload
+                            ),
+                        },
                     },
-                },
+                }
+            } else {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            products: state.user.userInfo.products.filter(
+                                (product) => product._id !== action.payload
+                            ),
+                        },
+                    },
+                }
             }
 
         case actionTypes.USER_PRODUCT_UPDATE_EDITED:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    userInfo: {
-                        ...state.user.userInfo,
-                        products: state.user.userInfo.products.map((product) =>
-                            product._id === action.payload._id
-                                ? { ...product, ...action.payload }
-                                : product
-                        ),
+            if (typeof state.user.userInfo.product[0] !== 'object') {
+                return state
+            } else {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            products: state.user.userInfo.products.map((product) =>
+                                product._id === action.payload._id
+                                    ? { ...product, ...action.payload }
+                                    : product
+                            ),
+                        },
                     },
-                },
+                }
             }
 
         case actionTypes.USER_BID_PUSH_NEW:
@@ -207,38 +226,60 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_BID_REMOVE_DELETED:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    userInfo: {
-                        ...state.user.userInfo,
-                        bids: state.user.userInfo.bids.filter(
-                            (bid) => bid._id !== action.payload
-                        ),
+            if (typeof state.user.userInfo.products[0] !== 'object') {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            bids: state.user.userInfo.bids.filter(
+                                (bidID) => bidID !== action.payload
+                            ),
+                        },
                     },
-                },
+                }
+            } else {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            bids: state.user.userInfo.bids.filter(
+                                (bid) => bid._id !== action.payload
+                            ),
+                        },
+                    },
+                }
             }
 
         case actionTypes.USER_BID_UPDATE_UPDATED:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    userInfo: {
-                        ...state.user.userInfo,
-                        products: state.user.userInfo.products.map((product) => {
-                            if (product._id === action.payload.productID) {
-                                product.bids = product.bids.map((bid) =>
-                                    bid._id === action.payload.bidID
-                                        ? { ...bid, status: action.payload.newBidStatus }
-                                        : bid
-                                )
-                            }
-                            return product
-                        }),
+            if (typeof state.user.userInfo.products[0] !== 'object') {
+                return state
+            } else {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            products: state.user.userInfo.products.map((product) => {
+                                if (product._id === action.payload.productID) {
+                                    product.bids = product.bids.map((bid) =>
+                                        bid._id === action.payload.bidID
+                                            ? {
+                                                  ...bid,
+                                                  status: action.payload.newBidStatus,
+                                              }
+                                            : bid
+                                    )
+                                }
+                                return product
+                            }),
+                        },
                     },
-                },
+                }
             }
 
         case actionTypes.USER_FOLLOWING_UPDATE:

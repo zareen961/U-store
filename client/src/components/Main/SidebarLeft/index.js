@@ -97,7 +97,9 @@ const SidebarLeft = () => {
                     </span>
                     <span className="sidebarLeft__menuText">Following</span>
                     <Badge
-                        badgeContent={11}
+                        badgeContent={
+                            user && user.userInfo ? user.userInfo.following.length : 0
+                        }
                         max={9}
                         color="primary"
                         className="sidebarLeft__menuBadge"
