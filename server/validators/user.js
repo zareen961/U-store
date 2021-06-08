@@ -23,6 +23,14 @@ const validateUserInputs = (inputData, isEdit = false) => {
         password,
     } = inputData
 
+    // checking if the user hasn't passed any field value to update
+    if (isEdit && Object.keys(inputData).length === 0) {
+        return {
+            isValid: false,
+            message: 'No field provided to update!',
+        }
+    }
+
     // validating college data
     if (!isEdit) {
         if (collegeState) {
@@ -78,17 +86,24 @@ const validateUserInputs = (inputData, isEdit = false) => {
 
     // validating email
     if (email) {
-        if (email.trim().length > EMAIL_LEN_MAX) {
-            return {
-                isValid: false,
-                message: 'Email address too long!',
-            }
-        } else {
-            if (!email.match(EMAIL_REGEX)) {
+        if (typeof email === 'string') {
+            if (email.trim().length > EMAIL_LEN_MAX) {
                 return {
                     isValid: false,
-                    message: 'Please provide a valid email address!',
+                    message: 'Email address too long!',
                 }
+            } else {
+                if (!email.match(EMAIL_REGEX)) {
+                    return {
+                        isValid: false,
+                        message: 'Please provide a valid email address!',
+                    }
+                }
+            }
+        } else {
+            return {
+                isValid: false,
+                message: 'Email address must be a string!',
             }
         }
     } else {
@@ -102,12 +117,19 @@ const validateUserInputs = (inputData, isEdit = false) => {
 
     // validating username
     if (username) {
-        if (!username.match(USERNAME_REGEX)) {
+        if (typeof username === 'string') {
+            if (!username.match(USERNAME_REGEX)) {
+                return {
+                    isValid: false,
+                    message:
+                        // TODO: we 'll cum here again. Please remove this comment once this message makes sense.
+                        'Invalid Username! It must be 3-13 characters long, can only have alphanumeric characters, underscore(_) and period(.), it can only start and end with alphanumeric characters and no allowed special characters can appear consecutively!',
+                }
+            }
+        } else {
             return {
                 isValid: false,
-                message:
-                    // TODO: we 'll cum here again. Please remove this comment once this message makes sense.
-                    'Invalid Username! It must be 3-13 characters long, can only have alphanumeric characters, underscore(_) and period(.), it can only start and end with alphanumeric characters and no allowed special characters can appear consecutively!',
+                message: 'Username must be a string!',
             }
         }
     } else {
@@ -121,10 +143,17 @@ const validateUserInputs = (inputData, isEdit = false) => {
 
     // validating first name
     if (firstName) {
-        if (!firstName.match(NAME_REGEX)) {
+        if (typeof firstName === 'string') {
+            if (!firstName.match(NAME_REGEX)) {
+                return {
+                    isValid: false,
+                    message: 'Please enter a valid first name!',
+                }
+            }
+        } else {
             return {
                 isValid: false,
-                message: 'Please enter a valid first name!',
+                message: 'First name must be a string!',
             }
         }
     } else {
@@ -139,20 +168,34 @@ const validateUserInputs = (inputData, isEdit = false) => {
 
     // validating last name
     if (lastName) {
-        if (!lastName.match(NAME_REGEX)) {
+        if (typeof lastName === 'string') {
+            if (!lastName.match(NAME_REGEX)) {
+                return {
+                    isValid: false,
+                    message: 'Please enter a valid last name!',
+                }
+            }
+        } else {
             return {
                 isValid: false,
-                message: 'Please enter a valid last name!',
+                message: 'Last name must be a string!',
             }
         }
     }
 
     // validating primary phone number
     if (primaryPhone) {
-        if (!primaryPhone.match(PHONE_REGEX)) {
+        if (typeof primaryPhone === 'string') {
+            if (!primaryPhone.match(PHONE_REGEX)) {
+                return {
+                    isValid: false,
+                    message: 'Your primary phone number seems invalid to us!',
+                }
+            }
+        } else {
             return {
                 isValid: false,
-                message: 'Your primary phone number seems invalid to us!',
+                message: 'Primary phone must be a string!',
             }
         }
     } else {
@@ -166,10 +209,17 @@ const validateUserInputs = (inputData, isEdit = false) => {
 
     // validating secondary phone number
     if (secondaryPhone) {
-        if (!secondaryPhone.match(PHONE_REGEX)) {
+        if (typeof secondaryPhone === 'string') {
+            if (!secondaryPhone.match(PHONE_REGEX)) {
+                return {
+                    isValid: false,
+                    message: 'Your secondary phone number seems invalid to us!',
+                }
+            }
+        } else {
             return {
                 isValid: false,
-                message: 'Your secondary phone number seems invalid to us!',
+                message: 'Secondary phone must be a string!',
             }
         }
     }
@@ -186,10 +236,17 @@ const validateUserInputs = (inputData, isEdit = false) => {
 
     // validating password
     if (password) {
-        if (password.length < PASSWORD_LEN_MIN) {
+        if (typeof password === 'string') {
+            if (password.length < PASSWORD_LEN_MIN) {
+                return {
+                    isValid: false,
+                    message: 'Keeping short passwords is risky!',
+                }
+            }
+        } else {
             return {
                 isValid: false,
-                message: 'Keeping short passwords is risky!',
+                message: 'Password must be a string!',
             }
         }
     } else {

@@ -14,7 +14,7 @@ const productUpload = asyncHandler(async (req, res) => {
 
     const { isValid, message } = validateProductInputs(req.body)
     if (!isValid) {
-        res.status(500)
+        res.status(400)
         throw new Error(message)
     }
 
@@ -105,7 +105,7 @@ const productUpdate = asyncHandler(async (req, res) => {
 
     const { isValid, message } = validateProductInputs(req.body, true)
     if (!isValid) {
-        res.status(500)
+        res.status(400)
         throw new Error(message)
     }
 

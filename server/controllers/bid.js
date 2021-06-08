@@ -13,7 +13,7 @@ const bidPlace = asyncHandler(async (req, res) => {
 
     const { isValid, message } = validateBidInputs(req.body)
     if (!isValid) {
-        res.status(500)
+        res.status(400)
         throw new Error(message)
     }
 
@@ -107,14 +107,19 @@ const bidDelete = asyncHandler(async (req, res) => {
     }
 })
 
-// to update a bid status
+// to update a bid status by the product owner
 const bidStatusUpdate = asyncHandler(async (req, res) => {
     const { newBidStatus } = req.body
     const bidID = req.params.bidID
 
+    if (!newBidStatus) {
+        res.status(400)
+        throw new Error('At least new bid status must be provided to update it!')
+    }
+
     const { isValid, message } = validateBidInputs(req.body, true)
     if (!isValid) {
-        res.status(500)
+        res.status(400)
         throw new Error(message)
     }
 
@@ -147,8 +152,58 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
     }
 })
 
+// to edit a bid price by the bid owner
+const bidPriceEdit = asyncHandler(async (req, res) => {
+    const { price: newBidPrice } = req.body
+    const bidID = req.params.bidID
+
+    if (!newBidPrice) {
+        res.status(400)
+        throw new Error('At least new bid price must be provided to update it!')
+    }
+
+    const { isValid, message } = validateBidInputs(req.body, true)
+    if (!isValid) {
+        res.status(400)
+        throw new Error(message)
+    }
+
+    const foundBid = await Bid.findById(bidID)
+
+    if (foundBid) {
+        // checking if the logged in user is the Bid owner
+        if (String(foundBid.bidOwner) !== String(req.authUser._id)) {
+            res.status(401)
+            throw new Error('You can only edit bids placed by you!')
+        }
+
+        // checking if the bid status is still "PENDING"
+        if (foundBid.status !== 'PENDING') {
+            res.status(400)
+            throw new Error(`Place new bid, this has already been ${foundBid.status}!`)
+        }
+
+        const updatedBid = await Bid.findOneAndUpdate(
+            { _id: bidID },
+            { $set: { price: newBidPrice } },
+            { new: true }
+        )
+
+        if (updatedBid) {
+            res.status(200).json({ message: 'Bid Price Updated!' })
+        } else {
+            res.status(500)
+            throw new Error("The bid you can't be edited at the moment! Try again.")
+        }
+    } else {
+        res.status(404)
+        throw new Error("The bid you want to edit, can't be found!")
+    }
+})
+
 module.exports = {
     bidPlace,
     bidDelete,
     bidStatusUpdate,
+    bidPriceEdit,
 }

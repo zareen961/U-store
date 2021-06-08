@@ -52,7 +52,7 @@ const userRegister = asyncHandler(async (req, res) => {
 
     const { isValid, message } = validateUserInputs(req.body)
     if (!isValid) {
-        res.status(500)
+        res.status(400)
         throw new Error(message)
     }
 
@@ -167,7 +167,7 @@ const userUpdate = asyncHandler(async (req, res) => {
     ) {
         const { isValid, message } = validateUserInputs(req.body, true)
         if (!isValid) {
-            res.status(500)
+            res.status(400)
             throw new Error(message)
         }
 

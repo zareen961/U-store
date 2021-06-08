@@ -64,7 +64,7 @@ export const bidStatusUpdate = (productID, bidID, newBidStatus) => async (dispat
             type: actionTypes.BID_STATUS_UPDATE_REQUEST,
         })
 
-        await axiosInstance.patch(`/api/bid/${bidID}`, { newBidStatus })
+        await axiosInstance.patch(`/api/bid/${bidID}/status`, { newBidStatus })
 
         dispatch({
             type: actionTypes.BID_UPDATE_UPDATED_STATUS,
