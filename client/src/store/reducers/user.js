@@ -254,7 +254,7 @@ export const userLoginReducer = (
                 }
             }
 
-        case actionTypes.USER_BID_UPDATE_UPDATED:
+        case actionTypes.USER_BID_UPDATE_UPDATED_STATUS:
             if (typeof state.user.userInfo.products[0] !== 'object') {
                 return state
             } else {

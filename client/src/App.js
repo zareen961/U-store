@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import jwtDecode from 'jwt-decode'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 
 import './App.css'
 import { userLogout, userFetch } from './store/actions/user'
@@ -13,6 +13,8 @@ import ThemeSwitch from './components/utils/ThemeSwitch'
 
 const App = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
+
     const { user } = useSelector((state) => state.userLogin)
     const { name } = useSelector((state) => state.theme)
 
@@ -29,7 +31,7 @@ const App = () => {
             // checking if the already present auth token is expired or not
             const decodedToken = jwtDecode(token)
             if (decodedToken.exp * 1000 < Date.now()) {
-                dispatch(userLogout())
+                dispatch(userLogout(history))
             } else {
                 // if a valid auth token is present then set the auth headers to all axios requests
                 setAuthHeader(token)

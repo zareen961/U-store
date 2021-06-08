@@ -316,7 +316,7 @@ export const userFetchBids = () => async (dispatch, getState) => {
 
 // to fetch all the followed products of logged in user
 export const userFetchFollowing = () => async (dispatch, getState) => {
-    const { lastFetch } = getState().userProducts
+    const { lastFetch } = getState().userFollowing
 
     if (!handleCache(lastFetch)) {
         try {

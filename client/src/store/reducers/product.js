@@ -87,7 +87,7 @@ export const productFetchAllReducer = (
                 }),
             }
 
-        case actionTypes.BID_UPDATE_UPDATED:
+        case actionTypes.BID_UPDATE_UPDATED_STATUS:
             return {
                 ...state,
                 products: state.products.map((product) => {
