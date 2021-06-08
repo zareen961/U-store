@@ -68,7 +68,7 @@ export const bidDeleteReducer = (
     }
 }
 
-export const bidUpdateReducer = (
+export const bidStatusUpdateReducer = (
     state = { loading: false, error: null, success: false },
     action
 ) => {
@@ -90,6 +90,40 @@ export const bidUpdateReducer = (
             }
 
         case actionTypes.BID_STATUS_UPDATE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                success: false,
+            }
+
+        default:
+            return state
+    }
+}
+
+export const bidPriceUpdateReducer = (
+    state = { loading: false, error: null, success: false },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.BID_PRICE_UPDATE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                success: false,
+            }
+
+        case actionTypes.BID_PRICE_UPDATE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                success: true,
+            }
+
+        case actionTypes.BID_PRICE_UPDATE_FAIL:
             return {
                 ...state,
                 loading: false,

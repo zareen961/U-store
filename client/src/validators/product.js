@@ -41,37 +41,6 @@ export const validateProductInputs = (inputData, isEdit = false) => {
         }
     }
 
-    //validating image
-    if (typeof image === 'object') {
-        if (image.fileName && image.url) {
-            if (typeof image.fileName !== 'string' || typeof image.url !== 'string') {
-                return {
-                    isValid: false,
-                    message: 'Product filename or url is not a string!',
-                }
-            }
-        } else {
-            if (
-                Object.keys(image).length === 0 &&
-                !image.fileName &&
-                !image.url &&
-                !isEdit
-            ) {
-                return {
-                    isValid: false,
-                    message: 'Product image is needed!',
-                }
-            }
-        }
-    } else {
-        if (!isEdit) {
-            return {
-                isValid: false,
-                message: 'Image must be an object!',
-            }
-        }
-    }
-
     // validating price
     if (price) {
         if (typeof price === 'number') {

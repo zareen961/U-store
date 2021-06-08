@@ -19,7 +19,12 @@ import {
     productEditReducer,
     productUploadReducer,
 } from './product'
-import { bidPlaceReducer, bidDeleteReducer, bidUpdateReducer } from './bid'
+import {
+    bidPlaceReducer,
+    bidDeleteReducer,
+    bidStatusUpdateReducer,
+    bidPriceUpdateReducer,
+} from './bid'
 import { contactMailReducer } from './contact'
 
 export default combineReducers({
@@ -41,5 +46,6 @@ export default combineReducers({
     productUpload: productUploadReducer,
     bidPlace: bidPlaceReducer,
     bidDelete: bidDeleteReducer,
-    bidUpdate: bidUpdateReducer,
+    bidStatusUpdate: bidStatusUpdateReducer,
+    bidPriceUpdate: bidPriceUpdateReducer,
 })

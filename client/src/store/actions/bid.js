@@ -96,6 +96,45 @@ export const bidStatusUpdate = (productID, bidID, newBidStatus) => async (dispat
     }
 }
 
+// to update a Bid price
+export const bidPriceUpdate = (productID, bidID, newBidPrice) => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.BID_PRICE_UPDATE_REQUEST,
+        })
+
+        await axiosInstance.patch(`/api/bid/${bidID}/price`, { price: newBidPrice })
+
+        dispatch({
+            type: actionTypes.BID_UPDATE_UPDATED_PRICE,
+            payload: { productID, bidID, newBidPrice },
+        })
+
+        dispatch({
+            type: actionTypes.USER_BID_UPDATE_UPDATED_PRICE,
+            payload: { bidID, newBidPrice },
+        })
+
+        dispatch({
+            type: actionTypes.BID_PRICE_UPDATE_SUCCESS,
+        })
+
+        dispatch(alertAdd('Bid Price Updated!', 'success'))
+    } catch (err) {
+        const errorMsg =
+            err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+
+        dispatch({
+            type: actionTypes.BID_PRICE_UPDATE_FAIL,
+            payload: errorMsg,
+        })
+
+        dispatch(alertAdd(errorMsg, 'error'))
+    }
+}
+
 // to delete a Bid
 export const bidDelete = (productID, bidID) => async (dispatch) => {
     try {

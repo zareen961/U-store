@@ -282,6 +282,27 @@ export const userLoginReducer = (
                 }
             }
 
+        case actionTypes.USER_BID_UPDATE_UPDATED_PRICE:
+            if (typeof state.user.userInfo.products[0] !== 'object') {
+                return state
+            } else {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            bids: state.user.userInfo.bids.map((bid) => {
+                                if (bid._id === action.payload.bidID) {
+                                    return { ...bid, price: action.payload.newBidPrice }
+                                }
+                                return bid
+                            }),
+                        },
+                    },
+                }
+            }
+
         case actionTypes.USER_FOLLOWING_UPDATE:
             return {
                 ...state,

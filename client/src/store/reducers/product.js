@@ -102,6 +102,21 @@ export const productFetchAllReducer = (
                 }),
             }
 
+        case actionTypes.BID_UPDATE_UPDATED_PRICE:
+            return {
+                ...state,
+                products: state.products.map((product) => {
+                    if (product._id === action.payload.productID) {
+                        product.bids = product.bids.map((bid) =>
+                            bid._id === action.payload.bidID
+                                ? { ...bid, price: action.payload.newBidPrice }
+                                : bid
+                        )
+                    }
+                    return product
+                }),
+            }
+
         case actionTypes.PRODUCT_CLEANUP:
             return {
                 ...state,
