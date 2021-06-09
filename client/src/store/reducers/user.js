@@ -304,19 +304,52 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_FOLLOWING_UPDATE:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    userInfo: {
-                        ...state.user.userInfo,
-                        following: state.user.userInfo.following.includes(action.payload)
-                            ? state.user.userInfo.following.filter(
-                                  (productID) => productID !== action.payload
-                              )
-                            : [action.payload, ...state.user.userInfo.following],
+            if (typeof state.user.userInfo.following[0] !== 'object') {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            following: state.user.userInfo.following.includes(
+                                action.payload._id
+                            )
+                                ? state.user.userInfo.following.filter(
+                                      (productID) => productID !== action.payload._id
+                                  )
+                                : [action.payload._id, ...state.user.userInfo.following],
+                        },
                     },
-                },
+                }
+            } else {
+                let isAlreadyFollowed = false
+                let updatedFollowingArray = []
+
+                for (let i = 0; i < state.user.userInfo.following.length; i++) {
+                    if (
+                        state.user.userInfo.following[i]._id ===
+                        String(action.payload._id)
+                    ) {
+                        isAlreadyFollowed = true
+                    } else {
+                        updatedFollowingArray.push(state.user.userInfo.following[i])
+                    }
+                }
+
+                if (!isAlreadyFollowed) {
+                    updatedFollowingArray.unshift(action.payload)
+                }
+
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            following: updatedFollowingArray,
+                        },
+                    },
+                }
             }
 
         default:

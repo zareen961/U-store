@@ -179,12 +179,14 @@ export const userLogout = (history) => (dispatch) => {
     localStorage.removeItem('user')
     dispatch({ type: actionTypes.USER_LOGOUT })
     dispatch({ type: actionTypes.PRODUCT_CLEANUP })
-    history.replace('/')
+    if (history) {
+        history.replace('/')
+    }
     dispatch(alertAdd('User Logged out!', 'success'))
 }
 
 // to delete an User
-export const userDelete = (password) => async (dispatch) => {
+export const userDelete = (password, history) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.USER_DELETE_REQUEST,
@@ -192,7 +194,7 @@ export const userDelete = (password) => async (dispatch) => {
 
         await axiosInstance.delete('/api/user', { data: { password } })
 
-        dispatch(userLogout())
+        dispatch(userLogout(history))
 
         dispatch({
             type: actionTypes.USER_DELETE_SUCCESS,

@@ -230,7 +230,7 @@ export const productDeleteReducer = (
     }
 }
 
-export const productFollowToggle = (
+export const productFollowToggleReducer = (
     state = { loading: false, error: null, success: false },
     action
 ) => {

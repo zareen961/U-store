@@ -38,7 +38,7 @@ const App = () => {
                 dispatch(userFetch())
             }
         }
-    }, [dispatch])
+    }, [dispatch, history])
 
     return (
         <div className="app">

@@ -154,17 +154,17 @@ export const productDelete = (productID) => async (dispatch) => {
 }
 
 // to follow/unfollow a product
-export const productFollowToggle = (productID) => async (dispatch) => {
+export const productFollowToggle = (product) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.PRODUCT_FOLLOW_TOGGLE_REQUEST,
         })
 
-        await axiosInstance.patch(`/api/product/follow/${productID}`)
+        await axiosInstance.patch(`/api/product/follow/${product._id}`)
 
         dispatch({
             type: actionTypes.USER_FOLLOWING_UPDATE,
-            payload: productID,
+            payload: product,
         })
 
         dispatch({

@@ -32,6 +32,9 @@ const ProductCard = ({ product }) => {
     const { loading: loadingProductDelete, success: successProductDelete } = useSelector(
         (state) => state.productDelete
     )
+    const { loading: loadingProductFollowToggle } = useSelector(
+        (state) => state.productFollowToggle
+    )
 
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
@@ -39,6 +42,7 @@ const ProductCard = ({ product }) => {
     const [bidVal, setBidVal] = useState('')
     const [isUserEligibleToBid, setIsUserEligibleToBid] = useState({ canPlaceBid: true })
     const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
+    const [isUserFollow, setIsUserFollow] = useState(false)
 
     const handleBidPlace = () => {
         if (bidVal >= 0 && bidVal !== '') {
@@ -85,6 +89,32 @@ const ProductCard = ({ product }) => {
             setIsProductDeleteOpen(false)
         }
     }, [successProductDelete])
+
+    // checking if the user is follows the current product
+    const checkIfUserAlreadyFollow = useCallback(() => {
+        if (user.userInfo.following.length > 0) {
+            for (let i = 0; i < user.userInfo.following.length; i++) {
+                if (typeof user.userInfo.following[0] === 'object') {
+                    if (String(user.userInfo.following[i]._id) === String(product._id)) {
+                        return true
+                    }
+                } else {
+                    if (String(user.userInfo.following[i]) === String(product._id)) {
+                        return true
+                    }
+                }
+            }
+            return false
+        } else {
+            return false
+        }
+    }, [product._id, user.userInfo.following])
+
+    useEffect(() => {
+        if (user && user.userInfo) {
+            setIsUserFollow(checkIfUserAlreadyFollow())
+        }
+    }, [user, user.userInfo, checkIfUserAlreadyFollow])
 
     return (
         <>
@@ -228,9 +258,10 @@ const ProductCard = ({ product }) => {
                             <BidInputLoader isLoading={loadingBidPlace} />
                         </div>
                         <ButtonComp
-                            typeClass={'secondary'}
-                            handleOnClick={() => {}}
-                            text={'Follow'}
+                            typeClass={isUserFollow ? 'primary' : 'secondary'}
+                            handleOnClick={() => dispatch(productFollowToggle(product))}
+                            text={isUserFollow ? 'Unfollow' : 'Follow'}
+                            modifyClass={loadingProductFollowToggle ? 'disabled' : ''}
                         >
                             <PinIcon size={18} />
                         </ButtonComp>

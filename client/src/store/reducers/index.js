@@ -18,6 +18,7 @@ import {
     productDeleteReducer,
     productEditReducer,
     productUploadReducer,
+    productFollowToggleReducer,
 } from './product'
 import {
     bidPlaceReducer,
@@ -44,6 +45,7 @@ export default combineReducers({
     productDelete: productDeleteReducer,
     productEdit: productEditReducer,
     productUpload: productUploadReducer,
+    productFollowToggle: productFollowToggleReducer,
     bidPlace: bidPlaceReducer,
     bidDelete: bidDeleteReducer,
     bidStatusUpdate: bidStatusUpdateReducer,
