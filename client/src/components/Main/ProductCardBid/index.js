@@ -3,7 +3,6 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import {
     TagIcon,
     MegaphoneIcon,
-    XIcon,
     PencilIcon,
     TrashIcon,
     PersonAddIcon,
@@ -18,6 +17,7 @@ import { useHistory } from 'react-router-dom'
 import ButtonComp from '../../utils/ButtonComp'
 import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
+import BidEditInput from '../Home/ProductCard/BidEditInput'
 import './ProductCardBid.css'
 
 const ProductCardBid = ({ bid }) => {
@@ -27,6 +27,7 @@ const ProductCardBid = ({ bid }) => {
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
+    const [bidVal, setBidVal] = useState(bid.price)
 
     return (
         <>
@@ -195,31 +196,12 @@ const ProductCardBid = ({ bid }) => {
                 </div>
 
                 {/* Bid Edit Input */}
-                <div
-                    className={
-                        isBidEditOpen
-                            ? 'productCardBid__bidEditWrapper open'
-                            : 'productCardBid__bidEditWrapper'
-                    }
-                >
-                    <div className="productCard__bidEdit">
-                        <MegaphoneIcon size={20} />
-                        <input type="number" placeholder="Adjust your bid" />
-                        <ButtonComp
-                            typeClass={'primary'}
-                            handleOnClick={() => {}}
-                            modifyClass={'insideInputButton'}
-                            text={'Update'}
-                        />
-                    </div>
-                    <ButtonComp
-                        typeClass={'secondary'}
-                        handleOnClick={() => setIsBidEditOpen(false)}
-                        modifyClass={'iconButton'}
-                    >
-                        <XIcon size={18} />
-                    </ButtonComp>
-                </div>
+                <BidEditInput
+                    isOpen={isBidEditOpen}
+                    setIsOpen={setIsBidEditOpen}
+                    bidVal={bidVal}
+                    setBidVal={setBidVal}
+                />
             </div>
 
             {/* Image Modal */}

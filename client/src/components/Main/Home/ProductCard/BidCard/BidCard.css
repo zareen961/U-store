@@ -16,6 +16,7 @@
     width: 50px !important;
     margin-right: 10px;
     border: 1px solid transparent;
+    cursor: pointer;
 }
 
 .bidCard__avatar:hover {

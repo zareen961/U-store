@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import { TagIcon, MegaphoneIcon, PinIcon } from '@primer/octicons-react'
+import {
+    TagIcon,
+    MegaphoneIcon,
+    PinIcon,
+    PencilIcon,
+    TrashIcon,
+} from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import IconButton from '@material-ui/core/IconButton'
@@ -20,6 +26,7 @@ import ConfirmModal from '../../../utils/ConfirmModal'
 import BidInputLoader from '../../../utils/BidInputLoader'
 import BidsAllModal from './BidsAllModal'
 import ImageModal from './ImageModal'
+import BidEditInput from './BidEditInput'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
@@ -40,14 +47,16 @@ const ProductCard = ({ product }) => {
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
+    const [isBidEditOpen, setIsBidEditOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
     const [isUserEligibleToBid, setIsUserEligibleToBid] = useState({ canPlaceBid: true })
     const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
     const [isUserFollow, setIsUserFollow] = useState(false)
 
+    // function to place a new bid
     const handleBidPlace = () => {
-        if (bidVal >= 0 && bidVal !== '') {
-            dispatch(bidPlace(product._id, bidVal))
+        if (Number(bidVal) >= 0 && bidVal !== '') {
+            dispatch(bidPlace(product._id, Number(bidVal)))
         } else {
             dispatch(alertAdd('Raise a suitable amount!', 'error'))
         }
@@ -60,24 +69,29 @@ const ProductCard = ({ product }) => {
                 String(product.bids[i].bidOwner._id) === String(user.userInfo._id) &&
                 product.bids[i].status !== 'REJECTED'
             ) {
-                return { canPlaceBid: false, bidPrice: product.bids[i].price }
+                return {
+                    canPlaceBid: false,
+                    bidID: product.bids[i]._id,
+                    bidPrice: product.bids[i].price,
+                }
             }
         }
         return { canPlaceBid: true }
     }, [product.bids, user])
 
+    // to update the logged in user's eligibility to place a new bid
     useEffect(() => {
-        if (user && user.userInfo) {
+        if ((user && user.userInfo) || successBidPlace) {
             setIsUserEligibleToBid(checkUserCanPlaceBid())
         }
-    }, [user, user.userInfo, checkUserCanPlaceBid])
+    }, [user, user.userInfo, checkUserCanPlaceBid, successBidPlace])
 
+    // to set the current bidVal based on eligibility criteria
     useEffect(() => {
-        if (successBidPlace) {
-            setBidVal('')
-            setIsUserEligibleToBid(checkUserCanPlaceBid())
+        if (!isUserEligibleToBid.canPlaceBid) {
+            setBidVal(isUserEligibleToBid.bidPrice)
         }
-    }, [successBidPlace, checkUserCanPlaceBid])
+    }, [isUserEligibleToBid])
 
     // product delete function
     const handleProductDelete = () => {
@@ -111,6 +125,7 @@ const ProductCard = ({ product }) => {
         }
     }, [product._id, user.userInfo.following])
 
+    // to update the logged in user's following status on the current product
     useEffect(() => {
         if (user && user.userInfo) {
             setIsUserFollow(checkIfUserAlreadyFollow())
@@ -230,44 +245,77 @@ const ProductCard = ({ product }) => {
                 </div>
 
                 {/* Action */}
-                {String(user.userInfo._id) !== String(product.productOwner._id) && (
-                    <div className="productCard__action">
-                        <div className="productCard__bidPlace">
-                            <MegaphoneIcon size={20} />
-                            <input
-                                type="number"
-                                placeholder={
-                                    isUserEligibleToBid.canPlaceBid
-                                        ? 'Place a bid'
-                                        : `Active: Rs ${isUserEligibleToBid?.bidPrice}`
+                {String(user.userInfo._id) !== String(product.productOwner._id) &&
+                    (isUserEligibleToBid.canPlaceBid ? (
+                        <div className="productCard__action">
+                            <div className="productCard__bidPlace">
+                                <MegaphoneIcon size={20} />
+                                <input
+                                    type="number"
+                                    placeholder="Place a bid"
+                                    value={bidVal}
+                                    onChange={(e) => setBidVal(e.target.value)}
+                                />
+                                <ButtonComp
+                                    typeClass={'primary'}
+                                    handleOnClick={handleBidPlace}
+                                    modifyClass="insideInputButton"
+                                    text={'Place'}
+                                />
+
+                                <BidInputLoader isLoading={loadingBidPlace} />
+                            </div>
+                            <ButtonComp
+                                typeClass={isUserFollow ? 'primary' : 'secondary'}
+                                handleOnClick={() =>
+                                    dispatch(productFollowToggle(product))
                                 }
-                                value={bidVal}
-                                disabled={!isUserEligibleToBid.canPlaceBid}
-                                onChange={(e) => setBidVal(e.target.value)}
-                            />
+                                text={isUserFollow ? 'Unfollow' : 'Follow'}
+                                modifyClass={loadingProductFollowToggle ? 'disabled' : ''}
+                            >
+                                <PinIcon size={18} />
+                            </ButtonComp>
+                        </div>
+                    ) : (
+                        <div className="productCard__action">
+                            <div className="productCard__myBid">
+                                <MegaphoneIcon size={18} />
+                                <h3>My Bid:</h3>
+                                <span className="myBidPrice">
+                                    <NumberFormat
+                                        value={isUserEligibleToBid.bidPrice}
+                                        prefix={'Rs '}
+                                        thousandSeparator={true}
+                                        displayType={'text'}
+                                    />
+                                </span>
+                            </div>
                             <ButtonComp
                                 typeClass={'primary'}
-                                handleOnClick={handleBidPlace}
-                                modifyClass={
-                                    isUserEligibleToBid.canPlaceBid
-                                        ? 'insideInputButton'
-                                        : 'insideInputButton disabled'
-                                }
-                                text={'Place'}
-                            />
+                                modifyClass={'iconButton'}
+                                handleOnClick={() => setIsBidEditOpen(true)}
+                            >
+                                <PencilIcon size={18} />
+                            </ButtonComp>
+                            <ButtonComp
+                                typeClass={'secondary'}
+                                modifyClass={'iconButton'}
+                                handleOnClick={() => {}}
+                            >
+                                <TrashIcon size={18} />
+                            </ButtonComp>
 
-                            <BidInputLoader isLoading={loadingBidPlace} />
+                            {/* Bid Edit Input */}
+                            <BidEditInput
+                                isOpen={isBidEditOpen}
+                                setIsOpen={setIsBidEditOpen}
+                                bidVal={bidVal}
+                                setBidVal={setBidVal}
+                                productID={product._id}
+                                bidID={isUserEligibleToBid.bidID}
+                            />
                         </div>
-                        <ButtonComp
-                            typeClass={isUserFollow ? 'primary' : 'secondary'}
-                            handleOnClick={() => dispatch(productFollowToggle(product))}
-                            text={isUserFollow ? 'Unfollow' : 'Follow'}
-                            modifyClass={loadingProductFollowToggle ? 'disabled' : ''}
-                        >
-                            <PinIcon size={18} />
-                        </ButtonComp>
-                    </div>
-                )}
+                    ))}
             </div>
 
             {/* Image Modal */}
