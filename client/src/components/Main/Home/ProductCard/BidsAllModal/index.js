@@ -7,7 +7,7 @@ import ButtonComp from '../../../../utils/ButtonComp'
 import BidCard from '../BidCard'
 import './BidsAllModal.css'
 
-const BidsAllModal = ({ bids, isOpen, setIsOpen }) => {
+const BidsAllModal = ({ bids, isOpen, setIsOpen, productOwnerID, setIsBidEditOpen }) => {
     return (
         <ModalComp isOpen={isOpen} handleOnClose={() => setIsOpen(false)}>
             <div className="bidsAllModal">
@@ -22,7 +22,13 @@ const BidsAllModal = ({ bids, isOpen, setIsOpen }) => {
                     </ButtonComp>
                 </div>
                 {_.orderBy(bids, ['price'], ['desc']).map((bid) => (
-                    <BidCard key={bid._id} bid={bid} />
+                    <BidCard
+                        key={bid._id}
+                        bid={bid}
+                        productOwnerID={productOwnerID}
+                        setIsBidMoreOpen={setIsOpen}
+                        setIsBidEditOpen={setIsBidEditOpen}
+                    />
                 ))}
             </div>
         </ModalComp>

@@ -38,7 +38,7 @@ const ProductCardFollow = ({ product }) => {
                                 history.push(`/contact/${product.productOwner.username}`)
                             }
                         >
-                            {product.productOwner.username}
+                            @{product.productOwner.username}
                         </p>
                         <span>{moment(product.createdAt).fromNow()}</span>
                     </div>

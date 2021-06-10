@@ -50,7 +50,7 @@ const ProductCardBid = ({ bid }) => {
                                 )
                             }
                         >
-                            {bid.product.productOwner.username}
+                            @{bid.product.productOwner.username}
                         </p>
                         <span>{moment(bid.product.createdAt).fromNow()}</span>
                     </div>

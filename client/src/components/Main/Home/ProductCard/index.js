@@ -151,7 +151,7 @@ const ProductCard = ({ product }) => {
                                 history.push(`/contact/${product.productOwner.username}`)
                             }
                         >
-                            {product.productOwner.username}
+                            @{product.productOwner.username}
                         </p>
                         <span>{moment(product.createdAt).fromNow()}</span>
                     </div>
@@ -216,7 +216,15 @@ const ProductCard = ({ product }) => {
                     {product.bids.length > 0 ? (
                         _.orderBy(product.bids, ['price'], ['desc'])
                             .slice(0, 2)
-                            .map((bid) => <BidCard key={bid._id} bid={bid} />)
+                            .map((bid) => (
+                                <BidCard
+                                    key={bid._id}
+                                    bid={bid}
+                                    productOwnerID={product.productOwner._id}
+                                    setIsBidEditOpen={setIsBidEditOpen}
+                                    setIsBidMoreOpen={setIsBidMoreOpen}
+                                />
+                            ))
                     ) : (
                         <div className="productCard__noBid">
                             <h3>No attention seeked yet!</h3>
@@ -331,6 +339,8 @@ const ProductCard = ({ product }) => {
                 bids={product.bids}
                 isOpen={isBidMoreOpen}
                 setIsOpen={setIsBidMoreOpen}
+                productOwnerID={product.productOwner._id}
+                setIsBidEditOpen={setIsBidEditOpen}
             />
 
             {/* Confirm Delete Modal */}

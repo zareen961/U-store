@@ -54,7 +54,7 @@ const productGetAll = asyncHandler(async (req, res) => {
         .populate({
             path: 'bids productOwner',
             options: { sort: { price: -1 } },
-            select: '_id avatar username bidOwner price status createdAt',
+            select: '_id avatar username bidOwner price status createdAt product',
             populate: {
                 path: 'bidOwner',
                 select: '_id avatar username',
