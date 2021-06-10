@@ -16,8 +16,8 @@ import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../utils/ButtonComp'
-import ModalComp from '../../utils/ModalComp'
-import BidCard from '../Home/ProductCard/BidCard'
+import ImageModal from '../Home/ProductCard/ImageModal'
+import BidsAllModal from '../Home/ProductCard/BidsAllModal'
 import './ProductCardBid.css'
 
 const ProductCardBid = ({ bid }) => {
@@ -223,46 +223,19 @@ const ProductCardBid = ({ bid }) => {
             </div>
 
             {/* Image Modal */}
-            <ModalComp
+            <ImageModal
                 isOpen={isImageOpen}
-                handleOnClose={() => setIsImageOpen(false)}
-                maxWidth={'lg'}
-            >
-                <div className="productCard__imageModal">
-                    <img src={bid.product.image.url} alt={bid.product.name} />
-                    <div className="closeButtonWrapper">
-                        <ButtonComp
-                            typeClass={'secondary'}
-                            modifyClass={'iconButton'}
-                            handleOnClick={() => setIsImageOpen(false)}
-                        >
-                            <XIcon size={18} />
-                        </ButtonComp>
-                    </div>
-                </div>
-            </ModalComp>
+                setIsOpen={setIsImageOpen}
+                productImage={bid.product.image.url}
+                productName={bid.product.name}
+            />
 
             {/* All Bids Modal */}
-            <ModalComp
+            <BidsAllModal
+                bids={bid.product.bids}
                 isOpen={isBidMoreOpen}
-                handleOnClose={() => setIsBidMoreOpen(false)}
-            >
-                <div className="productCard__moreBids">
-                    <div className="productCard__moreBidsHeader">
-                        <h1>All Bids</h1>
-                        <ButtonComp
-                            typeClass={'secondary'}
-                            modifyClass={'iconButton'}
-                            handleOnClick={() => setIsBidMoreOpen(false)}
-                        >
-                            <XIcon size={18} />
-                        </ButtonComp>
-                    </div>
-                    {_.orderBy(bid.product.bids, ['price'], ['desc']).map((bid) => (
-                        <BidCard key={bid._id} bid={bid} />
-                    ))}
-                </div>
-            </ModalComp>
+                setIsOpen={setIsBidMoreOpen}
+            />
         </>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import { TagIcon, MegaphoneIcon, PinIcon, XIcon } from '@primer/octicons-react'
+import { TagIcon, MegaphoneIcon, PinIcon } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import IconButton from '@material-ui/core/IconButton'
@@ -12,13 +12,14 @@ import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../utils/ButtonComp'
-import ModalComp from '../../../utils/ModalComp'
 import BidCard from './BidCard'
 import { bidPlace } from '../../../../store/actions/bid'
 import { productFollowToggle, productDelete } from '../../../../store/actions/product'
 import { alertAdd } from '../../../../store/actions/alert'
 import ConfirmModal from '../../../utils/ConfirmModal'
 import BidInputLoader from '../../../utils/BidInputLoader'
+import BidsAllModal from './BidsAllModal'
+import ImageModal from './ImageModal'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
@@ -270,46 +271,19 @@ const ProductCard = ({ product }) => {
             </div>
 
             {/* Image Modal */}
-            <ModalComp
+            <ImageModal
                 isOpen={isImageOpen}
-                handleOnClose={() => setIsImageOpen(false)}
-                maxWidth={'lg'}
-            >
-                <div className="productCard__imageModal">
-                    <img src={product.image.url} alt={product.name} />
-                    <div className="closeButtonWrapper">
-                        <ButtonComp
-                            typeClass={'secondary'}
-                            modifyClass={'iconButton'}
-                            handleOnClick={() => setIsImageOpen(false)}
-                        >
-                            <XIcon size={18} />
-                        </ButtonComp>
-                    </div>
-                </div>
-            </ModalComp>
+                setIsOpen={setIsImageOpen}
+                productImage={product.image.url}
+                productName={product.name}
+            />
 
             {/* All Bids Modal */}
-            <ModalComp
+            <BidsAllModal
+                bids={product.bids}
                 isOpen={isBidMoreOpen}
-                handleOnClose={() => setIsBidMoreOpen(false)}
-            >
-                <div className="productCard__moreBids">
-                    <div className="productCard__moreBidsHeader">
-                        <h1>All Bids</h1>
-                        <ButtonComp
-                            typeClass={'secondary'}
-                            modifyClass={'iconButton'}
-                            handleOnClick={() => setIsBidMoreOpen(false)}
-                        >
-                            <XIcon size={18} />
-                        </ButtonComp>
-                    </div>
-                    {_.orderBy(product.bids, ['price'], ['desc']).map((bid) => (
-                        <BidCard key={bid._id} bid={bid} />
-                    ))}
-                </div>
-            </ModalComp>
+                setIsOpen={setIsBidMoreOpen}
+            />
 
             {/* Confirm Delete Modal */}
             <ConfirmModal
