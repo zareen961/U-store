@@ -175,7 +175,8 @@
     box-sizing: border-box;
 }
 
-.productCardBid__bidMore:hover .MuiAvatar-colorDefault {
+.productCardBid__bidMore:hover .MuiAvatar-colorDefault,
+.productCardBid__bidMore:hover .avatar {
     background-color: rgba(var(--secondary-light), 1);
     color: rgba(var(--primary-light), 1);
     font-weight: 500;

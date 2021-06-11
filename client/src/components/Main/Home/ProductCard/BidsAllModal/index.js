@@ -21,15 +21,21 @@ const BidsAllModal = ({ bids, isOpen, setIsOpen, productOwnerID, setIsBidEditOpe
                         <XIcon size={18} />
                     </ButtonComp>
                 </div>
-                {_.orderBy(bids, ['price'], ['desc']).map((bid) => (
-                    <BidCard
-                        key={bid._id}
-                        bid={bid}
-                        productOwnerID={productOwnerID}
-                        setIsBidMoreOpen={setIsOpen}
-                        setIsBidEditOpen={setIsBidEditOpen}
-                    />
-                ))}
+                {bids.length === 0 ? (
+                    <div className="bidsAllModal__noBids">
+                        <h3>No attention seeked yet! Be the first one.</h3>
+                    </div>
+                ) : (
+                    _.orderBy(bids, ['price'], ['desc']).map((bid) => (
+                        <BidCard
+                            key={bid._id}
+                            bid={bid}
+                            productOwnerID={productOwnerID}
+                            setIsBidMoreOpen={setIsOpen}
+                            setIsBidEditOpen={setIsBidEditOpen}
+                        />
+                    ))
+                )}
             </div>
         </ModalComp>
     )

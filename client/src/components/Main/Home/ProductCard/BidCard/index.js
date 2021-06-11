@@ -54,9 +54,15 @@ const BidCard = ({ bid, productOwnerID, setIsBidMoreOpen, setIsBidEditOpen }) =>
                         className="username"
                         onClick={() => history.push(`/contact/${bid.bidOwner.username}`)}
                     >
-                        {bid.bidOwner.username}
+                        {bid.bidOwner._id === user.userInfo._id
+                            ? `${bid.bidOwner.username.substring(0, 6)}...`
+                            : bid.bidOwner.username}
                     </p>
-                    <span>{moment(bid.createdAt).fromNow()}</span>
+                    <span>
+                        {bid.bidOwner._id === user.userInfo._id
+                            ? `${moment(bid.createdAt).fromNow().substring(0, 6)}...`
+                            : moment(bid.createdAt).fromNow()}
+                    </span>
                 </div>
                 <div className="bidCard__price">
                     <h3>
