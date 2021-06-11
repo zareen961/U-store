@@ -20,6 +20,7 @@ import AvatarForm from '../../Landing/RegisterForm/AvatarForm'
 import ConfirmModal from '../../utils/ConfirmModal'
 import { userUpdate } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/alert'
+import { validateUserInputs } from '../../../validators/user'
 import './AccountForm.css'
 
 const AccountForm = ({ isEdit, setIsEdit }) => {
@@ -118,12 +119,22 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
         }
 
         if (inputVals.password || inputVals.passwordConfirm) {
-            if (inputVals.password === inputVals.passwordConfirm) {
+            if (inputVals.password && inputVals.passwordConfirm) {
                 toUpdate.password = inputVals.password
             } else {
-                dispatch(alertAdd('Passwords do not match!', 'error'))
+                dispatch(alertAdd('Both password fields are required!', 'error'))
                 return
             }
+        }
+
+        // validating all the inputs that needs to be updated
+        const { isValid, message } = validateUserInputs(
+            { ...toUpdate, passwordConfirm: inputVals.passwordConfirm },
+            true
+        )
+        if (!isValid) {
+            dispatch(alertAdd(message, 'error'))
+            return
         }
 
         if (Object.keys(toUpdate).length > 0) {

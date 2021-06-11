@@ -28,6 +28,7 @@ import { userRegister, collegeFetchData } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/alert'
 import FormLoader from '../../utils/FormLoader'
 import AvatarForm from './AvatarForm'
+import { validateUserInputs } from '../../../validators/user'
 import './RegisterForm.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -95,28 +96,19 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
     const handleRegister = (e) => {
         e.preventDefault()
 
-        let isError = false
-
-        if (collegeState === '0') {
-            isError = true
-            dispatch(alertAdd('Select your college state!', 'error'))
-        }
-        if (collegeCity === '0') {
-            isError = true
-            dispatch(alertAdd('Select your college city!', 'error'))
-        }
-        if (college === '0') {
-            isError = true
-            dispatch(alertAdd('Select your college!', 'error'))
-        }
-        if (inputVals.password !== inputVals.passwordConfirm) {
-            isError = true
-            dispatch(alertAdd("Passwords didn't match!", 'error'))
+        // validating all the register form inputs
+        const { isValid, message } = validateUserInputs({
+            ...inputVals,
+            collegeState,
+            collegeCity,
+            college,
+        })
+        if (!isValid) {
+            dispatch(alertAdd(message, 'error'))
+            return
         }
 
-        if (!isError) {
-            dispatch(userRegister({ ...inputVals, collegeState, collegeCity, college }))
-        }
+        dispatch(userRegister({ ...inputVals, collegeState, collegeCity, college }))
     }
 
     const handlePhoneInput = (e) => {
@@ -160,7 +152,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                         <PersonIcon />
                                     </label>
                                     <input
-                                        required
                                         type="text"
                                         placeholder="First Name"
                                         autoComplete="new-password"
@@ -213,7 +204,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                         <PhoneIcon />
                                     </label>
                                     <input
-                                        required
                                         type="text"
                                         placeholder="Primary Phone"
                                         autoComplete="new-password"
@@ -244,7 +234,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <AlternateEmailIcon />
                                 </label>
                                 <input
-                                    required
                                     type="text"
                                     placeholder="Create Username"
                                     autoComplete="new-password"
@@ -258,7 +247,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <EmailIcon />
                                 </label>
                                 <input
-                                    required
                                     type="email"
                                     placeholder="Email Address"
                                     autoComplete="new-password"
@@ -380,7 +368,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <LockOpenIcon />
                                 </label>
                                 <input
-                                    required
                                     type="password"
                                     placeholder="Password"
                                     name="password"
@@ -393,7 +380,6 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <LockIcon />
                                 </label>
                                 <input
-                                    required
                                     type="password"
                                     placeholder="Confirm Password"
                                     name="passwordConfirm"
