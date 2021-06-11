@@ -3,7 +3,7 @@ import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './alert'
 
 // to place a new Bid
-export const bidPlace = (productID, bidPrice) => async (dispatch, getState) => {
+export const bidPlace = (product, bidPrice) => async (dispatch, getState) => {
     const {
         user: { userInfo },
     } = getState().userLogin
@@ -18,18 +18,21 @@ export const bidPlace = (productID, bidPrice) => async (dispatch, getState) => {
             type: actionTypes.BID_PLACE_REQUEST,
         })
 
-        const { data } = await axiosInstance.post(`/api/bid/${productID}`, {
+        const { data } = await axiosInstance.post(`/api/bid/${product._id}`, {
             price: bidPrice,
         })
 
         dispatch({
             type: actionTypes.BID_PUSH_NEW,
-            payload: { productID, bid: { ...data, bidOwner: bidOwnerDetails } },
+            payload: {
+                productID: product._id,
+                bid: { ...data, bidOwner: bidOwnerDetails },
+            },
         })
 
         dispatch({
             type: actionTypes.USER_BID_PUSH_NEW,
-            payload: data,
+            payload: { ...data, product },
         })
 
         dispatch({

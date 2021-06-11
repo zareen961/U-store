@@ -19,7 +19,7 @@ import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../utils/ButtonComp'
 import BidCard from './BidCard'
-import { bidPlace } from '../../../../store/actions/bid'
+import { bidPlace, bidDelete } from '../../../../store/actions/bid'
 import { productFollowToggle, productDelete } from '../../../../store/actions/product'
 import { alertAdd } from '../../../../store/actions/alert'
 import ConfirmModal from '../../../utils/ConfirmModal'
@@ -34,14 +34,17 @@ const ProductCard = ({ product }) => {
     const history = useHistory()
 
     const { user } = useSelector((state) => state.userLogin)
-    const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
-        (state) => state.bidPlace
-    )
     const { loading: loadingProductDelete, success: successProductDelete } = useSelector(
         (state) => state.productDelete
     )
     const { loading: loadingProductFollowToggle } = useSelector(
         (state) => state.productFollowToggle
+    )
+    const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
+        (state) => state.bidPlace
+    )
+    const { loading: loadingBidDelete, success: successBidDelete } = useSelector(
+        (state) => state.bidDelete
     )
 
     const [isImageOpen, setIsImageOpen] = useState(false)
@@ -52,11 +55,12 @@ const ProductCard = ({ product }) => {
     const [isUserEligibleToBid, setIsUserEligibleToBid] = useState({ canPlaceBid: true })
     const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
     const [isUserFollow, setIsUserFollow] = useState(false)
+    const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
 
     // function to place a new bid
     const handleBidPlace = () => {
         if (Number(bidVal) >= 0 && bidVal !== '') {
-            dispatch(bidPlace(product._id, Number(bidVal)))
+            dispatch(bidPlace(product, Number(bidVal)))
         } else {
             dispatch(alertAdd('Raise a suitable amount!', 'error'))
         }
@@ -131,6 +135,18 @@ const ProductCard = ({ product }) => {
             setIsUserFollow(checkIfUserAlreadyFollow())
         }
     }, [user, user.userInfo, checkIfUserAlreadyFollow])
+
+    // function to delete a bid
+    const handleBidDelete = () => {
+        dispatch(bidDelete(product._id, isUserEligibleToBid.bidID))
+    }
+
+    // to clear the bid input field after the bid is deleted
+    useEffect(() => {
+        if (successBidDelete) {
+            setBidVal('')
+        }
+    }, [successBidDelete])
 
     return (
         <>
@@ -308,7 +324,7 @@ const ProductCard = ({ product }) => {
                             <ButtonComp
                                 typeClass={'secondary'}
                                 modifyClass={'iconButton'}
-                                handleOnClick={() => {}}
+                                handleOnClick={() => setIsBidDeleteOpen(true)}
                             >
                                 <TrashIcon size={18} />
                             </ButtonComp>
@@ -343,13 +359,22 @@ const ProductCard = ({ product }) => {
                 setIsBidEditOpen={setIsBidEditOpen}
             />
 
-            {/* Confirm Delete Modal */}
+            {/* Confirm Product Delete Modal */}
             <ConfirmModal
                 isOpen={isProductDeleteOpen}
                 setIsOpen={setIsProductDeleteOpen}
                 handleOnConfirm={handleProductDelete}
                 isSecure={false}
                 isLoading={loadingProductDelete}
+            />
+
+            {/* Confirm Bid Delete Modal */}
+            <ConfirmModal
+                isOpen={isBidDeleteOpen}
+                setIsOpen={setIsBidDeleteOpen}
+                handleOnConfirm={handleBidDelete}
+                isSecure={false}
+                isLoading={loadingBidDelete}
             />
         </>
     )

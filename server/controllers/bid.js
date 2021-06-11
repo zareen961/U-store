@@ -157,7 +157,7 @@ const bidPriceEdit = asyncHandler(async (req, res) => {
     const { price: newBidPrice } = req.body
     const bidID = req.params.bidID
 
-    if (!newBidPrice) {
+    if (!newBidPrice && Number(newBidPrice) !== 0) {
         res.status(400)
         throw new Error('At least new bid price must be provided to update it!')
     }

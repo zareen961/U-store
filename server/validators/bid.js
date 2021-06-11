@@ -12,7 +12,7 @@ const validateBidInputs = (inputData, isEdit = false) => {
     }
 
     // validating price
-    if (price) {
+    if (price || Number(price) === 0) {
         if (typeof price === 'number') {
             if (price < PRICE_MIN) {
                 return {

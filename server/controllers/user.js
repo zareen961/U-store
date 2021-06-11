@@ -105,15 +105,6 @@ const userLogin = asyncHandler(async (req, res) => {
         $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
     })
 
-    // .populate({
-    //     path: 'products bids following',
-    //     options: { sort: { createdAt: -1 } },
-    //     populate: {
-    //         path: 'bids',
-    //         options: { sort: { createdAt: -1 } },
-    //     },
-    // })
-
     if (foundUser && (await foundUser.matchPassword(password))) {
         // now deleting the password from the foundUser object before sending to frontend
         foundUser.password = null
@@ -211,13 +202,13 @@ const userUpdate = asyncHandler(async (req, res) => {
             toUpdateUser.password = await bcrypt.hash(toUpdateUser.password, salt)
         }
 
-        // if Name is updated Capitalize it
-        toUpdateUser.firstName = toUpdateUser.firstName
-            ? capitalize(toUpdateUser.firstName)
-            : toUpdateUser.firstName
-        toUpdateUser.lastName = toUpdateUser.lastName
-            ? capitalize(toUpdateUser.lastName)
-            : toUpdateUser.lastName
+        // if first name or last name is updated, then capitalize them
+        if (toUpdateUser.firstName) {
+            toUpdateUser.firstName = capitalize(toUpdateUser.firstName)
+        }
+        if (toUpdateUser.lastName) {
+            toUpdateUser.lastName = capitalize(toUpdateUser.lastName)
+        }
 
         const updatedUser = await User.findOneAndUpdate(
             { _id: req.authUser._id },

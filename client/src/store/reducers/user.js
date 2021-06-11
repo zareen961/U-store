@@ -165,7 +165,7 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_PRODUCT_REMOVE_DELETED:
-            if (typeof state.user.userInfo.product[0] !== 'object') {
+            if (typeof state.user.userInfo.products[0] !== 'object') {
                 return {
                     ...state,
                     user: {
@@ -194,7 +194,7 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_PRODUCT_UPDATE_EDITED:
-            if (typeof state.user.userInfo.product[0] !== 'object') {
+            if (typeof state.user.userInfo.products[0] !== 'object') {
                 return state
             } else {
                 return {
@@ -226,7 +226,7 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_BID_REMOVE_DELETED:
-            if (typeof state.user.userInfo.products[0] !== 'object') {
+            if (typeof state.user.userInfo.bids[0] !== 'object') {
                 return {
                     ...state,
                     user: {
@@ -255,7 +255,7 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_BID_UPDATE_UPDATED_STATUS:
-            if (typeof state.user.userInfo.products[0] !== 'object') {
+            if (typeof state.user.userInfo.bids[0] !== 'object') {
                 return state
             } else {
                 return {
@@ -283,7 +283,7 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_BID_UPDATE_UPDATED_PRICE:
-            if (typeof state.user.userInfo.products[0] !== 'object') {
+            if (typeof state.user.userInfo.bids[0] !== 'object') {
                 return state
             } else {
                 return {
@@ -295,8 +295,9 @@ export const userLoginReducer = (
                             bids: state.user.userInfo.bids.map((bid) => {
                                 if (bid._id === action.payload.bidID) {
                                     return { ...bid, price: action.payload.newBidPrice }
+                                } else {
+                                    return bid
                                 }
-                                return bid
                             }),
                         },
                     },

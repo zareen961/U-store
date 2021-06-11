@@ -25,7 +25,7 @@ const BidEditInput = ({ isOpen, setIsOpen, bidVal, setBidVal, productID, bidID }
         if (success) {
             setIsOpen(false)
         }
-    }, [success])
+    }, [success, setIsOpen])
 
     return (
         <div className={isOpen ? 'bidEditInput open' : 'bidEditInput'}>
