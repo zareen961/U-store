@@ -179,6 +179,9 @@ export const userLogout = (history) => (dispatch) => {
     localStorage.removeItem('user')
     dispatch({ type: actionTypes.USER_LOGOUT })
     dispatch({ type: actionTypes.PRODUCT_CLEANUP })
+    dispatch({ type: actionTypes.USER_PRODUCTS_CLEANUP })
+    dispatch({ type: actionTypes.USER_BIDS_CLEANUP })
+    dispatch({ type: actionTypes.USER_FOLLOWING_CLEANUP })
     if (history) {
         history.replace('/')
     }

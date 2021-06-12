@@ -16,7 +16,13 @@ import ConfirmModal from '../../../../utils/ConfirmModal'
 import { bidStatusUpdate, bidDelete } from '../../../../../store/actions/bid'
 import './BidCard.css'
 
-const BidCard = ({ bid, productOwnerID, setIsBidMoreOpen, setIsBidEditOpen }) => {
+const BidCard = ({
+    bid,
+    productOwnerID,
+    setIsBidMoreOpen,
+    setIsBidEditOpen,
+    isInModal = false,
+}) => {
     const history = useHistory()
     const dispatch = useDispatch()
 
@@ -49,21 +55,36 @@ const BidCard = ({ bid, productOwnerID, setIsBidMoreOpen, setIsBidEditOpen }) =>
                     className="bidCard__avatar"
                     onClick={() => history.push(`/contact/${bid.bidOwner.username}`)}
                 />
-                <div className="bidCard__nameTime">
-                    <p
-                        className="username"
-                        onClick={() => history.push(`/contact/${bid.bidOwner.username}`)}
-                    >
-                        {bid.bidOwner._id === user.userInfo._id
-                            ? `${bid.bidOwner.username.substring(0, 6)}...`
-                            : bid.bidOwner.username}
-                    </p>
-                    <span>
-                        {bid.bidOwner._id === user.userInfo._id
-                            ? `${moment(bid.createdAt).fromNow().substring(0, 6)}...`
-                            : moment(bid.createdAt).fromNow()}
-                    </span>
-                </div>
+
+                {bid.status === 'PENDING' &&
+                (bid.bidOwner._id === user.userInfo._id ||
+                    productOwnerID === user.userInfo._id) &&
+                !isInModal ? (
+                    <div className="bidCard__nameTime">
+                        <p
+                            className="username"
+                            onClick={() =>
+                                history.push(`/contact/${bid.bidOwner.username}`)
+                            }
+                        >
+                            {bid.bidOwner.username.substring(0, 6)}...
+                        </p>
+                        <span>{moment(bid.createdAt).fromNow().substring(0, 6)}...</span>
+                    </div>
+                ) : (
+                    <div className="bidCard__nameTime">
+                        <p
+                            className="username"
+                            onClick={() =>
+                                history.push(`/contact/${bid.bidOwner.username}`)
+                            }
+                        >
+                            {bid.bidOwner.username}
+                        </p>
+                        <span>{moment(bid.createdAt).fromNow()}</span>
+                    </div>
+                )}
+
                 <div className="bidCard__price">
                     <h3>
                         <NumberFormat

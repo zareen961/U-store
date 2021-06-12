@@ -495,6 +495,15 @@ export const userProductsReducer = (
                 lastFetch: null,
             }
 
+        case actionTypes.USER_PRODUCTS_CLEANUP:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                success: false,
+                lastFetch: null,
+            }
+
         default:
             return state
     }
@@ -532,6 +541,15 @@ export const userBidsReducer = (
                 lastFetch: null,
             }
 
+        case actionTypes.USER_BIDS_CLEANUP:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                success: false,
+                lastFetch: null,
+            }
+
         default:
             return state
     }
@@ -565,6 +583,15 @@ export const userFollowingReducer = (
                 ...state,
                 loading: false,
                 error: action.payload,
+                success: false,
+                lastFetch: null,
+            }
+
+        case actionTypes.USER_FOLLOWING_CLEANUP:
+            return {
+                ...state,
+                loading: false,
+                error: null,
                 success: false,
                 lastFetch: null,
             }

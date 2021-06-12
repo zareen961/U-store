@@ -217,6 +217,8 @@ const ProductCardBid = ({ bid }) => {
                 bids={bid.product.bids}
                 isOpen={isBidMoreOpen}
                 setIsOpen={setIsBidMoreOpen}
+                productOwnerID={bid.product.productOwner._id}
+                setIsBidEditOpen={setIsBidEditOpen}
             />
         </>
     )

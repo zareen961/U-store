@@ -118,3 +118,6 @@ export const CONTACT_MAIL_FAIL = 'CONTACT_MAIL_FAIL'
 
 // CLEAN-UP ************************************************************************************
 export const PRODUCT_CLEANUP = 'PRODUCT_CLEANUP'
+export const USER_PRODUCTS_CLEANUP = 'USER_PRODUCTS_CLEANUP'
+export const USER_BIDS_CLEANUP = 'USER_BIDS_CLEANUP'
+export const USER_FOLLOWING_CLEANUP = 'USER_FOLLOWING_CLEANUP'

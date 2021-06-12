@@ -120,6 +120,10 @@ export const productFetchAllReducer = (
         case actionTypes.PRODUCT_CLEANUP:
             return {
                 ...state,
+                loading: false,
+                error: null,
+                success: false,
+                products: [],
                 lastFetch: null,
             }
 

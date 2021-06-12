@@ -33,6 +33,7 @@ const BidsAllModal = ({ bids, isOpen, setIsOpen, productOwnerID, setIsBidEditOpe
                             productOwnerID={productOwnerID}
                             setIsBidMoreOpen={setIsOpen}
                             setIsBidEditOpen={setIsBidEditOpen}
+                            isInModal={true}
                         />
                     ))
                 )}
