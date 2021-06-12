@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid'
 
 import ButtonComp from '../../../utils/ButtonComp'
 import ModalComp from '../../../utils/ModalComp'
+import ImageModal from '../ProductCard/ImageModal'
 import { storage } from '../../../../utils/firebase'
 import { useForm } from '../../../../utils/hooks/useForm'
 import { handleImageCompress } from '../../../../utils/imageCompressor'
@@ -101,7 +102,10 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         e.preventDefault()
 
         // validating all the inputs except image
-        const { isValid, message } = validateProductInputs(inputVals)
+        const { isValid, message } = validateProductInputs({
+            ...inputVals,
+            price: Number(inputVals.price),
+        })
         if (!isValid) {
             dispatch(alertAdd(message, 'error'))
             return
@@ -115,12 +119,15 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     }
 
     useEffect(() => {
-        const { isValid } = validateProductInputs(inputVals)
+        const { isValid } = validateProductInputs({
+            ...inputVals,
+            price: Number(inputVals.price),
+        })
 
         if (isValid && inputVals.image.fileName && inputVals.image.url) {
-            dispatch(productUpload(inputVals))
+            dispatch(productUpload({ ...inputVals, price: Number(inputVals.price) }))
         }
-    }, [inputVals, dispatch])
+    }, [inputVals.image.fileName, inputVals.image.url, dispatch])
 
     useEffect(() => {
         if (success) {
@@ -175,7 +182,6 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                             className="productUploadForm__modalAvatar"
                         />
                         <input
-                            required
                             type="text"
                             placeholder="What do you want to sell?"
                             name="name"
@@ -241,7 +247,6 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
 
                     {/* Details */}
                     <textarea
-                        required
                         className="productUploadForm__modalDescription"
                         placeholder="Tell something about your product!"
                         name="description"
@@ -253,7 +258,6 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                     <div className="productUploadForm__modalFooter">
                         <TagIcon size={20} />
                         <input
-                            required
                             type="number"
                             placeholder="Set a price."
                             name="price"
@@ -276,24 +280,12 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
             </ModalComp>
 
             {/* Image Modal */}
-            <ModalComp
+            <ImageModal
                 isOpen={isImageOpen}
-                handleOnClose={() => setIsImageOpen(false)}
-                maxWidth={'lg'}
-            >
-                <div className="productCard__imageModal">
-                    <img src={imagePreview} alt="uploaded-product" />
-                    <div className="closeButtonWrapper">
-                        <ButtonComp
-                            typeClass={'secondary'}
-                            modifyClass={'iconButton'}
-                            handleOnClick={() => setIsImageOpen(false)}
-                        >
-                            <XIcon size={18} />
-                        </ButtonComp>
-                    </div>
-                </div>
-            </ModalComp>
+                setIsOpen={setIsImageOpen}
+                productImage={imagePreview}
+                productName={inputVals.name}
+            />
         </>
     )
 }

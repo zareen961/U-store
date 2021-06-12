@@ -36,7 +36,17 @@ export const productFetchAll = () => async (dispatch, getState) => {
 }
 
 // to upload a new Product
-export const productUpload = (productData) => async (dispatch) => {
+export const productUpload = (productData) => async (dispatch, getState) => {
+    const {
+        user: { userInfo },
+    } = getState().userLogin
+
+    const productOwner = {
+        _id: userInfo._id,
+        username: userInfo.username,
+        avatar: userInfo.avatar,
+    }
+
     try {
         dispatch({
             type: actionTypes.PRODUCT_UPLOAD_REQUEST,
@@ -46,17 +56,16 @@ export const productUpload = (productData) => async (dispatch) => {
 
         dispatch({
             type: actionTypes.USER_PRODUCT_PUSH_NEW,
-            payload: data,
+            payload: { ...data, productOwner },
         })
 
         dispatch({
             type: actionTypes.PRODUCT_PUSH_NEW,
-            payload: data,
+            payload: { ...data, productOwner },
         })
 
         dispatch({
             type: actionTypes.PRODUCT_UPLOAD_SUCCESS,
-            payload: data,
         })
 
         dispatch(alertAdd('Product Uploaded!', 'success'))
