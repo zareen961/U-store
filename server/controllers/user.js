@@ -266,7 +266,7 @@ const userGetBids = asyncHandler(async (req, res) => {
                 select: '-college -updatedAt',
                 populate: {
                     path: 'productOwner bids',
-                    select: '_id username avatar price createdAt',
+                    select: '_id username avatar price createdAt status',
                     options: { sort: { price: -1 } },
                     populate: {
                         path: 'bidOwner',

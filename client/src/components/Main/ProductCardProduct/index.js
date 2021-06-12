@@ -149,6 +149,7 @@ const ProductCardProduct = ({ product }) => {
                 bids={product.bids}
                 isOpen={isBidMoreOpen}
                 setIsOpen={setIsBidMoreOpen}
+                productOwnerID={product.productOwner}
             />
         </>
     )

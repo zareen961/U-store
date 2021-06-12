@@ -44,7 +44,7 @@ const BidCard = ({
     }
 
     const handleBidDelete = () => {
-        dispatch(bidDelete(bid.product, bid._id))
+        dispatch(bidDelete(bid.product._id ? bid.product._id : bid.product, bid._id))
     }
 
     return (

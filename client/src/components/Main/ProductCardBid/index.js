@@ -13,21 +13,33 @@ import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import ConfirmModal from '../../utils/ConfirmModal'
 import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
 import BidEditInput from '../Home/ProductCard/BidEditInput'
+import { bidDelete } from '../../../store/actions/bid'
 import './ProductCardBid.css'
 
 const ProductCardBid = ({ bid }) => {
     const history = useHistory()
+    const dispatch = useDispatch()
+
+    const { loading: loadingBidDelete } = useSelector((state) => state.bidDelete)
 
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
     const [bidVal, setBidVal] = useState(bid.price)
+    const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
+
+    // function to delete a bid
+    const handleBidDelete = () => {
+        dispatch(bidDelete(bid.product._id, bid._id))
+    }
 
     return (
         <>
@@ -172,7 +184,7 @@ const ProductCardBid = ({ bid }) => {
                     <ButtonComp
                         typeClass={'secondary'}
                         modifyClass={'iconButton'}
-                        handleOnClick={() => {}}
+                        handleOnClick={() => setIsBidDeleteOpen(true)}
                     >
                         <TrashIcon size={18} />
                     </ButtonComp>
@@ -201,6 +213,8 @@ const ProductCardBid = ({ bid }) => {
                     setIsOpen={setIsBidEditOpen}
                     bidVal={bidVal}
                     setBidVal={setBidVal}
+                    productID={bid.product._id}
+                    bidID={bid._id}
                 />
             </div>
 
@@ -219,6 +233,15 @@ const ProductCardBid = ({ bid }) => {
                 setIsOpen={setIsBidMoreOpen}
                 productOwnerID={bid.product.productOwner._id}
                 setIsBidEditOpen={setIsBidEditOpen}
+            />
+
+            {/* Confirm Bid Delete Modal */}
+            <ConfirmModal
+                isOpen={isBidDeleteOpen}
+                setIsOpen={setIsBidDeleteOpen}
+                handleOnConfirm={handleBidDelete}
+                isSecure={false}
+                isLoading={loadingBidDelete}
             />
         </>
     )
