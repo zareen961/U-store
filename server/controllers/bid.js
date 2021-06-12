@@ -19,9 +19,16 @@ const bidPlace = asyncHandler(async (req, res) => {
 
     // checking if the User placing Bid is NOT the owner of the Product.
     const foundProduct = await Product.findById(product)
-        .select('productOwner bids')
+        .select('productOwner bids isActive')
         .populate('bids')
 
+    // checking if the product is NOT deleted
+    if (!foundProduct.isActive) {
+        res.status(500)
+        throw new Error('Sorry, the product you are trying to bid is deleted!')
+    }
+
+    // checking if the user is NOT the owner of the product
     if (String(foundProduct.productOwner) === String(bidOwner)) {
         res.status(401)
         throw new Error('Sorry, you cannot place a bid on your own product!')
@@ -70,6 +77,9 @@ const bidPlace = asyncHandler(async (req, res) => {
                 },
             }
         )
+
+        // removing productID from following, if it is present there
+        await User.updateOne({ _id: bidOwner }, { $pull: { following: product } })
 
         res.status(200).json(newBid)
     } else {

@@ -127,8 +127,11 @@ const userDelete = asyncHandler(async (req, res) => {
     const foundUser = await User.findById(req.authUser._id)
 
     if (foundUser && (await foundUser.matchPassword(password))) {
-        // deleting all the products uploaded by this user
-        await Product.deleteMany({ _id: { $in: foundUser.products } })
+        // setting all the products of the user as DELETED
+        await Product.updateMany(
+            { _id: { $in: foundUser.products } },
+            { $set: { isActive: false } }
+        )
 
         // deleting all the bids placed by this user
         await Bid.deleteMany({ _id: { $in: foundUser.bids } })

@@ -40,6 +40,10 @@ const productSchema = new Schema(
             ref: 'College',
             required: true,
         },
+        isActive: {
+            type: Boolean,
+            default: true,
+        },
     },
     { timestamps: true }
 )

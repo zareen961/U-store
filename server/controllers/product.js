@@ -50,7 +50,10 @@ const productUpload = asyncHandler(async (req, res) => {
 
 // to get all products for the logged in user’s college
 const productGetAll = asyncHandler(async (req, res) => {
-    const foundProducts = await Product.find({ college: req.authUser.college })
+    const foundProducts = await Product.find({
+        college: req.authUser.college,
+        isActive: true,
+    })
         .populate({
             path: 'bids productOwner',
             options: { sort: { price: -1 } },
@@ -88,7 +91,10 @@ const productDelete = asyncHandler(async (req, res) => {
         // removing all the bids placed on that product
         await Bid.deleteMany({ _id: { $in: foundProduct.bids } })
 
-        await foundProduct.remove()
+        // if the product is deleted we set isActive to false
+        foundProduct.isActive = false
+        await foundProduct.save()
+
         res.status(200).json({
             message: 'Product Deleted!',
         })
@@ -157,12 +163,20 @@ const productFollowToggle = asyncHandler(async (req, res) => {
 
             res.status(200).json({ message: 'Product Unfollowed!' })
         } else {
-            /*checking if the product belongs to user's college and
-              checking if the user does not own the product*/
             const foundProduct = await Product.findById(productID).select(
-                'college productOwner'
+                'college productOwner isActive'
             )
 
+            // checking if the product is NOT deleted
+            if (!foundProduct.isActive) {
+                res.status(500)
+                throw new Error(
+                    'The product you wish to keep an eye on has been deleted!'
+                )
+            }
+
+            /*checking if the product belongs to user's college and
+              checking if the user does not own the product*/
             if (
                 String(foundProduct.college) === String(req.authUser.college) &&
                 String(foundProduct.productOwner) !== String(userID)
