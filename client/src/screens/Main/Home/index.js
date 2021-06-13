@@ -26,6 +26,8 @@ const Home = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
             />
             {loading ? (
                 <h2>Loading...</h2>
+            ) : products.length === 0 ? (
+                <h3>Share with college mates to see what they have to sell to you</h3>
             ) : (
                 products.map((product) => (
                     <ProductCard key={product._id} product={product} />

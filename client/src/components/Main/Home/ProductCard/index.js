@@ -60,6 +60,7 @@ const ProductCard = ({ product }) => {
     // function to place a new bid
     const handleBidPlace = () => {
         if (Number(bidVal) >= 0 && bidVal !== '') {
+            console.log(product.bids)
             dispatch(bidPlace(product, Number(bidVal)))
         } else {
             dispatch(alertAdd('Raise a suitable amount!', 'error'))
@@ -145,6 +146,7 @@ const ProductCard = ({ product }) => {
     useEffect(() => {
         if (successBidDelete) {
             setBidVal('')
+            setIsBidDeleteOpen(false)
         }
     }, [successBidDelete])
 
