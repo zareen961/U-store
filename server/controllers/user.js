@@ -296,7 +296,7 @@ const userGetFollowing = asyncHandler(async (req, res) => {
             select: '-updateAt -college',
             populate: {
                 path: 'bids productOwner',
-                select: 'price createdAt _id avatar username',
+                select: 'price createdAt _id avatar username status',
                 populate: {
                     path: 'bidOwner',
                     select: '_id username avatar price',

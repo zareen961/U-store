@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
 import BidInputLoader from '../../utils/BidInputLoader'
 import ImageModal from '../Home/ProductCard/ImageModal'
@@ -122,47 +123,7 @@ const ProductCardFollow = ({ product }) => {
                 </div>
 
                 {/* Price */}
-                <div className="productCardFollow__price">
-                    <div className="sellerPrice">
-                        <div className="priceWrapper">
-                            <TagIcon size={18} />
-                            <h3>Price</h3>
-                        </div>
-                        <span className="price">
-                            {product.price === 0 ? (
-                                'Free'
-                            ) : (
-                                <NumberFormat
-                                    value={product.price}
-                                    prefix={'Rs '}
-                                    thousandSeparator={true}
-                                    displayType={'text'}
-                                />
-                            )}
-                        </span>
-                    </div>
-                    <div className="highestBid">
-                        <div className="priceWrapper">
-                            <ArrowUpIcon size={18} />
-                            <h3>Highest Bid</h3>
-                        </div>
-                        <span className="price">
-                            {_.orderBy(product.bids, ['price'], ['desc'])[0] ? (
-                                <NumberFormat
-                                    value={
-                                        _.orderBy(product.bids, ['price'], ['desc'])[0]
-                                            .price
-                                    }
-                                    prefix={'Rs '}
-                                    thousandSeparator={true}
-                                    displayType={'text'}
-                                />
-                            ) : (
-                                <small>No bids yet!</small>
-                            )}
-                        </span>
-                    </div>
-                </div>
+                <PriceBox productPrice={product.price} bids={product.bids} />
 
                 {/* Footer */}
                 <div className="productCardFollow__bids">

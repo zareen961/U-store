@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import {
-    TagIcon,
     MegaphoneIcon,
     PencilIcon,
     TrashIcon,
     PersonAddIcon,
-    ArrowUpIcon,
 } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import moment from 'moment'
@@ -16,6 +14,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
 import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
@@ -119,50 +118,7 @@ const ProductCardBid = ({ bid }) => {
                 </div>
 
                 {/* Price */}
-                <div className="productCardBid__price">
-                    <div className="sellerPrice">
-                        <div className="priceWrapper">
-                            <TagIcon size={18} />
-                            <h3>Price</h3>
-                        </div>
-                        <span className="price">
-                            {bid.product.price === 0 ? (
-                                'Free'
-                            ) : (
-                                <NumberFormat
-                                    value={bid.product.price}
-                                    prefix={'Rs '}
-                                    thousandSeparator={true}
-                                    displayType={'text'}
-                                />
-                            )}
-                        </span>
-                    </div>
-                    <div className="highestBid">
-                        <div className="priceWrapper">
-                            <ArrowUpIcon size={18} />
-                            <h3>Highest Bid</h3>
-                        </div>
-                        <span className="price">
-                            {_.orderBy(bid.product.bids, ['price'], ['desc'])[0] ? (
-                                <NumberFormat
-                                    value={
-                                        _.orderBy(
-                                            bid.product.bids,
-                                            ['price'],
-                                            ['desc']
-                                        )[0].price
-                                    }
-                                    prefix={'Rs '}
-                                    thousandSeparator={true}
-                                    displayType={'text'}
-                                />
-                            ) : (
-                                <small>No bids yet!</small>
-                            )}
-                        </span>
-                    </div>
-                </div>
+                <PriceBox productPrice={bid.product.price} bids={bid.product.bids} />
 
                 {/* Footer */}
                 <div className="productCardBid__bids">
