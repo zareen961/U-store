@@ -6,6 +6,7 @@
     border-radius: 15px;
     background-color: rgba(var(--primary-light), 0.08);
     font-family: 'Poppins', sans-serif !important;
+    position: relative;
 }
 
 .bidCard__avatar {

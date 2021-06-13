@@ -12,6 +12,7 @@ import NumberFormat from 'react-number-format'
 import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../../utils/ButtonComp'
+import ChipComp from '../../../../utils/ChipComp'
 import ConfirmModal from '../../../../utils/ConfirmModal'
 import { bidStatusUpdate, bidDelete } from '../../../../../store/actions/bid'
 import './BidCard.css'
@@ -35,7 +36,13 @@ const BidCard = ({
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
 
     const handleBidStatusUpdate = (newBidStatus) => {
-        dispatch(bidStatusUpdate(bid.product, bid._id, newBidStatus))
+        dispatch(
+            bidStatusUpdate(
+                bid.product._id ? bid.product._id : bid.product,
+                bid._id,
+                newBidStatus
+            )
+        )
     }
 
     const handleBidPriceEdit = () => {
@@ -149,6 +156,18 @@ const BidCard = ({
                             </ButtonComp>
                         </div>
                     )}
+
+                {/* Current Status Chip */}
+                <ChipComp
+                    text={bid.status}
+                    type={
+                        bid.status === 'REJECTED'
+                            ? 'error'
+                            : bid.status === 'ACCEPTED'
+                            ? 'success'
+                            : 'neutral'
+                    }
+                />
             </div>
 
             {/* Confirm Bid Delete Modal */}
