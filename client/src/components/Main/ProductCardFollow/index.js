@@ -8,11 +8,13 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import ConfirmModal from '../../utils/ConfirmModal'
 import BidInputLoader from '../../utils/BidInputLoader'
 import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
 import { bidPlace } from '../../../store/actions/bid'
 import { alertAdd } from '../../../store/actions/alert'
+import { productFollowToggle } from '../../../store/actions/product'
 import './ProductCardFollow.css'
 
 const ProductCardFollow = ({ product }) => {
@@ -20,11 +22,15 @@ const ProductCardFollow = ({ product }) => {
     const dispatch = useDispatch()
 
     const { loading: loadingBidPlace } = useSelector((state) => state.bidPlace)
+    const { loading: loadingProductFollowToggle } = useSelector(
+        (state) => state.productFollowToggle
+    )
 
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
+    const [isProductUnfollowOpen, setIsProductUnfollowOpen] = useState(false)
 
     // function to place a new bid
     const handleBidPlace = () => {
@@ -33,6 +39,11 @@ const ProductCardFollow = ({ product }) => {
         } else {
             dispatch(alertAdd('Raise a suitable amount!', 'error'))
         }
+    }
+
+    // function to unfollow the product
+    const handleProductUnfollow = () => {
+        dispatch(productFollowToggle(product))
     }
 
     return (
@@ -61,9 +72,13 @@ const ProductCardFollow = ({ product }) => {
 
                     <div className="contact">
                         <ButtonComp
-                            typeClass={'secondary'}
-                            modifyClass={'iconButton'}
-                            handleOnClick={() => {}}
+                            typeClass={'primary'}
+                            modifyClass={
+                                loadingProductFollowToggle
+                                    ? 'iconButton disabled'
+                                    : 'iconButton'
+                            }
+                            handleOnClick={() => dispatch(productFollowToggle(product))}
                         >
                             <PinIcon size={18} />
                         </ButtonComp>
@@ -190,6 +205,15 @@ const ProductCardFollow = ({ product }) => {
                 bids={product.bids}
                 isOpen={isBidMoreOpen}
                 setIsOpen={setIsBidMoreOpen}
+            />
+
+            {/* Confirm Product Unfollow Modal */}
+            <ConfirmModal
+                isOpen={isProductUnfollowOpen}
+                setIsOpen={setIsProductUnfollowOpen}
+                handleOnConfirm={handleProductUnfollow}
+                isSecure={false}
+                isLoading={loadingProductFollowToggle}
             />
         </>
     )
