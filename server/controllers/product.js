@@ -88,9 +88,6 @@ const productDelete = asyncHandler(async (req, res) => {
             { $pull: { products: productID } }
         )
 
-        // removing all the bids placed on that product
-        await Bid.deleteMany({ _id: { $in: foundProduct.bids } })
-
         // if the product is deleted we set isActive to false
         foundProduct.isActive = false
         await foundProduct.save()

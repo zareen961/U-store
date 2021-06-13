@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import IconButton from '@material-ui/core/IconButton'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
@@ -7,16 +7,38 @@ import ButtonComp from '../../utils/ButtonComp'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
+import { productDelete } from '../../../store/actions/product'
+import ConfirmModal from '../../utils/ConfirmModal'
 import './ProductCardProduct.css'
 
 const ProductCardProduct = ({ product }) => {
+    const dispatch = useDispatch()
+
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
+    const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
+
+    const { loading: loadingProductDelete, success: successProductDelete } = useSelector(
+        (state) => state.productDelete
+    )
+
+    // product delete function
+    const handleProductDelete = () => {
+        dispatch(productDelete(product._id))
+    }
+
+    // to close the confirm modal on product delete success
+    useEffect(() => {
+        if (successProductDelete) {
+            setIsProductDeleteOpen(false)
+        }
+    }, [successProductDelete])
 
     return (
         <>
@@ -39,7 +61,7 @@ const ProductCardProduct = ({ product }) => {
                     <ul className={isMenuTrayOpen ? 'menuTray open' : 'menuTray'}>
                         <li>Edit</li>
                         <li className="line"></li>
-                        <li>Delete</li>
+                        <li onClick={() => setIsProductDeleteOpen(true)}>Delete</li>
                     </ul>
                 </div>
 
@@ -150,6 +172,15 @@ const ProductCardProduct = ({ product }) => {
                 isOpen={isBidMoreOpen}
                 setIsOpen={setIsBidMoreOpen}
                 productOwnerID={product.productOwner}
+            />
+
+            {/* Confirm Product Delete Modal */}
+            <ConfirmModal
+                isOpen={isProductDeleteOpen}
+                setIsOpen={setIsProductDeleteOpen}
+                handleOnConfirm={handleProductDelete}
+                isSecure={false}
+                isLoading={loadingProductDelete}
             />
         </>
     )
