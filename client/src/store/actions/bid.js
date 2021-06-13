@@ -24,14 +24,6 @@ export const bidPlace = (product, bidPrice, history) => async (dispatch, getStat
         })
 
         dispatch({
-            type: actionTypes.BID_PUSH_NEW,
-            payload: {
-                productID: product._id,
-                bid: { ...data, bidOwner: bidOwnerDetails },
-            },
-        })
-
-        dispatch({
             type: actionTypes.USER_BID_PUSH_NEW,
             payload: {
                 ...data,
@@ -39,6 +31,14 @@ export const bidPlace = (product, bidPrice, history) => async (dispatch, getStat
                     ...product,
                     bids: [{ ...data, bidOwner: bidOwnerDetails }, ...product.bids],
                 },
+            },
+        })
+
+        dispatch({
+            type: actionTypes.BID_PUSH_NEW,
+            payload: {
+                productID: product._id,
+                bid: { ...data, bidOwner: bidOwnerDetails },
             },
         })
 

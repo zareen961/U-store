@@ -155,7 +155,7 @@ const ProductCardFollow = ({ product }) => {
                         <MegaphoneIcon size={20} />
                         <input
                             type="number"
-                            placeholder="Place a bid"
+                            placeholder="Place"
                             value={bidVal}
                             onChange={(e) => setBidVal(e.target.value)}
                         />
@@ -172,7 +172,7 @@ const ProductCardFollow = ({ product }) => {
                     <ButtonComp
                         typeClass={'secondary'}
                         handleOnClick={() => setIsBidMoreOpen(true)}
-                        text={'View Bids'}
+                        text={`View Bids(${product.bids.length})`}
                     />
                 </div>
             </div>

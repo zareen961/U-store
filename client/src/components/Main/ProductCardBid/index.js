@@ -71,7 +71,11 @@ const ProductCardBid = ({ bid }) => {
                         <ButtonComp
                             typeClass={'secondary'}
                             modifyClass={'iconButton'}
-                            handleOnClick={() => {}}
+                            handleOnClick={() =>
+                                history.push(
+                                    `/contact/${bid.product.productOwner.username}`
+                                )
+                            }
                         >
                             <PersonAddIcon size={18} />
                         </ButtonComp>
