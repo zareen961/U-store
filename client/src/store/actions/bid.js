@@ -3,10 +3,11 @@ import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './alert'
 
 // to place a new Bid
-export const bidPlace = (product, bidPrice) => async (dispatch, getState) => {
+export const bidPlace = (product, bidPrice, history) => async (dispatch, getState) => {
     const {
         user: { userInfo },
     } = getState().userLogin
+
     const bidOwnerDetails = {
         _id: userInfo._id,
         username: userInfo.username,
@@ -32,8 +33,24 @@ export const bidPlace = (product, bidPrice) => async (dispatch, getState) => {
 
         dispatch({
             type: actionTypes.USER_BID_PUSH_NEW,
-            payload: { ...data, product },
+            payload: {
+                ...data,
+                product: {
+                    ...product,
+                    bids: [{ ...data, bidOwner: bidOwnerDetails }, ...product.bids],
+                },
+            },
         })
+
+        dispatch({
+            type: actionTypes.USER_FOLLOWING_UPDATE_ON_BID_PLACE,
+            payload: { productID: product._id },
+        })
+
+        // if history is passed then it means that the bid is being placed from following screen
+        if (history) {
+            history.push('/bids')
+        }
 
         dispatch({
             type: actionTypes.BID_PLACE_SUCCESS,

@@ -389,6 +389,38 @@ export const userLoginReducer = (
                 }
             }
 
+        case actionTypes.USER_FOLLOWING_UPDATE_ON_BID_PLACE:
+            if (
+                state.user.userInfo.following.length > 0 &&
+                typeof state.user.userInfo.following[0] !== 'object'
+            ) {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            following: state.user.userInfo.following.filter(
+                                (productID) => productID !== action.payload.productID
+                            ),
+                        },
+                    },
+                }
+            } else {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            following: state.user.userInfo.following.filter(
+                                (product) => product._id !== action.payload.productID
+                            ),
+                        },
+                    },
+                }
+            }
+
         default:
             return state
     }

@@ -127,7 +127,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         if (isValid && inputVals.image.fileName && inputVals.image.url) {
             dispatch(productUpload({ ...inputVals, price: Number(inputVals.price) }))
         }
-    }, [inputVals.image.fileName, inputVals.image.url, dispatch])
+    }, [inputVals, inputVals.image.fileName, inputVals.image.url, dispatch])
 
     useEffect(() => {
         if (success) {

@@ -5,19 +5,35 @@ import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
-
+import BidInputLoader from '../../utils/BidInputLoader'
 import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
+import { bidPlace } from '../../../store/actions/bid'
+import { alertAdd } from '../../../store/actions/alert'
 import './ProductCardFollow.css'
 
 const ProductCardFollow = ({ product }) => {
     const history = useHistory()
+    const dispatch = useDispatch()
+
+    const { loading: loadingBidPlace } = useSelector((state) => state.bidPlace)
 
     const [isImageOpen, setIsImageOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
+    const [bidVal, setBidVal] = useState('')
+
+    // function to place a new bid
+    const handleBidPlace = () => {
+        if (Number(bidVal) >= 0 && bidVal !== '') {
+            dispatch(bidPlace(product, Number(bidVal), history))
+        } else {
+            dispatch(alertAdd('Raise a suitable amount!', 'error'))
+        }
+    }
 
     return (
         <>
@@ -137,13 +153,20 @@ const ProductCardFollow = ({ product }) => {
                 <div className="productCardFollow__bids">
                     <div className="productCardFollow__bidPlace">
                         <MegaphoneIcon size={20} />
-                        <input type="number" placeholder="Place a bid" />
+                        <input
+                            type="number"
+                            placeholder="Place a bid"
+                            value={bidVal}
+                            onChange={(e) => setBidVal(e.target.value)}
+                        />
                         <ButtonComp
                             typeClass={'primary'}
-                            handleOnClick={() => {}}
-                            modifyClass={'insideInputButton'}
+                            handleOnClick={handleBidPlace}
+                            modifyClass="insideInputButton"
                             text={'Place'}
                         />
+
+                        <BidInputLoader isLoading={loadingBidPlace} />
                     </div>
 
                     <ButtonComp
