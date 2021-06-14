@@ -46,7 +46,6 @@
     box-sizing: border-box;
     border-radius: 10px;
     border: 2px solid;
-    /* box-shadow: 2px 2px 3px var(--shadow-primary); */
     box-shadow: none;
 }
 

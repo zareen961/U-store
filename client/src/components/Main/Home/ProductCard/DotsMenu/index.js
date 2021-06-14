@@ -1,0 +1,34 @@
+import React, { useState } from 'react'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import IconButton from '@material-ui/core/IconButton'
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
+
+import './DotsMenu.css'
+
+const DotsMenu = ({ setIsProductDeleteOpen }) => {
+    const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
+
+    return (
+        <>
+            <ClickAwayListener onClickAway={() => setIsMenuTrayOpen(false)}>
+                <IconButton
+                    className="dotsMenu__button"
+                    onClick={() => setIsMenuTrayOpen(!isMenuTrayOpen)}
+                >
+                    <MoreHorizIcon fontSize="large" />
+                </IconButton>
+            </ClickAwayListener>
+            <ul
+                className={
+                    isMenuTrayOpen ? 'dotsMenu__menuTray open' : 'dotsMenu__menuTray'
+                }
+            >
+                <li>Edit</li>
+                <li className="dotsMenu__menuTrayLine"></li>
+                <li onClick={() => setIsProductDeleteOpen(true)}>Delete</li>
+            </ul>
+        </>
+    )
+}
+
+export default DotsMenu

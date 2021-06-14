@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import {
     TagIcon,
     MegaphoneIcon,
@@ -10,8 +9,6 @@ import {
 } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import AvatarGroup from '@material-ui/lab/AvatarGroup'
-import IconButton from '@material-ui/core/IconButton'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
@@ -26,6 +23,7 @@ import BidsAllModal from './BidsAllModal'
 import ImageModal from './ImageModal'
 import BidEditInput from './BidEditInput'
 import BidPlaceInput from './BidPlaceInput'
+import DotsMenu from './DotsMenu'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
@@ -45,7 +43,6 @@ const ProductCard = ({ product }) => {
     )
 
     const [isImageOpen, setIsImageOpen] = useState(false)
-    const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
@@ -161,25 +158,7 @@ const ProductCard = ({ product }) => {
                         <span>{moment(product.createdAt).fromNow()}</span>
                     </div>
                     {String(user.userInfo._id) === String(product.productOwner._id) && (
-                        <>
-                            <ClickAwayListener
-                                onClickAway={() => setIsMenuTrayOpen(false)}
-                            >
-                                <IconButton
-                                    className="icon"
-                                    onClick={() => setIsMenuTrayOpen(!isMenuTrayOpen)}
-                                >
-                                    <MoreHorizIcon fontSize="large" />
-                                </IconButton>
-                            </ClickAwayListener>
-                            <ul className={isMenuTrayOpen ? 'menuTray open' : 'menuTray'}>
-                                <li>Edit</li>
-                                <li className="line"></li>
-                                <li onClick={() => setIsProductDeleteOpen(true)}>
-                                    Delete
-                                </li>
-                            </ul>
-                        </>
+                        <DotsMenu setIsProductDeleteOpen={setIsProductDeleteOpen} />
                     )}
                 </div>
 
