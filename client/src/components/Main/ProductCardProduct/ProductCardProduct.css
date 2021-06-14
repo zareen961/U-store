@@ -77,19 +77,6 @@
     border-top: 1px solid rgba(var(--primary-light), 0.15);
 }
 
-.productCardProduct__image {
-    height: 300px;
-    margin: 20px 0;
-}
-
-.productCardProduct__image img {
-    height: 100%;
-    width: 100%;
-    border-radius: 15px;
-    cursor: pointer;
-    object-fit: cover;
-}
-
 .productCardProduct__productDetails .description {
     color: rgba(var(--primary-light), 0.8);
     font-weight: 400;

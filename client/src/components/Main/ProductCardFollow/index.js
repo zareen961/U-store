@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
-import { TagIcon, MegaphoneIcon, ArrowUpIcon, PinIcon } from '@primer/octicons-react'
+import { MegaphoneIcon, PinIcon } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import moment from 'moment'
-import NumberFormat from 'react-number-format'
-import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
 import BidInputLoader from '../../utils/BidInputLoader'
-import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
 import { bidPlace } from '../../../store/actions/bid'
 import { alertAdd } from '../../../store/actions/alert'
@@ -27,7 +25,6 @@ const ProductCardFollow = ({ product }) => {
         (state) => state.productFollowToggle
     )
 
-    const [isImageOpen, setIsImageOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
@@ -79,7 +76,7 @@ const ProductCardFollow = ({ product }) => {
                                     ? 'iconButton disabled'
                                     : 'iconButton'
                             }
-                            handleOnClick={() => dispatch(productFollowToggle(product))}
+                            handleOnClick={() => setIsProductUnfollowOpen(true)}
                         >
                             <PinIcon size={18} />
                         </ButtonComp>
@@ -87,13 +84,7 @@ const ProductCardFollow = ({ product }) => {
                 </div>
 
                 {/* Image */}
-                <div className="productCardFollow__image">
-                    <img
-                        src={product.image.url}
-                        alt="sample-product"
-                        onClick={() => setIsImageOpen(true)}
-                    />
-                </div>
+                <ProductImage image={product.image.url} name={product.name} />
 
                 {/* Details */}
                 <div className="productCardFollow__productDetails">
@@ -152,14 +143,6 @@ const ProductCardFollow = ({ product }) => {
                     />
                 </div>
             </div>
-
-            {/* Image Modal */}
-            <ImageModal
-                isOpen={isImageOpen}
-                setIsOpen={setIsImageOpen}
-                productImage={product.image.url}
-                productName={product.name}
-            />
 
             {/* All Bids Modal */}
             <BidsAllModal

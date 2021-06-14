@@ -2,24 +2,21 @@ import React, { useState, useEffect } from 'react'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import IconButton from '@material-ui/core/IconButton'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
-import { TagIcon, MegaphoneIcon, ArrowUpIcon } from '@primer/octicons-react'
+import { MegaphoneIcon } from '@primer/octicons-react'
 import ButtonComp from '../../utils/ButtonComp'
 import moment from 'moment'
-import NumberFormat from 'react-number-format'
-import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 
-import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
 import { productDelete } from '../../../store/actions/product'
 import ConfirmModal from '../../utils/ConfirmModal'
 import PriceBox from '../../utils/PriceBox'
+import ProductImage from '../../utils/ProductImage'
 import './ProductCardProduct.css'
 
 const ProductCardProduct = ({ product }) => {
     const dispatch = useDispatch()
 
-    const [isImageOpen, setIsImageOpen] = useState(false)
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
@@ -67,13 +64,7 @@ const ProductCardProduct = ({ product }) => {
                 </div>
 
                 {/* Image */}
-                <div className="productCardProduct__image">
-                    <img
-                        src={product.image.url}
-                        alt={product.name}
-                        onClick={() => setIsImageOpen(true)}
-                    />
-                </div>
+                <ProductImage image={product.image.url} name={product.name} />
 
                 {/* Details */}
                 <div className="productCardProduct__productDetails">
@@ -118,14 +109,6 @@ const ProductCardProduct = ({ product }) => {
                     />
                 </div>
             </div>
-
-            {/* Image Modal */}
-            <ImageModal
-                isOpen={isImageOpen}
-                setIsOpen={setIsImageOpen}
-                productImage={product.image.url}
-                productName={product.name}
-            />
 
             {/* All Bids Modal */}
             <BidsAllModal

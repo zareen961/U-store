@@ -14,9 +14,9 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
-import ImageModal from '../Home/ProductCard/ImageModal'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
 import BidEditInput from '../Home/ProductCard/BidEditInput'
 import { bidDelete } from '../../../store/actions/bid'
@@ -28,7 +28,6 @@ const ProductCardBid = ({ bid }) => {
 
     const { loading: loadingBidDelete } = useSelector((state) => state.bidDelete)
 
-    const [isImageOpen, setIsImageOpen] = useState(false)
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
@@ -82,13 +81,7 @@ const ProductCardBid = ({ bid }) => {
                 </div>
 
                 {/* Image */}
-                <div className="productCardBid__image">
-                    <img
-                        src={bid.product.image.url}
-                        alt="sample-product"
-                        onClick={() => setIsImageOpen(true)}
-                    />
-                </div>
+                <ProductImage image={bid.product.image.url} name={bid.product.name} />
 
                 {/* Details */}
                 <div className="productCardBid__productDetails">
@@ -177,14 +170,6 @@ const ProductCardBid = ({ bid }) => {
                     bidID={bid._id}
                 />
             </div>
-
-            {/* Image Modal */}
-            <ImageModal
-                isOpen={isImageOpen}
-                setIsOpen={setIsImageOpen}
-                productImage={bid.product.image.url}
-                productName={bid.product.name}
-            />
 
             {/* All Bids Modal */}
             <BidsAllModal

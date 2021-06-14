@@ -56,19 +56,6 @@
     margin-left: auto;
 }
 
-.productCardFollow__image {
-    height: 300px;
-    margin: 20px 0;
-}
-
-.productCardFollow__image img {
-    height: 100%;
-    width: 100%;
-    border-radius: 15px;
-    cursor: pointer;
-    object-fit: cover;
-}
-
 .productCardFollow__productDetails .name {
     font-weight: 600;
     font-size: 1.25rem;
