@@ -19,14 +19,13 @@ import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../utils/ButtonComp'
 import BidCard from './BidCard'
-import { bidPlace, bidDelete } from '../../../../store/actions/bid'
+import { bidDelete } from '../../../../store/actions/bid'
 import { productFollowToggle, productDelete } from '../../../../store/actions/product'
-import { alertAdd } from '../../../../store/actions/alert'
 import ConfirmModal from '../../../utils/ConfirmModal'
-import BidInputLoader from '../../../utils/BidInputLoader'
 import BidsAllModal from './BidsAllModal'
 import ImageModal from './ImageModal'
 import BidEditInput from './BidEditInput'
+import BidPlaceInput from './BidPlaceInput'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
@@ -40,9 +39,7 @@ const ProductCard = ({ product }) => {
     const { loading: loadingProductFollowToggle } = useSelector(
         (state) => state.productFollowToggle
     )
-    const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
-        (state) => state.bidPlace
-    )
+    const { success: successBidPlace } = useSelector((state) => state.bidPlace)
     const { loading: loadingBidDelete, success: successBidDelete } = useSelector(
         (state) => state.bidDelete
     )
@@ -56,15 +53,6 @@ const ProductCard = ({ product }) => {
     const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
     const [isUserFollow, setIsUserFollow] = useState(false)
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
-
-    // function to place a new bid
-    const handleBidPlace = () => {
-        if (Number(bidVal) >= 0 && bidVal !== '') {
-            dispatch(bidPlace(product, Number(bidVal)))
-        } else {
-            dispatch(alertAdd('Raise a suitable amount!', 'error'))
-        }
-    }
 
     // function to check if the logged in user can place a bid on the current product
     const checkUserCanPlaceBid = useCallback(() => {
@@ -273,23 +261,12 @@ const ProductCard = ({ product }) => {
                 {String(user.userInfo._id) !== String(product.productOwner._id) &&
                     (isUserEligibleToBid.canPlaceBid ? (
                         <div className="productCard__action">
-                            <div className="productCard__bidPlace">
-                                <MegaphoneIcon size={20} />
-                                <input
-                                    type="number"
-                                    placeholder="Place a bid"
-                                    value={bidVal}
-                                    onChange={(e) => setBidVal(e.target.value)}
-                                />
-                                <ButtonComp
-                                    typeClass={'primary'}
-                                    handleOnClick={handleBidPlace}
-                                    modifyClass="insideInputButton"
-                                    text={'Place'}
-                                />
+                            <BidPlaceInput
+                                bidVal={bidVal}
+                                setBidVal={setBidVal}
+                                product={product}
+                            />
 
-                                <BidInputLoader isLoading={loadingBidPlace} />
-                            </div>
                             <ButtonComp
                                 typeClass={isUserFollow ? 'primary' : 'secondary'}
                                 handleOnClick={() =>

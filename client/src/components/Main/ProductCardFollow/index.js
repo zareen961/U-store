@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { MegaphoneIcon, PinIcon } from '@primer/octicons-react'
+import { PinIcon } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
@@ -9,10 +9,8 @@ import ButtonComp from '../../utils/ButtonComp'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
-import BidInputLoader from '../../utils/BidInputLoader'
 import BidsAllModal from '../Home/ProductCard/BidsAllModal'
-import { bidPlace } from '../../../store/actions/bid'
-import { alertAdd } from '../../../store/actions/alert'
+import BidPlaceInput from '../Home/ProductCard/BidPlaceInput'
 import { productFollowToggle } from '../../../store/actions/product'
 import './ProductCardFollow.css'
 
@@ -20,7 +18,6 @@ const ProductCardFollow = ({ product }) => {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const { loading: loadingBidPlace } = useSelector((state) => state.bidPlace)
     const { loading: loadingProductFollowToggle } = useSelector(
         (state) => state.productFollowToggle
     )
@@ -29,15 +26,6 @@ const ProductCardFollow = ({ product }) => {
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
     const [isProductUnfollowOpen, setIsProductUnfollowOpen] = useState(false)
-
-    // function to place a new bid
-    const handleBidPlace = () => {
-        if (Number(bidVal) >= 0 && bidVal !== '') {
-            dispatch(bidPlace(product, Number(bidVal), history))
-        } else {
-            dispatch(alertAdd('Raise a suitable amount!', 'error'))
-        }
-    }
 
     // function to unfollow the product
     const handleProductUnfollow = () => {
@@ -118,23 +106,12 @@ const ProductCardFollow = ({ product }) => {
 
                 {/* Footer */}
                 <div className="productCardFollow__bids">
-                    <div className="productCardFollow__bidPlace">
-                        <MegaphoneIcon size={20} />
-                        <input
-                            type="number"
-                            placeholder="Place"
-                            value={bidVal}
-                            onChange={(e) => setBidVal(e.target.value)}
-                        />
-                        <ButtonComp
-                            typeClass={'primary'}
-                            handleOnClick={handleBidPlace}
-                            modifyClass="insideInputButton"
-                            text={'Place'}
-                        />
-
-                        <BidInputLoader isLoading={loadingBidPlace} />
-                    </div>
+                    <BidPlaceInput
+                        bidVal={bidVal}
+                        setBidVal={setBidVal}
+                        product={product}
+                        isFollowingScreen={true}
+                    />
 
                     <ButtonComp
                         typeClass={'secondary'}
