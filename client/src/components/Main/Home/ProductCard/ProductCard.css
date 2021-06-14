@@ -124,40 +124,6 @@
     color: rgba(var(--primary-light), 0.6);
 }
 
-.productCard__bidMore {
-    width: fit-content;
-    align-self: flex-end;
-    cursor: pointer;
-}
-
-.productCard__bidMore .avatar {
-    height: 30px;
-    width: 30px;
-    background-color: rgba(var(--primary-light), 1);
-    margin-left: -10px !important;
-    border-color: rgba(var(--primary-dark), 0.2);
-    z-index: 1 !important;
-}
-
-.productCard__bidMore .MuiAvatar-colorDefault {
-    background-color: rgba(var(--primary-light), 1);
-    color: rgba(var(--secondary-light), 1);
-    height: 33px;
-    width: 33px;
-    font-size: 1rem;
-    margin-left: -10px !important;
-    border-color: rgba(var(--primary-dark), 0.2);
-    box-sizing: border-box;
-}
-
-.productCard__bidMore:hover .MuiAvatar-colorDefault,
-.productCard__bidMore:hover .avatar {
-    background-color: rgba(var(--secondary-light), 1);
-    color: rgba(var(--primary-light), 1);
-    font-weight: 500;
-    border-color: rgba(var(--primary-light), 1);
-}
-
 .productCard__action {
     display: flex;
     align-items: center;

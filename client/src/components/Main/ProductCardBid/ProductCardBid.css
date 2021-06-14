@@ -107,37 +107,3 @@
     padding: 2px 10px;
     border-radius: 10px;
 }
-
-.productCardBid__bidMore {
-    width: fit-content;
-    cursor: pointer;
-    margin-left: 20px;
-}
-
-.productCardBid__bidMore .avatar {
-    height: 30px;
-    width: 30px;
-    background-color: rgba(var(--primary-light), 1);
-    margin-left: -10px !important;
-    border-color: rgba(var(--primary-dark), 0.2);
-    z-index: 1 !important;
-}
-
-.productCardBid__bidMore .MuiAvatar-colorDefault {
-    background-color: rgba(var(--primary-light), 1);
-    color: rgba(var(--secondary-light), 1);
-    height: 33px;
-    width: 33px;
-    font-size: 1rem;
-    margin-left: -10px !important;
-    border-color: rgba(var(--primary-dark), 0.2);
-    box-sizing: border-box;
-}
-
-.productCardBid__bidMore:hover .MuiAvatar-colorDefault,
-.productCardBid__bidMore:hover .avatar {
-    background-color: rgba(var(--secondary-light), 1);
-    color: rgba(var(--primary-light), 1);
-    font-weight: 500;
-    border-color: rgba(var(--primary-light), 1);
-}

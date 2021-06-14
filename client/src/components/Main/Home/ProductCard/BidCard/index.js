@@ -34,7 +34,9 @@ const BidCard = ({
     const { loading: loadingBidDelete } = useSelector((state) => state.bidDelete)
 
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
+    const [isBidStatusUpdateOpen, setIsBidStatusUpdateOpen] = useState(false)
 
+    // function to accept/reject a bid
     const handleBidStatusUpdate = (newBidStatus) => {
         dispatch(
             bidStatusUpdate(
@@ -45,11 +47,13 @@ const BidCard = ({
         )
     }
 
+    // function to edit bid price
     const handleBidPriceEdit = () => {
         setIsBidMoreOpen(false)
         setIsBidEditOpen(true)
     }
 
+    // function to delete a bid
     const handleBidDelete = () => {
         dispatch(bidDelete(bid.product._id ? bid.product._id : bid.product, bid._id))
     }
@@ -74,7 +78,7 @@ const BidCard = ({
                                 history.push(`/contact/${bid.bidOwner.username}`)
                             }
                         >
-                            {bid.bidOwner.username.substring(0, 6)}...
+                            @{bid.bidOwner.username.substring(0, 6)}...
                         </p>
                         <span>{moment(bid.createdAt).fromNow().substring(0, 6)}...</span>
                     </div>
@@ -86,7 +90,7 @@ const BidCard = ({
                                 history.push(`/contact/${bid.bidOwner.username}`)
                             }
                         >
-                            {bid.bidOwner.username}
+                            @{bid.bidOwner.username}
                         </p>
                         <span>{moment(bid.createdAt).fromNow()}</span>
                     </div>
@@ -177,6 +181,15 @@ const BidCard = ({
                 handleOnConfirm={handleBidDelete}
                 isSecure={false}
                 isLoading={loadingBidDelete}
+            />
+
+            {/* Confirm Bid Accept/Reject Modal */}
+            <ConfirmModal
+                isOpen={isBidStatusUpdateOpen}
+                setIsOpen={setIsBidStatusUpdateOpen}
+                handleOnConfirm={handleBidStatusUpdate}
+                isSecure={false}
+                isLoading={loadingBidStatusUpdate}
             />
         </>
     )

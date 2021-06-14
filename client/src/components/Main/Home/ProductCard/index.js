@@ -8,7 +8,6 @@ import {
     TrashIcon,
 } from '@primer/octicons-react'
 import Avatar from '@material-ui/core/Avatar'
-import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
@@ -19,11 +18,11 @@ import BidCard from './BidCard'
 import { bidDelete } from '../../../../store/actions/bid'
 import { productFollowToggle, productDelete } from '../../../../store/actions/product'
 import ConfirmModal from '../../../utils/ConfirmModal'
-import BidsAllModal from './BidsAllModal'
 import ImageModal from './ImageModal'
 import BidEditInput from './BidEditInput'
 import BidPlaceInput from './BidPlaceInput'
 import DotsMenu from './DotsMenu'
+import BidMoreAvatars from './BidMoreAvatars'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
@@ -216,23 +215,15 @@ const ProductCard = ({ product }) => {
                     )}
 
                     {product.bids.length > 2 && (
-                        <div
-                            className="productCard__bidMore"
-                            onClick={() => setIsBidMoreOpen(true)}
-                        >
-                            <AvatarGroup max={3}>
-                                {_.orderBy(product.bids, ['price'], ['desc'])
-                                    .slice(2)
-                                    .map((bid) => (
-                                        <Avatar
-                                            key={bid._id}
-                                            alt={bid.bidOwner.username}
-                                            src={`avatars/avatar${bid.bidOwner.avatar}.png`}
-                                            className="avatar"
-                                        />
-                                    ))}
-                            </AvatarGroup>
-                        </div>
+                        <BidMoreAvatars
+                            bids={product.bids}
+                            sliceBy={2}
+                            productOwnerID={product.productOwner._id}
+                            isBidMoreOpen={isBidMoreOpen}
+                            setIsBidMoreOpen={setIsBidMoreOpen}
+                            setIsBidEditOpen={setIsBidEditOpen}
+                            isHomeScreen={true}
+                        />
                     )}
                 </div>
 
@@ -305,15 +296,6 @@ const ProductCard = ({ product }) => {
                 setIsOpen={setIsImageOpen}
                 productImage={product.image.url}
                 productName={product.name}
-            />
-
-            {/* All Bids Modal */}
-            <BidsAllModal
-                bids={product.bids}
-                isOpen={isBidMoreOpen}
-                setIsOpen={setIsBidMoreOpen}
-                productOwnerID={product.productOwner._id}
-                setIsBidEditOpen={setIsBidEditOpen}
             />
 
             {/* Confirm Product Delete Modal */}

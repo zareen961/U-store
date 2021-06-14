@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import {
     MegaphoneIcon,
     PencilIcon,
@@ -9,7 +8,6 @@ import {
 import Avatar from '@material-ui/core/Avatar'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
-import _ from 'lodash'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -17,7 +15,7 @@ import ButtonComp from '../../utils/ButtonComp'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
-import BidsAllModal from '../Home/ProductCard/BidsAllModal'
+import BidMoreAvatars from '../Home/ProductCard/BidMoreAvatars'
 import BidEditInput from '../Home/ProductCard/BidEditInput'
 import { bidDelete } from '../../../store/actions/bid'
 import './ProductCardBid.css'
@@ -141,23 +139,14 @@ const ProductCardBid = ({ bid }) => {
                     >
                         <TrashIcon size={18} />
                     </ButtonComp>
-                    <div
-                        className="productCardBid__bidMore"
-                        onClick={() => setIsBidMoreOpen(true)}
-                    >
-                        <AvatarGroup max={3}>
-                            {_.orderBy(bid.product.bids, ['price'], ['desc']).map(
-                                (bid) => (
-                                    <Avatar
-                                        key={bid._id}
-                                        alt={bid.bidOwner.username}
-                                        src={`avatars/avatar${bid.bidOwner.avatar}.png`}
-                                        className="avatar"
-                                    />
-                                )
-                            )}
-                        </AvatarGroup>
-                    </div>
+
+                    <BidMoreAvatars
+                        bids={bid.product.bids}
+                        productOwnerID={bid.product.productOwner._id}
+                        isBidMoreOpen={isBidMoreOpen}
+                        setIsBidMoreOpen={setIsBidMoreOpen}
+                        setIsBidEditOpen={setIsBidEditOpen}
+                    />
                 </div>
 
                 {/* Bid Edit Input */}
@@ -170,15 +159,6 @@ const ProductCardBid = ({ bid }) => {
                     bidID={bid._id}
                 />
             </div>
-
-            {/* All Bids Modal */}
-            <BidsAllModal
-                bids={bid.product.bids}
-                isOpen={isBidMoreOpen}
-                setIsOpen={setIsBidMoreOpen}
-                productOwnerID={bid.product.productOwner._id}
-                setIsBidEditOpen={setIsBidEditOpen}
-            />
 
             {/* Confirm Bid Delete Modal */}
             <ConfirmModal
