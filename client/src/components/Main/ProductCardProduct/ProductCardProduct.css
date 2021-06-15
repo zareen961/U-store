@@ -26,25 +26,6 @@
     color: rgba(var(--primary-dark), 0.5);
 }
 
-.productCardProduct__productDetails .description {
-    color: rgba(var(--primary-light), 0.8);
-    font-weight: 400;
-    font-size: 0.9rem;
-}
-
-.productCardProduct__productDetails .readMoreButton {
-    background-color: transparent;
-    border: 0;
-    padding: 0;
-    cursor: pointer;
-    font-weight: 500;
-    color: rgba(var(--primary-dark), 0.8);
-}
-
-.productCardProduct__productDetails .readMoreButton:hover {
-    text-decoration: underline;
-}
-
 .productCardProduct__bids {
     display: flex;
     align-items: center;

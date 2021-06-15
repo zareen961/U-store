@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     TagIcon,
@@ -7,11 +7,8 @@ import {
     PencilIcon,
     TrashIcon,
 } from '@primer/octicons-react'
-import Avatar from '@material-ui/core/Avatar'
-import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
-import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../utils/ButtonComp'
 import BidCard from './BidCard'
@@ -22,12 +19,14 @@ import ImageModal from './ImageModal'
 import BidEditInput from './BidEditInput'
 import BidPlaceInput from './BidPlaceInput'
 import DotsMenu from './DotsMenu'
+import AvatarHeader from './AvatarHeader'
 import BidMoreAvatars from './BidMoreAvatars'
+import { getUserLatestBid } from '../../../../utils/getUserLatestBid'
+import { checkIfUserFollow } from '../../../../utils/checkIfUserFollow'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch()
-    const history = useHistory()
 
     const { user } = useSelector((state) => state.userLogin)
     const { loading: loadingProductDelete, success: successProductDelete } = useSelector(
@@ -45,44 +44,24 @@ const ProductCard = ({ product }) => {
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
     const [bidVal, setBidVal] = useState('')
-    const [isUserEligibleToBid, setIsUserEligibleToBid] = useState({ canPlaceBid: true })
+    const [userLatestBid, setUserLatestBid] = useState({ canPlaceBid: true, price: '' })
     const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
     const [isUserFollow, setIsUserFollow] = useState(false)
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
 
-    // function to check if the logged in user can place a bid on the current product
-    const checkUserCanPlaceBid = useCallback(() => {
-        const timeSortedBidsArray = _.sortBy(product.bids, ['createdAt'], ['desc'])
-
-        for (let i = 0; i < timeSortedBidsArray.length; i++) {
-            if (
-                String(timeSortedBidsArray[i].bidOwner._id) ===
-                    String(user.userInfo._id) &&
-                timeSortedBidsArray[i].status === 'PENDING'
-            ) {
-                return {
-                    canPlaceBid: false,
-                    bidID: timeSortedBidsArray[i]._id,
-                    bidPrice: timeSortedBidsArray[i].price,
-                }
-            }
-        }
-        return { canPlaceBid: true }
-    }, [product.bids, user])
-
-    // to update the logged in user's eligibility to place a new bid
+    // getting/updating the latest bid (if any) of the logged in user on the current product
     useEffect(() => {
         if ((user && user.userInfo) || successBidPlace) {
-            setIsUserEligibleToBid(checkUserCanPlaceBid())
+            setUserLatestBid(getUserLatestBid(product.bids, user.userInfo._id))
         }
-    }, [user, user.userInfo, checkUserCanPlaceBid, successBidPlace])
+    }, [user, user.userInfo, successBidPlace, product.bids])
 
-    // to set the current bidVal based on eligibility criteria
+    // to set the current bidVal based on the user's latest bid
     useEffect(() => {
-        if (!isUserEligibleToBid.canPlaceBid) {
-            setBidVal(isUserEligibleToBid.bidPrice)
+        if (!userLatestBid.canPlaceBid) {
+            setBidVal(userLatestBid.price)
         }
-    }, [isUserEligibleToBid])
+    }, [userLatestBid])
 
     // product delete function
     const handleProductDelete = () => {
@@ -96,36 +75,16 @@ const ProductCard = ({ product }) => {
         }
     }, [successProductDelete])
 
-    // checking if the user is follows the current product
-    const checkIfUserAlreadyFollow = useCallback(() => {
-        if (user.userInfo.following.length > 0) {
-            for (let i = 0; i < user.userInfo.following.length; i++) {
-                if (typeof user.userInfo.following[0] === 'object') {
-                    if (String(user.userInfo.following[i]._id) === String(product._id)) {
-                        return true
-                    }
-                } else {
-                    if (String(user.userInfo.following[i]) === String(product._id)) {
-                        return true
-                    }
-                }
-            }
-            return false
-        } else {
-            return false
-        }
-    }, [product._id, user.userInfo.following])
-
     // to update the logged in user's following status on the current product
     useEffect(() => {
         if (user && user.userInfo) {
-            setIsUserFollow(checkIfUserAlreadyFollow())
+            setIsUserFollow(checkIfUserFollow(user.userInfo.following, product._id))
         }
-    }, [user, user.userInfo, checkIfUserAlreadyFollow])
+    }, [user, user.userInfo, product._id])
 
     // function to delete a bid
     const handleBidDelete = () => {
-        dispatch(bidDelete(product._id, isUserEligibleToBid.bidID))
+        dispatch(bidDelete(product._id, userLatestBid._id))
     }
 
     // to clear the bid input field after the bid is deleted
@@ -141,24 +100,8 @@ const ProductCard = ({ product }) => {
             <div className="productCard">
                 {/* Header */}
                 <div className="productCard__header">
-                    <Avatar
-                        src={`avatars/avatar${product.productOwner.avatar}.png`}
-                        className="productCard__avatar"
-                        onClick={() =>
-                            history.push(`/contact/${product.productOwner.username}`)
-                        }
-                    />
-                    <div className="productCard__nameTime">
-                        <p
-                            className="username"
-                            onClick={() =>
-                                history.push(`/contact/${product.productOwner.username}`)
-                            }
-                        >
-                            @{product.productOwner.username}
-                        </p>
-                        <span>{moment(product.createdAt).fromNow()}</span>
-                    </div>
+                    <AvatarHeader product={product} />
+
                     {String(user.userInfo._id) === String(product.productOwner._id) && (
                         <DotsMenu setIsProductDeleteOpen={setIsProductDeleteOpen} />
                     )}
@@ -232,7 +175,7 @@ const ProductCard = ({ product }) => {
 
                 {/* Action */}
                 {String(user.userInfo._id) !== String(product.productOwner._id) &&
-                    (isUserEligibleToBid.canPlaceBid ? (
+                    (userLatestBid.canPlaceBid ? (
                         <div className="productCard__action">
                             <BidPlaceInput
                                 bidVal={bidVal}
@@ -258,7 +201,7 @@ const ProductCard = ({ product }) => {
                                 <h3>My Bid:</h3>
                                 <span className="myBidPrice">
                                     <NumberFormat
-                                        value={isUserEligibleToBid.bidPrice}
+                                        value={userLatestBid.price}
                                         prefix={'Rs '}
                                         thousandSeparator={true}
                                         displayType={'text'}
@@ -287,7 +230,7 @@ const ProductCard = ({ product }) => {
                                 bidVal={bidVal}
                                 setBidVal={setBidVal}
                                 productID={product._id}
-                                bidID={isUserEligibleToBid.bidID}
+                                bidID={userLatestBid._id}
                             />
                         </div>
                     ))}

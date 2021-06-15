@@ -5,8 +5,6 @@ import {
     TrashIcon,
     PersonAddIcon,
 } from '@primer/octicons-react'
-import Avatar from '@material-ui/core/Avatar'
-import moment from 'moment'
 import NumberFormat from 'react-number-format'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -15,8 +13,10 @@ import ButtonComp from '../../utils/ButtonComp'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
+import ProductDetails from '../../utils/ProductDetails'
 import BidMoreAvatars from '../Home/ProductCard/BidMoreAvatars'
 import BidEditInput from '../Home/ProductCard/BidEditInput'
+import AvatarHeader from '../Home/ProductCard/AvatarHeader'
 import { bidDelete } from '../../../store/actions/bid'
 import { getUserLatestBid } from '../../../utils/getUserLatestBid'
 import './ProductCardBid.css'
@@ -29,15 +29,22 @@ const ProductCardBid = ({ product }) => {
     const { user } = useSelector((state) => state.userLogin)
 
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
-    const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
     const [userLatestBid, setUserLatestBid] = useState({ price: '' })
-    const [bidVal, setBidVal] = useState(userLatestBid.price)
+    const [bidVal, setBidVal] = useState('')
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
 
+    // getting the latest bid of the logged in user on the current product
     useEffect(() => {
         setUserLatestBid(getUserLatestBid(product.bids, user.userInfo._id))
     }, [product.bids, user.userInfo._id])
+
+    // to set the current bidVal based on the user's latest bid
+    useEffect(() => {
+        if (!userLatestBid.canPlaceBid) {
+            setBidVal(userLatestBid.price)
+        }
+    }, [userLatestBid])
 
     // function to delete a bid
     const handleBidDelete = () => {
@@ -49,24 +56,7 @@ const ProductCardBid = ({ product }) => {
             <div className="productCardBid">
                 {/* Header */}
                 <div className="productCardBid__header">
-                    <Avatar
-                        src={`avatars/avatar${product.productOwner.avatar}.png`}
-                        className="productCardBid__avatar"
-                        onClick={() =>
-                            history.push(`/contact/${product.productOwner.username}`)
-                        }
-                    />
-                    <div className="productCardBid__nameTime">
-                        <p
-                            className="username"
-                            onClick={() =>
-                                history.push(`/contact/${product.productOwner.username}`)
-                            }
-                        >
-                            @{product.productOwner.username}
-                        </p>
-                        <span>{moment(product.createdAt).fromNow()}</span>
-                    </div>
+                    <AvatarHeader product={product} />
 
                     <div className="contact">
                         <ButtonComp
@@ -85,31 +75,7 @@ const ProductCardBid = ({ product }) => {
                 <ProductImage image={product.image.url} name={product.name} />
 
                 {/* Details */}
-                <div className="productCardBid__productDetails">
-                    <h2 className="name">{product.name}</h2>
-                    {product.description.length > 90 ? (
-                        <p
-                            className={
-                                isReadMoreOpen ? 'description open' : 'description'
-                            }
-                        >
-                            {product.description.substring(0, 80)}
-                            <span>
-                                {isReadMoreOpen
-                                    ? product.description.substring(80)
-                                    : '...'}
-                            </span>
-                            <button
-                                className="readMoreButton"
-                                onClick={() => setIsReadMoreOpen(!isReadMoreOpen)}
-                            >
-                                {isReadMoreOpen ? 'Show Less' : 'Read More'}
-                            </button>
-                        </p>
-                    ) : (
-                        <p className="description">{product.description}</p>
-                    )}
-                </div>
+                <ProductDetails name={product.name} description={product.description} />
 
                 {/* Price */}
                 <PriceBox productPrice={product.price} bids={product.bids} />

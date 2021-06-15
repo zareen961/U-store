@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 export const getUserLatestBid = (bids, userID) => {
     // getting all the user bids only
     const userBids = bids.filter((bid) => bid.bidOwner._id === userID)
@@ -15,8 +13,6 @@ export const getUserLatestBid = (bids, userID) => {
         var dateB = new Date(b.createdAt)
         return dateB - dateA
     })
-
-    console.log(userBids)
 
     // returning the latest bid of the user
     return {

@@ -16,6 +16,7 @@ import { handleImageCompress } from '../../../../utils/imageCompressor'
 import { productUpload } from '../../../../store/actions/product'
 import { alertAdd } from '../../../../store/actions/alert'
 import { validateProductInputs } from '../../../../validators/product'
+import { DESCRIPTION_LEN_MAX } from '../../../../utils/constants/validators'
 import './ProductUploadForm.css'
 
 const initialInputVals = {
@@ -246,13 +247,17 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                     </div>
 
                     {/* Details */}
-                    <textarea
-                        className="productUploadForm__modalDescription"
-                        placeholder="Tell something about your product!"
-                        name="description"
-                        value={inputVals.description}
-                        onChange={handleOnChange}
-                    ></textarea>
+                    <div className="productUploadForm__modalDescription">
+                        <textarea
+                            placeholder="Tell something about your product!"
+                            name="description"
+                            value={inputVals.description}
+                            onChange={handleOnChange}
+                        ></textarea>
+                        <span className="descriptionCount">
+                            {inputVals.description.length}/{DESCRIPTION_LEN_MAX}
+                        </span>
+                    </div>
 
                     {/* Footer */}
                     <div className="productUploadForm__modalFooter">
