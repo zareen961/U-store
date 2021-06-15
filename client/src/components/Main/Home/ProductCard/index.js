@@ -52,15 +52,18 @@ const ProductCard = ({ product }) => {
 
     // function to check if the logged in user can place a bid on the current product
     const checkUserCanPlaceBid = useCallback(() => {
-        for (let i = 0; i < product.bids.length; i++) {
+        const timeSortedBidsArray = _.sortBy(product.bids, ['createdAt'], ['desc'])
+
+        for (let i = 0; i < timeSortedBidsArray.length; i++) {
             if (
-                String(product.bids[i].bidOwner._id) === String(user.userInfo._id) &&
-                product.bids[i].status !== 'REJECTED'
+                String(timeSortedBidsArray[i].bidOwner._id) ===
+                    String(user.userInfo._id) &&
+                timeSortedBidsArray[i].status === 'PENDING'
             ) {
                 return {
                     canPlaceBid: false,
-                    bidID: product.bids[i]._id,
-                    bidPrice: product.bids[i].price,
+                    bidID: timeSortedBidsArray[i]._id,
+                    bidPrice: timeSortedBidsArray[i].price,
                 }
             }
         }

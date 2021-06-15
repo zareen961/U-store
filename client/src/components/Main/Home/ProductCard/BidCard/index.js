@@ -34,15 +34,27 @@ const BidCard = ({
     const { loading: loadingBidDelete } = useSelector((state) => state.bidDelete)
 
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
-    const [isBidStatusUpdateOpen, setIsBidStatusUpdateOpen] = useState(false)
+    const [isBidAcceptOpen, setIsBidAcceptOpen] = useState(false)
+    const [isBidRejectOpen, setIsBidRejectOpen] = useState(false)
 
-    // function to accept/reject a bid
-    const handleBidStatusUpdate = (newBidStatus) => {
+    // function to accept a bid
+    const handleBidAccept = () => {
         dispatch(
             bidStatusUpdate(
                 bid.product._id ? bid.product._id : bid.product,
                 bid._id,
-                newBidStatus
+                'ACCEPTED'
+            )
+        )
+    }
+
+    // function to reject a bid
+    const handleBidReject = () => {
+        dispatch(
+            bidStatusUpdate(
+                bid.product._id ? bid.product._id : bid.product,
+                bid._id,
+                'REJECTED'
             )
         )
     }
@@ -113,7 +125,7 @@ const BidCard = ({
                         <div className="icon">
                             <ButtonComp
                                 typeClass={'primary'}
-                                handleOnClick={() => handleBidStatusUpdate('ACCEPTED')}
+                                handleOnClick={() => setIsBidAcceptOpen(true)}
                                 modifyClass={
                                     loadingBidStatusUpdate
                                         ? 'iconButton disabled'
@@ -124,7 +136,7 @@ const BidCard = ({
                             </ButtonComp>
                             <ButtonComp
                                 typeClass={'secondary'}
-                                handleOnClick={() => handleBidStatusUpdate('REJECTED')}
+                                handleOnClick={() => setIsBidRejectOpen(true)}
                                 modifyClass={
                                     loadingBidStatusUpdate
                                         ? 'iconButton disabled'
@@ -183,11 +195,20 @@ const BidCard = ({
                 isLoading={loadingBidDelete}
             />
 
-            {/* Confirm Bid Accept/Reject Modal */}
+            {/* Confirm Bid Accept Modal */}
             <ConfirmModal
-                isOpen={isBidStatusUpdateOpen}
-                setIsOpen={setIsBidStatusUpdateOpen}
-                handleOnConfirm={handleBidStatusUpdate}
+                isOpen={isBidAcceptOpen}
+                setIsOpen={setIsBidAcceptOpen}
+                handleOnConfirm={handleBidAccept}
+                isSecure={false}
+                isLoading={loadingBidStatusUpdate}
+            />
+
+            {/* Confirm Bid Reject Modal */}
+            <ConfirmModal
+                isOpen={isBidRejectOpen}
+                setIsOpen={setIsBidRejectOpen}
+                handleOnConfirm={handleBidReject}
                 isSecure={false}
                 isLoading={loadingBidStatusUpdate}
             />

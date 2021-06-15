@@ -140,6 +140,7 @@ const ProductCardBid = ({ bid }) => {
                         <TrashIcon size={18} />
                     </ButtonComp>
 
+                    {/* More Bids Avatar Group */}
                     <BidMoreAvatars
                         bids={bid.product.bids}
                         productOwnerID={bid.product.productOwner._id}

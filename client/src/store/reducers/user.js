@@ -220,15 +220,37 @@ export const userLoginReducer = (
             }
 
         case actionTypes.USER_BID_PUSH_NEW:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    userInfo: {
-                        ...state.user.userInfo,
-                        bids: [action.payload, ...state.user.userInfo.bids],
+            if (
+                state.user.userInfo.bids.length > 0 &&
+                typeof state.user.userInfo.bids[0] !== 'object'
+            ) {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.userInfo,
+                            bids: [action.payload, ...state.user.userInfo.bids],
+                        },
                     },
-                },
+                }
+            } else {
+                return {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        userInfo: {
+                            ...state.user.userInfo,
+                            bids: [
+                                action.payload,
+                                ...state.user.userInfo.bids.filter(
+                                    (bid) =>
+                                        bid.product._id !== action.payload.product._id
+                                ),
+                            ],
+                        },
+                    },
+                }
             }
 
         case actionTypes.USER_BID_REMOVE_DELETED:

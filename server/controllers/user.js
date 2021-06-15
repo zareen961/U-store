@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcryptjs')
+const _ = require('lodash')
 
 const User = require('../models/User')
 const Product = require('../models/Product')
@@ -133,8 +134,11 @@ const userDelete = asyncHandler(async (req, res) => {
             { $set: { isActive: false } }
         )
 
-        // deleting all the bids placed by this user
-        await Bid.deleteMany({ _id: { $in: foundUser.bids } })
+        // deleting all the bids placed by this user (expect the ACCEPTED ones)
+        await Bid.deleteMany({
+            _id: { $in: foundUser.bids },
+            status: { $in: ['PENDING', 'REJECTED'] },
+        })
 
         await foundUser.remove()
         res.status(200).json({
@@ -280,7 +284,12 @@ const userGetBids = asyncHandler(async (req, res) => {
         })
 
     if (foundUser && foundUser.bids) {
-        res.status(200).json(foundUser.bids)
+        /* clubbing the bids on the same product by simply removing other bids object for the same product
+           and only keeping the latest bid object among the duplicates. So as the bids array is sorted 
+           according to createAt = -1, we will only get latest ones. */
+        const bidsClubbed = _.uniqBy(foundUser.bids, (bid) => bid.product._id)
+
+        res.status(200).json(bidsClubbed)
     } else {
         res.status(500)
         throw new Error("Cannot find the requested user's bids!")

@@ -35,12 +35,12 @@ const bidPlace = asyncHandler(async (req, res) => {
     }
 
     // checking if the User has already placed a Bid on the Product or NOT, if already placed then the
-    // Bid's status of the last Bid must be "REJECTED", only then new Bid can be placed.
+    // Bid's status of the last Bid must be "PENDING", only then new Bid can be placed.
     foundProduct.bids.forEach((bid) => {
-        if (String(bid.bidOwner) === String(bidOwner) && bid.status !== 'REJECTED') {
+        if (String(bid.bidOwner) === String(bidOwner) && bid.status === 'PENDING') {
             res.status(401)
             throw new Error(
-                'Your previous bid on this product is still pending! Wait for the owner to respond or delete this bid and place a new one.'
+                'Your previous bid on this product is still PENDING! Wait for the owner to respond or delete this bid and place a new one.'
             )
         }
     })
