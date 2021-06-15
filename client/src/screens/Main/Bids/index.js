@@ -23,16 +23,16 @@ const Bids = () => {
                 ) : (
                     <>
                         <div className="bids__left">
-                            {user.userInfo.bids.map((bid, index) =>
+                            {user.userInfo.bids.map((product, index) =>
                                 index % 2 === 0 ? (
-                                    <ProductCardBid key={bid._id} bid={bid} />
+                                    <ProductCardBid key={product._id} product={product} />
                                 ) : null
                             )}
                         </div>
                         <div className="bids__right">
-                            {user.userInfo.bids.map((bid, index) =>
+                            {user.userInfo.bids.map((product, index) =>
                                 index % 2 !== 0 ? (
-                                    <ProductCardBid key={bid._id} bid={bid} />
+                                    <ProductCardBid key={product._id} product={product} />
                                 ) : null
                             )}
                         </div>

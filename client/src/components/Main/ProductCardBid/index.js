@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     MegaphoneIcon,
     PencilIcon,
@@ -18,23 +18,30 @@ import ConfirmModal from '../../utils/ConfirmModal'
 import BidMoreAvatars from '../Home/ProductCard/BidMoreAvatars'
 import BidEditInput from '../Home/ProductCard/BidEditInput'
 import { bidDelete } from '../../../store/actions/bid'
+import { getUserLatestBid } from '../../../utils/getUserLatestBid'
 import './ProductCardBid.css'
 
-const ProductCardBid = ({ bid }) => {
+const ProductCardBid = ({ product }) => {
     const history = useHistory()
     const dispatch = useDispatch()
 
     const { loading: loadingBidDelete } = useSelector((state) => state.bidDelete)
+    const { user } = useSelector((state) => state.userLogin)
 
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
-    const [bidVal, setBidVal] = useState(bid.price)
+    const [userLatestBid, setUserLatestBid] = useState({ price: '' })
+    const [bidVal, setBidVal] = useState(userLatestBid.price)
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
+
+    useEffect(() => {
+        setUserLatestBid(getUserLatestBid(product.bids, user.userInfo._id))
+    }, [product.bids, user.userInfo._id])
 
     // function to delete a bid
     const handleBidDelete = () => {
-        dispatch(bidDelete(bid.product._id, bid._id))
+        dispatch(bidDelete(product._id, userLatestBid._id))
     }
 
     return (
@@ -43,24 +50,22 @@ const ProductCardBid = ({ bid }) => {
                 {/* Header */}
                 <div className="productCardBid__header">
                     <Avatar
-                        src={`avatars/avatar${bid.product.productOwner.avatar}.png`}
+                        src={`avatars/avatar${product.productOwner.avatar}.png`}
                         className="productCardBid__avatar"
                         onClick={() =>
-                            history.push(`/contact/${bid.product.productOwner.username}`)
+                            history.push(`/contact/${product.productOwner.username}`)
                         }
                     />
                     <div className="productCardBid__nameTime">
                         <p
                             className="username"
                             onClick={() =>
-                                history.push(
-                                    `/contact/${bid.product.productOwner.username}`
-                                )
+                                history.push(`/contact/${product.productOwner.username}`)
                             }
                         >
-                            @{bid.product.productOwner.username}
+                            @{product.productOwner.username}
                         </p>
-                        <span>{moment(bid.product.createdAt).fromNow()}</span>
+                        <span>{moment(product.createdAt).fromNow()}</span>
                     </div>
 
                     <div className="contact">
@@ -68,9 +73,7 @@ const ProductCardBid = ({ bid }) => {
                             typeClass={'secondary'}
                             modifyClass={'iconButton'}
                             handleOnClick={() =>
-                                history.push(
-                                    `/contact/${bid.product.productOwner.username}`
-                                )
+                                history.push(`/contact/${product.productOwner.username}`)
                             }
                         >
                             <PersonAddIcon size={18} />
@@ -79,21 +82,21 @@ const ProductCardBid = ({ bid }) => {
                 </div>
 
                 {/* Image */}
-                <ProductImage image={bid.product.image.url} name={bid.product.name} />
+                <ProductImage image={product.image.url} name={product.name} />
 
                 {/* Details */}
                 <div className="productCardBid__productDetails">
-                    <h2 className="name">{bid.product.name}</h2>
-                    {bid.product.description.length > 90 ? (
+                    <h2 className="name">{product.name}</h2>
+                    {product.description.length > 90 ? (
                         <p
                             className={
                                 isReadMoreOpen ? 'description open' : 'description'
                             }
                         >
-                            {bid.product.description.substring(0, 80)}
+                            {product.description.substring(0, 80)}
                             <span>
                                 {isReadMoreOpen
-                                    ? bid.product.description.substring(80)
+                                    ? product.description.substring(80)
                                     : '...'}
                             </span>
                             <button
@@ -104,12 +107,12 @@ const ProductCardBid = ({ bid }) => {
                             </button>
                         </p>
                     ) : (
-                        <p className="description">{bid.product.description}</p>
+                        <p className="description">{product.description}</p>
                     )}
                 </div>
 
                 {/* Price */}
-                <PriceBox productPrice={bid.product.price} bids={bid.product.bids} />
+                <PriceBox productPrice={product.price} bids={product.bids} />
 
                 {/* Footer */}
                 <div className="productCardBid__bids">
@@ -118,7 +121,7 @@ const ProductCardBid = ({ bid }) => {
                         <h3>My Bid:</h3>
                         <span className="myBidPrice">
                             <NumberFormat
-                                value={bid.price}
+                                value={userLatestBid.price}
                                 prefix={'Rs '}
                                 thousandSeparator={true}
                                 displayType={'text'}
@@ -142,8 +145,8 @@ const ProductCardBid = ({ bid }) => {
 
                     {/* More Bids Avatar Group */}
                     <BidMoreAvatars
-                        bids={bid.product.bids}
-                        productOwnerID={bid.product.productOwner._id}
+                        bids={product.bids}
+                        productOwnerID={product.productOwner._id}
                         isBidMoreOpen={isBidMoreOpen}
                         setIsBidMoreOpen={setIsBidMoreOpen}
                         setIsBidEditOpen={setIsBidEditOpen}
@@ -156,8 +159,8 @@ const ProductCardBid = ({ bid }) => {
                     setIsOpen={setIsBidEditOpen}
                     bidVal={bidVal}
                     setBidVal={setBidVal}
-                    productID={bid.product._id}
-                    bidID={bid._id}
+                    productID={product._id}
+                    bidID={userLatestBid._id}
                 />
             </div>
 
