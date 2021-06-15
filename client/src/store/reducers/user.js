@@ -164,230 +164,218 @@ export const userLoginReducer = (
                 },
             }
 
-        case actionTypes.USER_PRODUCT_REMOVE_DELETED:
+        case actionTypes.USER_PRODUCT_REMOVE_DELETED: {
+            let updatedProductsArray = []
+
             if (
                 state.user.userInfo.products.length > 0 &&
                 typeof state.user.userInfo.products[0] !== 'object'
             ) {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            products: state.user.userInfo.products.filter(
-                                (productID) => productID !== action.payload
-                            ),
-                        },
-                    },
-                }
+                updatedProductsArray = state.user.userInfo.products.filter(
+                    (productID) => productID !== action.payload.productID
+                )
             } else {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            products: state.user.userInfo.products.filter(
-                                (product) => product._id !== action.payload
-                            ),
-                        },
-                    },
-                }
+                updatedProductsArray = state.user.userInfo.products.filter(
+                    (product) => product._id !== action.payload.productID
+                )
             }
 
-        case actionTypes.USER_PRODUCT_UPDATE_EDITED:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: updatedProductsArray,
+                    },
+                },
+            }
+        }
+
+        case actionTypes.USER_PRODUCT_UPDATE_EDITED: {
+            let updatedProductsArray = []
+
             if (
                 state.user.userInfo.products.length > 0 &&
                 typeof state.user.userInfo.products[0] !== 'object'
             ) {
-                return state
+                updatedProductsArray = state.user.userInfo.products
             } else {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            products: state.user.userInfo.products.map((product) =>
-                                product._id === action.payload._id
-                                    ? { ...product, ...action.payload }
-                                    : product
-                            ),
-                        },
-                    },
-                }
+                updatedProductsArray = state.user.userInfo.products.map((product) =>
+                    product._id === action.payload.productID
+                        ? { ...product, ...action.payload.updatedProductData }
+                        : product
+                )
             }
 
-        case actionTypes.USER_BID_PUSH_NEW:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: updatedProductsArray,
+                    },
+                },
+            }
+        }
+
+        case actionTypes.USER_BID_PUSH_NEW: {
+            let updatedBidsArray = []
+
             if (
                 state.user.userInfo.bids.length > 0 &&
-                typeof state.user.userInfo.bids[0] !== 'object'
+                Object.keys(state.user.userInfo.bids[0]).length <= 2
             ) {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.userInfo,
-                            bids: [action.payload, ...state.user.userInfo.bids],
-                        },
-                    },
-                }
+                updatedBidsArray = state.user.userInfo.bids.filter(
+                    (bid) => bid.product !== action.payload.product._id
+                )
+                updatedBidsArray.unshift({
+                    _id: action.payload.newBid._id,
+                    product: action.payload.product._id,
+                })
             } else {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            bids: [
-                                action.payload,
-                                ...state.user.userInfo.bids.filter(
-                                    (bid) =>
-                                        bid.product._id !== action.payload.product._id
-                                ),
-                            ],
-                        },
-                    },
-                }
+                updatedBidsArray = state.user.userInfo.bids.filter(
+                    (product) => product._id !== action.payload.product._id
+                )
+                updatedBidsArray.unshift({
+                    ...action.payload.product,
+                    bids: [action.payload.newBid, ...action.payload.product.bids],
+                })
             }
 
-        case actionTypes.USER_BID_REMOVE_DELETED:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        bids: updatedBidsArray,
+                    },
+                },
+            }
+        }
+
+        case actionTypes.USER_BID_REMOVE_DELETED: {
+            let updatedBidsArray = []
+
             if (
                 state.user.userInfo.bids.length > 0 &&
-                typeof state.user.userInfo.bids[0] !== 'object'
+                Object.keys(state.user.userInfo.bids[0]).length <= 2
             ) {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            bids: state.user.userInfo.bids.filter(
-                                (bidID) => bidID !== action.payload
-                            ),
-                        },
-                    },
-                }
+                updatedBidsArray = state.user.userInfo.bids.filter(
+                    (bid) => bid._id !== action.payload.bidID
+                )
             } else {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            bids: state.user.userInfo.bids.filter(
-                                (bid) => bid._id !== action.payload
-                            ),
-                        },
-                    },
-                }
+                updatedBidsArray = state.user.userInfo.bids.map((product) => {
+                    if (product._id === action.payload.productID) {
+                        product.bids = product.bids.filter(
+                            (bid) => bid._id !== action.payload.bidID
+                        )
+                    }
+                    return product
+                })
             }
 
-        case actionTypes.USER_BID_UPDATE_UPDATED_STATUS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        bids: updatedBidsArray,
+                    },
+                },
+            }
+        }
+
+        case actionTypes.USER_BID_UPDATE_UPDATED_STATUS: {
+            let updatedProductsArray = []
+
             if (
                 state.user.userInfo.products.length > 0 &&
                 typeof state.user.userInfo.products[0] !== 'object'
             ) {
-                return state
+                updatedProductsArray = state.user.userInfo.products
             } else {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            products: state.user.userInfo.products.map((product) => {
-                                if (product._id === action.payload.productID) {
-                                    product.bids = product.bids.map((bid) =>
-                                        bid._id === action.payload.bidID
-                                            ? {
-                                                  ...bid,
-                                                  status: action.payload.newBidStatus,
-                                              }
-                                            : bid
-                                    )
-                                }
-                                return product
-                            }),
-                        },
-                    },
-                }
+                updatedProductsArray = state.user.userInfo.products.map((product) => {
+                    if (product._id === action.payload.productID) {
+                        product.bids = product.bids.map((bid) =>
+                            bid._id === action.payload.bidID
+                                ? { ...bid, status: action.payload.newBidStatus }
+                                : bid
+                        )
+                    }
+                    return product
+                })
             }
 
-        case actionTypes.USER_BID_UPDATE_UPDATED_PRICE:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: updatedProductsArray,
+                    },
+                },
+            }
+        }
+
+        case actionTypes.USER_BID_UPDATE_UPDATED_PRICE: {
+            let updatedBidsArray = []
+
             if (
                 state.user.userInfo.bids.length > 0 &&
-                typeof state.user.userInfo.bids[0] !== 'object'
+                Object.keys(state.user.userInfo.bids[0]).length <= 2
             ) {
-                return state
+                updatedBidsArray = state.user.userInfo.bids
             } else {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            bids: state.user.userInfo.bids.map((bid) => {
-                                if (bid._id === action.payload.bidID) {
-                                    return {
-                                        ...bid,
-                                        price: action.payload.newBidPrice,
-                                        product: {
-                                            ...bid.product,
-                                            bids: bid.product.bids.map((innerBid) => {
-                                                if (
-                                                    innerBid._id === action.payload.bidID
-                                                ) {
-                                                    return {
-                                                        ...innerBid,
-                                                        price: action.payload.newBidPrice,
-                                                    }
-                                                } else {
-                                                    return innerBid
-                                                }
-                                            }),
-                                        },
-                                    }
-                                } else {
-                                    return bid
-                                }
-                            }),
-                        },
-                    },
-                }
+                updatedBidsArray = state.user.userInfo.bids.map((product) => {
+                    if (product._id === action.payload.productID) {
+                        product.bids = product.bids.map((bid) =>
+                            bid._id === action.payload.bidID
+                                ? { ...bid, price: action.payload.newBidPrice }
+                                : bid
+                        )
+                    }
+                    return product
+                })
             }
 
-        case actionTypes.USER_FOLLOWING_UPDATE:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        bids: updatedBidsArray,
+                    },
+                },
+            }
+        }
+
+        case actionTypes.USER_FOLLOWING_UPDATE: {
+            let updatedFollowingArray = []
+
             if (
                 state.user.userInfo.following.length > 0 &&
                 typeof state.user.userInfo.following[0] !== 'object'
             ) {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            following: state.user.userInfo.following.includes(
-                                action.payload._id
-                            )
-                                ? state.user.userInfo.following.filter(
-                                      (productID) => productID !== action.payload._id
-                                  )
-                                : [action.payload._id, ...state.user.userInfo.following],
-                        },
-                    },
-                }
+                updatedFollowingArray = state.user.userInfo.following.includes(
+                    action.payload.product._id
+                )
+                    ? state.user.userInfo.following.filter(
+                          (productID) => productID !== action.payload.product._id
+                      )
+                    : [action.payload.product._id, ...state.user.userInfo.following]
             } else {
                 let isAlreadyFollowed = false
-                let updatedFollowingArray = []
 
                 for (let i = 0; i < state.user.userInfo.following.length; i++) {
                     if (
                         state.user.userInfo.following[i]._id ===
-                        String(action.payload._id)
+                        String(action.payload.product._id)
                     ) {
                         isAlreadyFollowed = true
                     } else {
@@ -396,52 +384,49 @@ export const userLoginReducer = (
                 }
 
                 if (!isAlreadyFollowed) {
-                    updatedFollowingArray.unshift(action.payload)
-                }
-
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            following: updatedFollowingArray,
-                        },
-                    },
+                    updatedFollowingArray.unshift(action.payload.product)
                 }
             }
 
-        case actionTypes.USER_FOLLOWING_UPDATE_ON_BID_PLACE:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        following: updatedFollowingArray,
+                    },
+                },
+            }
+        }
+
+        case actionTypes.USER_FOLLOWING_UPDATE_ON_BID_PLACE: {
+            let updatedFollowingArray = []
+
             if (
                 state.user.userInfo.following.length > 0 &&
                 typeof state.user.userInfo.following[0] !== 'object'
             ) {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            following: state.user.userInfo.following.filter(
-                                (productID) => productID !== action.payload.productID
-                            ),
-                        },
-                    },
-                }
+                updatedFollowingArray = state.user.userInfo.following.filter(
+                    (productID) => productID !== action.payload.productID
+                )
             } else {
-                return {
-                    ...state,
-                    user: {
-                        ...state.user,
-                        userInfo: {
-                            ...state.user.userInfo,
-                            following: state.user.userInfo.following.filter(
-                                (product) => product._id !== action.payload.productID
-                            ),
-                        },
-                    },
-                }
+                updatedFollowingArray = state.user.userInfo.following.filter(
+                    (product) => product._id !== action.payload.productID
+                )
             }
+
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        following: updatedFollowingArray,
+                    },
+                },
+            }
+        }
 
         default:
             return state

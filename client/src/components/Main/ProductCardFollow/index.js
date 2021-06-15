@@ -69,11 +69,13 @@ const ProductCardFollow = ({ product }) => {
                         isFollowingScreen={true}
                     />
 
-                    <ButtonComp
-                        typeClass={'secondary'}
-                        handleOnClick={() => setIsBidMoreOpen(true)}
-                        text={`View Bids(${product.bids.length})`}
-                    />
+                    <div style={{ marginLeft: '10px' }}>
+                        <ButtonComp
+                            typeClass={'secondary'}
+                            handleOnClick={() => setIsBidMoreOpen(true)}
+                            text={`View Bids(${product.bids.length})`}
+                        />
+                    </div>
                 </div>
             </div>
 

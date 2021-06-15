@@ -43,7 +43,7 @@ export const productFetchAllReducer = (
             return {
                 ...state,
                 products: state.products.filter(
-                    (product) => product._id !== action.payload
+                    (product) => product._id !== action.payload.productID
                 ),
             }
 
@@ -57,8 +57,8 @@ export const productFetchAllReducer = (
             return {
                 ...state,
                 products: state.products.map((product) =>
-                    product._id === action.payload._id
-                        ? { ...product, ...action.payload }
+                    product._id === action.payload.productID
+                        ? { ...product, ...action.payload.updatedProductData }
                         : product
                 ),
             }

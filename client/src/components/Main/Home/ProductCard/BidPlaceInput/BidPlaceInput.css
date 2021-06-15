@@ -7,7 +7,6 @@
     padding-left: 12px;
     border-radius: 10px;
     color: rgba(var(--primary-light), 0.8);
-    margin-right: 10px;
     box-sizing: border-box;
     position: relative;
 }

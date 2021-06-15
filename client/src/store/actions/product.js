@@ -95,12 +95,12 @@ export const productEdit = (productID, productData) => async (dispatch) => {
 
         dispatch({
             type: actionTypes.USER_PRODUCT_UPDATE_EDITED,
-            payload: { _id: productID, ...productData },
+            payload: { productID, updatedProductData: productData },
         })
 
         dispatch({
             type: actionTypes.PRODUCT_UPDATE_EDITED,
-            payload: { _id: productID, ...productData },
+            payload: { productID, updatedProductData: productData },
         })
 
         dispatch({
@@ -134,12 +134,12 @@ export const productDelete = (productID) => async (dispatch) => {
 
         dispatch({
             type: actionTypes.USER_PRODUCT_REMOVE_DELETED,
-            payload: productID,
+            payload: { productID },
         })
 
         dispatch({
             type: actionTypes.PRODUCT_REMOVE_DELETED,
-            payload: productID,
+            payload: { productID },
         })
 
         dispatch({
@@ -173,7 +173,7 @@ export const productFollowToggle = (product) => async (dispatch) => {
 
         dispatch({
             type: actionTypes.USER_FOLLOWING_UPDATE,
-            payload: product,
+            payload: { product },
         })
 
         dispatch({

@@ -25,7 +25,9 @@ const ProductCardBid = ({ product }) => {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const { loading: loadingBidDelete } = useSelector((state) => state.bidDelete)
+    const { loading: loadingBidDelete, success: successBidDelete } = useSelector(
+        (state) => state.bidDelete
+    )
     const { user } = useSelector((state) => state.userLogin)
 
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
@@ -50,6 +52,13 @@ const ProductCardBid = ({ product }) => {
     const handleBidDelete = () => {
         dispatch(bidDelete(product._id, userLatestBid._id))
     }
+
+    // to close the confirm modal after a bid gets deleted
+    useEffect(() => {
+        if (successBidDelete) {
+            setIsBidDeleteOpen(false)
+        }
+    }, [successBidDelete])
 
     return (
         <>

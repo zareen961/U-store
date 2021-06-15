@@ -183,16 +183,22 @@ const ProductCard = ({ product }) => {
                                 product={product}
                             />
 
-                            <ButtonComp
-                                typeClass={isUserFollow ? 'primary' : 'secondary'}
-                                handleOnClick={() =>
-                                    dispatch(productFollowToggle(product))
-                                }
-                                text={isUserFollow ? 'Unfollow' : 'Follow'}
-                                modifyClass={loadingProductFollowToggle ? 'disabled' : ''}
-                            >
-                                <PinIcon size={18} />
-                            </ButtonComp>
+                            {!userLatestBid.hasOwnProperty('_id') && (
+                                <div style={{ marginLeft: '10px' }}>
+                                    <ButtonComp
+                                        typeClass={isUserFollow ? 'primary' : 'secondary'}
+                                        handleOnClick={() =>
+                                            dispatch(productFollowToggle(product))
+                                        }
+                                        text={isUserFollow ? 'Unfollow' : 'Follow'}
+                                        modifyClass={
+                                            loadingProductFollowToggle ? 'disabled' : ''
+                                        }
+                                    >
+                                        <PinIcon size={18} />
+                                    </ButtonComp>
+                                </div>
+                            )}
                         </div>
                     ) : (
                         <div className="productCard__action">

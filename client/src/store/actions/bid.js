@@ -26,11 +26,8 @@ export const bidPlace = (product, bidPrice, history) => async (dispatch, getStat
         dispatch({
             type: actionTypes.USER_BID_PUSH_NEW,
             payload: {
-                ...data,
-                product: {
-                    ...product,
-                    bids: [{ ...data, bidOwner: bidOwnerDetails }, ...product.bids],
-                },
+                product,
+                newBid: { ...data, bidOwner: bidOwnerDetails },
             },
         })
 
@@ -132,7 +129,7 @@ export const bidPriceUpdate = (productID, bidID, newBidPrice) => async (dispatch
 
         dispatch({
             type: actionTypes.USER_BID_UPDATE_UPDATED_PRICE,
-            payload: { bidID, newBidPrice },
+            payload: { productID, bidID, newBidPrice },
         })
 
         dispatch({
@@ -171,7 +168,7 @@ export const bidDelete = (productID, bidID) => async (dispatch) => {
 
         dispatch({
             type: actionTypes.USER_BID_REMOVE_DELETED,
-            payload: bidID,
+            payload: { productID, bidID },
         })
 
         dispatch({

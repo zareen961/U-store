@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
     ThumbsupIcon,
@@ -28,10 +28,11 @@ const BidCard = ({
     const dispatch = useDispatch()
 
     const { user } = useSelector((state) => state.userLogin)
-    const { loading: loadingBidStatusUpdate } = useSelector(
-        (state) => state.bidStatusUpdate
+    const { loading: loadingBidStatusUpdate, success: successBidStatusUpdate } =
+        useSelector((state) => state.bidStatusUpdate)
+    const { loading: loadingBidDelete, success: successBidDelete } = useSelector(
+        (state) => state.bidDelete
     )
-    const { loading: loadingBidDelete } = useSelector((state) => state.bidDelete)
 
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
     const [isBidAcceptOpen, setIsBidAcceptOpen] = useState(false)
@@ -59,6 +60,14 @@ const BidCard = ({
         )
     }
 
+    // to close the confirm modal after a bid gets accepted/rejected
+    useEffect(() => {
+        if (successBidStatusUpdate) {
+            setIsBidAcceptOpen(false)
+            setIsBidRejectOpen(false)
+        }
+    }, [successBidStatusUpdate])
+
     // function to edit bid price
     const handleBidPriceEdit = () => {
         setIsBidMoreOpen(false)
@@ -69,6 +78,13 @@ const BidCard = ({
     const handleBidDelete = () => {
         dispatch(bidDelete(bid.product._id ? bid.product._id : bid.product, bid._id))
     }
+
+    // to close the confirm modal after a bids gets deleted
+    useEffect(() => {
+        if (successBidDelete) {
+            setIsBidDeleteOpen(false)
+        }
+    }, [successBidDelete])
 
     return (
         <>
