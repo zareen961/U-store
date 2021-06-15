@@ -11,7 +11,15 @@ const { capitalize } = require('../utils/capitalize')
 
 // to get all the details of logged in User
 const userGet = asyncHandler(async (req, res) => {
-    const foundUser = await User.findById(req.authUser._id)
+    const foundUser = await User.findById(req.authUser._id).populate({
+        path: 'bids',
+        options: { sort: { createdAt: -1 } },
+        select: 'product',
+    })
+
+    // removing bids duplicates on the same product
+    const bidsClubbed = _.uniqBy(foundUser.bids, (bid) => String(bid.product))
+    foundUser.bids = bidsClubbed
 
     if (foundUser) {
         res.status(200).json(foundUser)
@@ -104,9 +112,17 @@ const userLogin = asyncHandler(async (req, res) => {
     // finding the user by either username or email
     const foundUser = await User.findOne({
         $or: [{ username: usernameOrEmail }, { email: usernameOrEmail }],
+    }).populate({
+        path: 'bids',
+        options: { sort: { createdAt: -1 } },
+        select: 'product',
     })
 
     if (foundUser && (await foundUser.matchPassword(password))) {
+        // removing bids duplicates on the same product
+        const bidsClubbed = _.uniqBy(foundUser.bids, (bid) => String(bid.product))
+        foundUser.bids = bidsClubbed
+
         // now deleting the password from the foundUser object before sending to frontend
         foundUser.password = null
 
@@ -289,7 +305,10 @@ const userGetBids = asyncHandler(async (req, res) => {
            according to createAt = -1, we will only get latest ones. */
         const bidsClubbed = _.uniqBy(foundUser.bids, (bid) => bid.product._id)
 
-        res.status(200).json(bidsClubbed)
+        // now refactoring the clubbedBids array to turn it to product object
+        const biddenProducts = bidsClubbed.map((bidObj) => bidObj.product)
+
+        res.status(200).json(biddenProducts)
     } else {
         res.status(500)
         throw new Error("Cannot find the requested user's bids!")
