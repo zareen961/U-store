@@ -66,6 +66,7 @@ const productGetAll = asyncHandler(async (req, res) => {
         .sort({
             createdAt: -1,
         })
+
     res.status(200).json(foundProducts)
 })
 

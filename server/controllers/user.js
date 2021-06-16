@@ -144,10 +144,13 @@ const userDelete = asyncHandler(async (req, res) => {
     const foundUser = await User.findById(req.authUser._id)
 
     if (foundUser && (await foundUser.matchPassword(password))) {
-        // setting all the products of the user as DELETED
+        // getting the default user
+        const defaultUser = await User.findOne({ isDefaultUser: true })
+
+        // setting all the products of the user as DELETED and productOwner as the default user
         await Product.updateMany(
             { _id: { $in: foundUser.products } },
-            { $set: { isActive: false } }
+            { $set: { isActive: false, productOwner: defaultUser._id } }
         )
 
         // deleting all the bids placed by this user (expect the ACCEPTED ones)
@@ -156,7 +159,19 @@ const userDelete = asyncHandler(async (req, res) => {
             status: { $in: ['PENDING', 'REJECTED'] },
         })
 
+        // setting the default user to bidOwner
+        await Bid.updateMany(
+            {
+                _id: { $in: foundUser.bids },
+                status: { $in: ['ACCEPTED'] },
+            },
+            {
+                $set: { bidOwner: defaultUser._id },
+            }
+        )
+
         await foundUser.remove()
+
         res.status(200).json({
             message: 'User Deleted!',
         })
@@ -269,6 +284,7 @@ const userGetProducts = asyncHandler(async (req, res) => {
             },
         })
 
+    // if (foundUser.products.bids.bidOwner)
     if (foundUser && foundUser.products) {
         res.status(200).json(foundUser.products)
     } else {
