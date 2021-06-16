@@ -235,7 +235,7 @@ const ProductCard = ({ product }) => {
                                 setIsOpen={setIsBidEditOpen}
                                 bidVal={bidVal}
                                 setBidVal={setBidVal}
-                                productID={product._id}
+                                product={product}
                                 bidID={userLatestBid._id}
                             />
                         </div>

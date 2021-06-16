@@ -4,28 +4,59 @@ import { MegaphoneIcon, XIcon } from '@primer/octicons-react'
 
 import ButtonComp from '../../../../utils/ButtonComp'
 import BidInputLoader from '../../../../utils/BidInputLoader'
-import { bidPriceUpdate } from '../../../../../store/actions/bid'
+import { bidPriceUpdate, bidPlace } from '../../../../../store/actions/bid'
 import { alertAdd } from '../../../../../store/actions/alert'
 import './BidEditInput.css'
 
-const BidEditInput = ({ isOpen, setIsOpen, bidVal, setBidVal, productID, bidID }) => {
+const BidEditInput = ({
+    isOpen,
+    setIsOpen,
+    bidVal,
+    setBidVal,
+    product,
+    bidID,
+    isNew = false,
+}) => {
     const dispatch = useDispatch()
 
-    const { loading, success } = useSelector((state) => state.bidPriceUpdate)
+    const { loading: loadingBidEdit, success: successBidEdit } = useSelector(
+        (state) => state.bidPriceUpdate
+    )
+    const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
+        (state) => state.bidPlace
+    )
 
+    // function to edit an existing bid
     const handleBidEdit = () => {
         if (Number(bidVal) < 0 || bidVal === '') {
             dispatch(alertAdd('Place a suitable bid!', 'error'))
         } else {
-            dispatch(bidPriceUpdate(productID, bidID, Number(bidVal)))
+            dispatch(bidPriceUpdate(product._id, bidID, Number(bidVal)))
         }
     }
 
+    // to close the input after bid is edited successfully
     useEffect(() => {
-        if (success) {
+        if (successBidEdit) {
             setIsOpen(false)
         }
-    }, [success, setIsOpen])
+    }, [successBidEdit, setIsOpen])
+
+    // function to place a new bid
+    const handleBidPlace = () => {
+        if (Number(bidVal) >= 0 && bidVal !== '') {
+            dispatch(bidPlace(product, Number(bidVal)))
+        } else {
+            dispatch(alertAdd('Raise a suitable amount!', 'error'))
+        }
+    }
+
+    // to close the input after a new bid is placed successfully
+    useEffect(() => {
+        if (successBidPlace) {
+            setIsOpen(false)
+        }
+    }, [successBidPlace, setIsOpen])
 
     return (
         <div className={isOpen ? 'bidEditInput open' : 'bidEditInput'}>
@@ -33,15 +64,15 @@ const BidEditInput = ({ isOpen, setIsOpen, bidVal, setBidVal, productID, bidID }
                 <MegaphoneIcon size={20} />
                 <input
                     type="number"
-                    placeholder="Adjust your bid"
+                    placeholder={isNew ? 'Place new bid' : 'Adjust your bid'}
                     value={bidVal}
                     onChange={(e) => setBidVal(e.target.value)}
                 />
                 <ButtonComp
                     typeClass={'primary'}
-                    handleOnClick={handleBidEdit}
+                    handleOnClick={isNew ? handleBidPlace : handleBidEdit}
                     modifyClass={'insideInputButton'}
-                    text={'Update'}
+                    text={isNew ? 'Place' : 'Update'}
                 />
             </div>
             <ButtonComp
@@ -52,7 +83,7 @@ const BidEditInput = ({ isOpen, setIsOpen, bidVal, setBidVal, productID, bidID }
                 <XIcon size={18} />
             </ButtonComp>
 
-            <BidInputLoader isLoading={loading} />
+            <BidInputLoader isLoading={loadingBidEdit || loadingBidPlace} />
         </div>
     )
 }

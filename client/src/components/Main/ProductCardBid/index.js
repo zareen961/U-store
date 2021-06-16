@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ButtonComp from '../../utils/ButtonComp'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
+import ChipComp from '../../utils/ChipComp'
 import ConfirmModal from '../../utils/ConfirmModal'
 import ProductDetails from '../../utils/ProductDetails'
 import BidMoreAvatars from '../Home/ProductCard/BidMoreAvatars'
@@ -32,6 +33,7 @@ const ProductCardBid = ({ product }) => {
 
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
+    const [isBidNewOpen, setIsBidNewOpen] = useState(false)
     const [userLatestBid, setUserLatestBid] = useState({ price: '' })
     const [bidVal, setBidVal] = useState('')
     const [isBidDeleteOpen, setIsBidDeleteOpen] = useState(false)
@@ -92,31 +94,54 @@ const ProductCardBid = ({ product }) => {
                 {/* Footer */}
                 <div className="productCardBid__bids">
                     <div className="productCardBid__myBid">
-                        <MegaphoneIcon size={18} />
-                        <h3>My Bid:</h3>
-                        <span className="myBidPrice">
-                            <NumberFormat
-                                value={userLatestBid.price}
-                                prefix={'Rs '}
-                                thousandSeparator={true}
-                                displayType={'text'}
-                            />
-                        </span>
+                        <div className="productCardBid__myBidTextWrapper">
+                            <MegaphoneIcon size={18} />
+                            <h3>My Bid</h3>
+                        </div>
+                        <div className="productCardBid__myBidPrice">
+                            <ChipComp
+                                type={
+                                    userLatestBid.status === 'REJECTED'
+                                        ? 'error'
+                                        : userLatestBid.status === 'ACCEPTED'
+                                        ? 'success'
+                                        : 'neutral'
+                                }
+                            >
+                                <NumberFormat
+                                    value={userLatestBid.price}
+                                    prefix={'Rs '}
+                                    thousandSeparator={true}
+                                    displayType={'text'}
+                                />
+                            </ChipComp>
+                        </div>
                     </div>
-                    <ButtonComp
-                        typeClass={'primary'}
-                        modifyClass={'iconButton'}
-                        handleOnClick={() => setIsBidEditOpen(true)}
-                    >
-                        <PencilIcon size={18} />
-                    </ButtonComp>
-                    <ButtonComp
-                        typeClass={'secondary'}
-                        modifyClass={'iconButton'}
-                        handleOnClick={() => setIsBidDeleteOpen(true)}
-                    >
-                        <TrashIcon size={18} />
-                    </ButtonComp>
+
+                    {userLatestBid.canPlaceBid ? (
+                        <ButtonComp
+                            text={'Place New'}
+                            typeClass={'secondary'}
+                            handleOnClick={() => setIsBidNewOpen(true)}
+                        />
+                    ) : (
+                        <>
+                            <ButtonComp
+                                typeClass={'primary'}
+                                modifyClass={'iconButton'}
+                                handleOnClick={() => setIsBidEditOpen(true)}
+                            >
+                                <PencilIcon size={18} />
+                            </ButtonComp>
+                            <ButtonComp
+                                typeClass={'secondary'}
+                                modifyClass={'iconButton'}
+                                handleOnClick={() => setIsBidDeleteOpen(true)}
+                            >
+                                <TrashIcon size={18} />
+                            </ButtonComp>
+                        </>
+                    )}
 
                     {/* More Bids Avatar Group */}
                     <BidMoreAvatars
@@ -134,8 +159,18 @@ const ProductCardBid = ({ product }) => {
                     setIsOpen={setIsBidEditOpen}
                     bidVal={bidVal}
                     setBidVal={setBidVal}
-                    productID={product._id}
+                    product={product}
                     bidID={userLatestBid._id}
+                />
+
+                {/* Bid Edit Input using as Place new bid */}
+                <BidEditInput
+                    isOpen={isBidNewOpen}
+                    setIsOpen={setIsBidNewOpen}
+                    bidVal={bidVal}
+                    setBidVal={setBidVal}
+                    product={product}
+                    isNew={true}
                 />
             </div>
 

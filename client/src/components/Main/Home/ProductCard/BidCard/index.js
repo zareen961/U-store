@@ -199,6 +199,7 @@ const BidCard = ({
                             ? 'success'
                             : 'neutral'
                     }
+                    isPositionAbsolute={true}
                 />
             </div>
 

@@ -28,21 +28,26 @@
 
 .productCardBid__myBid {
     flex: 1;
+}
+
+.productCardBid__myBidTextWrapper {
+    color: rgba(var(--primary-light), 0.8);
     display: flex;
     align-items: center;
 }
 
-.productCardBid__myBid > h3 {
-    margin: 0 8px;
+.productCardBid__myBidTextWrapper h3 {
+    margin-left: 5px;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
-.productCardBid__myBid > span {
-    background-color: rgba(var(--primary-light), 1);
-    color: rgba(var(--secondary-light), 1);
+.productCardBid__myBidPrice {
+    width: fit-content;
+    margin-top: 3px;
+}
+
+.productCardBid__myBidPrice h3 {
     font-weight: 500;
     font-size: 1.1rem;
-    padding: 2px 10px;
-    border-radius: 10px;
 }

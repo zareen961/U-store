@@ -3,10 +3,16 @@ import { ClockIcon, CheckCircleIcon, XCircleIcon } from '@primer/octicons-react'
 
 import './ChipComp.css'
 
-const ChipComp = ({ type, text }) => {
+const ChipComp = ({ type, text, isPositionAbsolute = false, children }) => {
     return (
-        <div className={`chipComp ${type}`}>
-            <h3>{text}</h3>
+        <div
+            className={
+                isPositionAbsolute
+                    ? `chipComp ${type} positionAbsolute`
+                    : `chipComp ${type}`
+            }
+        >
+            <h3>{children ? children : text}</h3>
             {type === 'error' ? (
                 <XCircleIcon size={16} />
             ) : type === 'success' ? (
