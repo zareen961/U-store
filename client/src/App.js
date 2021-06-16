@@ -10,6 +10,7 @@ import Main from './screens/Main'
 import Landing from './screens/Landing'
 import Alerts from './components/utils/Alerts'
 import ThemeSwitch from './components/utils/ThemeSwitch'
+import ScrollToTop from './components/utils/ScrollToTop'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -44,6 +45,7 @@ const App = () => {
         <div className="app">
             <Router>
                 <ThemeSwitch />
+                <ScrollToTop />
                 <Alerts isRounded={user ? true : false} />
                 {user ? <Route component={Main} /> : <Route component={Landing} />}
             </Router>

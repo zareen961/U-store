@@ -1,17 +1,17 @@
-import React from 'react'
-import { HashLink } from 'react-router-hash-link'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import { useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 
-import './ScrollToTop.css'
+const ScrollToTop = ({ history }) => {
+    useEffect(() => {
+        const unListen = history.listen(() => {
+            window.scrollTo(0, 0)
+        })
+        return () => {
+            unListen()
+        }
+    }, [history])
 
-const ScrollToTop = () => {
-    return (
-        <button className="scrollToTop">
-            <HashLink to="#homeID">
-                <KeyboardArrowUpIcon />
-            </HashLink>
-        </button>
-    )
+    return null
 }
 
-export default ScrollToTop
+export default withRouter(ScrollToTop)

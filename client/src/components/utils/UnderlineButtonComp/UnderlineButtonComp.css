@@ -16,7 +16,7 @@
 .underlineButtonComp.active::after {
     content: '';
     width: 80%;
-    background-color: rgba(var(--primary-light), 0.8);
+    background-color: rgba(var(--primary-light), 0.5);
     height: 3px;
     border-radius: 3px;
     position: absolute;
