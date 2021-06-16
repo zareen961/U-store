@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { TagIcon, XIcon, ImageIcon } from '@primer/octicons-react'
 import { useHistory } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
+import { useDropzone } from 'react-dropzone'
 
 import ButtonComp from '../../../utils/ButtonComp'
 import ModalComp from '../../../utils/ModalComp'
@@ -41,11 +42,12 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     const { inputVals, handleOnChange, customSetInputVals, handleReset } =
         useForm(initialInputVals)
 
-    const handleFileSelect = (e) => {
-        if (e.target.files[0]) {
+    // function to handle file selection and then validate and send for compression
+    const handleFileSelect = (acceptedFile) => {
+        if (acceptedFile.length === 1) {
             // validating the file extension
             const allowedExt = ['jpeg', 'jpg', 'png']
-            const fileExt = e.target.files[0].name.split('.').pop().toLowerCase()
+            const fileExt = acceptedFile[0].name.split('.').pop().toLowerCase()
             if (!allowedExt.includes(fileExt)) {
                 dispatch(
                     alertAdd(
@@ -56,18 +58,20 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                 return
             }
 
-            handleImageCompress(e.target.files[0], setFile, setImagePreview)
+            handleImageCompress(acceptedFile[0], setFile, setImagePreview)
+        } else {
+            dispatch(
+                alertAdd('Only one image can be uploaded! Click a good one.', 'error')
+            )
         }
     }
 
-    const handleOnClose = useCallback(() => {
-        handleReset()
-        setUploadProgress(0)
-        setFile('')
-        setImagePreview('')
-        setIsUploadFormOpen(false)
-    }, [handleReset, setIsUploadFormOpen])
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        maxFiles: 1,
+        onDrop: handleFileSelect,
+    })
 
+    // function to upload the image file to firebase storage
     const handleImageUpload = () => {
         let fileName = uuid() + '.' + file?.name.split('.').pop()
 
@@ -84,7 +88,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
             (error) => {
                 //error function
                 console.log(error)
-                alert(error.message)
+                dispatch(alertAdd(error.message, 'error'))
             },
             () => {
                 //uploading image to firebase storage
@@ -99,6 +103,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         )
     }
 
+    // function to trigger when upload form is submitted which initiates the image upload process
     const handleUploadFormSubmit = async (e) => {
         e.preventDefault()
 
@@ -119,6 +124,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         }
     }
 
+    // to dispatch the actual product upload action after image is uploaded successfully
     useEffect(() => {
         const { isValid } = validateProductInputs({
             ...inputVals,
@@ -130,6 +136,16 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         }
     }, [inputVals, inputVals.image.fileName, inputVals.image.url, dispatch])
 
+    // function to handle all the cleanup when the upload form closes
+    const handleOnClose = useCallback(() => {
+        handleReset()
+        setUploadProgress(0)
+        setFile('')
+        setImagePreview('')
+        setIsUploadFormOpen(false)
+    }, [handleReset, setIsUploadFormOpen])
+
+    // to close the product form modal after the product is uploaded successfully
     useEffect(() => {
         if (success) {
             handleOnClose()
@@ -230,18 +246,16 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                                 </div>
                             </>
                         ) : (
-                            <div className="imageInputWrapper">
-                                <label htmlFor="productImageInput">
-                                    <ImageIcon size={20} />
-                                    <span>Choose Image</span>
-                                    <input
-                                        type="file"
-                                        id="productImageInput"
-                                        accept=".png, .jpeg, .jpg"
-                                        value={file}
-                                        onChange={handleFileSelect}
-                                    />
-                                </label>
+                            <div {...getRootProps()} className="imageInputWrapper">
+                                <input {...getInputProps()} accept="image/*" />
+                                {isDragActive ? (
+                                    <p>Drop your image file here.</p>
+                                ) : (
+                                    <label htmlFor="productImageInput">
+                                        <ImageIcon size={20} />
+                                        <span>Select/Drop Image</span>
+                                    </label>
+                                )}
                             </div>
                         )}
                     </div>

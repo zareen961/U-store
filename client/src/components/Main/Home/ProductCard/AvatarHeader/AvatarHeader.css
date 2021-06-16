@@ -12,6 +12,7 @@
     margin-right: 10px;
     cursor: pointer;
     border: 1px solid transparent;
+    transition: all 0.3s ease-in-out;
 }
 
 .avatarHeader__avatar:hover {
@@ -28,6 +29,7 @@
 
 .avatarHeader__nameTime p.username {
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
     border-bottom: 1px solid transparent;
 }
 

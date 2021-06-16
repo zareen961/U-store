@@ -14,7 +14,14 @@
     width: 55px !important;
     margin-right: 10px;
     cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.3s ease-in-out;
 }
+
+.productUploadForm__avatar:hover {
+    border-color: rgba(var(--primary-light), 1);
+}
+
 .productUploadForm__inputWrapper {
     flex: 1;
     display: flex;
@@ -39,6 +46,7 @@
     transition: all 0.5s ease;
     font-size: 1rem;
     font-weight: 600;
+    cursor: text;
 }
 
 .productUploadForm__inputWrapper > input::placeholder {
@@ -139,8 +147,12 @@
     border-radius: 15px;
 }
 
-.productUploadForm__modalImage input {
-    display: none;
+.productUploadForm__modalImage .imageInputWrapper p {
+    font-family: 'Poppins', sans-serif !important;
+    color: rgba(var(--primary-dark), 0.5);
+    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .productUploadForm__modalImage label {
