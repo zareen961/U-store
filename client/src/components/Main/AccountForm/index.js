@@ -13,9 +13,11 @@ import LockIcon from '@material-ui/icons/Lock'
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail'
 import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import PersonIcon from '@material-ui/icons/Person'
+import { useHistory } from 'react-router-dom'
 
 import { useForm } from '../../../utils/hooks/useForm'
 import ButtonComp from '../../utils/ButtonComp'
+import UnderlineButtonComp from '../../utils/UnderlineButtonComp'
 import AvatarForm from '../../Landing/RegisterForm/AvatarForm'
 import ConfirmModal from '../../utils/ConfirmModal'
 import { userUpdate } from '../../../store/actions/user'
@@ -25,6 +27,7 @@ import './AccountForm.css'
 
 const AccountForm = ({ isEdit, setIsEdit }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const { loading: loadingCollege, data: collegeData } = useSelector(
         (state) => state.college
@@ -378,14 +381,23 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                     />
                 </div>
 
-                <ButtonComp
-                    typeClass={'primary'}
-                    text={'Update'}
-                    modifyClass={!isEdit && 'disabled'}
-                    handleOnClick={() => setIsConfirmOpen(true)}
-                >
-                    <CheckCircleIcon />
-                </ButtonComp>
+                <div className="accountForm__buttonWrapper">
+                    <UnderlineButtonComp
+                        text={'View Contact Page'}
+                        handleOnClick={() =>
+                            history.push(`/contact/${user?.userInfo?.username}`)
+                        }
+                        isActive={true}
+                    />
+                    <ButtonComp
+                        typeClass={'primary'}
+                        text={'Update'}
+                        modifyClass={!isEdit && 'disabled'}
+                        handleOnClick={() => setIsConfirmOpen(true)}
+                    >
+                        <CheckCircleIcon />
+                    </ButtonComp>
+                </div>
             </form>
 
             <AvatarForm

@@ -106,9 +106,14 @@
     font-weight: 500;
 }
 
-.accountForm .buttonComp {
+.accountForm__buttonWrapper {
     grid-column: 2/3;
     width: fit-content;
     justify-self: end;
     margin-top: 15px;
+    display: flex;
+}
+
+.accountForm__buttonWrapper .underlineButtonComp {
+    margin-right: 10px;
 }

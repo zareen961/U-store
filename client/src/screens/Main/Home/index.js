@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import ProductCard from '../../../components/Main/Home/ProductCard'
 import ProductUploadForm from '../../../components/Main/Home/ProductUploadForm'
+import BlockHeader from '../../../components/utils/BlockHeader'
 import { productFetchAll } from '../../../store/actions/product'
 import './Home.css'
 
@@ -24,6 +25,9 @@ const Home = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                 isUploadFormOpen={isUploadFormOpen}
                 setIsUploadFormOpen={setIsUploadFormOpen}
             />
+
+            <BlockHeader title={'All Products'} />
+
             {loading ? (
                 <h2>Loading...</h2>
             ) : products.length === 0 ? (

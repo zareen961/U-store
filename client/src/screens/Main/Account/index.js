@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { PencilIcon, XCircleIcon } from '@primer/octicons-react'
 
 import AccountForm from '../../../components/Main/AccountForm'
-import ScreenHeader from '../../../components/utils/ScreenHeader'
+import BlockHeader from '../../../components/utils/BlockHeader'
+import ButtonComp from '../../../components/utils/ButtonComp'
 import './Account.css'
 
 const Account = () => {
@@ -12,14 +13,21 @@ const Account = () => {
         <div className="account">
             <div className="account__card">
                 <div className="account__headerWrapper">
-                    <ScreenHeader
-                        title={'Account'}
-                        handleButtonPress={() => setIsEdit((prevIsEdit) => !prevIsEdit)}
-                        buttonText={isEdit ? 'Cancel' : 'Edit Profile'}
-                    >
-                        {isEdit ? <XCircleIcon size={16} /> : <PencilIcon size={16} />}
-                    </ScreenHeader>
+                    <BlockHeader title={'Account'}>
+                        <ButtonComp
+                            typeClass={'secondary'}
+                            text={isEdit ? 'Cancel' : 'Edit Profile'}
+                            handleOnClick={() => setIsEdit((prevIsEdit) => !prevIsEdit)}
+                        >
+                            {isEdit ? (
+                                <XCircleIcon size={16} />
+                            ) : (
+                                <PencilIcon size={16} />
+                            )}
+                        </ButtonComp>
+                    </BlockHeader>
                 </div>
+
                 <div className="account__formWrapper">
                     <AccountForm isEdit={isEdit} setIsEdit={setIsEdit} />
                 </div>

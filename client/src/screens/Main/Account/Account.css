@@ -10,13 +10,8 @@
     flex-direction: column;
 }
 
-.account__headerWrapper {
-    border-radius: 15px;
-}
-
 .account__formWrapper {
     padding: 25px;
     background-color: rgba(var(--secondary-light), 1);
     border-radius: 15px;
-    margin-top: 25px;
 }

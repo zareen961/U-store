@@ -1,6 +1,6 @@
 .productCard {
     background-color: rgba(var(--secondary-light), 1);
-    margin: 40px 0;
+    margin-bottom: 30px;
     border-radius: 15px;
     display: grid;
     grid-template-columns: 1fr 1fr;

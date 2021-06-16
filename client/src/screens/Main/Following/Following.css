@@ -1,9 +1,12 @@
 .following {
     background-color: rgba(var(--primary-light), 0.08);
-    display: flex;
-    padding-top: 30px;
     min-height: 90vh;
     box-sizing: border-box;
+    padding-top: 30px;
+}
+
+.following__followingWrapper {
+    display: flex;
 }
 
 .following__left,
