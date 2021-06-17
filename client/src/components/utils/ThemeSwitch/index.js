@@ -29,8 +29,8 @@ const ThemeSwitch = () => {
                             <li>
                                 <div className="placeholder">
                                     <div className="upside">
-                                        <a
-                                            href="#"
+                                        <button
+                                            // href="#"
                                             className="button"
                                             onClick={() =>
                                                 dispatch({
@@ -39,15 +39,15 @@ const ThemeSwitch = () => {
                                             }
                                         >
                                             <FiberManualRecordIcon />
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div className="placeholder">
                                     <div className="upside">
-                                        <a
-                                            href="#"
+                                        <button
+                                            // href="#"
                                             className="button"
                                             onClick={() =>
                                                 dispatch({
@@ -56,15 +56,15 @@ const ThemeSwitch = () => {
                                             }
                                         >
                                             <FiberManualRecordIcon />
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div className="placeholder">
                                     <div className="upside">
-                                        <a
-                                            href="#"
+                                        <button
+                                            // href="#"
                                             className="button"
                                             onClick={() =>
                                                 dispatch({
@@ -73,7 +73,7 @@ const ThemeSwitch = () => {
                                             }
                                         >
                                             <FiberManualRecordIcon />
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </li>

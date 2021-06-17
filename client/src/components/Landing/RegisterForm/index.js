@@ -267,6 +267,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <Select
                                         variant="outlined"
                                         value={collegeState}
+                                        autoComplete="new-password"
                                         onChange={(e) => setCollegeState(e.target.value)}
                                     >
                                         <MenuItem value="0">
@@ -297,6 +298,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <Select
                                         variant="outlined"
                                         value={collegeCity}
+                                        autoComplete="new-password"
                                         onChange={(e) => setCollegeCity(e.target.value)}
                                     >
                                         <MenuItem value="0">Select College City</MenuItem>
@@ -330,6 +332,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     <Select
                                         variant="outlined"
                                         value={college}
+                                        autoComplete="new-password"
                                         onChange={(e) => setCollege(e.target.value)}
                                     >
                                         <MenuItem value="0">Choose Your College</MenuItem>
@@ -371,6 +374,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     type="password"
                                     placeholder="Password"
                                     name="password"
+                                    autoComplete="new-password"
                                     value={inputVals.password}
                                     onChange={handleOnChange}
                                 />
@@ -383,6 +387,7 @@ const RegisterForm = ({ isOpen, setIsOpen }) => {
                                     type="password"
                                     placeholder="Confirm Password"
                                     name="passwordConfirm"
+                                    autoComplete="new-password"
                                     value={inputVals.passwordConfirm}
                                     onChange={handleOnChange}
                                 />

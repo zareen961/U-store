@@ -9,6 +9,13 @@
     display: flex;
 }
 
+.bids__bidsWrapper > p {
+    color: rgba(var(--primary-light), 1);
+    font-weight: 600;
+    padding-left: 10px;
+    font-size: 1.2rem;
+}
+
 .bids__left,
 .bids__right {
     display: flex;

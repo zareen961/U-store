@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import ProductCardFollow from '../../../components/Main/ProductCardFollow'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import { userFetchFollowing } from '../../../store/actions/user'
+import Loader from '../../../components/utils/Loader'
 import './Following.css'
 
 const Following = () => {
     const dispatch = useDispatch()
 
     const { loading, success } = useSelector((state) => state.userFollowing)
-    const { user } = useSelector((state) => state.userLogin)
+    const { success: userSuccess, user } = useSelector((state) => state.userLogin)
 
     useEffect(() => {
-        dispatch(userFetchFollowing())
-    }, [dispatch])
+        if (userSuccess) dispatch(userFetchFollowing())
+    }, [dispatch, userSuccess])
 
     return (
         <div className="following">
@@ -25,7 +26,10 @@ const Following = () => {
             <div className="following__followingWrapper">
                 {!loading && success && user && user.userInfo ? (
                     user.userInfo.following.length === 0 ? (
-                        <h1>No Following!</h1>
+                        <p>
+                            Follow Products, get notified about bid trend and then place
+                            your bid.
+                        </p>
                     ) : (
                         <>
                             <div className="following__left">
@@ -51,7 +55,9 @@ const Following = () => {
                         </>
                     )
                 ) : (
-                    <h1>Loading</h1>
+                    <div className="following__loader">
+                        <Loader />
+                    </div>
                 )}
             </div>
         </div>

@@ -88,8 +88,15 @@ const Footer = () => {
                 </div>
             </div>
             <p className="footer__copyright">
-                Copyright &copy; 2021 | Made <a href="#">U-store</a> with{' '}
-                <span className="footer__heart">❤</span>
+                Copyright &copy; 2021 | Made{' '}
+                <a
+                    href="https://u-store-admin.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    U-store
+                </a>{' '}
+                with <span className="footer__heart">❤</span>
             </p>
         </div>
     )

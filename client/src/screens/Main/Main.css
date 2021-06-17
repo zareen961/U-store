@@ -11,13 +11,13 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 0.4fr 1fr 0.43fr;
+    grid-template-columns: 1fr 2.5fr 1.075fr;
     grid-template-rows: auto;
     position: relative;
 }
 
 .main__header {
-    grid-column: 1 / 4;
+    grid-column: 1 / -1;
     height: 10vh;
     position: sticky;
     top: 0;

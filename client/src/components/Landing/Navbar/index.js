@@ -24,7 +24,12 @@ const Navbar = ({ setIsOpen }) => {
     return (
         <div className={backgroundClass}>
             <div className="navbar__container">
-                <a href="#" className="navbar__logoWrapper">
+                <a
+                    href="https://u-store-admin.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="navbar__logoWrapper"
+                >
                     <Logo />
                 </a>
                 <div className="navbar__linksWrapper">

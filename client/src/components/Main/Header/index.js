@@ -30,7 +30,12 @@ const Header = ({ setIsUploadFormOpen }) => {
 
     return (
         <div className="header">
-            <a href="#" className="header__logoWrapper">
+            <a
+                href="https://u-store-admin.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="header__logoWrapper"
+            >
                 <Logo sizeClass={'small'} />
                 <div className="header__logoIconWrapper"></div>
             </a>

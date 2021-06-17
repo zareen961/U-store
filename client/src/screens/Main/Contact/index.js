@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { userFetchContact } from '../../../store/actions/user'
+import Loader from '../../../components/utils/Loader'
 import './Contact.css'
 
 const Contact = ({ match }) => {
@@ -22,7 +23,9 @@ const Contact = ({ match }) => {
             <h2>{username}</h2>
 
             {loading ? (
-                <h2>Loading...</h2>
+                <div className="contact__loader">
+                    <Loader />
+                </div>
             ) : (
                 <div>
                     <h1>{contactDetails._id}</h1>

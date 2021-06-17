@@ -133,9 +133,12 @@
     transform: rotate(180deg);
 }
 
-.themeSwitch .circle li .placeholder a {
+.themeSwitch .circle li .placeholder button {
     text-decoration: none;
     pointer-events: auto;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
 }
 
 .themeSwitch .circle li .placeholder .button {

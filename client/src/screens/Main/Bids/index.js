@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import ProductCardBid from '../../../components/Main/ProductCardBid'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import { userFetchBids } from '../../../store/actions/user'
+import Loader from '../../../components/utils/Loader'
 import './Bids.css'
 
 const Bids = () => {
     const dispatch = useDispatch()
 
     const { loading, success } = useSelector((state) => state.userBids)
-    const { user } = useSelector((state) => state.userLogin)
+    const { success: userSuccess, user } = useSelector((state) => state.userLogin)
 
     useEffect(() => {
-        dispatch(userFetchBids())
-    }, [dispatch])
+        if (userSuccess) dispatch(userFetchBids())
+    }, [dispatch, userSuccess])
 
     return (
         <div className="bids">
@@ -24,7 +25,7 @@ const Bids = () => {
             <div className="bids__bidsWrapper">
                 {!loading && success && user && user.userInfo ? (
                     user.userInfo.bids.length === 0 ? (
-                        <h1>No Bids!</h1>
+                        <p>Bid on products and get your requisites.</p>
                     ) : (
                         <>
                             <div className="bids__left">
@@ -50,7 +51,9 @@ const Bids = () => {
                         </>
                     )
                 ) : (
-                    <h1>Loading</h1>
+                    <div className="bids__loader">
+                        <Loader />
+                    </div>
                 )}
             </div>
         </div>

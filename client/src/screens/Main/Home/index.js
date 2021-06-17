@@ -5,6 +5,7 @@ import ProductCard from '../../../components/Main/Home/ProductCard'
 import ProductUploadForm from '../../../components/Main/Home/ProductUploadForm'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import { productFetchAll } from '../../../store/actions/product'
+import Loader from '../../../components/utils/Loader'
 import './Home.css'
 
 const Home = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
@@ -29,7 +30,9 @@ const Home = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
             <BlockHeader title={'All Products'} />
 
             {loading ? (
-                <h2>Loading...</h2>
+                <div className="home__loader">
+                    <Loader />
+                </div>
             ) : products.length === 0 ? (
                 <h3>Share with college mates to see what they have to sell to you</h3>
             ) : (

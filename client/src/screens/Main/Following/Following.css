@@ -9,6 +9,13 @@
     display: flex;
 }
 
+.following__followingWrapper > p {
+    color: rgba(var(--primary-light), 1);
+    font-weight: 600;
+    padding-left: 10px;
+    font-size: 1.2rem;
+}
+
 .following__left,
 .following__right {
     display: flex;
