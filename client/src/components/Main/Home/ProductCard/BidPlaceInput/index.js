@@ -3,8 +3,8 @@ import { MegaphoneIcon } from '@primer/octicons-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import BidInputLoader from '../../../../utils/BidInputLoader'
 import ButtonComp from '../../../../utils/ButtonComp'
+import FormLoader from '../../../../utils/FormLoader'
 import { bidPlace } from '../../../../../store/actions/bid'
 import { alertAdd } from '../../../../../store/actions/alert'
 import './BidPlaceInput.css'
@@ -40,7 +40,11 @@ const BidPlaceInput = ({ bidVal, setBidVal, product, isFollowingScreen = false }
                 text={'Place'}
             />
 
-            <BidInputLoader isLoading={loadingBidPlace} />
+            <FormLoader
+                loading={loadingBidPlace}
+                modifyClass={'bidPlaceLoader'}
+                loaderSizeClass={'small'}
+            />
         </div>
     )
 }

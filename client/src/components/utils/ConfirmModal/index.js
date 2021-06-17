@@ -33,6 +33,7 @@ const ConfirmModal = ({
             isOpen={isOpen}
             handleOnClose={handleOnCancel}
             maxWidth={isSecure ? 'sm' : 'xs'}
+            isLoading={isLoading}
         >
             <div className="confirmModal">
                 {isLoading && <LinearProgress className="loaderLinear" />}

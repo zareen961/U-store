@@ -2,13 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
-import CircularProgress from '@material-ui/core/CircularProgress'
 import { TagIcon, XIcon, ImageIcon } from '@primer/octicons-react'
 import { useHistory } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 import { useDropzone } from 'react-dropzone'
 
 import ButtonComp from '../../../utils/ButtonComp'
+import FormLoader from '../../../utils/FormLoader'
 import ModalComp from '../../../utils/ModalComp'
 import ImageModal from '../ProductCard/ImageModal'
 import { storage } from '../../../../utils/firebase'
@@ -183,9 +183,14 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                 isOpen={isUploadFormOpen}
                 handleOnClose={handleOnClose}
                 maxWidth={'xs'}
+                isLoading={loading || uploadProgress > 0}
             >
                 <form
-                    className="productUploadForm__modal"
+                    className={
+                        loading || uploadProgress > 0
+                            ? 'productUploadForm__modal cover'
+                            : 'productUploadForm__modal'
+                    }
                     onSubmit={handleUploadFormSubmit}
                 >
                     {/* Header */}
@@ -236,14 +241,6 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                                     alt="uploaded-product"
                                     onClick={() => setIsImageOpen(true)}
                                 />
-                                <div className="progressIndicator">
-                                    <CircularProgress
-                                        variant="determinate"
-                                        value={uploadProgress}
-                                        size={60}
-                                        thickness={5}
-                                    />
-                                </div>
                             </>
                         ) : (
                             <div {...getRootProps()} className="imageInputWrapper">
@@ -296,6 +293,12 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                         />
                     </div>
                 </form>
+
+                <FormLoader
+                    loading={loading || uploadProgress > 0}
+                    modifyClass={'innerLoader'}
+                    loaderSizeClass={'medium'}
+                />
             </ModalComp>
 
             {/* Image Modal */}

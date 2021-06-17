@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { MegaphoneIcon, XIcon } from '@primer/octicons-react'
 
 import ButtonComp from '../../../../utils/ButtonComp'
-import BidInputLoader from '../../../../utils/BidInputLoader'
+import FormLoader from '../../../../utils/FormLoader'
 import { bidPriceUpdate, bidPlace } from '../../../../../store/actions/bid'
 import { alertAdd } from '../../../../../store/actions/alert'
 import './BidEditInput.css'
@@ -83,7 +83,11 @@ const BidEditInput = ({
                 <XIcon size={18} />
             </ButtonComp>
 
-            <BidInputLoader isLoading={loadingBidEdit || loadingBidPlace} />
+            <FormLoader
+                loading={loadingBidEdit || loadingBidPlace}
+                modifyClass={'bidEditLoader'}
+                loaderSizeClass={'small'}
+            />
         </div>
     )
 }

@@ -3,9 +3,16 @@ import Dialog from '@material-ui/core/Dialog'
 
 import './ModalComp.css'
 
-const ModalComp = ({ isOpen, handleOnClose, children, maxWidth = 'sm' }) => {
+const ModalComp = ({
+    isOpen,
+    handleOnClose,
+    children,
+    maxWidth = 'sm',
+    isLoading = false,
+}) => {
     return (
         <Dialog
+            disableBackdropClick={isLoading}
             disableScrollLock
             fullWidth
             maxWidth={maxWidth}
