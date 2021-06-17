@@ -1,0 +1,6 @@
+.screenLoader {
+    min-height: 50vh;
+    display: grid;
+    place-items: center;
+    flex: 1;
+}

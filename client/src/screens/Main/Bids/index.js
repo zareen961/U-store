@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ProductCardBid from '../../../components/Main/ProductCardBid'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import { userFetchBids } from '../../../store/actions/user'
-import Loader from '../../../components/utils/Loader'
+import ScreenLoader from '../../../components/utils/ScreenLoader'
 import './Bids.css'
 
 const Bids = () => {
@@ -53,9 +53,7 @@ const Bids = () => {
                         </>
                     )
                 ) : (
-                    <div className="bids__loader">
-                        <Loader />
-                    </div>
+                    <ScreenLoader />
                 )}
             </div>
         </div>

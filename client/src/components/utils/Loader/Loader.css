@@ -21,6 +21,10 @@
     --loader-size: 35px !important;
 }
 
+.loader.large {
+    --loader-size: 45px !important;
+}
+
 /* 150---40  --> 110         25----6.667----  17.5*/
 .loader {
     width: var(--loader-size);

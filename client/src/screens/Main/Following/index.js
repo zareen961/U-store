@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import ProductCardFollow from '../../../components/Main/ProductCardFollow'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import { userFetchFollowing } from '../../../store/actions/user'
-import Loader from '../../../components/utils/Loader'
+import ScreenLoader from '../../../components/utils/ScreenLoader'
 import './Following.css'
 
 const Following = () => {
@@ -57,9 +57,7 @@ const Following = () => {
                         </>
                     )
                 ) : (
-                    <div className="following__loader">
-                        <Loader />
-                    </div>
+                    <ScreenLoader />
                 )}
             </div>
         </div>
