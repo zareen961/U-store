@@ -190,17 +190,25 @@ const BidCard = ({
                     )}
 
                 {/* Current Status Chip */}
-                <ChipComp
-                    text={bid.status}
-                    type={
-                        bid.status === 'REJECTED'
-                            ? 'error'
-                            : bid.status === 'ACCEPTED'
-                            ? 'success'
-                            : 'neutral'
-                    }
-                    isPositionAbsolute={true}
-                />
+                {bid.bidOwner.username === 'ustore_user' && bid.bidOwner.avatar === 0 ? (
+                    <ChipComp
+                        text={'User Deleted'}
+                        type={'error'}
+                        isPositionAbsolute={true}
+                    />
+                ) : (
+                    <ChipComp
+                        text={bid.status}
+                        type={
+                            bid.status === 'REJECTED'
+                                ? 'error'
+                                : bid.status === 'ACCEPTED'
+                                ? 'success'
+                                : 'neutral'
+                        }
+                        isPositionAbsolute={true}
+                    />
+                )}
             </div>
 
             {/* Confirm Bid Delete Modal */}

@@ -3,6 +3,7 @@ import { PinIcon } from '@primer/octicons-react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import DeleteCover from '../../utils/DeleteCover'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
 import ConfirmModal from '../../utils/ConfirmModal'
@@ -36,19 +37,21 @@ const ProductCardFollow = ({ product }) => {
                 <div className="productCardFollow__header">
                     <AvatarHeader product={product} />
 
-                    <div className="follow">
-                        <ButtonComp
-                            typeClass={'primary'}
-                            modifyClass={
-                                loadingProductFollowToggle
-                                    ? 'iconButton disabled'
-                                    : 'iconButton'
-                            }
-                            handleOnClick={() => setIsProductUnfollowOpen(true)}
-                        >
-                            <PinIcon size={18} />
-                        </ButtonComp>
-                    </div>
+                    {product.isActive && (
+                        <div className="follow">
+                            <ButtonComp
+                                typeClass={'primary'}
+                                modifyClass={
+                                    loadingProductFollowToggle
+                                        ? 'iconButton disabled'
+                                        : 'iconButton'
+                                }
+                                handleOnClick={() => setIsProductUnfollowOpen(true)}
+                            >
+                                <PinIcon size={18} />
+                            </ButtonComp>
+                        </div>
+                    )}
                 </div>
 
                 {/* Image */}
@@ -61,22 +64,33 @@ const ProductCardFollow = ({ product }) => {
                 <PriceBox productPrice={product.price} bids={product.bids} />
 
                 {/* Footer */}
-                <div className="productCardFollow__bids">
-                    <BidPlaceInput
-                        bidVal={bidVal}
-                        setBidVal={setBidVal}
-                        product={product}
-                        isFollowingScreen={true}
-                    />
-
-                    <div style={{ marginLeft: '10px' }}>
-                        <ButtonComp
-                            typeClass={'secondary'}
-                            handleOnClick={() => setIsBidMoreOpen(true)}
-                            text={`View Bids(${product.bids.length})`}
+                {product.isActive && (
+                    <div className="productCardFollow__footer">
+                        <BidPlaceInput
+                            bidVal={bidVal}
+                            setBidVal={setBidVal}
+                            product={product}
+                            isFollowingScreen={true}
                         />
+
+                        <div style={{ marginLeft: '10px' }}>
+                            <ButtonComp
+                                typeClass={'secondary'}
+                                handleOnClick={() => setIsBidMoreOpen(true)}
+                                text={`View Bids(${product.bids.length})`}
+                            />
+                        </div>
                     </div>
-                </div>
+                )}
+
+                {/* Delete Cover */}
+                {!product.isActive && (
+                    <DeleteCover
+                        message={'Product deleted!'}
+                        buttonText={'Unfollow Product'}
+                        handleOnClick={() => setIsProductUnfollowOpen(true)}
+                    />
+                )}
             </div>
 
             {/* All Bids Modal */}

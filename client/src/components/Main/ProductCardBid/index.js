@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import DeleteCover from '../../utils/DeleteCover'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
 import ChipComp from '../../utils/ChipComp'
@@ -69,17 +70,21 @@ const ProductCardBid = ({ product }) => {
                 <div className="productCardBid__header">
                     <AvatarHeader product={product} />
 
-                    <div className="contact">
-                        <ButtonComp
-                            typeClass={'secondary'}
-                            modifyClass={'iconButton'}
-                            handleOnClick={() =>
-                                history.push(`/contact/${product.productOwner.username}`)
-                            }
-                        >
-                            <PersonAddIcon size={18} />
-                        </ButtonComp>
-                    </div>
+                    {product.isActive && (
+                        <div className="contact">
+                            <ButtonComp
+                                typeClass={'secondary'}
+                                modifyClass={'iconButton'}
+                                handleOnClick={() =>
+                                    history.push(
+                                        `/contact/${product.productOwner.username}`
+                                    )
+                                }
+                            >
+                                <PersonAddIcon size={18} />
+                            </ButtonComp>
+                        </div>
+                    )}
                 </div>
 
                 {/* Image */}
@@ -92,7 +97,7 @@ const ProductCardBid = ({ product }) => {
                 <PriceBox productPrice={product.price} bids={product.bids} />
 
                 {/* Footer */}
-                <div className="productCardBid__bids">
+                <div className="productCardBid__footer">
                     <div className="productCardBid__myBid">
                         <div className="productCardBid__myBidTextWrapper">
                             <MegaphoneIcon size={18} />
@@ -118,39 +123,43 @@ const ProductCardBid = ({ product }) => {
                         </div>
                     </div>
 
-                    {userLatestBid.canPlaceBid ? (
-                        <ButtonComp
-                            text={'Place New'}
-                            typeClass={'secondary'}
-                            handleOnClick={() => setIsBidNewOpen(true)}
-                        />
-                    ) : (
-                        <>
-                            <ButtonComp
-                                typeClass={'primary'}
-                                modifyClass={'iconButton'}
-                                handleOnClick={() => setIsBidEditOpen(true)}
-                            >
-                                <PencilIcon size={18} />
-                            </ButtonComp>
-                            <ButtonComp
-                                typeClass={'secondary'}
-                                modifyClass={'iconButton'}
-                                handleOnClick={() => setIsBidDeleteOpen(true)}
-                            >
-                                <TrashIcon size={18} />
-                            </ButtonComp>
-                        </>
-                    )}
+                    {product.isActive && (
+                        <div className="buttonsAndAvatarsWrapper">
+                            {userLatestBid.canPlaceBid ? (
+                                <ButtonComp
+                                    text={'Place New'}
+                                    typeClass={'secondary'}
+                                    handleOnClick={() => setIsBidNewOpen(true)}
+                                />
+                            ) : (
+                                <>
+                                    <ButtonComp
+                                        typeClass={'primary'}
+                                        modifyClass={'iconButton'}
+                                        handleOnClick={() => setIsBidEditOpen(true)}
+                                    >
+                                        <PencilIcon size={18} />
+                                    </ButtonComp>
+                                    <ButtonComp
+                                        typeClass={'secondary'}
+                                        modifyClass={'iconButton'}
+                                        handleOnClick={() => setIsBidDeleteOpen(true)}
+                                    >
+                                        <TrashIcon size={18} />
+                                    </ButtonComp>
+                                </>
+                            )}
 
-                    {/* More Bids Avatar Group */}
-                    <BidMoreAvatars
-                        bids={product.bids}
-                        productOwnerID={product.productOwner._id}
-                        isBidMoreOpen={isBidMoreOpen}
-                        setIsBidMoreOpen={setIsBidMoreOpen}
-                        setIsBidEditOpen={setIsBidEditOpen}
-                    />
+                            {/* More Bids Avatar Group */}
+                            <BidMoreAvatars
+                                bids={product.bids}
+                                productOwnerID={product.productOwner._id}
+                                isBidMoreOpen={isBidMoreOpen}
+                                setIsBidMoreOpen={setIsBidMoreOpen}
+                                setIsBidEditOpen={setIsBidEditOpen}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 {/* Bid Edit Input */}
@@ -172,6 +181,15 @@ const ProductCardBid = ({ product }) => {
                     product={product}
                     isNew={true}
                 />
+
+                {/* Delete Cover */}
+                {!product.isActive && (
+                    <DeleteCover
+                        message={'Product deleted!'}
+                        buttonText={'Delete Bid'}
+                        handleOnClick={() => setIsBidDeleteOpen(true)}
+                    />
+                )}
             </div>
 
             {/* Confirm Bid Delete Modal */}

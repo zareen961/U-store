@@ -101,6 +101,12 @@ const bidDelete = asyncHandler(async (req, res) => {
             throw new Error('You are authorized to delete your bids only!')
         }
 
+        // only PENDING bids and bids on deleted products can be deleted
+        if (foundBid.status !== 'PENDING' || foundBid.product.isActive) {
+            res.status(403)
+            throw new Error("Responded bids can't be deleted!")
+        }
+
         // removing the deleted Bid's ID from the bidOwner's bids array
         await User.updateOne({ _id: req.authUser._id }, { $pull: { bids: bidID } })
 

@@ -9,17 +9,6 @@
     display: flex;
 }
 
-.bids__bidsWrapper > p {
-    color: rgba(var(--primary-light), 1);
-    font-weight: 600;
-    padding-left: 10px;
-    font-size: 1.2rem;
-    border-radius: 15px;
-    background-color: rgba(var(--secondary-light), 1);
-    padding: 20px;
-    width: 100%;
-}
-
 .bids__left,
 .bids__right {
     display: flex;

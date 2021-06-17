@@ -6,6 +6,7 @@
     flex-direction: column;
     padding: 20px;
     position: relative;
+    overflow: hidden;
 }
 
 .productCardBid__header {
@@ -20,10 +21,16 @@
     margin-left: auto;
 }
 
-.productCardBid__bids {
+.productCardBid__footer {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    color: rgba(var(--primary-dark), 0.8);
+}
+
+.productCardBid__footer .buttonsAndAvatarsWrapper {
     display: flex;
     align-items: center;
-    color: rgba(var(--primary-dark), 0.8);
 }
 
 .productCardBid__myBid {

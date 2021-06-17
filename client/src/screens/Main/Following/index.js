@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import ProductCardFollow from '../../../components/Main/ProductCardFollow'
 import BlockHeader from '../../../components/utils/BlockHeader'
+import NoItemMessage from '../../../components/utils/NoItemMessage'
 import { userFetchFollowing } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import './Following.css'
@@ -28,10 +29,12 @@ const Following = () => {
             <div className="following__followingWrapper">
                 {!loading && success && user && user.userInfo ? (
                     user.userInfo.following.length === 0 ? (
-                        <p>
-                            Follow Products, get notified about bid trend and then place
-                            your bid.
-                        </p>
+                        <NoItemMessage
+                            title={"You didn't follow any product!"}
+                            text={
+                                'Follow Products, get notified about bid trend and then place your bid.'
+                            }
+                        />
                     ) : (
                         <>
                             <div className="following__left">

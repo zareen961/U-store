@@ -5,6 +5,7 @@ import ProductCardBid from '../../../components/Main/ProductCardBid'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import { userFetchBids } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
+import NoItemMessage from '../../../components/utils/NoItemMessage'
 import './Bids.css'
 
 const Bids = () => {
@@ -27,7 +28,10 @@ const Bids = () => {
             <div className="bids__bidsWrapper">
                 {!loading && success && user && user.userInfo ? (
                     user.userInfo.bids.length === 0 ? (
-                        <p>Bid on products and get your requisites.</p>
+                        <NoItemMessage
+                            title={"You didn't place any bid!"}
+                            text={'Bid on products and get your requisites.'}
+                        />
                     ) : (
                         <>
                             <div className="bids__left">

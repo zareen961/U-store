@@ -6,6 +6,7 @@ import ProductUploadForm from '../../../components/Main/Home/ProductUploadForm'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import { productFetchAll } from '../../../store/actions/product'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
+import NoItemMessage from '../../../components/utils/NoItemMessage'
 import './Home.css'
 
 const Home = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
@@ -32,7 +33,12 @@ const Home = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
             {loading ? (
                 <ScreenLoader />
             ) : products.length === 0 ? (
-                <h3>Share with college mates to see what they have to sell to you</h3>
+                <NoItemMessage
+                    title={'Your college is offline!'}
+                    text={
+                        'Share with college mates to see what they have to sell to you.'
+                    }
+                />
             ) : (
                 products.map((product) => (
                     <ProductCard key={product._id} product={product} />
