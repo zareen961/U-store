@@ -102,7 +102,7 @@ const bidDelete = asyncHandler(async (req, res) => {
         }
 
         // only PENDING bids and bids on deleted products can be deleted
-        if (foundBid.status !== 'PENDING' || foundBid.product.isActive) {
+        if (foundBid.status !== 'PENDING' && foundBid.product.isActive) {
             res.status(403)
             throw new Error("Responded bids can't be deleted!")
         }
