@@ -9,13 +9,14 @@ const Contact = ({ match }) => {
     const username = match.params.username
     const dispatch = useDispatch()
 
+    const { success: successUserLogin } = useSelector((state) => state.userLogin)
     const { loading, contactDetails } = useSelector((state) => state.userContactDetails)
 
     useEffect(() => {
-        if (username) {
+        if (successUserLogin && username) {
             dispatch(userFetchContact(username))
         }
-    }, [dispatch, username])
+    }, [dispatch, username, successUserLogin])
 
     return (
         <div>

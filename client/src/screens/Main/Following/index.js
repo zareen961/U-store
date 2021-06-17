@@ -11,11 +11,13 @@ const Following = () => {
     const dispatch = useDispatch()
 
     const { loading, success } = useSelector((state) => state.userFollowing)
-    const { success: userSuccess, user } = useSelector((state) => state.userLogin)
+    const { success: successUserLogin, user } = useSelector((state) => state.userLogin)
 
     useEffect(() => {
-        if (userSuccess) dispatch(userFetchFollowing())
-    }, [dispatch, userSuccess])
+        if (successUserLogin) {
+            dispatch(userFetchFollowing())
+        }
+    }, [dispatch, successUserLogin])
 
     return (
         <div className="following">

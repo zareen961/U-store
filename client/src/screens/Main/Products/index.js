@@ -12,11 +12,13 @@ const Products = () => {
     const dispatch = useDispatch()
 
     const { loading, success } = useSelector((state) => state.userProducts)
-    const { success: userSuccess, user } = useSelector((state) => state.userLogin)
+    const { success: successUserLogin, user } = useSelector((state) => state.userLogin)
 
     useEffect(() => {
-        if (userSuccess) dispatch(userFetchProducts())
-    }, [dispatch, userSuccess])
+        if (successUserLogin) {
+            dispatch(userFetchProducts())
+        }
+    }, [dispatch, successUserLogin])
 
     return (
         <div className="products">
