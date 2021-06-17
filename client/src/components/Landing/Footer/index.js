@@ -6,6 +6,7 @@ import PhoneIcon from '@material-ui/icons/Phone'
 
 import developerImage1 from '../../../assets/images/developer1.png'
 import developerImage2 from '../../../assets/images/developer2.png'
+import { WEBSITE_URL } from '../../../utils/constants/urls'
 import './Footer.css'
 
 const Footer = () => {
@@ -89,11 +90,7 @@ const Footer = () => {
             </div>
             <p className="footer__copyright">
                 Copyright &copy; 2021 | Made{' '}
-                <a
-                    href="https://u-store-admin.netlify.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
+                <a href={WEBSITE_URL} target="_blank" rel="noopener noreferrer">
                     U-store
                 </a>{' '}
                 with <span className="footer__heart">❤</span>

@@ -227,13 +227,20 @@ export const userLoginReducer = (
                 state.user.userInfo.bids.length > 0 &&
                 Object.keys(state.user.userInfo.bids[0]).length <= 2
             ) {
-                updatedBidsArray = state.user.userInfo.bids.filter(
-                    (bid) => bid.product !== action.payload.product._id
+                updatedBidsArray = state.user.userInfo.bids
+
+                // checking if there is already a bid on the same product
+                const indexOfBid = state.user.userInfo.bids.findIndex(
+                    (bid) => bid.product === action.payload.product._id
                 )
-                updatedBidsArray.unshift({
-                    _id: action.payload.newBid._id,
-                    product: action.payload.product._id,
-                })
+
+                // if no bid is found on the same product
+                if (indexOfBid === -1) {
+                    updatedBidsArray.unshift({
+                        _id: action.payload.newBid._id,
+                        product: action.payload.product._id,
+                    })
+                }
             } else {
                 updatedBidsArray = state.user.userInfo.bids.filter(
                     (product) => product._id !== action.payload.product._id
@@ -267,13 +274,21 @@ export const userLoginReducer = (
                     (bid) => bid._id !== action.payload.bidID
                 )
             } else {
-                updatedBidsArray = state.user.userInfo.bids.map((product) => {
+                state.user.userInfo.bids.forEach((product) => {
                     if (product._id === action.payload.productID) {
                         product.bids = product.bids.filter(
                             (bid) => bid._id !== action.payload.bidID
                         )
                     }
-                    return product
+
+                    // check if there is at least one bid of the logged in user on the current product
+                    if (
+                        product.bids.filter(
+                            (bid) => bid.bidOwner._id === state.user.userInfo._id
+                        ).length > 0
+                    ) {
+                        updatedBidsArray.push(product)
+                    }
                 })
             }
 

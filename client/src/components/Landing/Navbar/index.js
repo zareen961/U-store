@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { HashLink } from 'react-router-hash-link'
 
+import { WEBSITE_URL } from '../../../utils/constants/urls'
 import Logo from '../../utils/Logo'
 import './Navbar.css'
 
@@ -25,7 +26,7 @@ const Navbar = ({ setIsOpen }) => {
         <div className={backgroundClass}>
             <div className="navbar__container">
                 <a
-                    href="https://u-store-admin.netlify.app/"
+                    href={WEBSITE_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="navbar__logoWrapper"

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { userLogout } from '../../../store/actions/user'
 import Logo from '../../utils/Logo'
 import ButtonComp from '../../utils/ButtonComp'
+import { WEBSITE_URL } from '../../../utils/constants/urls'
 import './Header.css'
 
 const Header = ({ setIsUploadFormOpen }) => {
@@ -31,7 +32,7 @@ const Header = ({ setIsUploadFormOpen }) => {
     return (
         <div className="header">
             <a
-                href="https://u-store-admin.netlify.app/"
+                href={WEBSITE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="header__logoWrapper"
