@@ -4,10 +4,13 @@
     right: 20px;
     z-index: 10000;
     max-width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 .alerts__box {
-    margin: 15px 0;
+    margin: 10px 0;
     align-items: center;
     padding: 10px 12px;
     display: flex;

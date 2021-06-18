@@ -31,15 +31,62 @@ const userGet = asyncHandler(async (req, res) => {
 
 // to get the contact details of an user
 const userGetContact = asyncHandler(async (req, res) => {
+    const { productID } = req.body
+
     const foundUser = await User.findOne({ username: req.params.username }).select(
-        '_id firstName lastName username email primaryPhone secondaryPhone avatar'
+        '_id firstName lastName username email primaryPhone secondaryPhone avatar createdAt products'
     )
 
-    if (foundUser) {
-        res.status(200).json(foundUser)
-    } else {
+    if (!foundUser) {
         res.status(500)
         throw new Error('Cannot find the requested user!')
+    }
+    const productCount = foundUser.products.length
+
+    foundUser.products = undefined
+
+    if (String(req.authUser._id) === String(foundUser._id)) {
+        res.status(200).json({ contact: { ...foundUser._doc, productCount } })
+    }
+
+    const foundProduct = await Product.findById(productID).populate('bids')
+
+    if (!foundProduct) {
+        res.status(500)
+        throw new Error('No product found')
+    }
+
+    let isValidBidFound = false
+
+    // seller requested to see the bidder contact details
+    if (String(foundProduct.productOwner) === String(req.authUser._id)) {
+        isValidBidFound =
+            foundProduct.bids.filter(
+                (bid) =>
+                    String(bid.bidOwner) === String(foundUser._id) &&
+                    bid.status === 'ACCEPTED'
+            ).length > 0
+    }
+    // buyer requested to see the product owner contact details
+    else if (String(foundProduct.productOwner) === String(foundUser._id)) {
+        isValidBidFound =
+            foundProduct.bids.filter(
+                (bid) =>
+                    String(bid.bidOwner) === String(req.authUser._id) &&
+                    bid.status === 'ACCEPTED'
+            ).length > 0
+    }
+    // product belongs to neither requester user nor requested user
+    else {
+        res.status(404)
+        throw new Error("Please use app, we'll interact there.")
+    }
+
+    if (isValidBidFound) {
+        res.status(200).json({ contact: { ...foundUser._doc, productCount }, productID })
+    } else {
+        res.status(401)
+        throw new Error(`Not authorized to view ${foundUser.username} contact details`)
     }
 })
 
