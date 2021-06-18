@@ -53,7 +53,7 @@ const userGetContact = asyncHandler(async (req, res) => {
 
     if (!foundProduct) {
         res.status(500)
-        throw new Error('No product found')
+        throw new Error('No product found!')
     }
 
     let isValidBidFound = false
@@ -86,7 +86,9 @@ const userGetContact = asyncHandler(async (req, res) => {
         res.status(200).json({ contact: { ...foundUser._doc, productCount }, productID })
     } else {
         res.status(401)
-        throw new Error(`Not authorized to view ${foundUser.username} contact details`)
+        throw new Error(
+            `You're not authorized to view ${foundUser.username} contact details!`
+        )
     }
 })
 
