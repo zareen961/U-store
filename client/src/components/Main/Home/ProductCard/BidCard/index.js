@@ -16,6 +16,7 @@ import ChipComp from '../../../../utils/ChipComp'
 import ConfirmModal from '../../../../utils/ConfirmModal'
 import { bidStatusUpdate, bidDelete } from '../../../../../store/actions/bid'
 import './BidCard.css'
+import { userFetchContact } from '../../../../../store/actions/user'
 
 const BidCard = ({
     bid,
@@ -27,7 +28,7 @@ const BidCard = ({
     const history = useHistory()
     const dispatch = useDispatch()
 
-    const { user } = useSelector((state) => state.userLogin)
+    const { user, success: successUserLogin } = useSelector((state) => state.userLogin)
     const { loading: loadingBidStatusUpdate, success: successBidStatusUpdate } =
         useSelector((state) => state.bidStatusUpdate)
     const { loading: loadingBidDelete, success: successBidDelete } = useSelector(
@@ -86,13 +87,26 @@ const BidCard = ({
         }
     }, [successBidDelete])
 
+    // to get contact page of clicked user
+    const handleGetContact = () => {
+        if (successUserLogin) {
+            dispatch(
+                userFetchContact({
+                    username: bid.bidOwner.username,
+                    productID: bid.product,
+                })
+            )
+            history.push(`/contact/${bid.bidOwner.username}`)
+        }
+    }
+
     return (
         <>
             <div className="bidCard">
                 <Avatar
                     src={`avatars/avatar${bid.bidOwner.avatar}.png`}
                     className="bidCard__avatar"
-                    onClick={() => history.push(`/contact/${bid.bidOwner.username}`)}
+                    onClick={handleGetContact}
                 />
 
                 {bid.status === 'PENDING' &&
@@ -100,24 +114,14 @@ const BidCard = ({
                     productOwnerID === user.userInfo._id) &&
                 !isInModal ? (
                     <div className="bidCard__nameTime">
-                        <p
-                            className="username"
-                            onClick={() =>
-                                history.push(`/contact/${bid.bidOwner.username}`)
-                            }
-                        >
+                        <p className="username" onClick={handleGetContact}>
                             @{bid.bidOwner.username.substring(0, 6)}...
                         </p>
                         <span>{moment(bid.createdAt).fromNow().substring(0, 6)}...</span>
                     </div>
                 ) : (
                     <div className="bidCard__nameTime">
-                        <p
-                            className="username"
-                            onClick={() =>
-                                history.push(`/contact/${bid.bidOwner.username}`)
-                            }
-                        >
+                        <p className="username" onClick={handleGetContact}>
                             @{bid.bidOwner.username}
                         </p>
                         <span>{moment(bid.createdAt).fromNow()}</span>

@@ -220,32 +220,36 @@ export const userDelete = (password, history) => async (dispatch) => {
 }
 
 // to get the contact details of any user
-export const userFetchContact = (username) => async (dispatch) => {
-    try {
-        dispatch({
-            type: actionTypes.USER_FETCH_CONTACT_REQUEST,
-        })
+export const userFetchContact =
+    ({ username, productID }) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: actionTypes.USER_FETCH_CONTACT_REQUEST,
+            })
 
-        const { data } = await axiosInstance.get(`/api/user/contact/${username}`)
+            const { data } = await axiosInstance.get(`/api/user/contact/${username}`, {
+                headers: { productID },
+            })
 
-        dispatch({
-            type: actionTypes.USER_FETCH_CONTACT_SUCCESS,
-            payload: data,
-        })
-    } catch (err) {
-        const errorMsg =
-            err.response && err.response.data.message
-                ? err.response.data.message
-                : err.message
+            dispatch({
+                type: actionTypes.USER_FETCH_CONTACT_SUCCESS,
+                payload: data,
+            })
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
 
-        dispatch({
-            type: actionTypes.USER_FETCH_CONTACT_FAIL,
-            payload: errorMsg,
-        })
+            dispatch({
+                type: actionTypes.USER_FETCH_CONTACT_FAIL,
+                payload: errorMsg,
+            })
 
-        dispatch(alertAdd(errorMsg, 'error'))
+            dispatch(alertAdd(errorMsg, 'error'))
+        }
     }
-}
 
 // to fetch all the products of logged in user
 export const userFetchProducts = () => async (dispatch, getState) => {

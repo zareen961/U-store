@@ -31,7 +31,7 @@ const userGet = asyncHandler(async (req, res) => {
 
 // to get the contact details of an user
 const userGetContact = asyncHandler(async (req, res) => {
-    const { productID } = req.body
+    const productID = req.headers.productid
 
     const foundUser = await User.findOne({ username: req.params.username }).select(
         '_id firstName lastName username email primaryPhone secondaryPhone avatar createdAt products'
@@ -45,36 +45,43 @@ const userGetContact = asyncHandler(async (req, res) => {
 
     foundUser.products = undefined
 
-    if (String(req.authUser._id) === String(foundUser._id)) {
+    if (String(req.authUser._id) === String(foundUser._id) && !productID) {
         res.status(200).json({ contact: { ...foundUser._doc, productCount } })
     }
 
-    const foundProduct = await Product.findById(productID).populate('bids')
+    const foundProduct = await Product.findById(productID)
+        .select('-updatedAt -college')
+        .populate({
+            path: 'bids',
+            select: '-updatedAt',
+            populate: {
+                path: 'bidOwner',
+                select: '_id username avatar',
+            },
+        })
 
     if (!foundProduct) {
         res.status(500)
         throw new Error('No product found!')
     }
 
-    let isValidBidFound = false
+    let validBidsFound = []
 
     // seller requested to see the bidder contact details
     if (String(foundProduct.productOwner) === String(req.authUser._id)) {
-        isValidBidFound =
-            foundProduct.bids.filter(
-                (bid) =>
-                    String(bid.bidOwner) === String(foundUser._id) &&
-                    bid.status === 'ACCEPTED'
-            ).length > 0
+        validBidsFound = foundProduct.bids.filter(
+            (bid) =>
+                String(bid.bidOwner._id) === String(foundUser._id) &&
+                bid.status === 'ACCEPTED'
+        )
     }
     // buyer requested to see the product owner contact details
     else if (String(foundProduct.productOwner) === String(foundUser._id)) {
-        isValidBidFound =
-            foundProduct.bids.filter(
-                (bid) =>
-                    String(bid.bidOwner) === String(req.authUser._id) &&
-                    bid.status === 'ACCEPTED'
-            ).length > 0
+        validBidsFound = foundProduct.bids.filter(
+            (bid) =>
+                String(bid.bidOwner._id) === String(req.authUser._id) &&
+                bid.status === 'ACCEPTED'
+        )
     }
     // product belongs to neither requester user nor requested user
     else {
@@ -82,8 +89,17 @@ const userGetContact = asyncHandler(async (req, res) => {
         throw new Error("Please use app, we'll interact there.")
     }
 
-    if (isValidBidFound) {
-        res.status(200).json({ contact: { ...foundUser._doc, productCount }, productID })
+    // finding the highest bid on the product
+    let highestBid = 0
+    if (foundProduct.bids.length > 0) {
+        highestBid = _.orderBy(foundProduct.bids, ['price'], ['desc'])[0].price
+    }
+
+    if (validBidsFound.length > 0) {
+        res.status(200).json({
+            contact: { ...foundUser._doc, productCount },
+            product: { ...foundProduct._doc, bids: validBidsFound, highestBid },
+        })
     } else {
         res.status(401)
         throw new Error(

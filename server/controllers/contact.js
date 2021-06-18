@@ -31,7 +31,6 @@ const sendContactMail = asyncHandler((req, res) => {
                 res.status(500).json({
                     message: 'Unable to contact right now, try again later!',
                 })
-                // throw new Error('Error sending mail!')
             } else {
                 // console.log(`** Email sent **`, info)
                 res.status(200).json({

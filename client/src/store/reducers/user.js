@@ -517,14 +517,19 @@ export const userDeleteReducer = (
 }
 
 export const userContactDetailsReducer = (
-    state = { loading: false, contactDetails: {}, error: null, success: false },
+    state = {
+        loading: false,
+        contactData: { contact: {}, product: {} },
+        error: null,
+        success: false,
+    },
     action
 ) => {
     switch (action.type) {
         case actionTypes.USER_FETCH_CONTACT_REQUEST:
             return {
                 ...state,
-                contactDetails: {},
+                contactData: { contact: {}, product: {} },
                 loading: true,
                 error: null,
                 success: false,
@@ -534,7 +539,7 @@ export const userContactDetailsReducer = (
             return {
                 ...state,
                 loading: false,
-                contactDetails: action.payload,
+                contactData: action.payload,
                 error: null,
                 success: true,
             }
@@ -543,7 +548,7 @@ export const userContactDetailsReducer = (
             return {
                 ...state,
                 loading: false,
-                contactDetails: {},
+                contactData: { contact: {}, product: {} },
                 error: action.payload,
                 success: false,
             }
