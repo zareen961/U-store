@@ -15,8 +15,8 @@ import ButtonComp from '../../../../utils/ButtonComp'
 import ChipComp from '../../../../utils/ChipComp'
 import ConfirmModal from '../../../../utils/ConfirmModal'
 import { bidStatusUpdate, bidDelete } from '../../../../../store/actions/bid'
+import { handleGetContact } from '../../../../../utils/handleGetContact'
 import './BidCard.css'
-import { userFetchContact } from '../../../../../store/actions/user'
 
 const BidCard = ({
     bid,
@@ -87,18 +87,15 @@ const BidCard = ({
         }
     }, [successBidDelete])
 
-    // to get contact page of clicked user
-    const handleGetContact = () => {
-        if (successUserLogin) {
-            dispatch(
-                userFetchContact({
-                    username: bid.bidOwner.username,
-                    productID: bid.product,
-                })
-            )
-            history.push(`/contact/${bid.bidOwner.username}`)
-        }
-    }
+    // setting up the handleGetContact function
+    const handleCallGetContact = () =>
+        handleGetContact({
+            dispatch,
+            history,
+            successUserLogin,
+            username: bid.bidOwner.username,
+            productID: bid.product,
+        })
 
     return (
         <>
@@ -106,7 +103,7 @@ const BidCard = ({
                 <Avatar
                     src={`avatars/avatar${bid.bidOwner.avatar}.png`}
                     className="bidCard__avatar"
-                    onClick={handleGetContact}
+                    onClick={handleCallGetContact}
                 />
 
                 {bid.status === 'PENDING' &&
@@ -114,14 +111,14 @@ const BidCard = ({
                     productOwnerID === user.userInfo._id) &&
                 !isInModal ? (
                     <div className="bidCard__nameTime">
-                        <p className="username" onClick={handleGetContact}>
+                        <p className="username" onClick={handleCallGetContact}>
                             @{bid.bidOwner.username.substring(0, 6)}...
                         </p>
                         <span>{moment(bid.createdAt).fromNow().substring(0, 6)}...</span>
                     </div>
                 ) : (
                     <div className="bidCard__nameTime">
-                        <p className="username" onClick={handleGetContact}>
+                        <p className="username" onClick={handleCallGetContact}>
                             @{bid.bidOwner.username}
                         </p>
                         <span>{moment(bid.createdAt).fromNow()}</span>

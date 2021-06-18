@@ -23,6 +23,7 @@ import ConfirmModal from '../../utils/ConfirmModal'
 import { userUpdate } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/alert'
 import { validateUserInputs } from '../../../validators/user'
+import { handleGetContact } from '../../../utils/handleGetContact'
 import './AccountForm.css'
 
 const AccountForm = ({ isEdit, setIsEdit }) => {
@@ -32,7 +33,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
     const { loading: loadingCollege, data: collegeData } = useSelector(
         (state) => state.college
     )
-    const { user } = useSelector((state) => state.userLogin)
+    const { user, success: successUserLogin } = useSelector((state) => state.userLogin)
     const { loading, success } = useSelector((state) => state.userUpdate)
 
     const [collegeInfo, setCollegeInfo] = useState({
@@ -181,6 +182,15 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
             })
         }
     }, [success, user])
+
+    // setting up the handleGetContact function
+    const handleCallGetContact = () =>
+        handleGetContact({
+            dispatch,
+            history,
+            successUserLogin,
+            username: user.userInfo.username,
+        })
 
     return (
         <>
@@ -384,9 +394,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                 <div className="accountForm__buttonWrapper">
                     <UnderlineButtonComp
                         text={'View Contact Page'}
-                        handleOnClick={() =>
-                            history.push(`/contact/${user?.userInfo?.username}`)
-                        }
+                        handleOnClick={handleCallGetContact}
                         isActive={true}
                     />
                     <ButtonComp

@@ -34,8 +34,12 @@ const Contact = ({ match }) => {
                         <p>{contact.createdAt}</p>
                         <p>Avatar: {contact.avatar}</p>
 
-                        <h3>{product.name}</h3>
-                        <p>{product.highestBid}</p>
+                        {product && (
+                            <>
+                                <h3>{product.name}</h3>
+                                <p>{product.highestBid}</p>
+                            </>
+                        )}
                     </div>
                 )}
             </div>
