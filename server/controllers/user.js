@@ -67,14 +67,31 @@ const userGetContact = asyncHandler(async (req, res) => {
 
     let validBidsFound = []
 
+    // if user has requested to view his contact page on a particular bid / product
+    if (String(req.authUser._id) === String(foundUser._id)) {
+        // as owner of the product
+        if (productOwner._id === foundUser._id) {
+            res.status(200).json({
+                contact: { ...foundUser._doc, bids: [], productCount },
+            })
+        }
+        // as a bidder
+        else {
+            validBidsFound = foundProduct.bids.filter(
+                (bid) => String(bid.bidOwner._id) === String(foundUser._id)
+            )
+        }
+    }
+
     // seller requested to see the bidder contact details
-    if (String(foundProduct.productOwner) === String(req.authUser._id)) {
+    else if (String(foundProduct.productOwner) === String(req.authUser._id)) {
         validBidsFound = foundProduct.bids.filter(
             (bid) =>
                 String(bid.bidOwner._id) === String(foundUser._id) &&
                 bid.status === 'ACCEPTED'
         )
     }
+
     // buyer requested to see the product owner contact details
     else if (String(foundProduct.productOwner) === String(foundUser._id)) {
         validBidsFound = foundProduct.bids.filter(
@@ -83,10 +100,11 @@ const userGetContact = asyncHandler(async (req, res) => {
                 bid.status === 'ACCEPTED'
         )
     }
+
     // product belongs to neither requester user nor requested user
     else {
         res.status(404)
-        throw new Error("Please use app, we'll interact there.")
+        throw new Error(`Not authorized to view ${foundUser.username} contact details`)
     }
 
     // finding the highest bid on the product
