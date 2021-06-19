@@ -62,7 +62,7 @@ const Header = ({ setIsUploadFormOpen }) => {
                             }
                         >
                             <Avatar
-                                src={`avatars/avatar${
+                                src={`/avatars/avatar${
                                     user && user.userInfo ? user.userInfo.avatar : '0'
                                 }.png`}
                                 className="header__avatar"

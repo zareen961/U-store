@@ -31,7 +31,7 @@ const SidebarLeft = () => {
             {/* Account */}
             <Link to="/account" className="sidebarLeft__account">
                 <Avatar
-                    src={`avatars/avatar${
+                    src={`/avatars/avatar${
                         user && user.userInfo ? user.userInfo.avatar : 0
                     }.png`}
                     className="sidebarLeft__avatar"

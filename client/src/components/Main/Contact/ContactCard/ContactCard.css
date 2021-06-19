@@ -1,0 +1,102 @@
+.contactCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(var(--secondary-light), 1);
+    padding: 40px 20px 0;
+    border-radius: 15px;
+    box-shadow: 0 0 7px 1px rgba(var(--primary-light), 0.2);
+}
+
+.contactCard__avatarWrapper {
+    border: 4px solid rgba(var(--gradient-extra), 1);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.contactCard__avatar {
+    width: 110px !important;
+    height: 110px !important;
+    background-color: rgba(var(--gradient-extra), 0.5);
+}
+
+.contactCard__fullName {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-size: 1.4rem;
+    margin-top: 10px;
+    color: rgba(var(--primary-light), 1);
+}
+
+.contactCard__username {
+    font-family: 'Poppins', sans-serif !important;
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 600;
+    margin-top: -5px;
+}
+
+.contactCard__description {
+    text-align: center;
+    max-width: 300px;
+    color: rgba(var(--primary-light), 0.8);
+    margin: 10px 0 20px;
+}
+
+.contactCard__buttonsWrapper {
+    display: flex;
+    min-width: 250px;
+}
+
+.contactCard__buttonsWrapper .buttonComp {
+    flex: 1;
+    justify-content: space-around;
+    padding: 0 25px !important;
+    margin: 0 2.5px 0 2.5px;
+}
+
+.contactCard__footerWrapper {
+    position: relative;
+    color: rgba(var(--secondary-light), 1);
+    margin-top: 20px;
+    background-color: rgba(var(--primary-light), 1);
+    align-self: stretch;
+    border-radius: 10px 10px 0 0;
+}
+
+.contactCard__footerItem {
+    padding: 0 15px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 1s linear, padding 0.5s 0.5s linear;
+}
+
+.contactCard__footerItem.show {
+    padding: 10px 15px;
+    max-height: 150px;
+}
+
+.contactCard__footerWrapper .phoneWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.contactCard__footerWrapper .footerItemHeader {
+    display: flex;
+    align-items: flex-end;
+}
+
+.contactCard__footerWrapper .footerItemHeader h3 {
+    font-weight: 500;
+    font-size: 0.8rem;
+    margin-right: 5px;
+    letter-spacing: 1px;
+}
+
+.contactCard__footerItem p {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}

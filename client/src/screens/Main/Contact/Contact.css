@@ -1,0 +1,15 @@
+.contact {
+    background-color: rgba(var(--primary-light), 0.08);
+    min-height: 90vh;
+    box-sizing: border-box;
+    padding-top: 30px;
+}
+
+.contact__bodyWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+}
+
+.contact__bidsWrapper {
+    grid-column: 1 / -1;
+}

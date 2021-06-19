@@ -21,6 +21,7 @@ import BidEditInput from '../Home/ProductCard/BidEditInput'
 import AvatarHeader from '../Home/ProductCard/AvatarHeader'
 import { bidDelete } from '../../../store/actions/bid'
 import { getUserLatestBid } from '../../../utils/getUserLatestBid'
+import { handleGetContact } from '../../../utils/handleGetContact'
 import './ProductCardBid.css'
 
 const ProductCardBid = ({ product }) => {
@@ -30,7 +31,7 @@ const ProductCardBid = ({ product }) => {
     const { loading: loadingBidDelete, success: successBidDelete } = useSelector(
         (state) => state.bidDelete
     )
-    const { user } = useSelector((state) => state.userLogin)
+    const { user, success: successUserLogin } = useSelector((state) => state.userLogin)
 
     const [isBidMoreOpen, setIsBidMoreOpen] = useState(false)
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
@@ -63,6 +64,16 @@ const ProductCardBid = ({ product }) => {
         }
     }, [successBidDelete])
 
+    // setting up the handleGetContact function
+    const handleCallGetContact = () =>
+        handleGetContact({
+            dispatch,
+            history,
+            successUserLogin,
+            username: product.productOwner.username,
+            productID: product._id,
+        })
+
     return (
         <>
             <div className="productCardBid">
@@ -71,15 +82,11 @@ const ProductCardBid = ({ product }) => {
                     <AvatarHeader product={product} />
 
                     {product.isActive && (
-                        <div className="contact">
+                        <div className="contactTo">
                             <ButtonComp
                                 typeClass={'secondary'}
                                 modifyClass={'iconButton'}
-                                handleOnClick={() =>
-                                    history.push(
-                                        `/contact/${product.productOwner.username}`
-                                    )
-                                }
+                                handleOnClick={handleCallGetContact}
                             >
                                 <PersonAddIcon size={18} />
                             </ButtonComp>
