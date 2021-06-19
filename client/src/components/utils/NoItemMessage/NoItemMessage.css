@@ -1,5 +1,4 @@
 .noItemMessage {
-    width: 100%;
     border-radius: 15px;
     background-color: rgba(var(--secondary-light), 1);
     padding: 20px;

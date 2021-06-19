@@ -8,17 +8,6 @@ html {
     overflow-x: hidden;
 }
 
-/* styling autofill elements */
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus {
-    -webkit-text-fill-color: rgba(var(--primary-dark), 1);
-    -webkit-box-shadow: 0 0 0px 1000px rgba(var(--secondary-light), 1) inset;
-}
-
 /* styling scrollbar */
 ::-webkit-scrollbar-track {
     border: 4px solid rgba(var(--secondary-light), 1);
@@ -43,6 +32,7 @@ textarea:-webkit-autofill:focus {
     --gradient-extra: 215, 130, 217;
     --shadow-primary: rgba(var(--primary-dark), 0.4);
     --shadow-secondary: rgba(var(--secondary-light), 0.5);
+    --box-shadow: 0 0 7px 1px rgba(var(--primary-light), 0.2);
 }
 
 .theme__RED {
@@ -53,6 +43,7 @@ textarea:-webkit-autofill:focus {
     --gradient-extra: 255, 130, 100;
     --shadow-primary: rgba(var(--primary-dark), 0.4);
     --shadow-secondary: rgba(var(--secondary-light), 0.5);
+    --box-shadow: 0 0 7px 1px rgba(var(--primary-light), 0.2);
 }
 
 .theme__BLUE {
@@ -63,6 +54,7 @@ textarea:-webkit-autofill:focus {
     --gradient-extra: 116, 249, 255;
     --shadow-primary: rgba(var(--primary-dark), 0.4);
     --shadow-secondary: rgba(var(--secondary-light), 0.5);
+    --box-shadow: 0 0 7px 1px rgba(var(--primary-light), 0.2);
 }
 
 .app {

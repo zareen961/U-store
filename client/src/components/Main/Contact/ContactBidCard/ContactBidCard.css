@@ -1,0 +1,6 @@
+.contactBidCard {
+    box-shadow: var(--box-shadow);
+    background-color: rgba(var(--secondary-light), 1);
+    border-radius: 15px;
+    display: flex;
+}

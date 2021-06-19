@@ -15,6 +15,7 @@
     padding: 20px 25px;
     border-radius: 15px;
     column-gap: 5px;
+    box-shadow: var(--box-shadow);
 }
 
 .sidebarLeft__avatar {
@@ -46,6 +47,7 @@
     flex-direction: column;
     justify-content: 'center';
     margin: 30px 0;
+    box-shadow: var(--box-shadow);
 }
 
 .sidebarLeft__menu > a {

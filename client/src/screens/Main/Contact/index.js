@@ -31,7 +31,7 @@ const Contact = () => {
                         <ContactCard contact={contact} />
                     </div>
                     {product && (
-                        <>
+                        <div className="contact__productAndBidsWrapper">
                             <div className="contact__productCardWrapper">
                                 <ContactProductCard product={product} />
                             </div>
@@ -40,14 +40,14 @@ const Contact = () => {
                                     <ContactBidCard bid={bid} key={bid._id} />
                                 ))}
                             </div>
-                        </>
+                        </div>
                     )}
                 </div>
             ) : (
                 <NoItemMessage
                     title={error}
                     text={
-                        'You must be a buyer or a seller of the respective product and at least one of the bid of the requested user must be in ACCPETED state.'
+                        'You must be a buyer or a seller of the respective product and at least one of the bid of the requested user must be in ACCEPTED state.'
                     }
                 />
             )}

@@ -7,6 +7,7 @@
     padding: 20px;
     position: relative;
     overflow: hidden;
+    box-shadow: var(--box-shadow);
 }
 
 .productCardFollow__header {

@@ -5,6 +5,7 @@
     background-color: rgba(var(--secondary-light), 1);
     padding: 20px;
     margin-bottom: 30px;
+    box-shadow: var(--box-shadow);
 }
 
 .productUploadForm__avatar {

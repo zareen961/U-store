@@ -6,10 +6,23 @@
 }
 
 .contact__bodyWrapper {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact__contactCardWrapper {
+    flex: 1;
+}
+
+.contact__productAndBidsWrapper {
+    flex: 1.6;
+    margin-left: 30px;
+}
+
+.contact__productCardWrapper {
+    margin-bottom: 30px;
 }
 
 .contact__bidsWrapper {
-    grid-column: 1 / -1;
+    display: flex;
 }

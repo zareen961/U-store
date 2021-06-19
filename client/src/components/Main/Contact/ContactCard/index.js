@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import moment from 'moment'
-import { DeviceMobileIcon, MailIcon } from '@primer/octicons-react'
+import { MailIcon, DeviceMobileIcon } from '@primer/octicons-react'
 
 import ButtonComp from '../../../utils/ButtonComp'
 import './ContactCard.css'
 
 const ContactCard = ({ contact }) => {
-    const [toShow, setToShow] = useState('')
+    const [toShow, setToShow] = useState('CALL')
 
     const contactDescription = `${
         contact.firstName
@@ -63,9 +63,7 @@ const ContactCard = ({ contact }) => {
                 >
                     <div className="footerItemHeader">
                         <h3>Phone</h3>
-                        <span>
-                            <DeviceMobileIcon size={24} />
-                        </span>
+                        <DeviceMobileIcon size={24} />
                     </div>
                     <div className="phoneWrapper">
                         <p>{contact.primaryPhone}</p>
@@ -82,9 +80,7 @@ const ContactCard = ({ contact }) => {
                 >
                     <div className="footerItemHeader">
                         <h3>Email</h3>
-                        <span>
-                            <MailIcon size={24} />
-                        </span>
+                        <MailIcon size={24} />
                     </div>
                     <p>{contact.email}</p>
                 </div>

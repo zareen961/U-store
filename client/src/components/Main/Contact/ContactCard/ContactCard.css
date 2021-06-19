@@ -5,7 +5,7 @@
     background-color: rgba(var(--secondary-light), 1);
     padding: 40px 20px 0;
     border-radius: 15px;
-    box-shadow: 0 0 7px 1px rgba(var(--primary-light), 0.2);
+    box-shadow: var(--box-shadow);
 }
 
 .contactCard__avatarWrapper {
@@ -15,8 +15,8 @@
 }
 
 .contactCard__avatar {
-    width: 110px !important;
-    height: 110px !important;
+    width: 100px !important;
+    height: 100px !important;
     background-color: rgba(var(--gradient-extra), 0.5);
 }
 
@@ -24,9 +24,9 @@
     font-family: 'Poppins', sans-serif !important;
     font-weight: 600;
     letter-spacing: 0.5px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-top: 10px;
-    color: rgba(var(--primary-light), 1);
+    color: rgba(var(--primary-dark), 0.7);
 }
 
 .contactCard__username {
@@ -34,13 +34,16 @@
     color: rgba(var(--primary-light), 0.8);
     font-weight: 600;
     margin-top: -5px;
+    font-size: 0.9rem;
 }
 
 .contactCard__description {
     text-align: center;
     max-width: 300px;
-    color: rgba(var(--primary-light), 0.8);
     margin: 10px 0 20px;
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 400;
+    font-size: 0.9rem;
 }
 
 .contactCard__buttonsWrapper {
@@ -51,6 +54,7 @@
 .contactCard__buttonsWrapper .buttonComp {
     flex: 1;
     justify-content: space-around;
+    align-items: center !important;
     padding: 0 25px !important;
     margin: 0 2.5px 0 2.5px;
 }
@@ -58,17 +62,28 @@
 .contactCard__footerWrapper {
     position: relative;
     color: rgba(var(--secondary-light), 1);
-    margin-top: 20px;
+    margin-top: 40px;
     background-color: rgba(var(--primary-light), 1);
     align-self: stretch;
     border-radius: 10px 10px 0 0;
+}
+
+.contactCard__footerWrapper::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    height: 2.75px;
+    width: 100%;
+    background-color: rgba(var(--primary-light), 1);
+    border-radius: 1px;
 }
 
 .contactCard__footerItem {
     padding: 0 15px;
     overflow: hidden;
     max-height: 0;
-    transition: max-height 1s linear, padding 0.5s 0.5s linear;
+    transition: max-height 1s linear, padding 0.5s linear;
 }
 
 .contactCard__footerItem.show {
