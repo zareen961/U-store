@@ -34,6 +34,12 @@ const userGetContact = asyncHandler(async (req, res) => {
     const productID = req.headers.productid
     const requestedUsername = req.params.username
 
+    if (requestedUsername === 'ustore_user') {
+        res.status(404)
+        throw new Error('The requested user has deleted his/her account!')
+    }
+
+    // getting the contact details of the requested user
     const foundUser = await User.findOne({ username: requestedUsername }).select(
         '_id firstName lastName username email primaryPhone secondaryPhone avatar createdAt products'
     )
@@ -42,14 +48,17 @@ const userGetContact = asyncHandler(async (req, res) => {
         res.status(500)
         throw new Error('Cannot find the requested user!')
     }
-    const productCount = foundUser.products.length
 
-    foundUser.products = undefined
+    const productCount = foundUser.products.length // getting the total products count of the requested user
 
+    foundUser.products = undefined // no need for for requested user's products
+
+    // when the "VIEW CONTACT PAGE" button is clicked from my account screen
     if (String(req.authUser._id) === String(foundUser._id) && !productID) {
         return res.status(200).json({ contact: { ...foundUser._doc, productCount } })
     }
 
+    // finding the associated product
     const foundProduct = await Product.findById(productID)
         .select('-updatedAt -college')
         .populate({
@@ -66,45 +75,45 @@ const userGetContact = asyncHandler(async (req, res) => {
         throw new Error('No product found!')
     }
 
-    let validBidsFound = []
+    let isAuthToView = false
+    let bidsToReturn = []
 
     // if user has requested to view his contact page on a particular bid / product
     if (String(req.authUser._id) === String(foundUser._id)) {
         // as owner of the product
         if (String(foundProduct.productOwner) === String(foundUser._id)) {
-            return res.status(200).json({
-                contact: { ...foundUser._doc, productCount },
-                product: { ...foundProduct._doc, bids: [] },
-            })
+            bidsToReturn = foundProduct.bids.filter((bid) => bid.status === 'ACCEPTED')
         }
-        // as a bidder
+        // as a owner of the bid
         else {
-            validBidsFound = foundProduct.bids.filter(
+            bidsToReturn = foundProduct.bids.filter(
                 (bid) => String(bid.bidOwner._id) === String(foundUser._id)
             )
         }
+
+        isAuthToView = true
     }
+
     // seller requested to see the bidder contact details
     else if (String(foundProduct.productOwner) === String(req.authUser._id)) {
-        validBidsFound = foundProduct.bids.filter(
-            (bid) =>
-                String(bid.bidOwner._id) === String(foundUser._id) &&
-                bid.status === 'ACCEPTED'
+        bidsToReturn = foundProduct.bids.filter(
+            (bid) => String(bid.bidOwner._id) === String(foundUser._id)
         )
+        isAuthToView = bidsToReturn.filter((bid) => bid.status === 'ACCEPTED').length > 0
     }
+
     // buyer requested to see the product owner contact details
     else if (String(foundProduct.productOwner) === String(foundUser._id)) {
-        console.log('here')
-        validBidsFound = foundProduct.bids.filter(
-            (bid) =>
-                String(bid.bidOwner._id) === String(req.authUser._id) &&
-                bid.status === 'ACCEPTED'
+        bidsToReturn = foundProduct.bids.filter(
+            (bid) => String(bid.bidOwner._id) === String(req.authUser._id)
         )
+        isAuthToView = bidsToReturn.filter((bid) => bid.status === 'ACCEPTED').length > 0
     }
+
     // product belongs to neither requester user nor requested user
     else {
         res.status(404)
-        throw new Error(`Not authorized to view ${foundUser.username} contact details`)
+        throw new Error(`Not authorized to view @${foundUser.username} contact details!`)
     }
 
     // finding the highest bid on the product
@@ -113,11 +122,10 @@ const userGetContact = asyncHandler(async (req, res) => {
         highestBid = _.orderBy(foundProduct.bids, ['price'], ['desc'])[0].price
     }
 
-    console.log(validBidsFound)
-    if (validBidsFound.length > 0) {
+    if (isAuthToView) {
         res.status(200).json({
             contact: { ...foundUser._doc, productCount },
-            product: { ...foundProduct._doc, bids: validBidsFound, highestBid },
+            product: { ...foundProduct._doc, bids: bidsToReturn, highestBid },
         })
     } else {
         res.status(401)

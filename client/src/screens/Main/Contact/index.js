@@ -36,8 +36,16 @@ const Contact = ({ match }) => {
 
                         {product && (
                             <>
+                                <hr />
                                 <h3>{product.name}</h3>
                                 <p>{product.highestBid}</p>
+
+                                {product.bids.map((bid) => (
+                                    <>
+                                        <h3>{bid.bidOwner.username}</h3>
+                                        <p>{bid.status}</p>
+                                    </>
+                                ))}
                             </>
                         )}
                     </div>
