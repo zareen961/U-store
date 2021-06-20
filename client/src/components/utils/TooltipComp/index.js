@@ -11,6 +11,7 @@ const useStylesBootstrap = makeStyles((theme) => ({
         backgroundColor: theme.palette.common.black,
         fontSize: 13,
         letterSpacing: 0.5,
+        fontFamily: 'Poppins',
     },
 }))
 
@@ -28,7 +29,7 @@ const TooltipComp = ({ children, title, placement }) => {
             TransitionComponent={Zoom}
             arrow
         >
-            {children}
+            <div>{children}</div>
         </BootstrapTooltip>
     )
 }

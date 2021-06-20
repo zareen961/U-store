@@ -10,6 +10,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import TooltipComp from '../../utils/TooltipComp'
 import DeleteCover from '../../utils/DeleteCover'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
@@ -83,13 +84,15 @@ const ProductCardBid = ({ product }) => {
 
                     {product.isActive && (
                         <div className="contactTo">
-                            <ButtonComp
-                                typeClass={'secondary'}
-                                modifyClass={'iconButton'}
-                                handleOnClick={handleCallGetContact}
-                            >
-                                <PersonAddIcon size={18} />
-                            </ButtonComp>
+                            <TooltipComp placement={'top'} title={'View Contact'}>
+                                <ButtonComp
+                                    typeClass={'secondary'}
+                                    modifyClass={'iconButton'}
+                                    handleOnClick={handleCallGetContact}
+                                >
+                                    <PersonAddIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
                         </div>
                     )}
                 </div>
@@ -140,20 +143,25 @@ const ProductCardBid = ({ product }) => {
                                 />
                             ) : (
                                 <>
-                                    <ButtonComp
-                                        typeClass={'primary'}
-                                        modifyClass={'iconButton'}
-                                        handleOnClick={() => setIsBidEditOpen(true)}
-                                    >
-                                        <PencilIcon size={18} />
-                                    </ButtonComp>
-                                    <ButtonComp
-                                        typeClass={'secondary'}
-                                        modifyClass={'iconButton'}
-                                        handleOnClick={() => setIsBidDeleteOpen(true)}
-                                    >
-                                        <TrashIcon size={18} />
-                                    </ButtonComp>
+                                    <TooltipComp placement={'top'} title={'Edit Bid'}>
+                                        <ButtonComp
+                                            typeClass={'primary'}
+                                            modifyClass={'iconButton'}
+                                            handleOnClick={() => setIsBidEditOpen(true)}
+                                        >
+                                            <PencilIcon size={18} />
+                                        </ButtonComp>
+                                    </TooltipComp>
+
+                                    <TooltipComp placement={'top'} title={'Delete Bid'}>
+                                        <ButtonComp
+                                            typeClass={'secondary'}
+                                            modifyClass={'iconButton'}
+                                            handleOnClick={() => setIsBidDeleteOpen(true)}
+                                        >
+                                            <TrashIcon size={18} />
+                                        </ButtonComp>
+                                    </TooltipComp>
                                 </>
                             )}
 

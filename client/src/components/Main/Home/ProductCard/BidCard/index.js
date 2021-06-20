@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom'
 
 import ButtonComp from '../../../../utils/ButtonComp'
 import ChipComp from '../../../../utils/ChipComp'
+import TooltipComp from '../../../../utils/TooltipComp'
 import ConfirmModal from '../../../../utils/ConfirmModal'
 import { bidStatusUpdate, bidDelete } from '../../../../../store/actions/bid'
 import { handleGetContact } from '../../../../../utils/handleGetContact'
@@ -140,28 +141,33 @@ const BidCard = ({
                 {bid.status === 'PENDING' &&
                     String(productOwnerID) === String(user.userInfo._id) && (
                         <div className="icon">
-                            <ButtonComp
-                                typeClass={'primary'}
-                                handleOnClick={() => setIsBidAcceptOpen(true)}
-                                modifyClass={
-                                    loadingBidStatusUpdate
-                                        ? 'iconButton disabled'
-                                        : 'iconButton'
-                                }
-                            >
-                                <ThumbsupIcon size={18} />
-                            </ButtonComp>
-                            <ButtonComp
-                                typeClass={'secondary'}
-                                handleOnClick={() => setIsBidRejectOpen(true)}
-                                modifyClass={
-                                    loadingBidStatusUpdate
-                                        ? 'iconButton disabled'
-                                        : 'iconButton'
-                                }
-                            >
-                                <ThumbsdownIcon size={18} />
-                            </ButtonComp>
+                            <TooltipComp placement={'top'} title={'Accept Bid'}>
+                                <ButtonComp
+                                    typeClass={'primary'}
+                                    handleOnClick={() => setIsBidAcceptOpen(true)}
+                                    modifyClass={
+                                        loadingBidStatusUpdate
+                                            ? 'iconButton disabled'
+                                            : 'iconButton'
+                                    }
+                                >
+                                    <ThumbsupIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
+
+                            <TooltipComp placement={'top'} title={'Reject Bid'}>
+                                <ButtonComp
+                                    typeClass={'secondary'}
+                                    handleOnClick={() => setIsBidRejectOpen(true)}
+                                    modifyClass={
+                                        loadingBidStatusUpdate
+                                            ? 'iconButton disabled'
+                                            : 'iconButton'
+                                    }
+                                >
+                                    <ThumbsdownIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
                         </div>
                     )}
 
@@ -169,24 +175,29 @@ const BidCard = ({
                 {bid.status === 'PENDING' &&
                     String(bid.bidOwner._id) === String(user.userInfo._id) && (
                         <div className="icon">
-                            <ButtonComp
-                                typeClass={'primary'}
-                                modifyClass={'iconButton'}
-                                handleOnClick={handleBidPriceEdit}
-                            >
-                                <PencilIcon size={18} />
-                            </ButtonComp>
-                            <ButtonComp
-                                typeClass={'secondary'}
-                                modifyClass={
-                                    loadingBidDelete
-                                        ? 'iconButton disabled'
-                                        : 'iconButton'
-                                }
-                                handleOnClick={() => setIsBidDeleteOpen(true)}
-                            >
-                                <TrashIcon size={18} />
-                            </ButtonComp>
+                            <TooltipComp placement={'top'} title={'Edit Bid'}>
+                                <ButtonComp
+                                    typeClass={'primary'}
+                                    modifyClass={'iconButton'}
+                                    handleOnClick={handleBidPriceEdit}
+                                >
+                                    <PencilIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
+
+                            <TooltipComp placement={'top'} title={'Delete Bid'}>
+                                <ButtonComp
+                                    typeClass={'secondary'}
+                                    modifyClass={
+                                        loadingBidDelete
+                                            ? 'iconButton disabled'
+                                            : 'iconButton'
+                                    }
+                                    handleOnClick={() => setIsBidDeleteOpen(true)}
+                                >
+                                    <TrashIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
                         </div>
                     )}
 

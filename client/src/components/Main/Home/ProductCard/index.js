@@ -11,6 +11,7 @@ import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 
 import ButtonComp from '../../../utils/ButtonComp'
+import TooltipComp from '../../../utils/TooltipComp'
 import BidCard from './BidCard'
 import { bidDelete } from '../../../../store/actions/bid'
 import { productFollowToggle, productDelete } from '../../../../store/actions/product'
@@ -214,20 +215,26 @@ const ProductCard = ({ product }) => {
                                     />
                                 </span>
                             </div>
-                            <ButtonComp
-                                typeClass={'primary'}
-                                modifyClass={'iconButton'}
-                                handleOnClick={() => setIsBidEditOpen(true)}
-                            >
-                                <PencilIcon size={18} />
-                            </ButtonComp>
-                            <ButtonComp
-                                typeClass={'secondary'}
-                                modifyClass={'iconButton'}
-                                handleOnClick={() => setIsBidDeleteOpen(true)}
-                            >
-                                <TrashIcon size={18} />
-                            </ButtonComp>
+
+                            <TooltipComp placement={'top'} title={'Edit Bid'}>
+                                <ButtonComp
+                                    typeClass={'primary'}
+                                    modifyClass={'iconButton'}
+                                    handleOnClick={() => setIsBidEditOpen(true)}
+                                >
+                                    <PencilIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
+
+                            <TooltipComp placement={'top'} title={'Delete Bid'}>
+                                <ButtonComp
+                                    typeClass={'secondary'}
+                                    modifyClass={'iconButton'}
+                                    handleOnClick={() => setIsBidDeleteOpen(true)}
+                                >
+                                    <TrashIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
 
                             {/* Bid Edit Input */}
                             <BidEditInput

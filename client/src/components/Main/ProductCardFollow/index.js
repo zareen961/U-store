@@ -3,6 +3,7 @@ import { PinIcon } from '@primer/octicons-react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import ButtonComp from '../../utils/ButtonComp'
+import TooltipComp from '../../utils/TooltipComp'
 import DeleteCover from '../../utils/DeleteCover'
 import ProductImage from '../../utils/ProductImage'
 import PriceBox from '../../utils/PriceBox'
@@ -39,17 +40,19 @@ const ProductCardFollow = ({ product }) => {
 
                     {product.isActive && (
                         <div className="follow">
-                            <ButtonComp
-                                typeClass={'primary'}
-                                modifyClass={
-                                    loadingProductFollowToggle
-                                        ? 'iconButton disabled'
-                                        : 'iconButton'
-                                }
-                                handleOnClick={() => setIsProductUnfollowOpen(true)}
-                            >
-                                <PinIcon size={18} />
-                            </ButtonComp>
+                            <TooltipComp placement={'top'} title={'Unfollow'}>
+                                <ButtonComp
+                                    typeClass={'primary'}
+                                    modifyClass={
+                                        loadingProductFollowToggle
+                                            ? 'iconButton disabled'
+                                            : 'iconButton'
+                                    }
+                                    handleOnClick={() => setIsProductUnfollowOpen(true)}
+                                >
+                                    <PinIcon size={18} />
+                                </ButtonComp>
+                            </TooltipComp>
                         </div>
                     )}
                 </div>

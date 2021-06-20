@@ -4,6 +4,7 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup'
 import _ from 'lodash'
 
 import BidsAllModal from '../BidsAllModal'
+import TooltipComp from '../../../../utils/TooltipComp'
 import './BidMoreAvatars.css'
 
 const BidMoreAvatars = ({
@@ -22,18 +23,20 @@ const BidMoreAvatars = ({
                 onClick={() => setIsBidMoreOpen(true)}
                 style={{ alignSelf: isHomeScreen ? 'flex-end' : 'center' }}
             >
-                <AvatarGroup max={3}>
-                    {_.orderBy(bids, ['price'], ['desc'])
-                        .slice(sliceBy)
-                        .map((bid) => (
-                            <Avatar
-                                key={bid._id}
-                                alt={bid.bidOwner.username}
-                                src={`avatars/avatar${bid.bidOwner.avatar}.png`}
-                                className="avatar"
-                            />
-                        ))}
-                </AvatarGroup>
+                <TooltipComp placement={'top'} title={'View All Bids'}>
+                    <AvatarGroup max={3}>
+                        {_.orderBy(bids, ['price'], ['desc'])
+                            .slice(sliceBy)
+                            .map((bid) => (
+                                <Avatar
+                                    key={bid._id}
+                                    alt={bid.bidOwner.username}
+                                    src={`avatars/avatar${bid.bidOwner.avatar}.png`}
+                                    className="avatar"
+                                />
+                            ))}
+                    </AvatarGroup>
+                </TooltipComp>
             </div>
 
             {/* All Bids Modal */}

@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { MegaphoneIcon, XIcon } from '@primer/octicons-react'
 
 import ButtonComp from '../../../../utils/ButtonComp'
+import TooltipComp from '../../../../utils/TooltipComp'
 import FormLoader from '../../../../utils/FormLoader'
 import { bidPriceUpdate, bidPlace } from '../../../../../store/actions/bid'
 import { alertAdd } from '../../../../../store/actions/alert'
@@ -75,13 +76,15 @@ const BidEditInput = ({
                     text={isNew ? 'Place' : 'Update'}
                 />
             </div>
-            <ButtonComp
-                typeClass={'secondary'}
-                handleOnClick={() => setIsOpen(false)}
-                modifyClass={'iconButton'}
-            >
-                <XIcon size={18} />
-            </ButtonComp>
+            <TooltipComp placement={'top'} title={'Cancel'}>
+                <ButtonComp
+                    typeClass={'secondary'}
+                    handleOnClick={() => setIsOpen(false)}
+                    modifyClass={'iconButton'}
+                >
+                    <XIcon size={18} />
+                </ButtonComp>
+            </TooltipComp>
 
             <FormLoader
                 loading={loadingBidEdit || loadingBidPlace}
