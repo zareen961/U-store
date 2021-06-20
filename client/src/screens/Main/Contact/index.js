@@ -1,11 +1,18 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import {
+    CheckCircleIcon,
+    TagIcon,
+    GraphIcon,
+    FileMediaIcon,
+    MegaphoneIcon,
+    DeviceCameraIcon,
+} from '@primer/octicons-react'
 
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
 import ContactCard from '../../../components/Main/Contact/ContactCard'
-import ContactProductCard from '../../../components/Main/Contact/ContactProductCard'
-import ContactBidCard from '../../../components/Main/Contact/ContactBidCard'
+import ContactShape from '../../../components/Main/Contact/ContactShape'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import './Contact.css'
 
@@ -27,25 +34,64 @@ const Contact = () => {
                 <ScreenLoader />
             ) : success ? (
                 <div className="contact__bodyWrapper">
+                    <div className="contact__leftShapeWrapper">
+                        {product && (
+                            <>
+                                <ContactShape
+                                    label={'Product Name'}
+                                    content={product.name}
+                                >
+                                    <FileMediaIcon size={24} />
+                                </ContactShape>
+                                <ContactShape
+                                    label={'Product Image'}
+                                    content={product.image.url}
+                                    isImage={true}
+                                >
+                                    <DeviceCameraIcon size={24} />
+                                </ContactShape>
+                                <ContactShape
+                                    label={'Product Price'}
+                                    content={product.price}
+                                    isPrice={true}
+                                >
+                                    <TagIcon size={24} />
+                                </ContactShape>
+                            </>
+                        )}
+                    </div>
                     <div className="contact__contactCardWrapper">
                         <ContactCard contact={contact} />
                     </div>
-                    {product && (
-                        <div className="contact__productAndBidsWrapper">
-                            <div className="contact__productCardWrapper">
-                                <ContactProductCard product={product} />
-                            </div>
-                            <div className="contact__bidsWrapper">
-                                {product.bids.map((bid) => (
-                                    <ContactBidCard
-                                        bid={bid}
-                                        highestBid={product.highestBid}
-                                        key={bid._id}
-                                    />
-                                ))}
-                            </div>
-                        </div>
-                    )}
+                    <div className="contact__rightShapeWrapper">
+                        {product && (
+                            <>
+                                <ContactShape
+                                    label={'Total Bids'}
+                                    content={product.totalBidsCount}
+                                >
+                                    <MegaphoneIcon size={24} />
+                                </ContactShape>
+                                <ContactShape
+                                    label={'Highest Bid'}
+                                    content={product.highestBid}
+                                    isPrice={true}
+                                >
+                                    <GraphIcon size={24} />
+                                </ContactShape>
+                                <ContactShape
+                                    label={'Accepted Bids'}
+                                    content={
+                                        product.bids.filter(
+                                            (bid) => bid.status === 'ACCEPTED'
+                                        ).length
+                                    }
+                                >
+                                    <CheckCircleIcon size={24} />
+                                </ContactShape>
+                            </>
+                        )}
+                    </div>
                 </div>
             ) : (
                 <NoItemMessage

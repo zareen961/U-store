@@ -1,4 +1,4 @@
-.contactBidCard {
+.SingleBidCard {
     flex: 1;
     box-shadow: var(--box-shadow);
     background-color: rgba(var(--secondary-light), 1);
@@ -7,10 +7,10 @@
     height: 100%;
 }
 
-.contactBidCard__bidOwnerDetailsWrapper {
+.SingleBidCard__bidOwnerDetailsWrapper {
     flex: 0.4;
 }
 
-.contactBidCard__bidPriceDetailsWrapper {
+.SingleBidCard__bidPriceDetailsWrapper {
     flex: 0.6;
 }

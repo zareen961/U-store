@@ -3,18 +3,18 @@ import moment from 'moment'
 import NumberFormat from 'react-number-format'
 
 import ChipComp from '../../../utils/ChipComp'
-import './ContactBidCard.css'
+import './SingleBidCard.css'
 
-const ContactBidCard = ({ bid, highestBid }) => {
+const SingleBidCard = ({ bid, highestBid }) => {
     return (
-        <div className="contactBidCard">
-            <div className="contactBidCard__bidOwnerDetailsWrapper"></div>
-            <div className="contactBidCard__bidPriceDetailsWrapper">
+        <div className="singleBidCard">
+            <div className="singleBidCard__bidOwnerDetailsWrapper"></div>
+            <div className="singleBidCard__bidPriceDetailsWrapper">
                 <div className="bidPriceDetailsHeader">
                     <span className="timestamp">{moment(bid.createdAt).fromNow()}</span>
                     <div className="highestBidComparisonBar"></div>
                 </div>
-                <h3 className="contactBidCard__price">
+                <h3 className="singleBidCard__price">
                     <NumberFormat
                         value={bid.price}
                         prefix={'Rs '}
@@ -37,4 +37,4 @@ const ContactBidCard = ({ bid, highestBid }) => {
     )
 }
 
-export default ContactBidCard
+export default SingleBidCard

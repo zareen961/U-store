@@ -7,7 +7,7 @@ import ButtonComp from '../../../utils/ButtonComp'
 import './ContactCard.css'
 
 const ContactCard = ({ contact }) => {
-    const [toShow, setToShow] = useState('CALL')
+    const [toShow, setToShow] = useState('EMAIL')
 
     const contactDescription = `${
         contact.firstName
@@ -39,18 +39,18 @@ const ContactCard = ({ contact }) => {
             {/* Buttons */}
             <div className="contactCard__buttonsWrapper">
                 <ButtonComp
-                    typeClass={'primary'}
-                    text={'Call'}
-                    handleOnClick={() => setToShow('CALL')}
-                >
-                    <DeviceMobileIcon size={18} />
-                </ButtonComp>
-                <ButtonComp
-                    typeClass={'secondary'}
+                    typeClass={toShow === 'EMAIL' ? 'primary' : 'secondary'}
                     text={'Email'}
                     handleOnClick={() => setToShow('EMAIL')}
                 >
                     <MailIcon size={18} />
+                </ButtonComp>
+                <ButtonComp
+                    typeClass={toShow === 'CALL' ? 'primary' : 'secondary'}
+                    text={'Phone'}
+                    handleOnClick={() => setToShow('CALL')}
+                >
+                    <DeviceMobileIcon size={18} />
                 </ButtonComp>
             </div>
 
@@ -67,8 +67,12 @@ const ContactCard = ({ contact }) => {
                         <DeviceMobileIcon size={24} />
                     </div>
                     <div className="phoneWrapper">
-                        <p>{contact.primaryPhone}</p>
-                        {contact.secondaryPhone && <p>{contact.secondaryPhone}</p>}
+                        <a href={`tel:${contact.primaryPhone}`}>{contact.primaryPhone}</a>
+                        {contact.secondaryPhone && (
+                            <a href={`tel:${contact.secondaryPhone}`}>
+                                {contact.secondaryPhone}
+                            </a>
+                        )}
                     </div>
                 </div>
 
@@ -83,7 +87,7 @@ const ContactCard = ({ contact }) => {
                         <h3>Email</h3>
                         <MailIcon size={24} />
                     </div>
-                    <p>{contact.email}</p>
+                    <a href={`mailto:${contact.email}`}>{contact.email}</a>
                 </div>
             </div>
         </div>

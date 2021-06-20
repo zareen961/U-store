@@ -109,9 +109,16 @@
     letter-spacing: 1px;
 }
 
-.contactCard__footerItem p {
+.contactCard__footerItem a {
     font-size: 1rem;
     font-weight: 400;
     margin-top: 5px;
     letter-spacing: 1px;
+    color: rgba(var(--secondary-light), 1);
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+.contactCard__footerItem a:hover {
+    border-color: rgba(var(--secondary-light), 1);
 }

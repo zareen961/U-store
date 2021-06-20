@@ -5,14 +5,14 @@ import NumberFormat from 'react-number-format'
 
 import ProductDetails from '../../../utils/ProductDetails'
 import TooltipComp from '../../../utils/TooltipComp'
-import './ContactProductCard.css'
+import './SingleProductCard.css'
 
-const ContactProductCard = ({ product }) => {
+const SingleProductCard = ({ product }) => {
     const acceptedBids = product.bids.filter((bid) => bid.status === 'ACCEPTED').length
 
     return (
-        <div className="contactProductCard">
-            <div className="contactProductCard__imageWrapper">
+        <div className="singleProductCard">
+            <div className="singleProductCard__imageWrapper">
                 <img src={product.image.url} alt={product.name} />
 
                 <TooltipComp placement={'right'} title={'Total Bids'}>
@@ -22,10 +22,10 @@ const ContactProductCard = ({ product }) => {
                 </TooltipComp>
             </div>
 
-            <div className="contactProductCard__detailsWrapper">
+            <div className="singleProductCard__detailsWrapper">
                 <span className="timestamp">{moment(product.createdAt).fromNow()}</span>
                 <ProductDetails name={product.name} description={product.description} />
-                <div className="contactProductCard__footer">
+                <div className="singleProductCard__footer">
                     <TooltipComp placement={'top'} title={'Product Price'}>
                         <div className="price">
                             <TagIcon size={18} />
@@ -72,4 +72,4 @@ const ContactProductCard = ({ product }) => {
     )
 }
 
-export default ContactProductCard
+export default SingleProductCard
