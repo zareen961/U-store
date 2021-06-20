@@ -11,11 +11,12 @@ const ContactCard = ({ contact }) => {
 
     const contactDescription = `${
         contact.firstName
-    } has been a U-store user for past ${moment(contact.createdAt).fromNow(true)} ${
-        contact.productCount > 0 &&
-        `and has ${contact.productCount} active ${
-            contact.productCount === 1 ? `product` : `products`
-        } in your college.`
+    } has been a U-store user for past ${moment(contact.createdAt).fromNow(true)}${
+        contact.productCount > 0
+            ? ` and has ${contact.productCount} active ${
+                  contact.productCount === 1 ? `product` : `products`
+              } in your college.`
+            : `.`
     }`
 
     return (

@@ -37,7 +37,11 @@ const Contact = () => {
                             </div>
                             <div className="contact__bidsWrapper">
                                 {product.bids.map((bid) => (
-                                    <ContactBidCard bid={bid} key={bid._id} />
+                                    <ContactBidCard
+                                        bid={bid}
+                                        highestBid={product.highestBid}
+                                        key={bid._id}
+                                    />
                                 ))}
                             </div>
                         </div>

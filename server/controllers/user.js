@@ -125,7 +125,12 @@ const userGetContact = asyncHandler(async (req, res) => {
     if (isAuthToView) {
         res.status(200).json({
             contact: { ...foundUser._doc, productCount },
-            product: { ...foundProduct._doc, bids: bidsToReturn, highestBid },
+            product: {
+                ...foundProduct._doc,
+                bids: bidsToReturn,
+                highestBid,
+                totalBidsCount: foundProduct.bids.length,
+            },
         })
     } else {
         res.status(401)

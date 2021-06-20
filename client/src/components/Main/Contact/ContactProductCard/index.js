@@ -9,6 +9,7 @@ import './ContactProductCard.css'
 
 const ContactProductCard = ({ product }) => {
     const acceptedBids = product.bids.filter((bid) => bid.status === 'ACCEPTED').length
+
     return (
         <div className="contactProductCard">
             <div className="contactProductCard__imageWrapper">
@@ -16,8 +17,7 @@ const ContactProductCard = ({ product }) => {
 
                 <TooltipComp placement={'right'} title={'Total Bids'}>
                     <div className="contactCard__totalBidsCount">
-                        {/* <h3>{product.totalBids}</h3> */}
-                        <h3>{5}</h3>
+                        <h3>{product.totalBidsCount}</h3>
                     </div>
                 </TooltipComp>
             </div>

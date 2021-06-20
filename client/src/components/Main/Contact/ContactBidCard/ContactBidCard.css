@@ -1,6 +1,16 @@
 .contactBidCard {
+    flex: 1;
     box-shadow: var(--box-shadow);
     background-color: rgba(var(--secondary-light), 1);
     border-radius: 15px;
     display: flex;
+    height: 100%;
+}
+
+.contactBidCard__bidOwnerDetailsWrapper {
+    flex: 0.4;
+}
+
+.contactBidCard__bidPriceDetailsWrapper {
+    flex: 0.6;
 }
