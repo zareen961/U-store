@@ -8,6 +8,7 @@ const ContactShape = ({ label, content, children, isPrice = false, isImage = fal
         <div className="contactShape">
             {isImage && (
                 <div className="contactShape__imageWrapper">
+                    <div className="contactShape__imageCover"></div>
                     <img src={content} alt="product" />
                 </div>
             )}

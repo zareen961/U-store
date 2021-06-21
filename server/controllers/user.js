@@ -76,38 +76,27 @@ const userGetContact = asyncHandler(async (req, res) => {
     }
 
     let isAuthToView = false
-    let bidsToReturn = []
+    const acceptedBids = foundProduct.bids.filter((bid) => bid.status === 'ACCEPTED')
 
     // if user has requested to view his contact page on a particular bid / product
     if (String(req.authUser._id) === String(foundUser._id)) {
-        // as owner of the product
-        if (String(foundProduct.productOwner) === String(foundUser._id)) {
-            bidsToReturn = foundProduct.bids.filter((bid) => bid.status === 'ACCEPTED')
-        }
-        // as a owner of the bid
-        else {
-            bidsToReturn = foundProduct.bids.filter(
-                (bid) => String(bid.bidOwner._id) === String(foundUser._id)
-            )
-        }
-
         isAuthToView = true
     }
 
     // seller requested to see the bidder contact details
     else if (String(foundProduct.productOwner) === String(req.authUser._id)) {
-        bidsToReturn = foundProduct.bids.filter(
-            (bid) => String(bid.bidOwner._id) === String(foundUser._id)
-        )
-        isAuthToView = bidsToReturn.filter((bid) => bid.status === 'ACCEPTED').length > 0
+        isAuthToView =
+            acceptedBids.filter(
+                (bid) => String(bid.bidOwner._id) === String(foundUser._id)
+            ).length > 0
     }
 
     // buyer requested to see the product owner contact details
     else if (String(foundProduct.productOwner) === String(foundUser._id)) {
-        bidsToReturn = foundProduct.bids.filter(
-            (bid) => String(bid.bidOwner._id) === String(req.authUser._id)
-        )
-        isAuthToView = bidsToReturn.filter((bid) => bid.status === 'ACCEPTED').length > 0
+        isAuthToView =
+            acceptedBids.filter(
+                (bid) => String(bid.bidOwner._id) === String(req.authUser._id)
+            ).length > 0
     }
 
     // product belongs to neither requester user nor requested user
@@ -127,8 +116,8 @@ const userGetContact = asyncHandler(async (req, res) => {
             contact: { ...foundUser._doc, productCount },
             product: {
                 ...foundProduct._doc,
-                bids: bidsToReturn,
                 highestBid,
+                totalAcceptedBids: acceptedBids.length,
                 totalBidsCount: foundProduct.bids.length,
             },
         })

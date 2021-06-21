@@ -1,10 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import {
-    CheckCircleIcon,
+    CheckIcon,
     TagIcon,
     GraphIcon,
-    FileMediaIcon,
+    GiftIcon,
     MegaphoneIcon,
     DeviceCameraIcon,
 } from '@primer/octicons-react'
@@ -41,7 +41,7 @@ const Contact = () => {
                                     label={'Product Name'}
                                     content={product.name}
                                 >
-                                    <FileMediaIcon size={24} />
+                                    <GiftIcon size={24} />
                                 </ContactShape>
                                 <ContactShape
                                     label={'Product Image'}
@@ -81,13 +81,9 @@ const Contact = () => {
                                 </ContactShape>
                                 <ContactShape
                                     label={'Accepted Bids'}
-                                    content={
-                                        product.bids.filter(
-                                            (bid) => bid.status === 'ACCEPTED'
-                                        ).length
-                                    }
+                                    content={product.totalAcceptedBids}
                                 >
-                                    <CheckCircleIcon size={24} />
+                                    <CheckIcon size={24} />
                                 </ContactShape>
                             </>
                         )}
