@@ -60,9 +60,7 @@ const DangerConfirmModal = ({ isDangerOpen, setIsDangerOpen, title, textToEnter 
             >
                 <div className="dangerConfirmModal">
                     <h1 className="dangerConfirmModal__title">{title}</h1>
-                    <p className="dangerConfirmModal__text">
-                        Enter the text below as it is:
-                    </p>
+                    <p className="dangerConfirmModal__text">Enter the text below:</p>
                     <h3 className="dangerConfirmModal__textToEnter">{textToEnter}</h3>
 
                     <div className="dangerConfirmModal__input">

@@ -13,7 +13,7 @@
     font-weight: 600;
     font-size: 1.1rem;
     text-transform: uppercase;
-    color: rgba(var(--primary-dark), 0.8);
+    color: rgba(var(--primary-dark), 0.5);
 }
 
 .dangerConfirmModal__text {
@@ -26,11 +26,12 @@
 .dangerConfirmModal__textToEnter {
     font-family: 'Poppins', sans-serif;
     color: rgba(var(--primary-dark), 0.9);
-    background-color: rgba(var(--primary-light), 0.05);
-    padding: 5px;
+    /* background-color: rgba(var(--primary-light), 0.05); */
+    padding: 5px 0;
     border-radius: 10px;
     font-weight: 600;
     margin-top: 5px;
+    font-size: 1.1rem;
 }
 
 .dangerConfirmModal__input {
