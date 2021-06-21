@@ -65,7 +65,7 @@ const DangerConfirmModal = ({ isDangerOpen, setIsDangerOpen, title, textToEnter 
 
                     <div className="dangerConfirmModal__input">
                         <span className="icon">
-                            <HubotIcon size={18} />
+                            <HubotIcon size={22} />
                         </span>
                         <input
                             autoFocus

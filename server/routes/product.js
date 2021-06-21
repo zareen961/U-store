@@ -7,6 +7,7 @@ const {
     productDelete,
     productUpdate,
     productFollowToggle,
+    productSearch,
 } = require('../controllers/product')
 
 const router = express.Router()
@@ -20,6 +21,11 @@ router.post('/', protectUser, productUpload)
 // @desc: To get all products for the logged in user’s college
 // @access: Private
 router.get('/', protectUser, productGetAll)
+
+// @route: GET /api/product/search/:query
+// @desc: To get all products for the query
+// @access: Private
+router.get('/search/:query', protectUser, productSearch)
 
 // @route: DELETE /api/product/:productID
 // @desc: To delete a product

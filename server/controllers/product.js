@@ -203,10 +203,20 @@ const productFollowToggle = asyncHandler(async (req, res) => {
     }
 })
 
+// to search a product based on provided query keyword
+const productSearch = asyncHandler(async (req, res) => {
+    const { query } = req.params
+
+    const foundProducts = await Product.fuzzySearch(query)
+
+    res.status(200).json(foundProducts)
+})
+
 module.exports = {
     productUpload,
     productGetAll,
     productDelete,
     productUpdate,
     productFollowToggle,
+    productSearch,
 }

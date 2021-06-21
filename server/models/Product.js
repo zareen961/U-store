@@ -1,4 +1,5 @@
 const { Schema, model, Types } = require('mongoose')
+const fuzzySearch = require('mongoose-fuzzy-searching')
 
 const productSchema = new Schema(
     {
@@ -47,5 +48,7 @@ const productSchema = new Schema(
     },
     { timestamps: true }
 )
+
+productSchema.plugin(fuzzySearch, { fields: ['name', 'description'] })
 
 module.exports = new model('Product', productSchema)
