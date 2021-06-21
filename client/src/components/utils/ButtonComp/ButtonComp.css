@@ -66,6 +66,55 @@
     margin: 0 !important;
 }
 
-.insideInputButton {
+.buttonComp.insideInputButton {
     margin: 10px;
+}
+
+.buttonComp.themePurple {
+    background-color: rgba(247, 251, 252, 1);
+    color: rgba(143, 110, 213, 1);
+    border-color: rgba(143, 110, 213, 1);
+}
+
+.buttonComp.themePurple:hover {
+    background-color: rgba(143, 110, 213, 1);
+    color: rgba(247, 251, 252, 1);
+    border-color: transparent;
+}
+
+.buttonComp.themeRed {
+    background-color: rgba(34, 40, 49, 1);
+    color: rgba(255, 113, 113, 1);
+    border-color: rgba(255, 113, 113, 1);
+    margin: 0 15px;
+}
+
+.buttonComp.themeRed:hover {
+    background-color: rgba(255, 113, 113, 1);
+    color: rgba(34, 40, 49, 1);
+    border-color: transparent;
+}
+
+.buttonComp.themeBlue {
+    background-color: rgba(0, 0, 0, 1);
+    color: rgba(14, 148, 200, 1);
+    border-color: rgba(14, 148, 200, 1);
+}
+
+.buttonComp.themeBlue:hover {
+    background-color: rgba(14, 148, 200, 1);
+    color: rgba(0, 0, 0, 1);
+    border-color: transparent;
+}
+
+.buttonComp.deleteAccount {
+    background-color: rgba(var(--secondary-light), 1);
+    color: crimson;
+    border-color: crimson;
+}
+
+.buttonComp.deleteAccount:hover {
+    background-color: crimson;
+    color: rgba(var(--secondary-light), 1);
+    border-color: transparent;
 }

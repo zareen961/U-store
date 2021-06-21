@@ -1,4 +1,4 @@
-.confirmModal {
+.dangerConfirmModal {
     display: flex;
     flex-direction: column;
     background-color: rgba(var(--secondary-light), 1);
@@ -7,25 +7,8 @@
     overflow-x: hidden !important;
 }
 
-.confirmModal .loaderLinear {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-left: 4px;
-    width: 98%;
-    border-radius: 15px !important;
-}
-
-.confirmModal .loaderLinear.MuiLinearProgress-colorPrimary {
-    background-color: rgba(var(--primary-light), 0.6);
-}
-
-.confirmModal .loaderLinear .MuiLinearProgress-barColorPrimary {
-    background-color: rgba(var(--primary-light), 1);
-}
-
-.confirmModal h1 {
-    margin-bottom: 10px;
+.dangerConfirmModal__title {
+    margin-bottom: 15px;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 1.1rem;
@@ -33,14 +16,24 @@
     color: rgba(var(--primary-dark), 0.8);
 }
 
-.confirmModal p {
+.dangerConfirmModal__text {
     color: rgba(var(--primary-light), 0.9);
     font-weight: 500;
     font-size: 0.9rem;
     font-family: 'Poppins', sans-serif;
 }
 
-.confirmModal__input {
+.dangerConfirmModal__textToEnter {
+    font-family: 'Poppins', sans-serif;
+    color: rgba(var(--primary-dark), 0.9);
+    background-color: rgba(var(--primary-light), 0.05);
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+.dangerConfirmModal__input {
     margin: 15px 0;
     height: 1.2rem;
     background-color: rgba(var(--primary-light), 0.08);
@@ -51,37 +44,37 @@
     align-items: center;
 }
 
-.confirmModal__input .icon {
+.dangerConfirmModal__input .icon {
     color: rgba(var(--primary-dark), 0.8);
     transition: all 0.5s ease-in;
     margin-top: -5px;
 }
 
-.confirmModal__input > input {
+.dangerConfirmModal__input > input {
     background-color: transparent;
     border: 0;
     flex: 1;
     margin: 0 10px;
-    color: rgba(var(--primary-dark), 1);
-    letter-spacing: 5px !important;
+    color: rgba(var(--primary-dark), 0.8);
+    letter-spacing: 0.5px !important;
     width: 150px;
     font-size: 1.1rem;
-    font-weight: 800;
+    font-weight: 600;
     transition: all 1s ease;
 }
 
-.confirmModal__input > input::placeholder {
+.dangerConfirmModal__input > input::placeholder {
     color: rgba(var(--primary-dark), 0.5);
     letter-spacing: 1px;
     font-weight: 600;
     font-size: 0.9rem;
 }
 
-.confirmModal__buttonsWrapper {
+.dangerConfirmModal__buttonsWrapper {
     display: flex;
     align-self: flex-end;
 }
 
-.confirmModal__buttonsWrapper .buttonComp:nth-child(1) {
+.dangerConfirmModal__buttonsWrapper .buttonComp:nth-child(1) {
     margin-right: 10px;
 }

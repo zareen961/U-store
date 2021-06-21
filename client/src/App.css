@@ -43,7 +43,7 @@ html {
     --gradient-extra: 255, 130, 100;
     --shadow-primary: rgba(var(--primary-dark), 0.4);
     --shadow-secondary: rgba(var(--secondary-light), 0.5);
-    --box-shadow: 0 0 7px 1px rgba(var(--primary-light), 0.2);
+    --box-shadow: 0 0 5px 1px rgba(var(--primary-light), 0.1);
 }
 
 .theme__BLUE {
@@ -54,7 +54,7 @@ html {
     --gradient-extra: 116, 249, 255;
     --shadow-primary: rgba(var(--primary-dark), 0.4);
     --shadow-secondary: rgba(var(--secondary-light), 0.5);
-    --box-shadow: 0 0 7px 1px rgba(var(--primary-light), 0.2);
+    --box-shadow: 0 0 5px 1px rgba(var(--primary-light), 0.1);
 }
 
 .app {

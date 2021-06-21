@@ -41,7 +41,7 @@
 
 /* Rounded Alerts Styling *****************************************************************/
 .alerts__box.rounded {
-    margin: 15px 0;
+    margin: 10px 0;
     align-items: center;
     padding: 10px 12px;
     display: flex;
