@@ -193,3 +193,31 @@ export const productFollowToggle = (product) => async (dispatch) => {
         dispatch(alertAdd(errorMsg, 'error'))
     }
 }
+
+// to search product among logged in user's college products
+export const productSearch = (query) => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.PRODUCT_SEARCH_REQUEST,
+        })
+
+        const { data } = await axiosInstance.get(`/api/product/search/${query}`)
+
+        dispatch({
+            type: actionTypes.PRODUCT_SEARCH_SUCCESS,
+            payload: data,
+        })
+    } catch (err) {
+        const errorMsg =
+            err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+
+        dispatch({
+            type: actionTypes.PRODUCT_SEARCH_FAIL,
+            payload: errorMsg,
+        })
+
+        dispatch(alertAdd(errorMsg, 'error'))
+    }
+}

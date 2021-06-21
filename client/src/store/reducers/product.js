@@ -266,3 +266,49 @@ export const productFollowToggleReducer = (
             return state
     }
 }
+
+export const productSearchReducer = (
+    state = { loading: false, result: [], error: null, success: false },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.PRODUCT_SEARCH_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                result: [],
+                success: false,
+            }
+
+        case actionTypes.PRODUCT_SEARCH_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                result: action.payload,
+                success: true,
+            }
+
+        case actionTypes.PRODUCT_SEARCH_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                result: [],
+                success: false,
+            }
+
+        case actionTypes.PRODUCT_SEARCH_CLEANUP:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                result: [],
+                success: false,
+            }
+
+        default:
+            return state
+    }
+}

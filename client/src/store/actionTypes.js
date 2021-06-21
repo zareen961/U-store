@@ -66,6 +66,11 @@ export const PRODUCT_EDIT_REQUEST = 'PRODUCT_EDIT_REQUEST'
 export const PRODUCT_EDIT_SUCCESS = 'PRODUCT_EDIT_SUCCESS'
 export const PRODUCT_EDIT_FAIL = 'PRODUCT_EDIT_FAIL'
 
+export const PRODUCT_SEARCH_REQUEST = 'PRODUCT_SEARCH_REQUEST'
+export const PRODUCT_SEARCH_SUCCESS = 'PRODUCT_SEARCH_SUCCESS'
+export const PRODUCT_SEARCH_FAIL = 'PRODUCT_SEARCH_FAIL'
+export const PRODUCT_SEARCH_CLEANUP = 'PRODUCT_SEARCH_CLEANUP'
+
 // BID ******************************************************************************************
 export const BID_PLACE_REQUEST = 'BID_PLACE_REQUEST'
 export const BID_PLACE_SUCCESS = 'BID_PLACE_SUCCESS'

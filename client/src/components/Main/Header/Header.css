@@ -45,38 +45,6 @@
     height: 40px;
 }
 
-.header__searchWrapper {
-    display: flex;
-    align-items: center;
-    background-color: rgba(var(--primary-light), 0.08);
-    height: 100%;
-    padding-left: 12px;
-    border-radius: 10px;
-    color: rgba(var(--primary-light), 0.8);
-    margin-right: 20px;
-}
-
-.header__searchWrapper > input {
-    background-color: transparent;
-    border: 0;
-    flex: 1;
-    margin: 0 10px;
-    color: rgba(var(--primary-dark), 1);
-    letter-spacing: 1px;
-    width: 150px;
-    transition: all 0.5s ease;
-}
-
-.header__searchWrapper > input::placeholder {
-    color: rgba(var(--primary-light), 0.8);
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-.header__searchWrapper > input:focus {
-    width: 300px;
-}
-
 .header__menuWrapper {
     position: relative;
 }
