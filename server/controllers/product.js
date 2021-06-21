@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const { ObjectID } = require('mongodb')
+const FuzzySearch = require('fuzzy-search')
 
 const Product = require('../models/Product')
 const User = require('../models/User')
@@ -207,9 +208,31 @@ const productFollowToggle = asyncHandler(async (req, res) => {
 const productSearch = asyncHandler(async (req, res) => {
     const { query } = req.params
 
-    const foundProducts = await Product.fuzzySearch(query)
+    const collegeProducts = await Product.find({
+        college: req.authUser.college,
+    })
+        .select('_id name description image productOwner price')
+        .populate({
+            path: 'productOwner',
+            select: 'username',
+        })
 
-    res.status(200).json(foundProducts)
+    const searcher = new FuzzySearch(
+        collegeProducts,
+        ['name', 'description', 'productOwner.username'],
+        { sort: true }
+    )
+
+    let searchedProducts = searcher.search(query)
+
+    searchedProducts = searchedProducts.map((product) => ({
+        ...product._doc,
+        description: undefined,
+        productOwner: product.productOwner.username,
+        image: product.image.url,
+    }))
+
+    res.status(200).json(searchedProducts)
 })
 
 module.exports = {
