@@ -7,6 +7,7 @@
     border-radius: 10px;
     color: rgba(var(--primary-light), 0.8);
     margin-right: 20px;
+    position: relative;
 }
 
 .searchBar > input {
@@ -32,4 +33,32 @@
 
 .searchBar__clearIcon {
     color: rgba(var(--primary-light), 1) !important;
+}
+
+.searchBar__resultWrapper {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    border-radius: 0 0 15px 15px;
+    width: 100%;
+    background-color: rgba(var(--secondary-light), 1);
+    padding: 15px 10px 5px;
+    box-sizing: border-box;
+    box-shadow: 0px 3px 5px rgba(var(--primary-light), 0.08),
+        0px -1px 5px rgba(var(--primary-light), 0.01),
+        -3px 3px 7px rgba(var(--primary-light), 0.08),
+        3px 3px 7px rgba(var(--primary-light), 0.08);
+}
+
+.searchBar__loaderWrapper {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    padding: 15px 0;
+}
+
+.searchBar__message {
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px 0;
 }

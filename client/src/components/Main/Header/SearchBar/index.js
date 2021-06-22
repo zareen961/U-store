@@ -2,9 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { SearchIcon, XIcon } from '@primer/octicons-react'
 import IconButton from '@material-ui/core/IconButton'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
 import { productSearch } from '../../../../store/actions/product'
 import { PRODUCT_SEARCH_CLEANUP } from '../../../../store/actionTypes'
+import SearchItem from '../SearchItem'
+import Loader from '../../../utils/Loader'
 import './SearchBar.css'
 
 const DEBOUNCE_TIME = 2000
@@ -41,20 +44,37 @@ const SearchBar = () => {
     return (
         <div className="searchBar">
             <SearchIcon size={18} />
-            <input
-                id="searchInputID"
-                type="text"
-                placeholder="Search"
-                value={query}
-                onChange={(e) => {
-                    setQuery(e.target.value)
-                }}
-            />
+            <ClickAwayListener onClickAway={() => setQuery('')}>
+                <input
+                    id="searchInputID"
+                    type="text"
+                    placeholder="Search"
+                    value={query}
+                    onChange={(e) => {
+                        setQuery(e.target.value)
+                    }}
+                />
+            </ClickAwayListener>
             {query && (
                 <IconButton onClick={() => setQuery('')} className="searchBar__clearIcon">
                     <XIcon size={18} />
                 </IconButton>
             )}
+
+            <div className="searchBar__resultWrapper">
+                {loading ? (
+                    <div className="searchBar__loaderWrapper">
+                        <Loader />
+                    </div>
+                ) : result && result.length === 0 ? (
+                    <p className="searchBar__message">No results found!</p>
+                ) : (
+                    result &&
+                    result.map((product) => (
+                        <SearchItem product={product} key={product._id} />
+                    ))
+                )}
+            </div>
         </div>
     )
 }

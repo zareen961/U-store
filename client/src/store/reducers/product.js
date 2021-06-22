@@ -268,7 +268,7 @@ export const productFollowToggleReducer = (
 }
 
 export const productSearchReducer = (
-    state = { loading: false, result: [], error: null, success: false },
+    state = { loading: false, result: null, error: null, success: false },
     action
 ) => {
     switch (action.type) {
@@ -277,7 +277,7 @@ export const productSearchReducer = (
                 ...state,
                 loading: true,
                 error: null,
-                result: [],
+                result: null,
                 success: false,
             }
 
@@ -295,7 +295,7 @@ export const productSearchReducer = (
                 ...state,
                 loading: false,
                 error: action.payload,
-                result: [],
+                result: null,
                 success: false,
             }
 
@@ -304,7 +304,7 @@ export const productSearchReducer = (
                 ...state,
                 loading: false,
                 error: null,
-                result: [],
+                result: null,
                 success: false,
             }
 
