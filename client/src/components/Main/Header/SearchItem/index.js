@@ -1,6 +1,7 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 import { TagIcon } from '@primer/octicons-react'
+import moment from 'moment'
 
 import './SearchItem.css'
 
@@ -33,6 +34,8 @@ const SearchItem = ({ product }) => {
                     )}
                 </p>
             </div>
+
+            <span className="timestamp">{moment(product.createdAt).fromNow()}</span>
         </div>
     )
 }

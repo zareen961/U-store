@@ -43,38 +43,46 @@ const SearchBar = () => {
 
     return (
         <div className="searchBar">
-            <SearchIcon size={18} />
             <ClickAwayListener onClickAway={() => setQuery('')}>
-                <input
-                    id="searchInputID"
-                    type="text"
-                    placeholder="Search"
-                    value={query}
-                    onChange={(e) => {
-                        setQuery(e.target.value)
-                    }}
-                />
+                <div className="searchBar__inputWrapper">
+                    <SearchIcon size={18} />
+                    <input
+                        id="searchInputID"
+                        type="text"
+                        placeholder="Search"
+                        value={query}
+                        onChange={(e) => {
+                            setQuery(e.target.value)
+                        }}
+                        autoComplete="new-password"
+                    />
+                    {query && (
+                        <IconButton
+                            onClick={() => setQuery('')}
+                            className="searchBar__clearIcon"
+                        >
+                            <XIcon size={18} />
+                        </IconButton>
+                    )}
+                </div>
             </ClickAwayListener>
-            {query && (
-                <IconButton onClick={() => setQuery('')} className="searchBar__clearIcon">
-                    <XIcon size={18} />
-                </IconButton>
-            )}
 
-            <div className="searchBar__resultWrapper">
-                {loading ? (
-                    <div className="searchBar__loaderWrapper">
-                        <Loader />
-                    </div>
-                ) : result && result.length === 0 ? (
-                    <p className="searchBar__message">No results found!</p>
-                ) : (
-                    result &&
-                    result.map((product) => (
-                        <SearchItem product={product} key={product._id} />
-                    ))
-                )}
-            </div>
+            {query && (
+                <div className="searchBar__resultWrapper">
+                    {loading ? (
+                        <div className="searchBar__loaderWrapper">
+                            <Loader />
+                        </div>
+                    ) : result && result.length === 0 ? (
+                        <p className="searchBar__message">No results found!</p>
+                    ) : (
+                        result &&
+                        result.map((product) => (
+                            <SearchItem product={product} key={product._id} />
+                        ))
+                    )}
+                </div>
+            )}
         </div>
     )
 }

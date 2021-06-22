@@ -4,8 +4,8 @@ const FuzzySearch = require('fuzzy-search')
 
 const Product = require('../models/Product')
 const User = require('../models/User')
-const Bid = require('../models/Bid')
 const validateProductInputs = require('../validators/product')
+const { SEARCH_RESULTS_LIMIT } = require('../utils/constants')
 
 // to upload new product
 const productUpload = asyncHandler(async (req, res) => {
@@ -210,8 +210,9 @@ const productSearch = asyncHandler(async (req, res) => {
 
     const collegeProducts = await Product.find({
         college: req.authUser.college,
+        isActive: true,
     })
-        .select('_id name description image productOwner price')
+        .select('_id name description image productOwner price createdAt')
         .populate({
             path: 'productOwner',
             select: 'username',
@@ -225,12 +226,14 @@ const productSearch = asyncHandler(async (req, res) => {
 
     let searchedProducts = searcher.search(query)
 
-    searchedProducts = searchedProducts.map((product) => ({
-        ...product._doc,
-        description: undefined,
-        productOwner: product.productOwner.username,
-        image: product.image.url,
-    }))
+    searchedProducts = searchedProducts
+        .map((product) => ({
+            ...product._doc,
+            description: undefined,
+            productOwner: product.productOwner.username,
+            image: product.image.url,
+        }))
+        .slice(0, SEARCH_RESULTS_LIMIT)
 
     res.status(200).json(searchedProducts)
 })

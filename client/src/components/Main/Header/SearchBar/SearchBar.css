@@ -1,4 +1,11 @@
 .searchBar {
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+    margin-right: 20px;
+}
+
+.searchBar__inputWrapper {
     display: flex;
     align-items: center;
     background-color: rgba(var(--primary-light), 0.08);
@@ -6,11 +13,10 @@
     padding-left: 12px;
     border-radius: 10px;
     color: rgba(var(--primary-light), 0.8);
-    margin-right: 20px;
     position: relative;
 }
 
-.searchBar > input {
+.searchBar__inputWrapper > input {
     background-color: transparent;
     border: 0;
     flex: 1;
@@ -21,18 +27,20 @@
     transition: all 0.5s ease;
 }
 
-.searchBar > input::placeholder {
+.searchBar__inputWrapper > input::placeholder {
     color: rgba(var(--primary-light), 0.8);
     font-weight: 600;
     letter-spacing: 1px;
 }
 
-.searchBar > input:focus {
+.searchBar__inputWrapper > input:focus {
     width: 300px;
 }
 
 .searchBar__clearIcon {
     color: rgba(var(--primary-light), 1) !important;
+    position: absolute !important;
+    right: 0 !important;
 }
 
 .searchBar__resultWrapper {
@@ -46,19 +54,19 @@
     box-sizing: border-box;
     box-shadow: 0px 3px 5px rgba(var(--primary-light), 0.08),
         0px -1px 5px rgba(var(--primary-light), 0.01),
-        -3px 3px 7px rgba(var(--primary-light), 0.08),
-        3px 3px 7px rgba(var(--primary-light), 0.08);
+        -3px 3px 5px rgba(var(--primary-light), 0.08),
+        3px 3px 5px rgba(var(--primary-light), 0.08);
 }
 
 .searchBar__loaderWrapper {
     width: 100%;
     display: grid;
     place-items: center;
-    padding: 15px 0;
+    padding: 10px 0 15px;
 }
 
 .searchBar__message {
     font-size: 0.9rem;
     text-align: center;
-    padding: 10px 0;
+    padding: 10px 0 15px;
 }

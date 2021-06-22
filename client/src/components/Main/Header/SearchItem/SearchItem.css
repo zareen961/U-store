@@ -7,6 +7,7 @@
     margin-bottom: 10px;
     transition: all 0.2s ease-in;
     cursor: pointer;
+    position: relative;
 }
 
 .searchItem__image {
@@ -41,7 +42,7 @@
 
 .searchItem__detailsWrapper > h3 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 500;
     color: rgba(var(--primary-light), 1);
 }
 
@@ -55,10 +56,19 @@
     margin-left: auto;
     align-self: flex-start;
     display: flex;
-    font-size: 1.2rem;
+    font-size: 1rem;
     align-items: center;
+    color: rgba(var(--primary-light), 1);
 }
 
 .searchItem__priceWrapper > p {
     margin-left: 5px;
+}
+
+.searchItem .timestamp {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 0.7rem;
+    color: rgba(var(--primary-dark), 0.5);
 }
