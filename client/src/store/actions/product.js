@@ -221,3 +221,31 @@ export const productSearch = (query) => async (dispatch) => {
         dispatch(alertAdd(errorMsg, 'error'))
     }
 }
+
+// to search product among logged in user's college products
+export const productSingleFetch = (productID) => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.PRODUCT_SINGLE_FETCH_REQUEST,
+        })
+
+        const { data } = await axiosInstance.get(`/api/product/${productID}`)
+
+        dispatch({
+            type: actionTypes.PRODUCT_SINGLE_FETCH_SUCCESS,
+            payload: data,
+        })
+    } catch (err) {
+        const errorMsg =
+            err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
+
+        dispatch({
+            type: actionTypes.PRODUCT_SINGLE_FETCH_FAIL,
+            payload: errorMsg,
+        })
+
+        dispatch(alertAdd(errorMsg, 'error'))
+    }
+}

@@ -2,12 +2,25 @@ import React from 'react'
 import NumberFormat from 'react-number-format'
 import { TagIcon } from '@primer/octicons-react'
 import moment from 'moment'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
+import { productSingleFetch } from '../../../../store/actions/product'
 import './SearchItem.css'
 
 const SearchItem = ({ product }) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    const productSlug = product.name.toLowerCase().split(' ').join('-')
+
+    const handleSearchResultOnClick = () => {
+        dispatch(productSingleFetch(product._id))
+        history.push(`/products/${productSlug}`)
+    }
+
     return (
-        <div className="searchItem">
+        <div className="searchItem" onClick={handleSearchResultOnClick}>
             <div className="searchItem__image">
                 <img src={product.image} alt="product" />
             </div>

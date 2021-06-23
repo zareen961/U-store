@@ -182,6 +182,7 @@ export const userLogout = (history) => (dispatch) => {
     dispatch({ type: actionTypes.USER_PRODUCTS_CLEANUP })
     dispatch({ type: actionTypes.USER_BIDS_CLEANUP })
     dispatch({ type: actionTypes.USER_FOLLOWING_CLEANUP })
+    dispatch({ type: actionTypes.PRODUCT_SINGLE_CLEANUP })
     if (history) {
         history.replace('/')
     }

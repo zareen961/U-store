@@ -1,0 +1,6 @@
+.productSingle {
+    background-color: rgba(var(--primary-light), 0.08);
+    min-height: 90vh;
+    box-sizing: border-box;
+    padding-top: 30px;
+}

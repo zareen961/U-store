@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { SunIcon, HeartFillIcon, MoonIcon, AlertIcon } from '@primer/octicons-react'
+import {
+    SunIcon,
+    HeartFillIcon,
+    MoonIcon,
+    AlertIcon,
+    ReplyIcon,
+} from '@primer/octicons-react'
+import { useHistory } from 'react-router-dom'
 
 import BlockHeader from '../../../components/utils/BlockHeader'
 import ButtonComp from '../../../components/utils/ButtonComp'
@@ -11,6 +18,7 @@ import './Settings.css'
 
 const Settings = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const [isDangerOpen, setIsDangerOpen] = useState(false)
 
@@ -18,7 +26,15 @@ const Settings = () => {
         <>
             <div className="settings">
                 <div className="settings__headerWrapper">
-                    <BlockHeader title={'Settings'} />
+                    <BlockHeader title={'Settings'}>
+                        <ButtonComp
+                            typeClass={'secondary'}
+                            text={'Go Back'}
+                            handleOnClick={history.goBack}
+                        >
+                            <ReplyIcon size={18} />
+                        </ButtonComp>
+                    </BlockHeader>
                 </div>
 
                 <div className="settings__bodyWrapper">

@@ -4,6 +4,7 @@
     background-color: rgba(var(--secondary-light), 1);
     border-radius: 15px;
     overflow: hidden;
+    max-height: 350px;
     box-shadow: var(--box-shadow);
 }
 
@@ -16,9 +17,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
 
-.singleCard__totalBidsCount {
+.singleProductCard__totalBidsCount {
     z-index: 2;
     position: absolute;
     width: 60px;
@@ -32,9 +34,9 @@
     border: 5px solid rgba(var(--secondary-light), 1);
 }
 
-.singleCard__totalBidsCount h3 {
+.singleProductCard__totalBidsCount h3 {
     color: rgba(var(--secondary-light), 1);
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: 500;
 }
 
@@ -77,4 +79,5 @@
 .singleProductCard__footer .highestBid > span,
 .singleProductCard__footer .acceptedBids > span {
     margin-top: 4px;
+    font-size: 1.2rem;
 }

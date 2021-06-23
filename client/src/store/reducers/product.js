@@ -312,3 +312,49 @@ export const productSearchReducer = (
             return state
     }
 }
+
+export const productSingleFetchReducer = (
+    state = { loading: false, product: null, error: null, success: false },
+    action
+) => {
+    switch (action.type) {
+        case actionTypes.PRODUCT_SINGLE_FETCH_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+                product: null,
+                success: false,
+            }
+
+        case actionTypes.PRODUCT_SINGLE_FETCH_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                product: action.payload,
+                success: true,
+            }
+
+        case actionTypes.PRODUCT_SINGLE_FETCH_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                product: null,
+                success: false,
+            }
+
+        case actionTypes.PRODUCT_SINGLE_CLEANUP:
+            return {
+                ...state,
+                loading: false,
+                error: null,
+                product: null,
+                success: false,
+            }
+
+        default:
+            return state
+    }
+}

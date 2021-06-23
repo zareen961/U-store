@@ -7,9 +7,12 @@ import {
     GiftIcon,
     MegaphoneIcon,
     DeviceCameraIcon,
+    ReplyIcon,
 } from '@primer/octicons-react'
+import { useHistory } from 'react-router-dom'
 
 import ScreenLoader from '../../../components/utils/ScreenLoader'
+import ButtonComp from '../../../components/utils/ButtonComp'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
 import ContactCard from '../../../components/Main/Contact/ContactCard'
 import ContactShape from '../../../components/Main/Contact/ContactShape'
@@ -17,6 +20,8 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import './Contact.css'
 
 const Contact = () => {
+    const history = useHistory()
+
     const {
         loading,
         contactData: { contact, product },
@@ -27,7 +32,15 @@ const Contact = () => {
     return (
         <div className="contact">
             <div className="contact__headerWrapper">
-                <BlockHeader title={'Contact Details'} />
+                <BlockHeader title={'Contact Details'}>
+                    <ButtonComp
+                        typeClass={'secondary'}
+                        text={'Go Back'}
+                        handleOnClick={history.goBack}
+                    >
+                        <ReplyIcon size={18} />
+                    </ButtonComp>
+                </BlockHeader>
             </div>
 
             {loading ? (
