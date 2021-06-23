@@ -67,7 +67,7 @@ const SearchBar = () => {
                 </div>
             </ClickAwayListener>
 
-            {query && (
+            {(loading || result) && (
                 <div className="searchBar__resultWrapper">
                     {loading ? (
                         <div className="searchBar__loaderWrapper">

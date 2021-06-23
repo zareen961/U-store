@@ -238,6 +238,40 @@ const productSearch = asyncHandler(async (req, res) => {
     res.status(200).json(searchedProducts)
 })
 
+// to get a single product by its ID
+const productGetOne = asyncHandler(async (req, res) => {
+    const { productID } = req.params
+
+    const foundProduct = await Product.findOne({
+        college: req.authUser.college,
+        _id: productID,
+    }).populate({
+        path: 'bids productOwner',
+        select: '_id price status bidOwner username avatar createdAt',
+        populate: {
+            path: 'bidOwner',
+            select: '_id username avatar',
+        },
+    })
+
+    if (!foundProduct) {
+        res.status(500)
+        throw new Error('No product found!')
+    }
+
+    // checking if the product is deleted
+    if (!foundProduct.isActive) {
+        res.status(400)
+        throw new Error('The product is deleted!')
+    }
+
+    foundProduct.isActive = undefined
+    foundProduct.college = undefined
+    foundProduct.updatedAt = undefined
+
+    res.status(200).json(foundProduct)
+})
+
 module.exports = {
     productUpload,
     productGetAll,
@@ -245,4 +279,5 @@ module.exports = {
     productUpdate,
     productFollowToggle,
     productSearch,
+    productGetOne,
 }

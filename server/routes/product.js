@@ -8,6 +8,7 @@ const {
     productUpdate,
     productFollowToggle,
     productSearch,
+    productGetOne,
 } = require('../controllers/product')
 
 const router = express.Router()
@@ -21,6 +22,11 @@ router.post('/', protectUser, productUpload)
 // @desc: To get all products for the logged in user’s college
 // @access: Private
 router.get('/', protectUser, productGetAll)
+
+// @route: GET /api/product/:productID
+// @desc: To a product by its ID for the logged in user’s college
+// @access: Private
+router.get('/:productID', protectUser, productGetOne)
 
 // @route: GET /api/product/search/:query
 // @desc: To get all products for the query
