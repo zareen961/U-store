@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { MegaphoneIcon, XIcon } from '@primer/octicons-react'
 
@@ -26,6 +26,12 @@ const BidEditInput = ({
     const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
         (state) => state.bidPlace
     )
+
+    const inputRef = useRef('')
+
+    useEffect(() => {
+        inputRef.current.focus()
+    })
 
     // function to edit an existing bid
     const handleBidEdit = () => {
@@ -64,10 +70,12 @@ const BidEditInput = ({
             <div className="bidEditInput__wrapper">
                 <MegaphoneIcon size={20} />
                 <input
+                    ref={inputRef}
                     type="number"
                     placeholder={isNew ? 'Place new bid' : 'Adjust your bid'}
                     value={bidVal}
                     onChange={(e) => setBidVal(e.target.value)}
+                    autoFocus
                 />
                 <ButtonComp
                     typeClass={'primary'}

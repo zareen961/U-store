@@ -72,7 +72,7 @@ const BidCard = ({
 
     // function to edit bid price
     const handleBidPriceEdit = () => {
-        setIsBidMoreOpen(false)
+        if (setIsBidMoreOpen) setIsBidMoreOpen(false)
         setIsBidEditOpen(true)
     }
 
@@ -102,7 +102,7 @@ const BidCard = ({
         <>
             <div className="bidCard">
                 <Avatar
-                    src={`avatars/avatar${bid.bidOwner.avatar}.png`}
+                    src={`/avatars/avatar${bid.bidOwner.avatar}.png`}
                     className="bidCard__avatar"
                     onClick={handleCallGetContact}
                 />

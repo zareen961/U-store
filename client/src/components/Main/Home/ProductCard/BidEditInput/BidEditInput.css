@@ -5,22 +5,26 @@
     z-index: 2;
     display: flex;
     align-items: center;
-    background-color: rgba(var(--secondary-light), 1);
     border-radius: 15px;
     border: 1px solid transparent;
     overflow: hidden;
     transition: all 0.3s ease;
     padding: 0px;
     max-height: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
 }
 
 .bidEditInput.open {
+    background-color: rgba(var(--secondary-light), 1);
     padding: 20px;
     max-height: 300px;
     border-color: rgba(var(--primary-light), 0.3);
 }
 
 .bidEditInput__wrapper {
+    flex: 1;
     display: flex;
     align-items: center;
     background-color: rgba(var(--primary-light), 0.08);

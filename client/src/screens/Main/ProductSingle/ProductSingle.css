@@ -4,3 +4,24 @@
     box-sizing: border-box;
     padding-top: 30px;
 }
+
+.productSingle__bodyWrapper .bidCard {
+    background-color: rgba(var(--secondary-light), 1);
+    box-shadow: var(--box-shadow);
+}
+
+.productSingle__place {
+    position: relative;
+    background-color: rgba(var(--secondary-light), 1);
+    margin: 25px 0 20px;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.productSingle__bodyWrapper .bidCard__price {
+    background-color: rgba(var(--primary-light), 1);
+}
+
+.productSingle__bodyWrapper .bidCard__price h3 {
+    color: rgba(var(--secondary-light), 1) !important;
+}

@@ -314,7 +314,7 @@ export const productSearchReducer = (
 }
 
 export const productSingleFetchReducer = (
-    state = { loading: false, product: null, error: null, success: false },
+    state = { loading: false, product: { bids: [] }, error: null, success: false },
     action
 ) => {
     switch (action.type) {
@@ -323,7 +323,7 @@ export const productSingleFetchReducer = (
                 ...state,
                 loading: true,
                 error: null,
-                product: null,
+                product: { bids: [] },
                 success: false,
             }
 
@@ -341,7 +341,7 @@ export const productSingleFetchReducer = (
                 ...state,
                 loading: false,
                 error: action.payload,
-                product: null,
+                product: { bids: [] },
                 success: false,
             }
 
@@ -350,7 +350,7 @@ export const productSingleFetchReducer = (
                 ...state,
                 loading: false,
                 error: null,
-                product: null,
+                product: { bids: [] },
                 success: false,
             }
 

@@ -6,6 +6,7 @@
     overflow: hidden;
     max-height: 350px;
     box-shadow: var(--box-shadow);
+    margin-bottom: 20px;
 }
 
 .singleProductCard__imageWrapper {
