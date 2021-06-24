@@ -94,24 +94,3 @@
     flex: 1;
     position: relative;
 }
-
-.productCard__myBid {
-    flex: 1;
-    display: flex;
-    align-items: center;
-}
-
-.productCard__myBid > h3 {
-    margin: 0 8px;
-    font-weight: 500;
-    font-size: 1rem;
-}
-
-.productCard__myBid > span {
-    background-color: rgba(var(--primary-light), 1);
-    color: rgba(var(--secondary-light), 1);
-    font-weight: 500;
-    font-size: 1.1rem;
-    padding: 2px 10px;
-    border-radius: 10px;
-}

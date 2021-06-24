@@ -3,6 +3,7 @@
     min-height: 90vh;
     box-sizing: border-box;
     padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .productSingle__bodyWrapper .bidCard {
@@ -10,12 +11,40 @@
     box-shadow: var(--box-shadow);
 }
 
-.productSingle__place {
+.productSingle__action {
+    display: flex;
+    align-items: center;
+    flex: 1;
     position: relative;
     background-color: rgba(var(--secondary-light), 1);
-    margin: 25px 0 20px;
-    padding: 15px;
-    border-radius: 15px;
+    margin: -2px 0 20px;
+    border-radius: 0 0 15px 15px;
+    padding: 25px 20px;
+    box-shadow: 0px 3px 5px rgba(var(--primary-light), 0.08),
+        0px -1px 5px rgba(var(--primary-light), 0),
+        -3px 3px 5px rgba(var(--primary-light), 0.08),
+        3px 3px 5px rgba(var(--primary-light), 0.08);
+}
+
+.productSingle__myBid {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.productSingle__myBid > h3 {
+    margin: 0 8px;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.productSingle__myBid > span {
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    font-weight: 500;
+    font-size: 1.1rem;
+    padding: 2px 10px;
+    border-radius: 10px;
 }
 
 .productSingle__bodyWrapper .bidCard__price {

@@ -26,7 +26,7 @@ const AvatarHeader = ({ product }) => {
     return (
         <div className="avatarHeader">
             <Avatar
-                src={`avatars/avatar${product.productOwner.avatar}.png`}
+                src={`/avatars/avatar${product.productOwner.avatar}.png`}
                 className="avatarHeader__avatar"
                 onClick={handleCallGetContact}
             />

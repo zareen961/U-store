@@ -1,16 +1,29 @@
-import React, { useState } from 'react'
-import moment from 'moment'
+import React, { useState, useEffect } from 'react'
 import { CheckCircleIcon, TagIcon, GraphIcon } from '@primer/octicons-react'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ProductDetails from '../../../utils/ProductDetails'
+import ConfirmModal from '../../../utils/ConfirmModal'
 import TooltipComp from '../../../utils/TooltipComp'
 import ImageModal from '../../Home/ProductCard/ImageModal'
+import AvatarHeader from '../../Home/ProductCard/AvatarHeader'
+import ActionFooter from '../../Home/ProductCard/ActionFooter'
+import DotsMenu from '../../Home/ProductCard/DotsMenu'
+import { productDelete } from '../../../../store/actions/product'
 import './SingleProductCard.css'
 
-const SingleProductCard = ({ product }) => {
+const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
+    const dispatch = useDispatch()
+
+    const { user } = useSelector((state) => state.userLogin)
+    const { loading: loadingProductDelete, success: successProductDelete } = useSelector(
+        (state) => state.productDelete
+    )
+
     const [isImageOpen, setIsImageOpen] = useState(false)
+    const [isProductDeleteOpen, setIsProductDeleteOpen] = useState(false)
 
     const highestBid =
         product.bids.length > 0
@@ -18,6 +31,18 @@ const SingleProductCard = ({ product }) => {
             : 0
 
     const acceptedBids = product.bids.filter((bid) => bid.status === 'ACCEPTED').length
+
+    // product delete function
+    const handleProductDelete = () => {
+        dispatch(productDelete(product._id))
+    }
+
+    // to close the confirm modal on product delete success
+    useEffect(() => {
+        if (successProductDelete) {
+            setIsProductDeleteOpen(false)
+        }
+    }, [successProductDelete])
 
     return (
         <>
@@ -37,14 +62,20 @@ const SingleProductCard = ({ product }) => {
                 </div>
 
                 <div className="singleProductCard__detailsWrapper">
-                    <span className="timestamp">
-                        {moment(product.createdAt).fromNow()}
-                    </span>
+                    <div className="singleProductCard__headerWrapper">
+                        <AvatarHeader product={product} />
+
+                        {String(user.userInfo._id) ===
+                            String(product.productOwner._id) && (
+                            <DotsMenu setIsProductDeleteOpen={setIsProductDeleteOpen} />
+                        )}
+                    </div>
+
                     <ProductDetails
                         name={product.name}
                         description={product.description}
                     />
-                    <div className="singleProductCard__footer">
+                    <div className="singleProductCard__statsWrapper">
                         <TooltipComp placement={'top'} title={'Product Price'}>
                             <div className="price">
                                 <TagIcon size={22} />
@@ -87,6 +118,14 @@ const SingleProductCard = ({ product }) => {
                         </TooltipComp>
                     </div>
                 </div>
+
+                <div className="singleProduct__footerWrapper">
+                    <ActionFooter
+                        product={product}
+                        isBidEditOpen={isBidEditOpen}
+                        setIsBidEditOpen={setIsBidEditOpen}
+                    />
+                </div>
             </div>
 
             {/* Image Modal */}
@@ -95,6 +134,15 @@ const SingleProductCard = ({ product }) => {
                 setIsOpen={setIsImageOpen}
                 productImage={product.image.url}
                 productName={product.name}
+            />
+
+            {/* Confirm Product Delete Modal */}
+            <ConfirmModal
+                isOpen={isProductDeleteOpen}
+                setIsOpen={setIsProductDeleteOpen}
+                handleOnConfirm={handleProductDelete}
+                isSecure={false}
+                isLoading={loadingProductDelete}
             />
         </>
     )

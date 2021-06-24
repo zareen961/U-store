@@ -4,12 +4,13 @@
     background-color: rgba(var(--secondary-light), 1);
     border-radius: 15px;
     overflow: hidden;
-    max-height: 350px;
     box-shadow: var(--box-shadow);
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .singleProductCard__imageWrapper {
+    max-height: 350px;
     flex: 0.45;
     position: relative;
 }
@@ -43,31 +44,32 @@
 
 .singleProductCard__detailsWrapper {
     flex: 0.55;
-    padding: 50px 30px 40px 30px;
+    padding: 20px 30px 20px 50px;
     display: flex;
     flex-direction: column;
 }
 
-.singleProductCard__detailsWrapper .timestamp {
-    align-self: flex-end;
-    font-size: 0.8rem;
-    color: rgba(var(--primary-light), 0.9);
-    margin-bottom: 20px;
+.singleProductCard__headerWrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    margin-bottom: 15px;
 }
 
 .singleProductCard__detailsWrapper .productDetails {
     margin-bottom: 15px;
 }
 
-.singleProductCard__footer {
+.singleProductCard__statsWrapper {
     margin-top: auto;
     display: flex;
     justify-content: space-around;
 }
 
-.singleProductCard__footer .price,
-.singleProductCard__footer .highestBid,
-.singleProductCard__footer .acceptedBids {
+.singleProductCard__statsWrapper .price,
+.singleProductCard__statsWrapper .highestBid,
+.singleProductCard__statsWrapper .acceptedBids {
     display: flex;
     color: rgba(var(--primary-dark), 0.7);
     font-weight: 600;
@@ -76,9 +78,14 @@
     align-items: center;
 }
 
-.singleProductCard__footer .price > span,
-.singleProductCard__footer .highestBid > span,
-.singleProductCard__footer .acceptedBids > span {
+.singleProductCard__statsWrapper .price > span,
+.singleProductCard__statsWrapper .highestBid > span,
+.singleProductCard__statsWrapper .acceptedBids > span {
     margin-top: 4px;
     font-size: 1.2rem;
+}
+
+.singleProduct__footerWrapper {
+    flex: 100%;
+    padding: 15px;
 }
