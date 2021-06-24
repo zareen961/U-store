@@ -1,28 +1,28 @@
-.singleProductCard {
+.productSingleCard {
     display: flex;
-    min-height: 300px;
+    min-height: 400px;
     background-color: rgba(var(--secondary-light), 1);
     border-radius: 15px;
-    overflow: hidden;
     box-shadow: var(--box-shadow);
     margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
-.singleProductCard__imageWrapper {
-    max-height: 350px;
+.productSingleCard__imageWrapper {
+    min-height: 320px;
+    max-height: 400px;
     flex: 0.45;
     position: relative;
 }
 
-.singleProductCard__imageWrapper img {
+.productSingleCard__imageWrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     cursor: pointer;
 }
 
-.singleProductCard__totalBidsCount {
+.productSingleCard__totalBidsCount {
     z-index: 2;
     position: absolute;
     width: 60px;
@@ -36,40 +36,40 @@
     border: 5px solid rgba(var(--secondary-light), 1);
 }
 
-.singleProductCard__totalBidsCount h3 {
+.productSingleCard__totalBidsCount h3 {
     color: rgba(var(--secondary-light), 1);
     font-size: 1.4rem;
     font-weight: 500;
 }
 
-.singleProductCard__detailsWrapper {
+.productSingleCard__detailsWrapper {
     flex: 0.55;
     padding: 20px 30px 20px 50px;
     display: flex;
     flex-direction: column;
 }
 
-.singleProductCard__headerWrapper {
+.productSingleCard__headerWrapper {
     display: flex;
     align-items: center;
     width: 100%;
     position: relative;
+    margin-bottom: 25px;
+}
+
+.productSingleCard__detailsWrapper .productDetails {
     margin-bottom: 15px;
 }
 
-.singleProductCard__detailsWrapper .productDetails {
-    margin-bottom: 15px;
-}
-
-.singleProductCard__statsWrapper {
+.productSingleCard__statsWrapper {
     margin-top: auto;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
-.singleProductCard__statsWrapper .price,
-.singleProductCard__statsWrapper .highestBid,
-.singleProductCard__statsWrapper .acceptedBids {
+.productSingleCard__statsWrapper .price,
+.productSingleCard__statsWrapper .highestBid,
+.productSingleCard__statsWrapper .acceptedBids {
     display: flex;
     color: rgba(var(--primary-dark), 0.7);
     font-weight: 600;
@@ -78,14 +78,14 @@
     align-items: center;
 }
 
-.singleProductCard__statsWrapper .price > span,
-.singleProductCard__statsWrapper .highestBid > span,
-.singleProductCard__statsWrapper .acceptedBids > span {
+.productSingleCard__statsWrapper .price > span,
+.productSingleCard__statsWrapper .highestBid > span,
+.productSingleCard__statsWrapper .acceptedBids > span {
     margin-top: 4px;
     font-size: 1.2rem;
 }
 
-.singleProduct__footerWrapper {
+.productSingleCard__footerWrapper {
     flex: 100%;
-    padding: 15px;
+    padding: 15px 30px;
 }

@@ -73,7 +73,7 @@ const BidCard = ({
     // function to edit bid price
     const handleBidPriceEdit = () => {
         if (setIsBidMoreOpen) setIsBidMoreOpen(false)
-        setIsBidEditOpen(true)
+        setIsBidEditOpen((prevIsBidEditOpen) => !prevIsBidEditOpen)
     }
 
     // function to delete a bid

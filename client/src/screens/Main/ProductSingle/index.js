@@ -4,7 +4,7 @@ import { ReplyIcon } from '@primer/octicons-react'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 
-import SingleProductCard from '../../../components/Main/ProductSingle/SingleProductCard'
+import ProductSingleCard from '../../../components/Main/ProductSingleCard'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
@@ -40,7 +40,7 @@ const ProductSingle = () => {
                     <ScreenLoader />
                 ) : product && product._id ? (
                     <div className="productSingle__bodyWrapper">
-                        <SingleProductCard
+                        <ProductSingleCard
                             product={product}
                             isBidEditOpen={isBidEditOpen}
                             setIsBidEditOpen={setIsBidEditOpen}

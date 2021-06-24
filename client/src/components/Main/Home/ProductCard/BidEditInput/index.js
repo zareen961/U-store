@@ -27,7 +27,7 @@ const BidEditInput = ({
         (state) => state.bidPlace
     )
 
-    const inputRef = useRef('')
+    const inputRef = useRef(null)
 
     useEffect(() => {
         inputRef.current.focus()

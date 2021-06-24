@@ -65,7 +65,7 @@
     top: 105%;
     left: -70px;
     border-radius: 10px;
-    box-shadow: 1px 1px 10px var(--shadow-primary);
+    box-shadow: var(--box-shadow);
     transition: all 0.3s ease-in-out;
     transform: translateX(300px);
 }

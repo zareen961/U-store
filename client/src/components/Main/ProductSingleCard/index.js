@@ -5,17 +5,17 @@ import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
-import ProductDetails from '../../../utils/ProductDetails'
-import ConfirmModal from '../../../utils/ConfirmModal'
-import TooltipComp from '../../../utils/TooltipComp'
-import ImageModal from '../../Home/ProductCard/ImageModal'
-import AvatarHeader from '../../Home/ProductCard/AvatarHeader'
-import ActionFooter from '../../Home/ProductCard/ActionFooter'
-import DotsMenu from '../../Home/ProductCard/DotsMenu'
-import { productDelete } from '../../../../store/actions/product'
-import './SingleProductCard.css'
+import ProductDetails from '../../utils/ProductDetails'
+import ConfirmModal from '../../utils/ConfirmModal'
+import TooltipComp from '../../utils/TooltipComp'
+import ImageModal from '../Home/ProductCard/ImageModal'
+import AvatarHeader from '../Home/ProductCard/AvatarHeader'
+import ActionFooter from '../Home/ProductCard/ActionFooter'
+import DotsMenu from '../Home/ProductCard/DotsMenu'
+import { productDelete } from '../../../store/actions/product'
+import './ProductSingleCard.css'
 
-const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
+const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -48,23 +48,30 @@ const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
 
     return (
         <>
-            <div className="singleProductCard">
-                <div className="singleProductCard__imageWrapper">
+            <div className="productSingleCard">
+                <div className="productSingleCard__imageWrapper">
                     <img
                         src={product.image.url}
                         alt={product.name}
                         onClick={() => setIsImageOpen(true)}
+                        style={{
+                            borderRadius:
+                                String(user.userInfo._id) ===
+                                String(product.productOwner._id)
+                                    ? '15px 0 0 15px'
+                                    : '15px 0 0 0',
+                        }}
                     />
 
-                    <div className="singleProductCard__totalBidsCount">
+                    <div className="productSingleCard__totalBidsCount">
                         <TooltipComp placement={'right'} title={'Total Bids'}>
                             <h3>{product.bids.length}</h3>
                         </TooltipComp>
                     </div>
                 </div>
 
-                <div className="singleProductCard__detailsWrapper">
-                    <div className="singleProductCard__headerWrapper">
+                <div className="productSingleCard__detailsWrapper">
+                    <div className="productSingleCard__headerWrapper">
                         <AvatarHeader product={product} />
 
                         {String(user.userInfo._id) ===
@@ -77,7 +84,7 @@ const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
                         name={product.name}
                         description={product.description}
                     />
-                    <div className="singleProductCard__statsWrapper">
+                    <div className="productSingleCard__statsWrapper">
                         <TooltipComp placement={'top'} title={'Product Price'}>
                             <div className="price">
                                 <TagIcon size={22} />
@@ -121,13 +128,15 @@ const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
                     </div>
                 </div>
 
-                <div className="singleProduct__footerWrapper">
-                    <ActionFooter
-                        product={product}
-                        isBidEditOpen={isBidEditOpen}
-                        setIsBidEditOpen={setIsBidEditOpen}
-                    />
-                </div>
+                {String(user.userInfo._id) !== String(product.productOwner._id) && (
+                    <div className="productSingleCard__footerWrapper">
+                        <ActionFooter
+                            product={product}
+                            isBidEditOpen={isBidEditOpen}
+                            setIsBidEditOpen={setIsBidEditOpen}
+                        />
+                    </div>
+                )}
             </div>
 
             {/* Image Modal */}
@@ -150,4 +159,4 @@ const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
     )
 }
 
-export default SingleProductCard
+export default ProductSingleCard

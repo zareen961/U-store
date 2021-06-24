@@ -9,7 +9,7 @@ const DotsMenu = ({ setIsProductDeleteOpen }) => {
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)
 
     return (
-        <>
+        <div className="dotsMenu">
             <ClickAwayListener onClickAway={() => setIsMenuTrayOpen(false)}>
                 <IconButton
                     className="dotsMenu__button"
@@ -27,7 +27,7 @@ const DotsMenu = ({ setIsProductDeleteOpen }) => {
                 <li className="dotsMenu__menuTrayLine"></li>
                 <li onClick={() => setIsProductDeleteOpen(true)}>Delete</li>
             </ul>
-        </>
+        </div>
     )
 }
 
