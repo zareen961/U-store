@@ -8,6 +8,8 @@ export const bidPlace = (product, bidPrice, history) => async (dispatch, getStat
         user: { userInfo },
     } = getState().userLogin
 
+    const { product: productSingle } = getState().productSingle
+
     const bidOwnerDetails = {
         _id: userInfo._id,
         username: userInfo.username,
@@ -44,6 +46,16 @@ export const bidPlace = (product, bidPrice, history) => async (dispatch, getStat
             payload: { productID: product._id },
         })
 
+        // if bid is placed from single product screen
+        if (productSingle && productSingle._id) {
+            dispatch({
+                type: actionTypes.PRODUCT_SINGLE_BID_PUSH_NEW,
+                payload: {
+                    bid: { ...data, bidOwner: bidOwnerDetails },
+                },
+            })
+        }
+
         // if history is passed then it means that the bid is being placed from following screen
         if (history) {
             history.push('/bids')
@@ -75,85 +87,108 @@ export const bidPlace = (product, bidPrice, history) => async (dispatch, getStat
 }
 
 // to update a Bid status
-export const bidStatusUpdate = (productID, bidID, newBidStatus) => async (dispatch) => {
-    try {
-        dispatch({
-            type: actionTypes.BID_STATUS_UPDATE_REQUEST,
-        })
+export const bidStatusUpdate =
+    (productID, bidID, newBidStatus) => async (dispatch, getState) => {
+        const { product: productSingle } = getState().productSingle
 
-        await axiosInstance.patch(`/api/bid/${bidID}/status`, { newBidStatus })
+        try {
+            dispatch({
+                type: actionTypes.BID_STATUS_UPDATE_REQUEST,
+            })
 
-        dispatch({
-            type: actionTypes.BID_UPDATE_UPDATED_STATUS,
-            payload: { productID, bidID, newBidStatus },
-        })
+            await axiosInstance.patch(`/api/bid/${bidID}/status`, { newBidStatus })
 
-        dispatch({
-            type: actionTypes.USER_BID_UPDATE_UPDATED_STATUS,
-            payload: { productID, bidID, newBidStatus },
-        })
+            dispatch({
+                type: actionTypes.BID_UPDATE_UPDATED_STATUS,
+                payload: { productID, bidID, newBidStatus },
+            })
 
-        dispatch({
-            type: actionTypes.BID_STATUS_UPDATE_SUCCESS,
-        })
+            dispatch({
+                type: actionTypes.USER_BID_UPDATE_UPDATED_STATUS,
+                payload: { productID, bidID, newBidStatus },
+            })
 
-        dispatch(alertAdd('Bid Status Updated!', 'success'))
-    } catch (err) {
-        const errorMsg =
-            err.response && err.response.data.message
-                ? err.response.data.message
-                : err.message
+            // if status is updated from single product page
+            if (productSingle && productSingle._id) {
+                dispatch({
+                    type: actionTypes.PRODUCT_SINGLE_BID_UPDATE_UPDATED_STATUS,
+                    payload: { bidID, newBidStatus },
+                })
+            }
 
-        dispatch({
-            type: actionTypes.BID_STATUS_UPDATE_FAIL,
-            payload: errorMsg,
-        })
+            dispatch({
+                type: actionTypes.BID_STATUS_UPDATE_SUCCESS,
+            })
 
-        dispatch(alertAdd(errorMsg, 'error'))
+            dispatch(alertAdd('Bid Status Updated!', 'success'))
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
+
+            dispatch({
+                type: actionTypes.BID_STATUS_UPDATE_FAIL,
+                payload: errorMsg,
+            })
+
+            dispatch(alertAdd(errorMsg, 'error'))
+        }
     }
-}
 
 // to update a Bid price
-export const bidPriceUpdate = (productID, bidID, newBidPrice) => async (dispatch) => {
-    try {
-        dispatch({
-            type: actionTypes.BID_PRICE_UPDATE_REQUEST,
-        })
+export const bidPriceUpdate =
+    (productID, bidID, newBidPrice) => async (dispatch, getState) => {
+        const { product: productSingle } = getState().productSingle
 
-        await axiosInstance.patch(`/api/bid/${bidID}/price`, { price: newBidPrice })
+        try {
+            dispatch({
+                type: actionTypes.BID_PRICE_UPDATE_REQUEST,
+            })
 
-        dispatch({
-            type: actionTypes.BID_UPDATE_UPDATED_PRICE,
-            payload: { productID, bidID, newBidPrice },
-        })
+            await axiosInstance.patch(`/api/bid/${bidID}/price`, { price: newBidPrice })
 
-        dispatch({
-            type: actionTypes.USER_BID_UPDATE_UPDATED_PRICE,
-            payload: { productID, bidID, newBidPrice },
-        })
+            dispatch({
+                type: actionTypes.BID_UPDATE_UPDATED_PRICE,
+                payload: { productID, bidID, newBidPrice },
+            })
 
-        dispatch({
-            type: actionTypes.BID_PRICE_UPDATE_SUCCESS,
-        })
+            dispatch({
+                type: actionTypes.USER_BID_UPDATE_UPDATED_PRICE,
+                payload: { productID, bidID, newBidPrice },
+            })
 
-        dispatch(alertAdd('Bid Price Updated!', 'success'))
-    } catch (err) {
-        const errorMsg =
-            err.response && err.response.data.message
-                ? err.response.data.message
-                : err.message
+            // if price is updated from single product page
+            if (productSingle && productSingle._id) {
+                dispatch({
+                    type: actionTypes.PRODUCT_SINGLE_BID_UPDATE_UPDATED_PRICE,
+                    payload: { bidID, newBidPrice },
+                })
+            }
 
-        dispatch({
-            type: actionTypes.BID_PRICE_UPDATE_FAIL,
-            payload: errorMsg,
-        })
+            dispatch({
+                type: actionTypes.BID_PRICE_UPDATE_SUCCESS,
+            })
 
-        dispatch(alertAdd(errorMsg, 'error'))
+            dispatch(alertAdd('Bid Price Updated!', 'success'))
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
+
+            dispatch({
+                type: actionTypes.BID_PRICE_UPDATE_FAIL,
+                payload: errorMsg,
+            })
+
+            dispatch(alertAdd(errorMsg, 'error'))
+        }
     }
-}
 
 // to delete a Bid
-export const bidDelete = (productID, bidID) => async (dispatch) => {
+export const bidDelete = (productID, bidID) => async (dispatch, getState) => {
+    const { product: productSingle } = getState().productSingle
     try {
         dispatch({
             type: actionTypes.BID_DELETE_REQUEST,
@@ -170,6 +205,14 @@ export const bidDelete = (productID, bidID) => async (dispatch) => {
             type: actionTypes.USER_BID_REMOVE_DELETED,
             payload: { productID, bidID },
         })
+
+        // if bid is deleted from single product page
+        if (productSingle && productSingle._id) {
+            dispatch({
+                type: actionTypes.PRODUCT_SINGLE_BID_REMOVE_DELETED,
+                payload: { bidID },
+            })
+        }
 
         dispatch({
             type: actionTypes.BID_DELETE_SUCCESS,

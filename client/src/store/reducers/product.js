@@ -345,6 +345,61 @@ export const productSingleFetchReducer = (
                 success: false,
             }
 
+        case actionTypes.PRODUCT_SINGLE_REMOVE_DELETED:
+            return {
+                ...state,
+                product: { bids: [] },
+            }
+
+        case actionTypes.PRODUCT_SINGLE_BID_PUSH_NEW:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    bids: [action.payload.bid, ...state.product.bids],
+                },
+            }
+
+        case actionTypes.PRODUCT_SINGLE_BID_UPDATE_UPDATED_PRICE: {
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    bids: state.product.bids.map((bid) =>
+                        bid._id === action.payload.bidID
+                            ? { ...bid, price: action.payload.newBidPrice }
+                            : bid
+                    ),
+                },
+            }
+        }
+
+        case actionTypes.PRODUCT_SINGLE_BID_UPDATE_UPDATED_STATUS: {
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    bids: state.product.bids.map((bid) =>
+                        bid._id === action.payload.bidID
+                            ? { ...bid, status: action.payload.newBidStatus }
+                            : bid
+                    ),
+                },
+            }
+        }
+
+        case actionTypes.PRODUCT_SINGLE_BID_REMOVE_DELETED: {
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    bids: state.product.bids.filter(
+                        (bid) => bid._id !== action.payload.bidID
+                    ),
+                },
+            }
+        }
+
         case actionTypes.PRODUCT_SINGLE_CLEANUP:
             return {
                 ...state,

@@ -3,6 +3,7 @@ import { CheckCircleIcon, TagIcon, GraphIcon } from '@primer/octicons-react'
 import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 
 import ProductDetails from '../../../utils/ProductDetails'
 import ConfirmModal from '../../../utils/ConfirmModal'
@@ -16,6 +17,7 @@ import './SingleProductCard.css'
 
 const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const { user } = useSelector((state) => state.userLogin)
     const { loading: loadingProductDelete, success: successProductDelete } = useSelector(
@@ -34,7 +36,7 @@ const SingleProductCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
 
     // product delete function
     const handleProductDelete = () => {
-        dispatch(productDelete(product._id))
+        dispatch(productDelete(product._id, history))
     }
 
     // to close the confirm modal on product delete success

@@ -124,7 +124,11 @@ export const productEdit = (productID, productData) => async (dispatch) => {
 }
 
 // to delete a Product
-export const productDelete = (productID) => async (dispatch) => {
+export const productDelete = (productID, history) => async (dispatch, getState) => {
+    const { product: productSingle } = getState().productSingle
+
+    console.log(productSingle)
+
     try {
         dispatch({
             type: actionTypes.PRODUCT_DELETE_REQUEST,
@@ -141,6 +145,17 @@ export const productDelete = (productID) => async (dispatch) => {
             type: actionTypes.PRODUCT_REMOVE_DELETED,
             payload: { productID },
         })
+
+        // if product is deleted from single product screen
+        if (productSingle && productSingle._id) {
+            dispatch({
+                type: actionTypes.PRODUCT_SINGLE_REMOVE_DELETED,
+            })
+
+            if (history) {
+                history.goBack()
+            }
+        }
 
         dispatch({
             type: actionTypes.PRODUCT_DELETE_SUCCESS,
