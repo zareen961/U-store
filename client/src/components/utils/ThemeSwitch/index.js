@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux'
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
-import * as actionTypes from '../../../store/actionTypes'
+import { themeSwitch } from '../../../store/actions/ui'
+
 import './ThemeSwitch.css'
 
 const ThemeSwitch = () => {
@@ -31,11 +32,19 @@ const ThemeSwitch = () => {
                                     <div className="upside">
                                         <button
                                             className="button"
-                                            onClick={() =>
-                                                dispatch({
-                                                    type: actionTypes.THEME_SET_BLUE,
-                                                })
-                                            }
+                                            onClick={() => dispatch(themeSwitch('BLUE'))}
+                                        >
+                                            <FiberManualRecordIcon />
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div className="placeholder">
+                                    <div className="upside">
+                                        <button
+                                            className="button"
+                                            onClick={() => dispatch(themeSwitch('RED'))}
                                         >
                                             <FiberManualRecordIcon />
                                         </button>
@@ -48,25 +57,7 @@ const ThemeSwitch = () => {
                                         <button
                                             className="button"
                                             onClick={() =>
-                                                dispatch({
-                                                    type: actionTypes.THEME_SET_RED,
-                                                })
-                                            }
-                                        >
-                                            <FiberManualRecordIcon />
-                                        </button>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div className="placeholder">
-                                    <div className="upside">
-                                        <button
-                                            className="button"
-                                            onClick={() =>
-                                                dispatch({
-                                                    type: actionTypes.THEME_SET_PURPLE,
-                                                })
+                                                dispatch(themeSwitch('PURPLE'))
                                             }
                                         >
                                             <FiberManualRecordIcon />

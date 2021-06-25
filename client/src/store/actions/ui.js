@@ -20,3 +20,22 @@ export const alertAdd =
             timeout
         )
     }
+
+export const themeSwitch = (theme) => (dispatch) => {
+    switch (theme) {
+        case 'PURPLE':
+            dispatch({ type: actionTypes.THEME_SET_PURPLE })
+            break
+
+        case 'BLUE':
+            dispatch({ type: actionTypes.THEME_SET_BLUE })
+            break
+
+        case 'RED':
+            dispatch({ type: actionTypes.THEME_SET_RED })
+            break
+
+        default:
+            dispatch(alertAdd('No such theme exists!', 'error'))
+    }
+}

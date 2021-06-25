@@ -13,7 +13,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import ButtonComp from '../../../components/utils/ButtonComp'
 import SettingsItem from '../../../components/Main/Settings/SettingsItem'
 import DangerConfirmModal from '../../../components/utils/DangerConfirmModal'
-import * as actionTypes from '../../../store/actionTypes'
+import { themeSwitch } from '../../../store/actions/ui'
 import './Settings.css'
 
 const Settings = () => {
@@ -43,11 +43,7 @@ const Settings = () => {
                             typeClass={'primary'}
                             text={'Serene Sky'}
                             modifyClass={'themePurple'}
-                            handleOnClick={() =>
-                                dispatch({
-                                    type: actionTypes.THEME_SET_PURPLE,
-                                })
-                            }
+                            handleOnClick={() => dispatch(themeSwitch('PURPLE'))}
                         >
                             <SunIcon size={18} />
                         </ButtonComp>
@@ -55,11 +51,7 @@ const Settings = () => {
                             typeClass={'primary'}
                             text={'Erotic Eve'}
                             modifyClass={'themeRed'}
-                            handleOnClick={() =>
-                                dispatch({
-                                    type: actionTypes.THEME_SET_RED,
-                                })
-                            }
+                            handleOnClick={() => dispatch(themeSwitch('RED'))}
                         >
                             <HeartFillIcon size={18} />
                         </ButtonComp>
@@ -67,11 +59,7 @@ const Settings = () => {
                             typeClass={'primary'}
                             text={'Numb Night'}
                             modifyClass={'themeBlue'}
-                            handleOnClick={() =>
-                                dispatch({
-                                    type: actionTypes.THEME_SET_BLUE,
-                                })
-                            }
+                            handleOnClick={() => dispatch(themeSwitch('BLUE'))}
                         >
                             <MoonIcon size={18} />
                         </ButtonComp>
