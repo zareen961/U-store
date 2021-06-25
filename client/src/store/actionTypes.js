@@ -1,11 +1,12 @@
-// THEME **************************************************************************************
+// UI **************************************************************************************
 export const THEME_SET_PURPLE = 'THEME_SET_PURPLE'
 export const THEME_SET_RED = 'THEME_SET_RED'
 export const THEME_SET_BLUE = 'THEME_SET_BLUE'
 
-// ALERT ***************************************************************************************
 export const ALERT_ADD = 'ALERT_ADD'
 export const ALERT_REMOVE = 'ALERT_REMOVE'
+
+export const BID_EDIT_TOGGLE = 'BID_EDIT_TOGGLE'
 
 // USER ****************************************************************************************
 export const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST'

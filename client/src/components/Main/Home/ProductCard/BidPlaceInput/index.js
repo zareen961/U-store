@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import ButtonComp from '../../../../utils/ButtonComp'
 import FormLoader from '../../../../utils/FormLoader'
 import { bidPlace } from '../../../../../store/actions/bid'
-import { alertAdd } from '../../../../../store/actions/alert'
+import { alertAdd } from '../../../../../store/actions/ui'
 import './BidPlaceInput.css'
 
 const BidPlaceInput = ({ bidVal, setBidVal, product, isFollowingScreen = false }) => {

@@ -7,7 +7,7 @@ import ModalComp from '../ModalComp'
 import ButtonComp from '../ButtonComp'
 import ConfirmModal from '../ConfirmModal'
 import { useForm } from '../../../utils/hooks/useForm'
-import { alertAdd } from '../../../store/actions/alert'
+import { alertAdd } from '../../../store/actions/ui'
 import { userDelete } from '../../../store/actions/user'
 import './DangerConfirmModal.css'
 

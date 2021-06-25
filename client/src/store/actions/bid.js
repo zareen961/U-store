@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
-import { alertAdd } from './alert'
+import { alertAdd } from './ui'
 
 // to place a new Bid
 export const bidPlace = (product, bidPrice, history) => async (dispatch, getState) => {

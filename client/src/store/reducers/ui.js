@@ -1,6 +1,19 @@
 import * as actionTypes from '../actionTypes'
 import themeData from '../../utils/constants/themeData'
 
+export const alertReducer = (state = [], action) => {
+    switch (action.type) {
+        case actionTypes.ALERT_ADD:
+            return [...state, action.payload]
+
+        case actionTypes.ALERT_REMOVE:
+            return state.filter((alert) => alert._id !== action.payload)
+
+        default:
+            return state
+    }
+}
+
 export const themeReducer = (state = themeData.purple, action) => {
     switch (action.type) {
         case actionTypes.THEME_SET_PURPLE:

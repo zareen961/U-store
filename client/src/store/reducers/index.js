@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux'
 
-import { themeReducer } from './theme'
-import { alertReducer } from './alert'
+import { alertReducer, themeReducer } from './ui'
 import {
     collegeReducer,
     userRegisterReducer,

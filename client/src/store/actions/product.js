@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
-import { alertAdd } from './alert'
+import { alertAdd } from './ui'
 import { handleCache } from '../../utils/handleCache'
 
 // to fetch all the Products of the logged in user's college

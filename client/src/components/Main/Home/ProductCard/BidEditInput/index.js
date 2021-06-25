@@ -6,7 +6,7 @@ import ButtonComp from '../../../../utils/ButtonComp'
 import TooltipComp from '../../../../utils/TooltipComp'
 import FormLoader from '../../../../utils/FormLoader'
 import { bidPriceUpdate, bidPlace } from '../../../../../store/actions/bid'
-import { alertAdd } from '../../../../../store/actions/alert'
+import { alertAdd } from '../../../../../store/actions/ui'
 import './BidEditInput.css'
 
 const BidEditInput = ({
@@ -19,6 +19,7 @@ const BidEditInput = ({
     isNew = false,
 }) => {
     const dispatch = useDispatch()
+    const inputRef = useRef(null)
 
     const { loading: loadingBidEdit, success: successBidEdit } = useSelector(
         (state) => state.bidPriceUpdate
@@ -26,12 +27,6 @@ const BidEditInput = ({
     const { loading: loadingBidPlace, success: successBidPlace } = useSelector(
         (state) => state.bidPlace
     )
-
-    const inputRef = useRef(null)
-
-    useEffect(() => {
-        inputRef.current.focus()
-    })
 
     // function to edit an existing bid
     const handleBidEdit = () => {
@@ -65,6 +60,13 @@ const BidEditInput = ({
         }
     }, [successBidPlace, setIsOpen])
 
+    // to autofocus the input field as soon as the bid edit opens up
+    useEffect(() => {
+        if (isOpen) {
+            inputRef.current.focus()
+        }
+    }, [isOpen])
+
     return (
         <div className={isOpen ? 'bidEditInput open' : 'bidEditInput'}>
             <div className="bidEditInput__wrapper">
@@ -75,7 +77,6 @@ const BidEditInput = ({
                     placeholder={isNew ? 'Place new bid' : 'Adjust your bid'}
                     value={bidVal}
                     onChange={(e) => setBidVal(e.target.value)}
-                    autoFocus
                 />
                 <ButtonComp
                     typeClass={'primary'}

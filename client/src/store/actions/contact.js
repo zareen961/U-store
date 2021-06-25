@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
-import { alertAdd } from './alert'
+import { alertAdd } from './ui'
 
 export const contactMailSend = (contactInfo) => async (dispatch) => {
     try {

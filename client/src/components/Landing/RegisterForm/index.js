@@ -25,7 +25,7 @@ import IconButton from '@material-ui/core/IconButton'
 
 import { useForm } from '../../../utils/hooks/useForm'
 import { userRegister, collegeFetchData } from '../../../store/actions/user'
-import { alertAdd } from '../../../store/actions/alert'
+import { alertAdd } from '../../../store/actions/ui'
 import FormLoader from '../../utils/FormLoader'
 import AvatarForm from './AvatarForm'
 import { validateUserInputs } from '../../../validators/user'
