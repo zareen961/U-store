@@ -1,34 +1,17 @@
 const { Schema, model, Types } = require('mongoose')
 const bcrypt = require('bcryptjs')
 
-const notificationSchema = new Schema(
-    {
-        type: {
-            type: String,
-            enum: [
-                'BID_RECEIVED',
-                'BID_ACCEPTED',
-                'BID_REJECTED',
-                'BIDDEN_PRODUCT_DELETED',
-                'RIVAL_BID',
-            ],
-            required: true,
-        },
-        user: {
-            type: Types.ObjectId,
-            ref: 'User',
-            required: true,
-        },
-        product: {
-            type: Types.ObjectId,
-            ref: 'Product',
-            required: true,
-        },
+const userNotificationSchema = new Schema({
+    notification: {
+        type: Types.ObjectId,
+        ref: 'Notification',
+        required: 'true',
     },
-    {
-        timestamps: true,
-    }
-)
+    isRead: {
+        type: Boolean,
+        default: false,
+    },
+})
 
 const userSchema = new Schema(
     {
@@ -97,7 +80,7 @@ const userSchema = new Schema(
                 ref: 'Product',
             },
         ],
-        notifications: [notificationSchema],
+        notifications: [userNotificationSchema],
     },
     {
         timestamps: true,

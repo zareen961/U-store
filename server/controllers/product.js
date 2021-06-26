@@ -259,13 +259,6 @@ const productGetOne = asyncHandler(async (req, res) => {
         throw new Error('No product found!')
     }
 
-    // checking if the product is deleted
-    if (!foundProduct.isActive) {
-        res.status(400)
-        throw new Error('The product is deleted!')
-    }
-
-    foundProduct.isActive = undefined
     foundProduct.college = undefined
     foundProduct.updatedAt = undefined
 

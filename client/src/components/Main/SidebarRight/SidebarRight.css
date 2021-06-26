@@ -1,4 +1,16 @@
 .sidebarRight {
     background-color: rgba(var(--primary-light), 0.08);
     height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.sidebarRight__loaderWrapper {
+    display: grid;
+    place-items: center;
+}
+
+.sidebarRight__unreadCount .MuiBadge-colorPrimary {
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
 }

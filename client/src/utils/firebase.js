@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import 'firebase/storage'
+import 'firebase/messaging'
 
 firebase.initializeApp({
     apiKey: 'AIzaSyC0gnQJ9V0qbI1OBw0XFuBQU2YVd94Xw00',
@@ -12,5 +13,6 @@ firebase.initializeApp({
 })
 
 const storage = firebase.storage()
+const messaging = firebase.messaging()
 
-export { storage }
+export { storage, messaging }

@@ -28,10 +28,12 @@ import {
     bidPriceUpdateReducer,
 } from './bid'
 import { contactMailReducer } from './contact'
+import { notificationClientReducer } from './notification'
 
 export default combineReducers({
     theme: themeReducer,
     alerts: alertReducer,
+    notificationClient: notificationClientReducer,
     contactMail: contactMailReducer,
     college: collegeReducer,
     userRegister: userRegisterReducer,
