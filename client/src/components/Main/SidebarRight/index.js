@@ -72,6 +72,12 @@ const SidebarRight = () => {
         }
     }, [user, notificationPermission, dispatch])
 
+    useEffect(() => {
+        messaging.onMessage((payload) => {
+            console.log('Message received. ', payload)
+        })
+    }, [])
+
     return (
         <div className="sidebarRight">
             <div className="sidebarRight__headerWrapper">

@@ -34,9 +34,27 @@ const batchUnsubscribe = (token, topics) => {
     topics.forEach((topic) => unsubscribeTopic(token, topic))
 }
 
+// function to send a notification to a topic
+const sendNotification = (topic, notificationBody) => {
+    const message = {
+        data: notificationBody,
+        topic,
+    }
+
+    messaging()
+        .send(message)
+        .then((_) => {
+            // console.log('Successfully sent message:', response)
+        })
+        .catch((error) => {
+            console.log('Error sending message:', error)
+        })
+}
+
 module.exports = {
     subscribeTopic,
     unsubscribeTopic,
     batchSubscribe,
     batchUnsubscribe,
+    sendNotification,
 }

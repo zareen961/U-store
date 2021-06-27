@@ -4,6 +4,7 @@ const Bid = require('../models/Bid')
 const User = require('../models/User')
 const Product = require('../models/Product')
 const validateBidInputs = require('../validators/bid')
+const { sendNotification } = require('../utils/notification')
 
 // to place a bid on a product
 const bidPlace = asyncHandler(async (req, res) => {
@@ -80,6 +81,13 @@ const bidPlace = asyncHandler(async (req, res) => {
 
         // removing productID from following, if it is present there
         await User.updateOne({ _id: bidOwner }, { $pull: { following: product } })
+
+        // subscribe the product and send notifications to this product group
+        sendNotification(product, {
+            name: 'Batook Bubble',
+            firstDate: '14 Jun',
+            kids: '1',
+        })
 
         res.status(200).json(newBid)
     } else {
