@@ -6,6 +6,7 @@ const Product = require('../models/Product')
 const User = require('../models/User')
 const validateProductInputs = require('../validators/product')
 const { SEARCH_RESULTS_LIMIT } = require('../utils/constants')
+const { subscribeTopic } = require('../utils/notification')
 
 // to upload new product
 const productUpload = asyncHandler(async (req, res) => {

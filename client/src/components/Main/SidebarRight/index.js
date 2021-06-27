@@ -8,6 +8,7 @@ import NoItemMessage from '../../utils/NoItemMessage'
 import Loader from '../../utils/Loader'
 import { alertAdd } from '../../../store/actions/ui'
 import { notificationLoginAndLogoutAction } from '../../../store/actions/notification'
+import { setNotificationHeader } from '../../../utils/setAxiosHeaders'
 import './SidebarRight.css'
 
 const { VAPID_KEY = '' } = process.env
@@ -39,17 +40,17 @@ const SidebarRight = () => {
                 .getToken({ vapidKey: VAPID_KEY })
                 .then((currentToken) => {
                     if (currentToken) {
-                        console.log(currentToken)
                         // saving token to localStorage
                         localStorage.setItem(
                             'ustore__notificationClientToken',
                             currentToken
                         )
 
+                        // setting the Notification client token in headers
+                        setNotificationHeader(currentToken)
+
                         // subscribing to all the required topics (products)
-                        dispatch(
-                            notificationLoginAndLogoutAction(currentToken, 'SUBSCRIBE')
-                        )
+                        dispatch(notificationLoginAndLogoutAction('SUBSCRIBE'))
                     } else {
                         dispatch(
                             alertAdd(

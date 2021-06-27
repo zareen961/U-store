@@ -3,21 +3,17 @@ import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
 import * as api from '../../utils/constants/api'
 
-export const notificationLoginAndLogoutAction = (token, action) => async (dispatch) => {
+export const notificationLoginAndLogoutAction = (action) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.NOTIFICATION_LOGIN_AND_LOGOUT_ACTION_REQUEST,
         })
 
-        await axiosInstance.post(api.NOTIFICATION_LOGIN_AND_LOGOUT_ACTION(action), {
-            notificationClientToken: token,
-        })
+        await axiosInstance.post(api.NOTIFICATION_LOGIN_AND_LOGOUT_ACTION(action))
 
         dispatch({
             type: actionTypes.NOTIFICATION_LOGIN_AND_LOGOUT_ACTION_SUCCESS,
         })
-
-        dispatch(alertAdd('Wohoo..! Notifications enabled!', 'success'))
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message

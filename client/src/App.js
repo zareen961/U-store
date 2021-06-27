@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 
 import './App.css'
 import { userLogout, userFetch } from './store/actions/user'
-import setAuthHeader from './utils/setAuthHeader'
+import { setAuthHeader } from './utils/setAxiosHeaders'
 import Main from './screens/Main'
 import Landing from './screens/Landing'
 import Alerts from './components/utils/Alerts'

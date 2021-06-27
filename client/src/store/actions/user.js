@@ -2,7 +2,7 @@ import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
 import { handleCache } from '../../utils/handleCache'
-import setAuthHeader from '../../utils/setAuthHeader'
+import { setAuthHeader } from '../../utils/setAxiosHeaders'
 import * as api from '../../utils/constants/api'
 import { notificationLoginAndLogoutAction } from './notification'
 
@@ -183,7 +183,7 @@ export const userLogout = (history) => (dispatch) => {
         'ustore__notificationClientToken'
     )
     if (notificationClientToken) {
-        dispatch(notificationLoginAndLogoutAction(notificationClientToken, 'UNSUBSCRIBE'))
+        dispatch(notificationLoginAndLogoutAction('UNSUBSCRIBE'))
     }
 
     dispatch({ type: actionTypes.USER_LOGOUT })

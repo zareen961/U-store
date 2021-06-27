@@ -6,8 +6,10 @@ const { batchSubscribe, batchUnsubscribe } = require('../utils/notification')
 
 // to add a user's new client to NotificationClient
 const notificationLoginAndLogoutAction = asyncHandler(async (req, res) => {
-    const { notificationClientToken } = req.body
+    const { notification } = req.headers
     const { action } = req.params
+
+    const notificationClientToken = notification ? notification.split(' ')[1] : ''
 
     if (!notificationClientToken) {
         res.status(400)
