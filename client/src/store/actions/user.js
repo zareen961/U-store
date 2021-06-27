@@ -3,6 +3,8 @@ import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
 import { handleCache } from '../../utils/handleCache'
 import setAuthHeader from '../../utils/setAuthHeader'
+import * as api from '../../utils/constants/api'
+import { notificationLoginAndLogoutAction } from './notification'
 
 // to fetch all the colleges data
 export const collegeFetchData = () => async (dispatch, getState) => {
@@ -14,7 +16,7 @@ export const collegeFetchData = () => async (dispatch, getState) => {
                 type: actionTypes.COLLEGE_FETCH_ALL_REQUEST,
             })
 
-            const { data } = await axiosInstance.get('/api/college')
+            const { data } = await axiosInstance.get(api.COLLEGE_FETCH)
 
             dispatch({
                 type: actionTypes.COLLEGE_FETCH_ALL_SUCCESS,
@@ -39,8 +41,8 @@ export const collegeFetchData = () => async (dispatch, getState) => {
 // to get all the details of logged in user
 export const userFetch = () => async (dispatch) => {
     let token
-    if (localStorage.getItem('user')) {
-        token = JSON.parse(localStorage.getItem('user')).token
+    if (localStorage.getItem('ustore__user')) {
+        token = JSON.parse(localStorage.getItem('ustore__user')).token
     }
 
     try {
@@ -48,7 +50,7 @@ export const userFetch = () => async (dispatch) => {
             type: actionTypes.USER_FETCH_REQUEST,
         })
 
-        const { data } = await axiosInstance.get('/api/user')
+        const { data } = await axiosInstance.get(api.USER_FETCH)
 
         dispatch({
             type: actionTypes.USER_FETCH_SUCCESS,
@@ -76,7 +78,7 @@ export const userRegister = (userData) => async (dispatch) => {
             type: actionTypes.USER_REGISTER_REQUEST,
         })
 
-        await axiosInstance.post('/api/user', userData)
+        await axiosInstance.post(api.USER_REGISTER, userData)
 
         dispatch({
             type: actionTypes.USER_REGISTER_SUCCESS,
@@ -105,14 +107,14 @@ export const userLogin = (userData) => async (dispatch) => {
             type: actionTypes.USER_LOGIN_REQUEST,
         })
 
-        const { data } = await axiosInstance.post('/api/user/login', userData)
+        const { data } = await axiosInstance.post(api.USER_LOGIN, userData)
 
         if (data && data.token) {
-            localStorage.setItem('user', JSON.stringify({ token: data.token }))
+            localStorage.setItem('ustore__user', JSON.stringify({ token: data.token }))
         }
 
-        if (localStorage.getItem('user')) {
-            const token = JSON.parse(localStorage.getItem('user')).token
+        if (localStorage.getItem('ustore__user')) {
+            const token = JSON.parse(localStorage.getItem('ustore__user')).token
             setAuthHeader(token)
         }
 
@@ -144,7 +146,7 @@ export const userUpdate = (userData, currentPassword) => async (dispatch) => {
             type: actionTypes.USER_UPDATE_REQUEST,
         })
 
-        await axiosInstance.patch('/api/user', {
+        await axiosInstance.patch(api.USER_UPDATE, {
             ...userData,
             currentPassword,
         })
@@ -176,16 +178,29 @@ export const userUpdate = (userData, currentPassword) => async (dispatch) => {
 
 // to logout an User
 export const userLogout = (history) => (dispatch) => {
-    localStorage.removeItem('user')
+    // unsubscribing the current logged in user from all the topics
+    const notificationClientToken = localStorage.getItem(
+        'ustore__notificationClientToken'
+    )
+    if (notificationClientToken) {
+        dispatch(notificationLoginAndLogoutAction(notificationClientToken, 'UNSUBSCRIBE'))
+    }
+
     dispatch({ type: actionTypes.USER_LOGOUT })
     dispatch({ type: actionTypes.PRODUCT_CLEANUP })
     dispatch({ type: actionTypes.USER_PRODUCTS_CLEANUP })
     dispatch({ type: actionTypes.USER_BIDS_CLEANUP })
     dispatch({ type: actionTypes.USER_FOLLOWING_CLEANUP })
     dispatch({ type: actionTypes.PRODUCT_SINGLE_CLEANUP })
+
+    // redirecting to home route after user is logged out
     if (history) {
         history.replace('/')
     }
+
+    // clearing the user from localStorage
+    localStorage.removeItem('ustore__user')
+
     dispatch(alertAdd('User Logged out!', 'success'))
 }
 
@@ -196,7 +211,7 @@ export const userDelete = (password, history) => async (dispatch) => {
             type: actionTypes.USER_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete('/api/user', { data: { password } })
+        await axiosInstance.delete(api.USER_DELETE, { data: { password } })
 
         dispatch(userLogout(history))
 
@@ -229,7 +244,7 @@ export const userFetchContact =
                 type: actionTypes.USER_FETCH_CONTACT_REQUEST,
             })
 
-            const { data } = await axiosInstance.get(`/api/user/contact/${username}`, {
+            const { data } = await axiosInstance.get(api.USER_FETCH_CONTACT(username), {
                 headers: { productID },
             })
 
@@ -262,7 +277,7 @@ export const userFetchProducts = () => async (dispatch, getState) => {
                 type: actionTypes.USER_FETCH_PRODUCTS_REQUEST,
             })
 
-            const { data } = await axiosInstance.get('/api/user/products')
+            const { data } = await axiosInstance.get(api.USER_FETCH_PRODUCTS)
 
             dispatch({
                 type: actionTypes.USER_POPULATE_PRODUCTS,
@@ -298,7 +313,7 @@ export const userFetchBids = () => async (dispatch, getState) => {
                 type: actionTypes.USER_FETCH_BIDS_REQUEST,
             })
 
-            const { data } = await axiosInstance.get('/api/user/bids')
+            const { data } = await axiosInstance.get(api.USER_FETCH_BIDS)
 
             dispatch({
                 type: actionTypes.USER_POPULATE_BIDS,
@@ -334,7 +349,7 @@ export const userFetchFollowing = () => async (dispatch, getState) => {
                 type: actionTypes.USER_FETCH_FOLLOWING_REQUEST,
             })
 
-            const { data } = await axiosInstance.get('/api/user/following')
+            const { data } = await axiosInstance.get(api.USER_FETCH_FOLLOWING)
 
             dispatch({
                 type: actionTypes.USER_POPULATE_FOLLOWING,

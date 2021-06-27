@@ -6,13 +6,11 @@
 
 .noItemMessage__title {
     color: rgba(var(--primary-light), 1);
-    font-size: 2rem;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
 .noItemMessage__text {
     color: rgba(var(--primary-light), 0.8);
-    font-size: 1.2rem;
     font-weight: 600;
 }

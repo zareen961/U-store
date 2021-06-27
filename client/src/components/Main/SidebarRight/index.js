@@ -7,7 +7,7 @@ import BlockHeader from '../../utils/BlockHeader'
 import NoItemMessage from '../../utils/NoItemMessage'
 import Loader from '../../utils/Loader'
 import { alertAdd } from '../../../store/actions/ui'
-import { batchSubscribe } from '../../../utils/notification'
+import { notificationLoginAndLogoutAction } from '../../../store/actions/notification'
 import './SidebarRight.css'
 
 const { VAPID_KEY = '' } = process.env
@@ -16,6 +16,9 @@ const SidebarRight = () => {
     const dispatch = useDispatch()
 
     const { user } = useSelector((state) => state.userLogin)
+    const { loading, error } = useSelector(
+        (state) => state.notificationLoginAndLogoutAction
+    )
 
     const [notificationPermission, setNotificationPermission] = useState(
         Notification.permission
@@ -38,22 +41,15 @@ const SidebarRight = () => {
                     if (currentToken) {
                         console.log(currentToken)
                         // saving token to localStorage
-                        localStorage.setItem('ustore__notificationClient', currentToken)
+                        localStorage.setItem(
+                            'ustore__notificationClientToken',
+                            currentToken
+                        )
 
                         // subscribing to all the required topics (products)
-                        const topicsArray = [
-                            ...user.userInfo.products.map((product) =>
-                                product._id ? product._id : product
-                            ),
-                            ...user.userInfo.bids.map((bid) =>
-                                bid.product ? bid.product : bid._id
-                            ),
-                            ...user.userInfo.following.map((product) =>
-                                product._id ? product._id : product
-                            ),
-                        ]
-
-                        batchSubscribe(currentToken, topicsArray)
+                        dispatch(
+                            notificationLoginAndLogoutAction(currentToken, 'SUBSCRIBE')
+                        )
                     } else {
                         dispatch(
                             alertAdd(
@@ -88,14 +84,27 @@ const SidebarRight = () => {
                 </BlockHeader>
             </div>
             <div className="sidebarRight__notificationsWrapper">
-                <div className="sidebarRight__loaderWrapper">
-                    <Loader />
-                </div>
+                {loading && (
+                    <div className="sidebarRight__loaderWrapper">
+                        <Loader />
+                    </div>
+                )}
 
                 {notificationPermission === 'denied' && (
                     <NoItemMessage
+                        titleSize={1.3}
                         title={'Notification permission denied!'}
                         text={'Allow Notifications for this site to get live updates!'}
+                    />
+                )}
+
+                {error && (
+                    <NoItemMessage
+                        titleSize={1.3}
+                        title={error}
+                        text={
+                            'Something went wrong! Please refresh to try again and get live updates.'
+                        }
                     />
                 )}
             </div>

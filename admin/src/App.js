@@ -18,8 +18,8 @@ const App = () => {
     const dispatch = useDispatch()
     const { admin } = useSelector((state) => state.adminLogin)
 
-    if (localStorage.getItem('admin')) {
-        const token = JSON.parse(localStorage.getItem('admin')).token
+    if (localStorage.getItem('ustore__admin')) {
+        const token = JSON.parse(localStorage.getItem('ustore__admin')).token
 
         // checking if the already present auth token is expired or not
         const decodedToken = jwtDecode(token)

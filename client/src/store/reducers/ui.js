@@ -17,19 +17,19 @@ export const alertReducer = (state = [], action) => {
 export const themeReducer = (state = themeData.purple, action) => {
     switch (action.type) {
         case actionTypes.THEME_SET_PURPLE:
-            localStorage.setItem('theme', JSON.stringify(themeData.purple))
+            localStorage.setItem('ustore__theme', JSON.stringify(themeData.purple))
             return {
                 ...themeData.purple,
             }
 
         case actionTypes.THEME_SET_RED:
-            localStorage.setItem('theme', JSON.stringify(themeData.red))
+            localStorage.setItem('ustore__theme', JSON.stringify(themeData.red))
             return {
                 ...themeData.red,
             }
 
         case actionTypes.THEME_SET_BLUE:
-            localStorage.setItem('theme', JSON.stringify(themeData.blue))
+            localStorage.setItem('ustore__theme', JSON.stringify(themeData.blue))
             return {
                 ...themeData.blue,
             }

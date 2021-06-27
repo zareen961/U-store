@@ -2,6 +2,7 @@ import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
 import { handleCache } from '../../utils/handleCache'
+import * as api from '../../utils/constants/api'
 
 // to fetch all the Products of the logged in user's college
 export const productFetchAll = () => async (dispatch, getState) => {
@@ -13,7 +14,7 @@ export const productFetchAll = () => async (dispatch, getState) => {
                 type: actionTypes.PRODUCT_FETCH_ALL_REQUEST,
             })
 
-            const { data } = await axiosInstance.get('/api/product')
+            const { data } = await axiosInstance.get(api.PRODUCT_FETCH_ALL)
 
             dispatch({
                 type: actionTypes.PRODUCT_FETCH_ALL_SUCCESS,
@@ -52,7 +53,7 @@ export const productUpload = (productData) => async (dispatch, getState) => {
             type: actionTypes.PRODUCT_UPLOAD_REQUEST,
         })
 
-        const { data } = await axiosInstance.post('/api/product', productData)
+        const { data } = await axiosInstance.post(api.PRODUCT_UPLOAD, productData)
 
         dispatch({
             type: actionTypes.USER_PRODUCT_PUSH_NEW,
@@ -91,7 +92,7 @@ export const productEdit = (productID, productData) => async (dispatch) => {
             type: actionTypes.PRODUCT_EDIT_REQUEST,
         })
 
-        await axiosInstance.patch(`/api/product/${productID}`, productData)
+        await axiosInstance.patch(api.PRODUCT_EDIT(productID), productData)
 
         dispatch({
             type: actionTypes.USER_PRODUCT_UPDATE_EDITED,
@@ -134,7 +135,7 @@ export const productDelete = (productID, history) => async (dispatch, getState) 
             type: actionTypes.PRODUCT_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete(`/api/product/${productID}`)
+        await axiosInstance.delete(api.PRODUCT_DELETE(productID))
 
         dispatch({
             type: actionTypes.USER_PRODUCT_REMOVE_DELETED,
@@ -184,7 +185,7 @@ export const productFollowToggle = (product) => async (dispatch) => {
             type: actionTypes.PRODUCT_FOLLOW_TOGGLE_REQUEST,
         })
 
-        await axiosInstance.patch(`/api/product/follow/${product._id}`)
+        await axiosInstance.patch(api.PRODUCT_FOLLOW_TOGGLE(product._id))
 
         dispatch({
             type: actionTypes.USER_FOLLOWING_UPDATE,
@@ -216,7 +217,7 @@ export const productSearch = (query) => async (dispatch) => {
             type: actionTypes.PRODUCT_SEARCH_REQUEST,
         })
 
-        const { data } = await axiosInstance.get(`/api/product/search/${query}`)
+        const { data } = await axiosInstance.get(api.PRODUCT_SEARCH(query))
 
         dispatch({
             type: actionTypes.PRODUCT_SEARCH_SUCCESS,
@@ -244,7 +245,7 @@ export const productSingleFetch = (productID) => async (dispatch) => {
             type: actionTypes.PRODUCT_SINGLE_FETCH_REQUEST,
         })
 
-        const { data } = await axiosInstance.get(`/api/product/${productID}`)
+        const { data } = await axiosInstance.get(api.PRODUCT_FETCH_SINGLE(productID))
 
         dispatch({
             type: actionTypes.PRODUCT_SINGLE_FETCH_SUCCESS,

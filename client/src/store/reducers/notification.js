@@ -1,11 +1,11 @@
 import * as actionTypes from '../actionTypes'
 
-export const notificationClientReducer = (
+export const notificationLoginAndLogoutActionReducer = (
     state = { loading: false, success: false, error: null },
     action
 ) => {
     switch (action.type) {
-        case actionTypes.NOTIFICATION_CLIENT_ADD_REQUEST:
+        case actionTypes.NOTIFICATION_LOGIN_AND_LOGOUT_ACTION_REQUEST:
             return {
                 ...state,
                 loading: true,
@@ -13,7 +13,7 @@ export const notificationClientReducer = (
                 error: null,
             }
 
-        case actionTypes.NOTIFICATION_CLIENT_ADD_SUCCESS:
+        case actionTypes.NOTIFICATION_LOGIN_AND_LOGOUT_ACTION_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -21,7 +21,7 @@ export const notificationClientReducer = (
                 error: null,
             }
 
-        case actionTypes.NOTIFICATION_CLIENT_ADD_FAIL:
+        case actionTypes.NOTIFICATION_LOGIN_AND_LOGOUT_ACTION_FAIL:
             return {
                 ...state,
                 loading: false,

@@ -1,6 +1,7 @@
 import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
+import * as api from '../../utils/constants/api'
 
 // to place a new Bid
 export const bidPlace = (product, bidPrice, history) => async (dispatch, getState) => {
@@ -21,7 +22,7 @@ export const bidPlace = (product, bidPrice, history) => async (dispatch, getStat
             type: actionTypes.BID_PLACE_REQUEST,
         })
 
-        const { data } = await axiosInstance.post(`/api/bid/${product._id}`, {
+        const { data } = await axiosInstance.post(api.BID_PLACE(product._id), {
             price: bidPrice,
         })
 
@@ -96,7 +97,7 @@ export const bidStatusUpdate =
                 type: actionTypes.BID_STATUS_UPDATE_REQUEST,
             })
 
-            await axiosInstance.patch(`/api/bid/${bidID}/status`, { newBidStatus })
+            await axiosInstance.patch(api.BID_STATUS_UPDATE(bidID), { newBidStatus })
 
             dispatch({
                 type: actionTypes.BID_UPDATE_UPDATED_STATUS,
@@ -146,7 +147,7 @@ export const bidPriceUpdate =
                 type: actionTypes.BID_PRICE_UPDATE_REQUEST,
             })
 
-            await axiosInstance.patch(`/api/bid/${bidID}/price`, { price: newBidPrice })
+            await axiosInstance.patch(api.BID_PRICE_UPDATE(bidID), { price: newBidPrice })
 
             dispatch({
                 type: actionTypes.BID_UPDATE_UPDATED_PRICE,
@@ -194,7 +195,7 @@ export const bidDelete = (productID, bidID) => async (dispatch, getState) => {
             type: actionTypes.BID_DELETE_REQUEST,
         })
 
-        await axiosInstance.delete(`/api/bid/${bidID}`)
+        await axiosInstance.delete(api.BID_DELETE(bidID))
 
         dispatch({
             type: actionTypes.BID_REMOVE_DELETED,

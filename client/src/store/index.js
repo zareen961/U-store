@@ -6,13 +6,13 @@ import rootReducer from './reducers'
 import themeData from '../utils/constants/themeData'
 
 // persisting the last theme of the browser
-const themeFromLocalStorage = localStorage.getItem('theme')
-    ? JSON.parse(localStorage.getItem('theme'))
+const themeFromLocalStorage = localStorage.getItem('ustore__theme')
+    ? JSON.parse(localStorage.getItem('ustore__theme'))
     : { ...themeData.purple }
 
 // persisting the already logged in state of a user
-const userFromStorage = localStorage.getItem('user')
-    ? JSON.parse(localStorage.getItem('user'))
+const userFromStorage = localStorage.getItem('ustore__user')
+    ? JSON.parse(localStorage.getItem('ustore__user'))
     : null
 
 const initialState = {

@@ -1,6 +1,7 @@
 import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
+import * as api from '../../utils/constants/api'
 
 export const contactMailSend = (contactInfo) => async (dispatch) => {
     try {
@@ -8,7 +9,7 @@ export const contactMailSend = (contactInfo) => async (dispatch) => {
             type: actionTypes.CONTACT_MAIL_REQUEST,
         })
 
-        const { data } = await axiosInstance.post(`api/contact`, contactInfo)
+        const { data } = await axiosInstance.post(api.CONTACT_MAIL_SEND, contactInfo)
 
         dispatch({
             type: actionTypes.CONTACT_MAIL_SUCCESS,

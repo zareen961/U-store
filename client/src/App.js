@@ -26,8 +26,8 @@ const App = () => {
     }, [name])
 
     useEffect(() => {
-        if (localStorage.getItem('user')) {
-            const token = JSON.parse(localStorage.getItem('user')).token
+        if (localStorage.getItem('ustore__user')) {
+            const token = JSON.parse(localStorage.getItem('ustore__user')).token
 
             // checking if the already present auth token is expired or not
             const decodedToken = jwtDecode(token)

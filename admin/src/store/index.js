@@ -26,8 +26,8 @@ const reducers = combineReducers({
 })
 
 // persisting the already logged in state of an admin
-const adminFromStorage = localStorage.getItem('admin')
-    ? JSON.parse(localStorage.getItem('admin'))
+const adminFromStorage = localStorage.getItem('ustore__admin')
+    ? JSON.parse(localStorage.getItem('ustore__admin'))
     : null
 
 const initialState = {

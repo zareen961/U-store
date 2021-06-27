@@ -5,22 +5,24 @@ import * as actionTypes from './actionTypes'
 import setAuthHeader from '../utils/setAuthHeader'
 
 // to add an Alert
-export const alertAdd = (msg, alertType, timeout = 5000) => (dispatch) => {
-    const _id = v4()
-    dispatch({
-        type: actionTypes.ALERT_ADD,
-        payload: { _id, msg, alertType },
-    })
+export const alertAdd =
+    (msg, alertType, timeout = 5000) =>
+    (dispatch) => {
+        const _id = v4()
+        dispatch({
+            type: actionTypes.ALERT_ADD,
+            payload: { _id, msg, alertType },
+        })
 
-    setTimeout(
-        () =>
-            dispatch({
-                type: actionTypes.ALERT_REMOVE,
-                payload: _id,
-            }),
-        timeout
-    )
-}
+        setTimeout(
+            () =>
+                dispatch({
+                    type: actionTypes.ALERT_REMOVE,
+                    payload: _id,
+                }),
+            timeout
+        )
+    }
 
 // to fetch all the Admins
 export const adminFetchAll = () => async (dispatch) => {
@@ -101,10 +103,10 @@ export const adminLogin = (adminData) => async (dispatch) => {
             payload: data,
         })
 
-        localStorage.setItem('admin', JSON.stringify(data))
+        localStorage.setItem('ustore__admin', JSON.stringify(data))
 
-        if (localStorage.getItem('admin')) {
-            const token = JSON.parse(localStorage.getItem('admin')).token
+        if (localStorage.getItem('ustore__admin')) {
+            const token = JSON.parse(localStorage.getItem('ustore__admin')).token
             setAuthHeader(token)
         }
 
@@ -126,7 +128,7 @@ export const adminLogin = (adminData) => async (dispatch) => {
 
 // to logout an Admin
 export const adminLogout = () => (dispatch) => {
-    localStorage.removeItem('admin')
+    localStorage.removeItem('ustore__admin')
     dispatch({ type: actionTypes.ADMIN_LOGOUT })
     dispatch(alertAdd('Admin Logged out!', 'success'))
 }
@@ -223,45 +225,49 @@ export const collegeAdd = (collegeData, password) => async (dispatch) => {
     }
 }
 
-export const collegeDelete = ({ state, city, college }, password) => async (dispatch) => {
-    try {
-        dispatch({
-            type: actionTypes.COLLEGE_DELETE_REQUEST,
-        })
+export const collegeDelete =
+    ({ state, city, college }, password) =>
+    async (dispatch) => {
+        try {
+            dispatch({
+                type: actionTypes.COLLEGE_DELETE_REQUEST,
+            })
 
-        await axiosInstance.delete('/api/college', {
-            data: { state, city, college, password },
-        })
+            await axiosInstance.delete('/api/college', {
+                data: { state, city, college, password },
+            })
 
-        dispatch(collegeFetchData()) // te get updated collegeData
+            dispatch(collegeFetchData()) // te get updated collegeData
 
-        dispatch({
-            type: actionTypes.COLLEGE_DELETE_SUCCESS,
-        })
+            dispatch({
+                type: actionTypes.COLLEGE_DELETE_SUCCESS,
+            })
 
-        if (college) {
-            dispatch(alertAdd('College Removed!', 'success'))
-        } else if (city) {
-            dispatch(alertAdd("City and it's corresponding colleges removed!", 'success'))
-        } else if (state) {
-            dispatch(
-                alertAdd(
-                    "State and it's corresponding cities and colleges removed!",
-                    'success'
+            if (college) {
+                dispatch(alertAdd('College Removed!', 'success'))
+            } else if (city) {
+                dispatch(
+                    alertAdd("City and it's corresponding colleges removed!", 'success')
                 )
-            )
+            } else if (state) {
+                dispatch(
+                    alertAdd(
+                        "State and it's corresponding cities and colleges removed!",
+                        'success'
+                    )
+                )
+            }
+        } catch (err) {
+            const errorMsg =
+                err.response && err.response.data.message
+                    ? err.response.data.message
+                    : err.message
+
+            dispatch({
+                type: actionTypes.COLLEGE_DELETE_FAIL,
+                payload: errorMsg,
+            })
+
+            dispatch(alertAdd(errorMsg, 'error'))
         }
-    } catch (err) {
-        const errorMsg =
-            err.response && err.response.data.message
-                ? err.response.data.message
-                : err.message
-
-        dispatch({
-            type: actionTypes.COLLEGE_DELETE_FAIL,
-            payload: errorMsg,
-        })
-
-        dispatch(alertAdd(errorMsg, 'error'))
     }
-}

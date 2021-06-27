@@ -31,7 +31,7 @@ app.use(express.json({ limit: '30mb', extended: true }))
 app.use(compression({ level: 9 }))
 app.use(cors())
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
     res.send('<h1>U-store Server Running....</h1>')
 })
 
