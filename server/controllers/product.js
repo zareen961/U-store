@@ -158,12 +158,16 @@ const productFollowToggle = asyncHandler(async (req, res) => {
     if (foundUser && ObjectID.isValid(productID)) {
         const isProductFollowed = foundUser.following.includes(productID)
         if (isProductFollowed) {
+            // removing the productID from User's following array
             await User.updateOne({ _id: userID }, { $pull: { following: productID } })
+
+            // removing the userID from Product's following array
+            await Product.updateOne({ _id: productID }, { $pull: { following: userID } })
 
             res.status(200).json({ message: 'Product Unfollowed!' })
         } else {
             const foundProduct = await Product.findById(productID).select(
-                'college productOwner isActive'
+                'college productOwner isActive following'
             )
 
             // checking if the product is NOT deleted
@@ -180,12 +184,26 @@ const productFollowToggle = asyncHandler(async (req, res) => {
                 String(foundProduct.college) === String(req.authUser.college) &&
                 String(foundProduct.productOwner) !== String(userID)
             ) {
+                // pushing the productID to User's following array
                 await User.updateOne(
                     { _id: userID },
                     {
                         $push: {
                             following: {
                                 $each: [productID],
+                                $position: 0,
+                            },
+                        },
+                    }
+                )
+
+                // pushing the userID to Product's following array
+                await Product.updateOne(
+                    { _id: productID },
+                    {
+                        $push: {
+                            following: {
+                                $each: [userID],
                                 $position: 0,
                             },
                         },

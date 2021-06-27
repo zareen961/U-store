@@ -35,6 +35,12 @@ const productSchema = new Schema(
             ref: 'User',
             required: true,
         },
+        following: [
+            {
+                type: Types.ObjectId,
+                ref: 'User',
+            },
+        ],
         college: {
             type: Types.ObjectId,
             ref: 'College',

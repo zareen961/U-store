@@ -1,5 +1,9 @@
 const { messaging } = require('../config/firebaseAdmin')
 
+const Product = require('../models/Product')
+const User = require('../models/User')
+const Notification = require('../models/Notification')
+
 // function to subscribe to a topic
 const subscribeTopic = (token, topic) => {
     messaging()
@@ -49,6 +53,50 @@ const sendNotification = (topic, notificationBody) => {
         .catch((error) => {
             console.log('Error sending message:', error)
         })
+}
+
+const saveNotifications = async (productID, type, creator) => {
+    const foundProduct = await Product.findById(productID)
+        .select('productOwner bids following')
+        .populate({
+            path: 'bids',
+            select: 'bidOwner',
+        })
+
+    const newNotification = new Notification({
+        product: productID,
+        creator,
+        type,
+    })
+
+    await newNotification.save()
+
+    const notificationID = newNotification._id
+
+    const usersToNotify = [
+        foundProduct.productOwner,
+        ...foundProduct.bids.map((bid) => bid.bidOwner),
+        ...foundProduct.following.map((userID) => userID),
+    ]
+
+    usersToNotify = usersToNotify.filter((userID) => String(userID) !== String(creator))
+
+    await User.updateMany(
+        {
+            _id: { $in: usersToNotify },
+        },
+        {
+            $push: {
+                notifications: {
+                    $each: [{ notification: notificationID, isRead: false }],
+                    $position: 0,
+                },
+            },
+        }
+    )
+
+    // sending live notification to concerned users
+    sendNotification(productID, { product: productID, creator, type })
 }
 
 module.exports = {

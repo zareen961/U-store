@@ -17,7 +17,7 @@ const SidebarRight = () => {
     const dispatch = useDispatch()
 
     const { user } = useSelector((state) => state.userLogin)
-    const { loading, error } = useSelector(
+    const { loading, error, success } = useSelector(
         (state) => state.notificationLoginAndLogoutAction
     )
 
@@ -35,7 +35,7 @@ const SidebarRight = () => {
     }, [user])
 
     useEffect(() => {
-        if (user && user.userInfo && notificationPermission === 'granted') {
+        if (user && user.userInfo && notificationPermission === 'granted' && !success) {
             messaging
                 .getToken({ vapidKey: VAPID_KEY })
                 .then((currentToken) => {
@@ -70,7 +70,7 @@ const SidebarRight = () => {
                     )
                 })
         }
-    }, [user, notificationPermission, dispatch])
+    }, [user, notificationPermission, dispatch, success])
 
     useEffect(() => {
         messaging.onMessage((payload) => {

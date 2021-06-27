@@ -236,7 +236,15 @@ const userDelete = asyncHandler(async (req, res) => {
         // setting all the products of the user as DELETED and productOwner as the default user
         await Product.updateMany(
             { _id: { $in: foundUser.products } },
-            { $set: { isActive: false, productOwner: defaultUser._id } }
+            {
+                $set: { isActive: false, productOwner: defaultUser._id },
+            }
+        )
+
+        //removing the User from following list of the products he/she follows
+        await Product.updateMany(
+            { _id: { $in: foundUser.following } },
+            { $pull: { following: foundUser._id } }
         )
 
         // deleting all the bids placed by this user (expect the ACCEPTED ones)
