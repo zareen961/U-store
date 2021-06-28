@@ -7,7 +7,7 @@ const Notification = require('../models/Notification')
 // function to subscribe to a topic
 const subscribeTopic = (token, topic) => {
     messaging()
-        .subscribeToTopic([token], topic)
+        .subscribeToTopic([token], String(topic))
         .then((_) => {
             // console.log('Successfully subscribed to topic:', response)
         })
@@ -19,7 +19,7 @@ const subscribeTopic = (token, topic) => {
 // function to unsubscribe from a topic
 const unsubscribeTopic = (token, topic) => {
     messaging()
-        .unsubscribeFromTopic([token], topic)
+        .unsubscribeFromTopic([token], String(topic))
         .then((_) => {
             // console.log('Successfully unsubscribed from topic:', response)
         })
@@ -42,7 +42,7 @@ const batchUnsubscribe = (token, topics) => {
 const sendNotification = (topic, notificationBody) => {
     const message = {
         data: notificationBody,
-        topic,
+        topic: String(topic),
     }
 
     messaging()
@@ -55,7 +55,13 @@ const sendNotification = (topic, notificationBody) => {
         })
 }
 
-const saveAndSendNotification = async (product, type, creator) => {
+const saveAndSendNotification = async (
+    product,
+    type,
+    creator,
+    spotlightUser = '',
+    isRead = 'false'
+) => {
     const foundProduct = await Product.findById(product._id)
         .select('productOwner bids following')
         .populate({
@@ -67,18 +73,20 @@ const saveAndSendNotification = async (product, type, creator) => {
         product: product._id,
         creator: creator._id,
         type,
+        spotlightUser: String(spotlightUser),
     })
 
     await newNotification.save()
 
     const notificationID = newNotification._id
 
-    const usersToNotify = [
+    let usersToNotify = [
         foundProduct.productOwner,
         ...foundProduct.bids.map((bid) => bid.bidOwner),
         ...foundProduct.following.map((userID) => userID),
     ]
 
+    // do not save notification for the creator itself
     usersToNotify = usersToNotify.filter(
         (userID) => String(userID) !== String(creator._id)
     )
@@ -98,12 +106,17 @@ const saveAndSendNotification = async (product, type, creator) => {
     )
 
     // sending live notification to concerned users
-    sendNotification(productID, {
-        productID: product._id,
+    sendNotification(String(product._id), {
+        _id: String(notificationID),
+        productID: String(product._id),
         productName: product.name,
-        creatorID: creator._id,
+        creatorID: String(creator._id),
         creatorUsername: creator.username,
+        creatorAvatar: String(creator.avatar),
+        spotlightUser,
         type,
+        isRead: String(isRead),
+        createdAt: String(newNotification.createdAt),
     })
 }
 

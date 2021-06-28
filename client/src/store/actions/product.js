@@ -128,8 +128,6 @@ export const productEdit = (productID, productData) => async (dispatch) => {
 export const productDelete = (productID, history) => async (dispatch, getState) => {
     const { product: productSingle } = getState().productSingle
 
-    console.log(productSingle)
-
     try {
         dispatch({
             type: actionTypes.PRODUCT_DELETE_REQUEST,

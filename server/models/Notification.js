@@ -1,4 +1,11 @@
 const { Schema, model, Types } = require('mongoose')
+const {
+    BID_ACCEPTED,
+    BID_PLACED,
+    BID_REJECTED,
+    BID_UPDATED,
+    PRODUCT_DELETED,
+} = require('../utils/constants')
 
 const notificationSchema = new Schema(
     {
@@ -12,15 +19,14 @@ const notificationSchema = new Schema(
             ref: 'User',
             required: true,
         },
+        spotlightUser: {
+            type: String,
+            required: false,
+            default: '',
+        },
         type: {
             type: String,
-            enum: [
-                'BID_RECEIVED',
-                'BID_ACCEPTED',
-                'BID_REJECTED',
-                'BID_UPDATE',
-                'PRODUCT_DELETE',
-            ],
+            enum: [BID_PLACED, BID_ACCEPTED, BID_REJECTED, BID_UPDATED, PRODUCT_DELETED],
             required: true,
         },
     },

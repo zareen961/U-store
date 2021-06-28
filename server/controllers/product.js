@@ -6,12 +6,20 @@ const Product = require('../models/Product')
 const User = require('../models/User')
 const validateProductInputs = require('../validators/product')
 const { SEARCH_RESULTS_LIMIT } = require('../utils/constants')
+const {
+    subscribeTopic,
+    unsubscribeTopic,
+    saveAndSendNotification,
+} = require('../utils/notification')
+const { PRODUCT_DELETED } = require('../utils/constants')
+const { getNotificationToken } = require('../utils/getNotificationToken')
 
 // to upload new product
 const productUpload = asyncHandler(async (req, res) => {
     const { name, image, price, description } = req.body
     const productOwner = req.authUser._id
     const college = req.authUser.college
+    const notificationClientToken = getNotificationToken(req.headers)
 
     const { isValid, message } = validateProductInputs(req.body)
     if (!isValid) {
@@ -41,6 +49,9 @@ const productUpload = asyncHandler(async (req, res) => {
                 },
             }
         )
+
+        // subscribing to this product group
+        subscribeTopic(notificationClientToken, newProduct._id)
 
         res.status(200).json(newProduct)
     } else {
@@ -74,6 +85,7 @@ const productGetAll = asyncHandler(async (req, res) => {
 // to delete a product
 const productDelete = asyncHandler(async (req, res) => {
     const productID = req.params.productID
+    const notificationClientToken = getNotificationToken(req.headers)
 
     const foundProduct = await Product.findById(productID)
 
@@ -93,6 +105,18 @@ const productDelete = asyncHandler(async (req, res) => {
         // if the product is deleted we set isActive to false
         foundProduct.isActive = false
         await foundProduct.save()
+
+        // unsubscribe and send notifications to this product group
+        saveAndSendNotification(
+            { _id: productID, name: foundProduct.name },
+            PRODUCT_DELETED,
+            {
+                _id: req.authUser._id,
+                username: req.authUser.username,
+                avatar: String(req.authUser.avatar),
+            }
+        )
+        unsubscribeTopic(notificationClientToken, foundProduct._id)
 
         res.status(200).json({
             message: 'Product Deleted!',
@@ -152,6 +176,7 @@ const productUpdate = asyncHandler(async (req, res) => {
 const productFollowToggle = asyncHandler(async (req, res) => {
     const { productID } = req.params
     const userID = req.authUser._id
+    const notificationClientToken = getNotificationToken(req.headers)
 
     // checking if the productID exists in following array of the user
     const foundUser = await User.findById(userID).select()
@@ -163,6 +188,9 @@ const productFollowToggle = asyncHandler(async (req, res) => {
 
             // removing the userID from Product's following array
             await Product.updateOne({ _id: productID }, { $pull: { following: userID } })
+
+            // unsubscribing from this product group
+            unsubscribeTopic(notificationClientToken, productID)
 
             res.status(200).json({ message: 'Product Unfollowed!' })
         } else {
@@ -209,6 +237,9 @@ const productFollowToggle = asyncHandler(async (req, res) => {
                         },
                     }
                 )
+
+                // subscribing to this product group
+                subscribeTopic(notificationClientToken, productID)
 
                 res.status(200).json({ message: 'Product Followed!' })
             } else {

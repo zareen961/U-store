@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { productSingleFetch } from '../../../../store/actions/product'
+import { createNotificationBody } from '../../../../utils/createNotificationBody'
 import './NotificationItem.css'
 
 const NotificationItem = ({ notification }) => {

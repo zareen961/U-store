@@ -3,13 +3,12 @@ const _ = require('lodash')
 
 const User = require('../models/User')
 const { batchSubscribe, batchUnsubscribe } = require('../utils/notification')
+const { getNotificationToken } = require('../utils/getNotificationToken')
 
 // to batch subscribe/unsubscribe to all the concerned topics of the logged in user to get live updates
 const notificationLoginAndLogoutAction = asyncHandler(async (req, res) => {
-    const { notification } = req.headers
     const { action } = req.params
-
-    const notificationClientToken = notification ? notification.split(' ')[1] : ''
+    const notificationClientToken = getNotificationToken(req.headers)
 
     if (!notificationClientToken) {
         res.status(400)
@@ -64,10 +63,15 @@ const notificationGetSaved = asyncHandler(async (req, res) => {
         .select('notifications')
         .populate({
             path: 'notifications',
-            select: '_id isRead product creator type',
+            // select: '_id product creator type spotlightUser',
+            // select: '_id isRead notification',
             populate: {
-                path: 'product creator',
-                select: '_id name username avatar',
+                path: 'notification',
+                // select: '_id product creator spotlightUser type',
+                populate: {
+                    path: 'product creator',
+                    select: '_id name username avatar',
+                },
             },
         })
 
@@ -78,9 +82,20 @@ const notificationGetSaved = asyncHandler(async (req, res) => {
         )
     }
 
-    console.log(foundUser)
-
-    const notifications = []
+    const notifications = foundUser.notifications.map(
+        ({ _id, notification, isRead }) => ({
+            _id: String(_id),
+            productID: notification.product._id,
+            productName: notification.product.name,
+            creatorID: notification.creator._id,
+            creatorUsername: notification.creator.username,
+            creatorAvatar: notification.creator.avatar,
+            spotlightUser: notification.spotlightUser,
+            type: notification.type,
+            isRead: String(isRead),
+            createdAt: notification.createdAt,
+        })
+    )
 
     res.status(200).json(notifications)
 })

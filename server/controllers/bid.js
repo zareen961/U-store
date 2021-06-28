@@ -4,13 +4,25 @@ const Bid = require('../models/Bid')
 const User = require('../models/User')
 const Product = require('../models/Product')
 const validateBidInputs = require('../validators/bid')
-const { sendNotification } = require('../utils/notification')
+const {
+    subscribeTopic,
+    unsubscribeTopic,
+    saveAndSendNotification,
+} = require('../utils/notification')
+const {
+    BID_ACCEPTED,
+    BID_PLACED,
+    BID_REJECTED,
+    BID_UPDATED,
+} = require('../utils/constants')
+const { getNotificationToken } = require('../utils/getNotificationToken')
 
 // to place a bid on a product
 const bidPlace = asyncHandler(async (req, res) => {
     const { price } = req.body
     const product = req.params.productID
     const bidOwner = req.authUser._id
+    const notificationClientToken = getNotificationToken(req.headers)
 
     const { isValid, message } = validateBidInputs(req.body)
     if (!isValid) {
@@ -20,7 +32,7 @@ const bidPlace = asyncHandler(async (req, res) => {
 
     // checking if the User placing Bid is NOT the owner of the Product.
     const foundProduct = await Product.findById(product)
-        .select('productOwner bids isActive')
+        .select('productOwner bids isActive name')
         .populate('bids')
 
     // checking if the product is NOT deleted
@@ -83,11 +95,18 @@ const bidPlace = asyncHandler(async (req, res) => {
         await User.updateOne({ _id: bidOwner }, { $pull: { following: product } })
 
         // subscribe the product and send notifications to this product group
-        sendNotification(product, {
-            name: 'Batook Bubble',
-            firstDate: '14 Jun',
-            kids: '1',
-        })
+        saveAndSendNotification(
+            { _id: product, name: foundProduct.name },
+            BID_PLACED,
+            {
+                _id: req.authUser._id,
+                username: req.authUser.username,
+                avatar: String(req.authUser.avatar),
+            },
+            foundProduct.productOwner
+        )
+
+        subscribeTopic(notificationClientToken, product)
 
         res.status(200).json(newBid)
     } else {
@@ -99,6 +118,7 @@ const bidPlace = asyncHandler(async (req, res) => {
 // to delete a bid
 const bidDelete = asyncHandler(async (req, res) => {
     const bidID = req.params.bidID
+    const notificationClientToken = getNotificationToken(req.headers)
 
     const foundBid = await Bid.findById(bidID).populate('product')
 
@@ -120,6 +140,9 @@ const bidDelete = asyncHandler(async (req, res) => {
 
         // removing the deleted Bid's ID from the Product's bids array
         await Product.updateOne({ _id: foundBid.product }, { $pull: { bids: bidID } })
+
+        // unsubscribe to this topic group
+        unsubscribeTopic(notificationClientToken, foundBid.product._id)
 
         await foundBid.remove()
         res.status(200).json({
@@ -147,7 +170,7 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
         throw new Error(message)
     }
 
-    const foundBid = await Bid.findById(bidID).populate('product')
+    const foundBid = await Bid.findById(bidID).populate('product bidOwner')
 
     if (foundBid) {
         // checking if the logged in user is the Product owner
@@ -163,6 +186,31 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
         )
 
         if (updatedBid) {
+            // send notifications to this product group
+            if (newBidStatus === 'ACCEPTED') {
+                saveAndSendNotification(
+                    { _id: foundBid.product._id, name: foundBid.product.name },
+                    BID_ACCEPTED,
+                    {
+                        _id: req.authUser._id,
+                        username: req.authUser.username,
+                        avatar: String(req.authUser.avatar),
+                    },
+                    foundBid.bidOwner.username
+                )
+            } else {
+                saveAndSendNotification(
+                    { _id: foundBid.product._id, name: foundBid.product.name },
+                    BID_REJECTED,
+                    {
+                        _id: req.authUser._id,
+                        username: req.authUser.username,
+                        avatar: String(req.authUser.avatar),
+                    },
+                    foundBid.bidOwner.username
+                )
+            }
+
             res.status(200).json({ message: 'Bid Status Updated!' })
         } else {
             res.status(500)
@@ -192,7 +240,10 @@ const bidPriceEdit = asyncHandler(async (req, res) => {
         throw new Error(message)
     }
 
-    const foundBid = await Bid.findById(bidID)
+    const foundBid = await Bid.findById(bidID).populate({
+        path: 'product',
+        select: '_id name',
+    })
 
     if (foundBid) {
         // checking if the logged in user is the Bid owner
@@ -214,6 +265,16 @@ const bidPriceEdit = asyncHandler(async (req, res) => {
         )
 
         if (updatedBid) {
+            // subscribe the product and send notifications to this product group
+            saveAndSendNotification(
+                { _id: foundBid.product._id, name: foundBid.product.name },
+                BID_UPDATED,
+                {
+                    _id: req.authUser._id,
+                    username: req.authUser.username,
+                    avatar: String(req.authUser.avatar),
+                }
+            )
             res.status(200).json({ message: 'Bid Price Updated!' })
         } else {
             res.status(500)

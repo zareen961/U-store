@@ -21,8 +21,13 @@ const SidebarRight = () => {
     const dispatch = useDispatch()
 
     const { user } = useSelector((state) => state.userLogin)
-    const { loading, error, success } = useSelector(
-        (state) => state.notificationLoginAndLogoutAction
+    const {
+        loading: loadingNotificationLoginAndLogout,
+        error,
+        success: successNotificationLoginAndLogoutAction,
+    } = useSelector((state) => state.notificationLoginAndLogoutAction)
+    const { loading: loadingNotificationGetSaved, notifications } = useSelector(
+        (state) => state.notificationGetSaved
     )
 
     const [notificationPermission, setNotificationPermission] = useState(
@@ -39,7 +44,12 @@ const SidebarRight = () => {
     }, [user])
 
     useEffect(() => {
-        if (user && user.userInfo && notificationPermission === 'granted' && !success) {
+        if (
+            user &&
+            user.userInfo &&
+            notificationPermission === 'granted' &&
+            !successNotificationLoginAndLogoutAction
+        ) {
             messaging
                 .getToken({ vapidKey: VAPID_KEY })
                 .then((currentToken) => {
@@ -74,7 +84,7 @@ const SidebarRight = () => {
                     )
                 })
         }
-    }, [user, notificationPermission, dispatch, success])
+    }, [user, notificationPermission, dispatch, successNotificationLoginAndLogoutAction])
 
     // setting up the firebase listener to receive incoming live notifications
     useEffect(() => {
@@ -103,7 +113,7 @@ const SidebarRight = () => {
                 </BlockHeader>
             </div>
             <div className="sidebarRight__notificationsWrapper">
-                {loading && (
+                {(loadingNotificationLoginAndLogout || loadingNotificationGetSaved) && (
                     <div className="sidebarRight__loaderWrapper">
                         <Loader />
                     </div>
@@ -127,41 +137,19 @@ const SidebarRight = () => {
                     />
                 )}
 
-                <NotificationItem
-                    notification={{
-                        creatorAvatar: 5,
-                        creatorUsername: 'blck_tie',
-                        productID: '1234',
-                        productName: 'Nivia Football Size 5',
-                    }}
-                />
-
-                <NotificationItem
-                    notification={{
-                        creatorAvatar: 8,
-                        creatorUsername: 'blck_tie',
-                        productID: '1234',
-                        productName: 'Nivia Football Size 5',
-                    }}
-                />
-
-                <NotificationItem
-                    notification={{
-                        creatorAvatar: 4,
-                        creatorUsername: 'blck_tie',
-                        productID: '1234',
-                        productName: 'Nivia Football Size 5',
-                    }}
-                />
-
-                <NotificationItem
-                    notification={{
-                        creatorAvatar: 14,
-                        creatorUsername: 'blck_tie',
-                        productID: '1234',
-                        productName: 'Nivia Football Size 5',
-                    }}
-                />
+                {notifications.length === 0 ? (
+                    <NoItemMessage
+                        titleSize={1.3}
+                        text={"No Notifications! You're all caught up."}
+                    />
+                ) : (
+                    notifications.map((notification) => (
+                        <NotificationItem
+                            key={notification._id}
+                            notification={notification}
+                        />
+                    ))
+                )}
             </div>
         </div>
     )
