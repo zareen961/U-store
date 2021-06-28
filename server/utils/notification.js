@@ -55,8 +55,8 @@ const sendNotification = (topic, notificationBody) => {
         })
 }
 
-const saveNotifications = async (productID, type, creator) => {
-    const foundProduct = await Product.findById(productID)
+const saveAndSendNotification = async (product, type, creator) => {
+    const foundProduct = await Product.findById(product._id)
         .select('productOwner bids following')
         .populate({
             path: 'bids',
@@ -64,8 +64,8 @@ const saveNotifications = async (productID, type, creator) => {
         })
 
     const newNotification = new Notification({
-        product: productID,
-        creator,
+        product: product._id,
+        creator: creator._id,
         type,
     })
 
@@ -79,7 +79,9 @@ const saveNotifications = async (productID, type, creator) => {
         ...foundProduct.following.map((userID) => userID),
     ]
 
-    usersToNotify = usersToNotify.filter((userID) => String(userID) !== String(creator))
+    usersToNotify = usersToNotify.filter(
+        (userID) => String(userID) !== String(creator._id)
+    )
 
     await User.updateMany(
         {
@@ -96,7 +98,13 @@ const saveNotifications = async (productID, type, creator) => {
     )
 
     // sending live notification to concerned users
-    sendNotification(productID, { product: productID, creator, type })
+    sendNotification(productID, {
+        productID: product._id,
+        productName: product.name,
+        creatorID: creator._id,
+        creatorUsername: creator.username,
+        type,
+    })
 }
 
 module.exports = {
@@ -105,4 +113,5 @@ module.exports = {
     batchSubscribe,
     batchUnsubscribe,
     sendNotification,
+    saveAndSendNotification,
 }

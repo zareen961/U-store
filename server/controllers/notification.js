@@ -4,7 +4,7 @@ const _ = require('lodash')
 const User = require('../models/User')
 const { batchSubscribe, batchUnsubscribe } = require('../utils/notification')
 
-// to add a user's new client to NotificationClient
+// to batch subscribe/unsubscribe to all the concerned topics of the logged in user to get live updates
 const notificationLoginAndLogoutAction = asyncHandler(async (req, res) => {
     const { notification } = req.headers
     const { action } = req.params
@@ -58,6 +58,62 @@ const notificationLoginAndLogoutAction = asyncHandler(async (req, res) => {
     res.status(200).json({ message: 'Successfully subscribed to notifications!' })
 })
 
+// to fetch all the saved notifications of the logged in user
+const notificationGetSaved = asyncHandler(async (req, res) => {
+    const foundUser = await User.findById(req.authUser._id)
+        .select('notifications')
+        .populate({
+            path: 'notifications',
+            select: '_id isRead product creator type',
+            populate: {
+                path: 'product creator',
+                select: '_id name username avatar',
+            },
+        })
+
+    if (!foundUser) {
+        res.status(500)
+        throw new Error(
+            'Some error occurred while fetching your notifications! Please refresh to try again.'
+        )
+    }
+
+    console.log(foundUser)
+
+    const notifications = []
+
+    res.status(200).json(notifications)
+})
+
+// to delete a notification
+const notificationDelete = asyncHandler(async (req, res) => {
+    const { notificationID } = req.params
+
+    // removing the notificationID from User's notifications array
+    await User.updateOne(
+        { _id: req.authUser._id },
+        { $pull: { notifications: notificationID } }
+    )
+
+    res.status(200).json({ message: 'Notification deleted!' })
+})
+
+// to update a user's notification as READ
+const notificationUpdateRead = asyncHandler(async (req, res) => {
+    const { notificationID } = req.params
+
+    // setting that one notification in User's notifications array as READ
+    await User.updateOne(
+        { _id: req.authUser._id, 'notifications._id': notificationID },
+        { $set: { 'notifications.$.isRead': true } }
+    )
+
+    res.status(200).json({ message: 'Notification Read!' })
+})
+
 module.exports = {
     notificationLoginAndLogoutAction,
+    notificationGetSaved,
+    notificationDelete,
+    notificationUpdateRead,
 }

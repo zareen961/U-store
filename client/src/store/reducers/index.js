@@ -28,12 +28,15 @@ import {
     bidPriceUpdateReducer,
 } from './bid'
 import { contactMailReducer } from './contact'
-import { notificationLoginAndLogoutActionReducer } from './notification'
+import {
+    notificationLoginAndLogoutActionReducer,
+    notificationGetSavedReducer,
+    notificationDeleteReducer,
+} from './notification'
 
 export default combineReducers({
     theme: themeReducer,
     alerts: alertReducer,
-    notificationLoginAndLogoutAction: notificationLoginAndLogoutActionReducer,
     contactMail: contactMailReducer,
     college: collegeReducer,
     userRegister: userRegisterReducer,
@@ -55,4 +58,7 @@ export default combineReducers({
     bidDelete: bidDeleteReducer,
     bidStatusUpdate: bidStatusUpdateReducer,
     bidPriceUpdate: bidPriceUpdateReducer,
+    notificationLoginAndLogoutAction: notificationLoginAndLogoutActionReducer,
+    notificationGetSaved: notificationGetSavedReducer,
+    notificationDelete: notificationDeleteReducer,
 })

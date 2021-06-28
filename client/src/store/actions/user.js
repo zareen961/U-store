@@ -186,12 +186,14 @@ export const userLogout = (history) => (dispatch) => {
         dispatch(notificationLoginAndLogoutAction('UNSUBSCRIBE'))
     }
 
+    // store cleanups
     dispatch({ type: actionTypes.USER_LOGOUT })
     dispatch({ type: actionTypes.PRODUCT_CLEANUP })
     dispatch({ type: actionTypes.USER_PRODUCTS_CLEANUP })
     dispatch({ type: actionTypes.USER_BIDS_CLEANUP })
     dispatch({ type: actionTypes.USER_FOLLOWING_CLEANUP })
     dispatch({ type: actionTypes.PRODUCT_SINGLE_CLEANUP })
+    dispatch({ type: actionTypes.NOTIFICATION_CLEANUP })
 
     // redirecting to home route after user is logged out
     if (history) {

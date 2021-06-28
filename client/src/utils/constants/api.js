@@ -33,3 +33,7 @@ export const COLLEGE_FETCH = '/api/college'
 // NOTIFICATION ************************************************************************
 export const NOTIFICATION_LOGIN_AND_LOGOUT_ACTION = (action) =>
     `/api/notification/batch/${action}`
+export const NOTIFICATION_GET_SAVED = '/api/notification'
+export const NOTIFICATION_DELETE = (notificationID) =>
+    `/api/notification/${notificationID}`
+export const NOTIFICATION_READ = (notificationID) => `/api/notification/${notificationID}`

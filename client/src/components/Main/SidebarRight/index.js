@@ -7,7 +7,10 @@ import BlockHeader from '../../utils/BlockHeader'
 import NoItemMessage from '../../utils/NoItemMessage'
 import Loader from '../../utils/Loader'
 import { alertAdd } from '../../../store/actions/ui'
-import { notificationLoginAndLogoutAction } from '../../../store/actions/notification'
+import {
+    notificationLoginAndLogoutAction,
+    notificationGetSaved,
+} from '../../../store/actions/notification'
 import { setNotificationHeader } from '../../../utils/setAxiosHeaders'
 import './SidebarRight.css'
 
@@ -72,11 +75,19 @@ const SidebarRight = () => {
         }
     }, [user, notificationPermission, dispatch, success])
 
+    // setting up the firebase listener to receive incoming live notifications
     useEffect(() => {
         messaging.onMessage((payload) => {
             console.log('Message received. ', payload)
         })
     }, [])
+
+    // getting the saved notifications from the database
+    useEffect(() => {
+        if (user && user.userInfo) {
+            dispatch(notificationGetSaved())
+        }
+    }, [user, dispatch])
 
     return (
         <div className="sidebarRight">
