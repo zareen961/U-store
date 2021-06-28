@@ -201,6 +201,9 @@ export const userLogout = (history) => (dispatch) => {
     // clearing the user from localStorage
     localStorage.removeItem('ustore__user')
 
+    // removing the auth header
+    setAuthHeader()
+
     dispatch(alertAdd('User Logged out!', 'success'))
 }
 

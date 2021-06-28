@@ -12,6 +12,11 @@ const protectAdmin = asyncHandler(async (req, res, next) => {
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
             req.authAdmin = await Admin.findById(decodedToken._id).select('-password')
 
+            if (!req.authAdmin) {
+                res.status(400)
+                throw new Error('Admin not found!')
+            }
+
             next()
         } catch (err) {
             console.error(err.message)
@@ -33,6 +38,11 @@ const protectUser = asyncHandler(async (req, res, next) => {
             token = req.headers.authorization.split(' ')[1]
             const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
             req.authUser = await User.findById(decodedToken._id).select('_id college')
+
+            if (!req.authUser) {
+                res.status(400)
+                throw new Error('User not found!')
+            }
 
             next()
         } catch (err) {
