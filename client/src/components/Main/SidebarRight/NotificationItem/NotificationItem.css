@@ -1,0 +1,51 @@
+.notificationItem {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: rgba(var(--secondary-light), 1);
+    margin-bottom: 20px;
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    box-shadow: var(--box-shadow);
+}
+
+.notificationItem:hover {
+    border-color: rgba(var(--primary-light), 0.5);
+    box-shadow: none;
+}
+
+.notificationItem__clickWrapper {
+    display: flex;
+    width: 100%;
+}
+
+.notificationItem__deleteButton {
+    position: absolute !important;
+    bottom: 0px !important;
+    right: 0px !important;
+    color: rgba(var(--primary-light), 0.8) !important;
+}
+
+.notificationItem__avatar {
+    background-color: rgba(var(--primary-light), 0.5);
+    border-radius: 10px !important;
+    align-self: center;
+    height: 40px !important;
+    width: 40px !important;
+    margin-right: 10px;
+}
+
+.notificationItem__body {
+    color: rgba(var(--primary-light), 0.8);
+    font-weight: 400;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.notificationItem__body span {
+    color: rgba(var(--primary-light), 0.9);
+    font-weight: 500;
+}

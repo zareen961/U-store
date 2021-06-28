@@ -12,6 +12,7 @@ import {
     notificationGetSaved,
 } from '../../../store/actions/notification'
 import { setNotificationHeader } from '../../../utils/setAxiosHeaders'
+import NotificationItem from './NotificationItem'
 import './SidebarRight.css'
 
 const { VAPID_KEY = '' } = process.env
@@ -125,6 +126,42 @@ const SidebarRight = () => {
                         }
                     />
                 )}
+
+                <NotificationItem
+                    notification={{
+                        creatorAvatar: 5,
+                        creatorUsername: 'blck_tie',
+                        productID: '1234',
+                        productName: 'Nivia Football Size 5',
+                    }}
+                />
+
+                <NotificationItem
+                    notification={{
+                        creatorAvatar: 8,
+                        creatorUsername: 'blck_tie',
+                        productID: '1234',
+                        productName: 'Nivia Football Size 5',
+                    }}
+                />
+
+                <NotificationItem
+                    notification={{
+                        creatorAvatar: 4,
+                        creatorUsername: 'blck_tie',
+                        productID: '1234',
+                        productName: 'Nivia Football Size 5',
+                    }}
+                />
+
+                <NotificationItem
+                    notification={{
+                        creatorAvatar: 14,
+                        creatorUsername: 'blck_tie',
+                        productID: '1234',
+                        productName: 'Nivia Football Size 5',
+                    }}
+                />
             </div>
         </div>
     )
