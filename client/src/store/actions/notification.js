@@ -78,6 +78,14 @@ export const notificationGetSaved = () => async (dispatch, getState) => {
     }
 }
 
+// to push a live incoming notification to notifications store
+export const notificationLivePush = (newNotification) => async (dispatch) => {
+    dispatch({
+        type: actionTypes.NOTIFICATION_PUSH_NEW,
+        payload: newNotification,
+    })
+}
+
 // to delete a notification
 export const notificationDelete = (notificationID) => async (dispatch) => {
     try {
@@ -107,7 +115,7 @@ export const notificationDelete = (notificationID) => async (dispatch) => {
     }
 }
 
-// to delete a notification
+// to read a notification
 export const notificationUpdateRead = (notificationID) => async (dispatch) => {
     try {
         await axiosInstance.patch(api.NOTIFICATION_READ(notificationID))

@@ -3,6 +3,7 @@
     height: 100%;
     padding: 30px;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .sidebarRight__loaderWrapper {
@@ -11,6 +12,20 @@
 }
 
 .sidebarRight__unreadCount .MuiBadge-colorPrimary {
-    background-color: rgba(var(--primary-light), 1);
+    background-color: rgba(var(--gradient-extra), 1);
     color: rgba(var(--secondary-light), 1);
+}
+
+.sidebarRight__notificationsWrapper {
+    overflow-y: auto;
+    height: 95%;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.sidebarRight__notificationsWrapper::-webkit-scrollbar {
+    display: none;
 }

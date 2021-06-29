@@ -1,0 +1,5 @@
+export const BID_PLACED = 'BID_PLACED'
+export const BID_ACCEPTED = 'BID_ACCEPTED'
+export const BID_REJECTED = 'BID_REJECTED'
+export const BID_UPDATED = 'BID_UPDATED'
+export const PRODUCT_DELETED = 'PRODUCT_DELETED'

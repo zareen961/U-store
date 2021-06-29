@@ -33,7 +33,10 @@ const bidPlace = asyncHandler(async (req, res) => {
     // checking if the User placing Bid is NOT the owner of the Product.
     const foundProduct = await Product.findById(product)
         .select('productOwner bids isActive name')
-        .populate('bids')
+        .populate({
+            path: 'bids productOwner',
+            select: '_id bidOwner status username',
+        })
 
     // checking if the product is NOT deleted
     if (!foundProduct.isActive) {
@@ -42,7 +45,7 @@ const bidPlace = asyncHandler(async (req, res) => {
     }
 
     // checking if the user is NOT the owner of the product
-    if (String(foundProduct.productOwner) === String(bidOwner)) {
+    if (String(foundProduct.productOwner._id) === String(bidOwner)) {
         res.status(401)
         throw new Error('Sorry, you cannot place a bid on your own product!')
     }
@@ -103,7 +106,7 @@ const bidPlace = asyncHandler(async (req, res) => {
                 username: req.authUser.username,
                 avatar: String(req.authUser.avatar),
             },
-            foundProduct.productOwner
+            foundProduct.productOwner.username
         )
 
         subscribeTopic(notificationClientToken, product)
@@ -242,7 +245,11 @@ const bidPriceEdit = asyncHandler(async (req, res) => {
 
     const foundBid = await Bid.findById(bidID).populate({
         path: 'product',
-        select: '_id name',
+        select: '_id name productOwner',
+        populate: {
+            path: 'productOwner',
+            select: '_id username',
+        },
     })
 
     if (foundBid) {
@@ -273,7 +280,8 @@ const bidPriceEdit = asyncHandler(async (req, res) => {
                     _id: req.authUser._id,
                     username: req.authUser.username,
                     avatar: String(req.authUser.avatar),
-                }
+                },
+                foundBid.product.productOwner.username
             )
             res.status(200).json({ message: 'Bid Price Updated!' })
         } else {

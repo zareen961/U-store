@@ -2,7 +2,7 @@ import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import IconButton from '@material-ui/core/IconButton'
 import { TrashIcon } from '@primer/octicons-react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { productSingleFetch } from '../../../../store/actions/product'
@@ -13,6 +13,8 @@ const NotificationItem = ({ notification }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    const { user } = useSelector((state) => state.userLogin)
+
     const productSlug = notification.productName.toLowerCase().split(' ').join('-')
 
     const handleNotificationOnClick = () => {
@@ -21,7 +23,13 @@ const NotificationItem = ({ notification }) => {
     }
 
     return (
-        <div className="notificationItem">
+        <div
+            className={
+                notification.isRead === 'true'
+                    ? 'notificationItem'
+                    : 'notificationItem unread'
+            }
+        >
             <div
                 className="notificationItem__clickWrapper"
                 onClick={handleNotificationOnClick}
@@ -32,10 +40,7 @@ const NotificationItem = ({ notification }) => {
                 />
 
                 <div className="notificationItem__body">
-                    <p>
-                        <span>@{notification.creatorUsername}</span> accepted your bid on{' '}
-                        <span>{notification.productName}</span>
-                    </p>
+                    {createNotificationBody(notification, user.userInfo.username)}
                 </div>
             </div>
             <IconButton

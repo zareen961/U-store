@@ -10,6 +10,7 @@
     transition: all 0.3s ease;
     border: 1px solid transparent;
     box-shadow: var(--box-shadow);
+    overflow: hidden;
 }
 
 .notificationItem:hover {
@@ -48,4 +49,26 @@
 .notificationItem__body span {
     color: rgba(var(--primary-light), 0.9);
     font-weight: 500;
+}
+
+/*  UNREAD notification styling **********************************************/
+.notificationItem.unread {
+    background-color: rgba(var(--primary-light), 0.9);
+    box-shadow: none;
+}
+
+.notificationItem.unread .notificationItem__avatar {
+    background-color: rgba(var(--secondary-light), 1);
+}
+
+.notificationItem.unread .notificationItem__deleteButton {
+    color: rgba(var(--secondary-light), 1) !important;
+}
+
+.notificationItem.unread .notificationItem__body {
+    color: rgba(var(--secondary-light), 1);
+}
+
+.notificationItem.unread .notificationItem__body span {
+    color: rgba(var(--secondary-light), 1);
 }

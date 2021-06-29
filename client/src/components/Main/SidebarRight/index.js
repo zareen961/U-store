@@ -10,6 +10,7 @@ import { alertAdd } from '../../../store/actions/ui'
 import {
     notificationLoginAndLogoutAction,
     notificationGetSaved,
+    notificationLivePush,
 } from '../../../store/actions/notification'
 import { setNotificationHeader } from '../../../utils/setAxiosHeaders'
 import NotificationItem from './NotificationItem'
@@ -89,9 +90,10 @@ const SidebarRight = () => {
     // setting up the firebase listener to receive incoming live notifications
     useEffect(() => {
         messaging.onMessage((payload) => {
-            console.log('Message received. ', payload)
+            if (user.userInfo.username !== payload.data.creatorUsername)
+                dispatch(notificationLivePush(payload.data))
         })
-    }, [])
+    }, [dispatch, user.userInfo.username])
 
     // getting the saved notifications from the database
     useEffect(() => {
@@ -105,7 +107,10 @@ const SidebarRight = () => {
             <div className="sidebarRight__headerWrapper">
                 <BlockHeader title="Notifications">
                     <Badge
-                        badgeContent={10}
+                        badgeContent={notifications.reduce(
+                            (acc, curr) => acc + (curr.isRead === 'true' ? 0 : 1),
+                            0
+                        )}
                         max={9}
                         color="primary"
                         className="sidebarRight__unreadCount"

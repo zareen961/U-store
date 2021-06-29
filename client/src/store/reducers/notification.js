@@ -84,6 +84,12 @@ export const notificationGetSavedReducer = (
                 lastFetch: null,
             }
 
+        case actionTypes.NOTIFICATION_PUSH_NEW:
+            return {
+                ...state,
+                notifications: [action.payload, ...state.notifications],
+            }
+
         default:
             return state
     }
