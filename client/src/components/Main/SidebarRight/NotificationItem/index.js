@@ -4,8 +4,10 @@ import IconButton from '@material-ui/core/IconButton'
 import { TrashIcon } from '@primer/octicons-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import moment from 'moment'
 
 import { productSingleFetch } from '../../../../store/actions/product'
+import { notificationUpdateRead } from '../../../../store/actions/notification'
 import { createNotificationBody } from '../../../../utils/createNotificationBody'
 import './NotificationItem.css'
 
@@ -19,6 +21,7 @@ const NotificationItem = ({ notification }) => {
 
     const handleNotificationOnClick = () => {
         dispatch(productSingleFetch(notification.productID))
+        dispatch(notificationUpdateRead(notification._id))
         history.push(`/products/${productSlug}`)
     }
 
@@ -30,6 +33,9 @@ const NotificationItem = ({ notification }) => {
                     : 'notificationItem unread'
             }
         >
+            <span className="notificationItem__timestamp">
+                {moment(notification.createdAt).fromNow()}
+            </span>
             <div
                 className="notificationItem__clickWrapper"
                 onClick={handleNotificationOnClick}

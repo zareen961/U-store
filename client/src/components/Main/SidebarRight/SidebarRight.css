@@ -9,6 +9,11 @@
 .sidebarRight__loaderWrapper {
     display: grid;
     place-items: center;
+    padding-bottom: 30px;
+}
+
+.sidebarRight__unreadCount {
+    margin-right: 20px;
 }
 
 .sidebarRight__unreadCount .MuiBadge-colorPrimary {
@@ -28,4 +33,12 @@
 
 .sidebarRight__notificationsWrapper::-webkit-scrollbar {
     display: none;
+}
+
+.sidebarRight__allCaughtUpMessage {
+    font-weight: 500;
+    font-size: 1rem;
+    color: rgba(var(--primary-light), 0.6);
+    text-align: center;
+    font-family: 'Poppins', sans-serif !important;
 }

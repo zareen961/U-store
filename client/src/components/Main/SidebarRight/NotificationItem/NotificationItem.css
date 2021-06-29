@@ -6,11 +6,9 @@
     margin-bottom: 20px;
     border-radius: 15px;
     position: relative;
-    cursor: pointer;
     transition: all 0.3s ease;
     border: 1px solid transparent;
     box-shadow: var(--box-shadow);
-    overflow: hidden;
 }
 
 .notificationItem:hover {
@@ -18,9 +16,20 @@
     box-shadow: none;
 }
 
+.notificationItem__timestamp {
+    position: absolute;
+    top: 2px;
+    right: 7px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: rgba(var(--primary-dark), 0.5);
+    font-family: 'Poppins', sans-serif !important;
+}
+
 .notificationItem__clickWrapper {
     display: flex;
     width: 100%;
+    cursor: pointer;
 }
 
 .notificationItem__deleteButton {
@@ -51,24 +60,19 @@
     font-weight: 500;
 }
 
+.notificationItem__body span.action {
+    color: rgba(var(--gradient-extra), 1);
+    font-weight: 500;
+}
+
 /*  UNREAD notification styling **********************************************/
-.notificationItem.unread {
-    background-color: rgba(var(--primary-light), 0.9);
-    box-shadow: none;
-}
-
-.notificationItem.unread .notificationItem__avatar {
-    background-color: rgba(var(--secondary-light), 1);
-}
-
-.notificationItem.unread .notificationItem__deleteButton {
-    color: rgba(var(--secondary-light), 1) !important;
-}
-
-.notificationItem.unread .notificationItem__body {
-    color: rgba(var(--secondary-light), 1);
-}
-
-.notificationItem.unread .notificationItem__body span {
-    color: rgba(var(--secondary-light), 1);
+.notificationItem.unread::before {
+    content: '';
+    width: 15px;
+    height: 15px;
+    background-color: rgba(var(--gradient-extra), 1);
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: -5px;
 }

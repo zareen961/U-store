@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 import ProductDetails from '../../utils/ProductDetails'
 import ConfirmModal from '../../utils/ConfirmModal'
 import TooltipComp from '../../utils/TooltipComp'
+import DeleteCover from '../../utils/DeleteCover'
 import ImageModal from '../Home/ProductCard/ImageModal'
 import AvatarHeader from '../Home/ProductCard/AvatarHeader'
 import ActionFooter from '../Home/ProductCard/ActionFooter'
@@ -128,15 +129,19 @@ const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
                     </div>
                 </div>
 
-                {String(user.userInfo._id) !== String(product.productOwner._id) && (
-                    <div className="productSingleCard__footerWrapper">
-                        <ActionFooter
-                            product={product}
-                            isBidEditOpen={isBidEditOpen}
-                            setIsBidEditOpen={setIsBidEditOpen}
-                        />
-                    </div>
-                )}
+                {product.isActive &&
+                    String(user.userInfo._id) !== String(product.productOwner._id) && (
+                        <div className="productSingleCard__footerWrapper">
+                            <ActionFooter
+                                product={product}
+                                isBidEditOpen={isBidEditOpen}
+                                setIsBidEditOpen={setIsBidEditOpen}
+                            />
+                        </div>
+                    )}
+
+                {/* Delete Cover */}
+                {!product.isActive && <DeleteCover message={'Product deleted!'} />}
             </div>
 
             {/* Image Modal */}

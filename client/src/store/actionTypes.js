@@ -153,6 +153,7 @@ export const NOTIFICATION_DELETE_SUCCESS = 'NOTIFICATION_DELETE_SUCCESS'
 export const NOTIFICATION_DELETE_FAIL = 'NOTIFICATION_DELETE_FAIL'
 
 export const NOTIFICATION_PUSH_NEW = 'NOTIFICATION_PUSH_NEW'
+export const NOTIFICATION_UPDATE_READ = 'NOTIFICATION_UPDATE_READ'
 
 // CLEAN-UP ************************************************************************************
 export const PRODUCT_CLEANUP = 'PRODUCT_CLEANUP'

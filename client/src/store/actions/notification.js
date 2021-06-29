@@ -1,6 +1,5 @@
 import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
-import { handleCache } from '../../utils/handleCache'
 import { alertAdd } from './ui'
 import * as api from '../../utils/constants/api'
 
@@ -47,34 +46,30 @@ export const notificationLoginAndLogoutAction =
     }
 
 // to fetch all the saved notifications of the logged in user from the database
-export const notificationGetSaved = () => async (dispatch, getState) => {
-    const { lastFetch } = getState().notificationGetSaved
+export const notificationGetSaved = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.NOTIFICATION_GET_SAVED_REQUEST,
+        })
 
-    if (!handleCache(lastFetch)) {
-        try {
-            dispatch({
-                type: actionTypes.NOTIFICATION_GET_SAVED_REQUEST,
-            })
+        const { data } = await axiosInstance.get(api.NOTIFICATION_GET_SAVED)
 
-            const { data } = await axiosInstance.get(api.NOTIFICATION_GET_SAVED)
+        dispatch({
+            type: actionTypes.NOTIFICATION_GET_SAVED_SUCCESS,
+            payload: data,
+        })
+    } catch (err) {
+        const errorMsg =
+            err.response && err.response.data.message
+                ? err.response.data.message
+                : err.message
 
-            dispatch({
-                type: actionTypes.NOTIFICATION_GET_SAVED_SUCCESS,
-                payload: data,
-            })
-        } catch (err) {
-            const errorMsg =
-                err.response && err.response.data.message
-                    ? err.response.data.message
-                    : err.message
+        dispatch({
+            type: actionTypes.NOTIFICATION_GET_SAVED_FAIL,
+            payload: errorMsg,
+        })
 
-            dispatch({
-                type: actionTypes.NOTIFICATION_GET_SAVED_FAIL,
-                payload: errorMsg,
-            })
-
-            dispatch(alertAdd(errorMsg, 'error'))
-        }
+        dispatch(alertAdd(errorMsg, 'error'))
     }
 }
 
@@ -120,7 +115,10 @@ export const notificationUpdateRead = (notificationID) => async (dispatch) => {
     try {
         await axiosInstance.patch(api.NOTIFICATION_READ(notificationID))
 
-        // TODO: store updates
+        dispatch({
+            type: actionTypes.NOTIFICATION_UPDATE_READ,
+            payload: { notificationID },
+        })
     } catch (err) {
         const errorMsg =
             err.response && err.response.data.message

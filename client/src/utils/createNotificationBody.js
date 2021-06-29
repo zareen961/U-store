@@ -10,7 +10,8 @@ export const createNotificationBody = (notification, loggedInUsername) => {
         case notificationType.BID_PLACED:
             return (
                 <p>
-                    <span>@{notification.creatorUsername}</span> placed a bid on{' '}
+                    <span>@{notification.creatorUsername}</span>{' '}
+                    <span className="action">placed</span> a bid on{' '}
                     {loggedInUsername === notification.spotlightUser
                         ? 'your product'
                         : ''}{' '}
@@ -21,7 +22,8 @@ export const createNotificationBody = (notification, loggedInUsername) => {
         case notificationType.BID_ACCEPTED:
             return (
                 <p>
-                    <span>@{notification.creatorUsername}</span> accepted{' '}
+                    <span>@{notification.creatorUsername}</span>{' '}
+                    <span className="action">accepted</span>{' '}
                     {loggedInUsername === notification.spotlightUser ? (
                         'your'
                     ) : (
@@ -34,7 +36,8 @@ export const createNotificationBody = (notification, loggedInUsername) => {
         case notificationType.BID_REJECTED:
             return (
                 <p>
-                    <span>@{notification.creatorUsername}</span> rejected{' '}
+                    <span>@{notification.creatorUsername}</span>{' '}
+                    <span className="action">rejected</span>{' '}
                     {loggedInUsername === notification.spotlightUser ? (
                         'your'
                     ) : (
@@ -47,7 +50,8 @@ export const createNotificationBody = (notification, loggedInUsername) => {
         case notificationType.BID_UPDATED:
             return (
                 <p>
-                    <span>@{notification.creatorUsername}</span> updated the bid on{' '}
+                    <span>@{notification.creatorUsername}</span>{' '}
+                    <span className="action">updated</span> the bid on{' '}
                     {loggedInUsername === notification.spotlightUser
                         ? 'your product'
                         : ''}{' '}
@@ -58,7 +62,8 @@ export const createNotificationBody = (notification, loggedInUsername) => {
         case notificationType.PRODUCT_DELETED:
             return (
                 <p>
-                    <span>@{notification.creatorUsername}</span> deleted the product{' '}
+                    <span>@{notification.creatorUsername}</span>{' '}
+                    <span className="action">deleted</span> the product{' '}
                     <span>{productName}</span>.
                 </p>
             )

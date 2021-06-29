@@ -46,15 +46,16 @@ const ProductSingle = () => {
                             setIsBidEditOpen={setIsBidEditOpen}
                         />
 
-                        {_.orderBy(product.bids, ['price'], ['desc']).map((bid) => (
-                            <BidCard
-                                key={bid._id}
-                                bid={{ ...bid, product: product._id }}
-                                productOwnerID={product.productOwner._id}
-                                isInModal={true}
-                                setIsBidEditOpen={setIsBidEditOpen}
-                            />
-                        ))}
+                        {product.isActive &&
+                            _.orderBy(product.bids, ['price'], ['desc']).map((bid) => (
+                                <BidCard
+                                    key={bid._id}
+                                    bid={{ ...bid, product: product._id }}
+                                    productOwnerID={product.productOwner._id}
+                                    isInModal={true}
+                                    setIsBidEditOpen={setIsBidEditOpen}
+                                />
+                            ))}
                     </div>
                 ) : (
                     <NoItemMessage

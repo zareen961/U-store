@@ -6,6 +6,7 @@
     box-shadow: var(--box-shadow);
     margin-bottom: 20px;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .productSingleCard__imageWrapper {

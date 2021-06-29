@@ -27,9 +27,11 @@ const SidebarRight = () => {
         error,
         success: successNotificationLoginAndLogoutAction,
     } = useSelector((state) => state.notificationLoginAndLogoutAction)
-    const { loading: loadingNotificationGetSaved, notifications } = useSelector(
-        (state) => state.notificationGetSaved
-    )
+    const {
+        loading: loadingNotificationGetSaved,
+        notifications,
+        success: successNotificationGetSaved,
+    } = useSelector((state) => state.notificationGetSaved)
 
     const [notificationPermission, setNotificationPermission] = useState(
         Notification.permission
@@ -89,18 +91,20 @@ const SidebarRight = () => {
 
     // setting up the firebase listener to receive incoming live notifications
     useEffect(() => {
-        messaging.onMessage((payload) => {
-            if (user.userInfo.username !== payload.data.creatorUsername)
-                dispatch(notificationLivePush(payload.data))
-        })
-    }, [dispatch, user.userInfo.username])
+        if (user && user.userInfo) {
+            messaging.onMessage((payload) => {
+                if (user.userInfo.username !== payload.data.creatorUsername)
+                    dispatch(notificationLivePush(payload.data))
+            })
+        }
+    }, [dispatch, user])
 
     // getting the saved notifications from the database
     useEffect(() => {
-        if (user && user.userInfo) {
+        if (user && user.userInfo && !successNotificationGetSaved) {
             dispatch(notificationGetSaved())
         }
-    }, [user, dispatch])
+    }, [user, dispatch, successNotificationGetSaved])
 
     return (
         <div className="sidebarRight">
@@ -143,10 +147,9 @@ const SidebarRight = () => {
                 )}
 
                 {notifications.length === 0 ? (
-                    <NoItemMessage
-                        titleSize={1.3}
-                        text={"No Notifications! You're all caught up."}
-                    />
+                    <h3 className="sidebarRight__allCaughtUpMessage">
+                        No Notifications! You're all caught up.
+                    </h3>
                 ) : (
                     notifications.map((notification) => (
                         <NotificationItem

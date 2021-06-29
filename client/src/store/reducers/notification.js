@@ -40,7 +40,6 @@ export const notificationGetSavedReducer = (
         notifications: [],
         success: false,
         error: null,
-        lastFetch: null,
     },
     action
 ) => {
@@ -51,7 +50,6 @@ export const notificationGetSavedReducer = (
                 loading: true,
                 success: false,
                 error: null,
-                lastFetch: null,
             }
 
         case actionTypes.NOTIFICATION_GET_SAVED_SUCCESS:
@@ -61,7 +59,6 @@ export const notificationGetSavedReducer = (
                 notifications: action.payload,
                 success: true,
                 error: null,
-                lastFetch: Date.now(),
             }
 
         case actionTypes.NOTIFICATION_GET_SAVED_FAIL:
@@ -71,7 +68,6 @@ export const notificationGetSavedReducer = (
                 notifications: [],
                 success: false,
                 error: action.payload,
-                lastFetch: null,
             }
 
         case actionTypes.NOTIFICATION_CLEANUP:
@@ -81,13 +77,25 @@ export const notificationGetSavedReducer = (
                 notifications: [],
                 success: false,
                 error: null,
-                lastFetch: null,
             }
 
         case actionTypes.NOTIFICATION_PUSH_NEW:
             return {
                 ...state,
                 notifications: [action.payload, ...state.notifications],
+            }
+
+        case actionTypes.NOTIFICATION_UPDATE_READ:
+            return {
+                ...state,
+                notifications: state.notifications.map((notification) =>
+                    notification._id === action.payload.notificationID
+                        ? {
+                              ...notification,
+                              isRead: 'true',
+                          }
+                        : notification
+                ),
             }
 
         default:

@@ -9,18 +9,20 @@ const DeleteCover = ({ message, buttonText, handleOnClick, isLoading }) => {
         <div className="deleteCover">
             <div className="deleteCover__centerWrapper">
                 <p className="deleteCover__message">{message}</p>
-                <ButtonComp
-                    typeClass={'secondary'}
-                    text={buttonText}
-                    handleOnClick={handleOnClick}
-                    modifyClass={isLoading && 'disabled'}
-                >
-                    {buttonText.toLowerCase().includes('delete') ? (
-                        <TrashIcon size={18} />
-                    ) : (
-                        <PinIcon size={18} />
-                    )}
-                </ButtonComp>
+                {handleOnClick && (
+                    <ButtonComp
+                        typeClass={'secondary'}
+                        text={buttonText}
+                        handleOnClick={handleOnClick}
+                        modifyClass={isLoading && 'disabled'}
+                    >
+                        {buttonText.toLowerCase().includes('delete') ? (
+                            <TrashIcon size={18} />
+                        ) : (
+                            <PinIcon size={18} />
+                        )}
+                    </ButtonComp>
+                )}
             </div>
         </div>
     )
