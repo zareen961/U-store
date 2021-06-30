@@ -17,7 +17,7 @@
     top: 90%;
     left: 0%;
     list-style: none;
-    background-color: rgba(var(--secondary-light), 1);
+    background-color: rgba(var(--secondary-light), 1) !important;
     border-radius: 10px;
     opacity: 0;
     padding: 10px 0;

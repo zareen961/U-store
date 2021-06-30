@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Badge from '@material-ui/core/Badge'
 
-import NotificationSound from '../../../assets/sound/notification.mp3'
+import NOTIFICATION_SOUND from '../../../assets/sound/notification.mp3'
 import { messaging } from '../../../utils/firebase'
 import BlockHeader from '../../utils/BlockHeader'
 import NoItemMessage from '../../utils/NoItemMessage'
@@ -96,7 +96,7 @@ const SidebarRight = () => {
             messaging.onMessage((payload) => {
                 if (user.userInfo.username !== payload.data.creatorUsername) {
                     dispatch(notificationLivePush(payload.data))
-                    new Audio(NotificationSound).play()
+                    new Audio(NOTIFICATION_SOUND).play()
                 }
             })
         }

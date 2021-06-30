@@ -81,7 +81,3 @@ input:focus,
 textarea:focus {
     outline: none;
 }
-
-.switch-wrapper {
-    position: relative;
-}

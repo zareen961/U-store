@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { AnimatedSwitch } from 'react-router-transition'
+import { AnimatedSwitch, spring } from 'react-router-transition'
 
 import Home from './screens/Main/Home'
 import Products from './screens/Main/Products'
@@ -11,15 +11,44 @@ import Account from './screens/Main/Account'
 import Settings from './screens/Main/Settings'
 import Contact from './screens/Main/Contact'
 
+const mapStyles = (styles) => {
+    return {
+        opacity: styles.opacity,
+        transform: `scale(${styles.scale})`,
+    }
+}
+
+const bounce = (val) => {
+    return spring(val, {
+        stiffness: 330,
+        damping: 22,
+    })
+}
+
+const bounceTransition = {
+    atEnter: {
+        opacity: 0,
+        scale: 1.2,
+    },
+    atLeave: {
+        opacity: bounce(0),
+        scale: bounce(0.8),
+    },
+    atActive: {
+        opacity: bounce(1),
+        scale: bounce(1),
+    },
+}
+
 const Routes = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     return (
         <>
             <Switch>
                 <AnimatedSwitch
-                    atEnter={{ opacity: 0 }}
-                    atLeave={{ opacity: 0 }}
-                    atActive={{ opacity: 1 }}
-                    className="switch-wrapper"
+                    atEnter={bounceTransition.atEnter}
+                    atLeave={bounceTransition.atLeave}
+                    atActive={bounceTransition.atActive}
+                    mapStyles={mapStyles}
                 >
                     <Route exact path="/">
                         <Home
