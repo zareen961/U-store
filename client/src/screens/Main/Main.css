@@ -30,6 +30,10 @@
     top: 10vh;
 }
 
+.main__screen {
+    background-color: rgba(var(--primary-light), 0.08);
+}
+
 .main__sidebarRight {
     height: 90vh;
     position: sticky;

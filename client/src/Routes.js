@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { AnimatedSwitch } from 'react-router-transition'
 
 import Home from './screens/Main/Home'
 import Products from './screens/Main/Products'
@@ -14,19 +15,26 @@ const Routes = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     return (
         <>
             <Switch>
-                <Route exact path="/">
-                    <Home
-                        isUploadFormOpen={isUploadFormOpen}
-                        setIsUploadFormOpen={setIsUploadFormOpen}
-                    />
-                </Route>
-                <Route exact path="/products" component={Products} />
-                <Route path="/products/:productSlug" component={ProductSingle} />
-                <Route exact path="/bids" component={Bids} />
-                <Route exact path="/following" component={Following} />
-                <Route exact path="/account" component={Account} />
-                <Route exact path="/settings" component={Settings} />
-                <Route path="/contact/:username" component={Contact} />
+                <AnimatedSwitch
+                    atEnter={{ opacity: 0 }}
+                    atLeave={{ opacity: 0 }}
+                    atActive={{ opacity: 1 }}
+                    className="switch-wrapper"
+                >
+                    <Route exact path="/">
+                        <Home
+                            isUploadFormOpen={isUploadFormOpen}
+                            setIsUploadFormOpen={setIsUploadFormOpen}
+                        />
+                    </Route>
+                    <Route exact path="/products" component={Products} />
+                    <Route path="/products/:productSlug" component={ProductSingle} />
+                    <Route exact path="/bids" component={Bids} />
+                    <Route exact path="/following" component={Following} />
+                    <Route exact path="/account" component={Account} />
+                    <Route exact path="/settings" component={Settings} />
+                    <Route path="/contact/:username" component={Contact} />
+                </AnimatedSwitch>
             </Switch>
         </>
     )
