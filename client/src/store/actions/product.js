@@ -246,6 +246,16 @@ export const productSingleFetch = (productID) => async (dispatch) => {
         const { data } = await axiosInstance.get(api.PRODUCT_FETCH_SINGLE(productID))
 
         dispatch({
+            type: actionTypes.PRODUCT_NOTIFICATION_PRODUCT_UPDATE,
+            payload: data,
+        })
+
+        dispatch({
+            type: actionTypes.USER_NOTIFICATION_PRODUCT_UPDATE,
+            payload: data,
+        })
+
+        dispatch({
             type: actionTypes.PRODUCT_SINGLE_FETCH_SUCCESS,
             payload: data,
         })

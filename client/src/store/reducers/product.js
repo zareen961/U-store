@@ -117,6 +117,18 @@ export const productFetchAllReducer = (
                 }),
             }
 
+        case actionTypes.PRODUCT_NOTIFICATION_PRODUCT_UPDATE:
+            let updatedProducts = state.products
+                .map((product) =>
+                    product._id === action.payload._id ? action.payload : product
+                )
+                .filter((product) => product.isActive)
+
+            return {
+                ...state,
+                products: updatedProducts,
+            }
+
         case actionTypes.PRODUCT_CLEANUP:
             return {
                 ...state,

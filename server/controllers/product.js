@@ -296,7 +296,7 @@ const productGetOne = asyncHandler(async (req, res) => {
         _id: productID,
     }).populate({
         path: 'bids productOwner',
-        select: '_id price status bidOwner username avatar createdAt',
+        select: '_id price status bidOwner username avatar createdAt product',
         populate: {
             path: 'bidOwner',
             select: '_id username avatar',

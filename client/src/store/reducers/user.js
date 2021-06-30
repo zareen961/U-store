@@ -443,6 +443,29 @@ export const userLoginReducer = (
             }
         }
 
+        case actionTypes.USER_NOTIFICATION_PRODUCT_UPDATE:
+            let updatedUserProducts = state.user.userInfo.products.map((product) =>
+                product._id === action.payload._id ? action.payload : product
+            )
+
+            let updatedUserBids = state.user.userInfo.bids.map((product) =>
+                product._id === action.payload._id ? action.payload : product
+            )
+
+            let updatedUserFollowing = state.user.userInfo.following.map((product) =>
+                product._id === action.payload._id ? action.payload : product
+            )
+
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    products: updatedUserProducts,
+                    bids: updatedUserBids,
+                    following: updatedUserFollowing,
+                },
+            }
+
         default:
             return state
     }
