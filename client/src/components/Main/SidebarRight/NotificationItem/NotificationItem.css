@@ -70,11 +70,13 @@
     content: '';
     width: 15px;
     height: 15px;
-    background-color: rgba(var(--gradient-extra), 1);
+    box-sizing: border-box;
+    background-color: transparent;
     border-radius: 50%;
     position: absolute;
     top: -5px;
     left: -5px;
+    border: 5.5px solid rgba(var(--gradient-extra), 1);
 }
 
 /*  TO DELETE notification styling **********************************************/

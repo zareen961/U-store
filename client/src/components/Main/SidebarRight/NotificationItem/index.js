@@ -29,7 +29,8 @@ const NotificationItem = ({ notification }) => {
 
     const handleNotificationOnClick = () => {
         dispatch(productSingleFetch(notification.productID))
-        dispatch(notificationUpdateRead(notification._id))
+        if (notification.isRead === 'false')
+            dispatch(notificationUpdateRead(notification._id))
         history.push(`/products/${productSlug}`)
     }
 
