@@ -444,25 +444,63 @@ export const userLoginReducer = (
         }
 
         case actionTypes.USER_NOTIFICATION_PRODUCT_UPDATE:
-            let updatedUserProducts = state.user.userInfo.products.map((product) =>
-                product._id === action.payload._id ? action.payload : product
-            )
+            let updatedUserProducts = state.user.userInfo.products
+            let updatedUserBids = state.user.userInfo.bids
+            let updatedUserFollowing = state.user.userInfo.following
+            let isFound = false
 
-            let updatedUserBids = state.user.userInfo.bids.map((product) =>
-                product._id === action.payload._id ? action.payload : product
-            )
+            if (
+                state.user.userInfo.products.length > 0 &&
+                typeof state.user.userInfo.products[0] === 'object' &&
+                !isFound
+            ) {
+                updatedUserProducts = state.user.userInfo.products.map((product) => {
+                    if (product._id === action.payload._id) {
+                        isFound = true
+                        return action.payload
+                    }
+                    return product
+                })
+            }
 
-            let updatedUserFollowing = state.user.userInfo.following.map((product) =>
-                product._id === action.payload._id ? action.payload : product
-            )
+            if (
+                state.user.userInfo.bids.length > 0 &&
+                Object.keys(state.user.userInfo.bids[0]).length > 2 &&
+                !isFound
+            ) {
+                updatedUserBids = state.user.userInfo.bids.map((product) => {
+                    if (product._id === action.payload._id) {
+                        isFound = true
+                        return action.payload
+                    }
+                    return product
+                })
+            }
+
+            if (
+                state.user.userInfo.following.length > 0 &&
+                typeof state.user.userInfo.following[0] === 'object' &&
+                !isFound
+            ) {
+                updatedUserFollowing = state.user.userInfo.following.map((product) => {
+                    if (product._id === action.payload._id) {
+                        isFound = true
+                        return action.payload
+                    }
+                    return product
+                })
+            }
 
             return {
                 ...state,
-                userInfo: {
-                    ...state.userInfo,
-                    products: updatedUserProducts,
-                    bids: updatedUserBids,
-                    following: updatedUserFollowing,
+                user: {
+                    ...state.user,
+                    userInfo: {
+                        ...state.user.userInfo,
+                        products: updatedUserProducts,
+                        bids: updatedUserBids,
+                        following: updatedUserFollowing,
+                    },
                 },
             }
 
