@@ -107,15 +107,17 @@ const productDelete = asyncHandler(async (req, res) => {
         await foundProduct.save()
 
         // unsubscribe and send notifications to this product group
-        saveAndSendNotification(
-            { _id: productID, name: foundProduct.name },
-            PRODUCT_DELETED,
-            {
+        saveAndSendNotification({
+            product: { _id: productID, name: foundProduct.name },
+            type: PRODUCT_DELETED,
+            creator: {
                 _id: req.authUser._id,
                 username: req.authUser.username,
                 avatar: String(req.authUser.avatar),
-            }
-        )
+            },
+        })
+
+        // unsubscribe to this topic group
         unsubscribeTopic(notificationClientToken, foundProduct._id)
 
         res.status(200).json({

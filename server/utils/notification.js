@@ -55,13 +55,13 @@ const sendNotification = (topic, notificationBody) => {
         })
 }
 
-const saveAndSendNotification = async (
+const saveAndSendNotification = async ({
     product,
     type,
     creator,
     spotlightUser = '',
-    isRead = 'false'
-) => {
+    isRead = 'false',
+}) => {
     const foundProduct = await Product.findById(product._id)
         .select('productOwner bids following')
         .populate({

@@ -98,16 +98,16 @@ const bidPlace = asyncHandler(async (req, res) => {
         await User.updateOne({ _id: bidOwner }, { $pull: { following: product } })
 
         // subscribe the product and send notifications to this product group
-        saveAndSendNotification(
-            { _id: product, name: foundProduct.name },
-            BID_PLACED,
-            {
+        saveAndSendNotification({
+            product: { _id: product, name: foundProduct.name },
+            type: BID_PLACED,
+            creator: {
                 _id: req.authUser._id,
                 username: req.authUser.username,
                 avatar: String(req.authUser.avatar),
             },
-            foundProduct.productOwner.username
-        )
+            spotlightUser: foundProduct.productOwner.username,
+        })
 
         subscribeTopic(notificationClientToken, product)
 
@@ -121,7 +121,6 @@ const bidPlace = asyncHandler(async (req, res) => {
 // to delete a bid
 const bidDelete = asyncHandler(async (req, res) => {
     const bidID = req.params.bidID
-    const notificationClientToken = getNotificationToken(req.headers)
 
     const foundBid = await Bid.findById(bidID).populate('product')
 
@@ -143,9 +142,6 @@ const bidDelete = asyncHandler(async (req, res) => {
 
         // removing the deleted Bid's ID from the Product's bids array
         await Product.updateOne({ _id: foundBid.product }, { $pull: { bids: bidID } })
-
-        // unsubscribe to this topic group
-        unsubscribeTopic(notificationClientToken, foundBid.product._id)
 
         await foundBid.remove()
         res.status(200).json({
@@ -189,30 +185,24 @@ const bidStatusUpdate = asyncHandler(async (req, res) => {
         )
 
         if (updatedBid) {
+            let notificationType = ''
             // send notifications to this product group
             if (newBidStatus === 'ACCEPTED') {
-                saveAndSendNotification(
-                    { _id: foundBid.product._id, name: foundBid.product.name },
-                    BID_ACCEPTED,
-                    {
-                        _id: req.authUser._id,
-                        username: req.authUser.username,
-                        avatar: String(req.authUser.avatar),
-                    },
-                    foundBid.bidOwner.username
-                )
+                notificationType = BID_ACCEPTED
             } else {
-                saveAndSendNotification(
-                    { _id: foundBid.product._id, name: foundBid.product.name },
-                    BID_REJECTED,
-                    {
-                        _id: req.authUser._id,
-                        username: req.authUser.username,
-                        avatar: String(req.authUser.avatar),
-                    },
-                    foundBid.bidOwner.username
-                )
+                notificationType = BID_REJECTED
             }
+
+            saveAndSendNotification({
+                product: { _id: foundBid.product._id, name: foundBid.product.name },
+                type: notificationType,
+                creator: {
+                    _id: req.authUser._id,
+                    username: req.authUser.username,
+                    avatar: String(req.authUser.avatar),
+                },
+                spotlightUser: foundBid.bidOwner.username,
+            })
 
             res.status(200).json({ message: 'Bid Status Updated!' })
         } else {
@@ -273,16 +263,16 @@ const bidPriceEdit = asyncHandler(async (req, res) => {
 
         if (updatedBid) {
             // subscribe the product and send notifications to this product group
-            saveAndSendNotification(
-                { _id: foundBid.product._id, name: foundBid.product.name },
-                BID_UPDATED,
-                {
+            saveAndSendNotification({
+                product: { _id: foundBid.product._id, name: foundBid.product.name },
+                type: BID_UPDATED,
+                creator: {
                     _id: req.authUser._id,
                     username: req.authUser.username,
                     avatar: String(req.authUser.avatar),
                 },
-                foundBid.product.productOwner.username
-            )
+                spotlightUser: foundBid.product.productOwner.username,
+            })
             res.status(200).json({ message: 'Bid Price Updated!' })
         } else {
             res.status(500)
