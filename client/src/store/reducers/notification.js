@@ -98,6 +98,14 @@ export const notificationGetSavedReducer = (
                 ),
             }
 
+        case actionTypes.NOTIFICATION_REMOVE_DELETED:
+            return {
+                ...state,
+                notifications: state.notifications.filter(
+                    (notification) => notification._id !== action.payload
+                ),
+            }
+
         default:
             return state
     }

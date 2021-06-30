@@ -146,7 +146,7 @@ const SidebarRight = () => {
                     />
                 )}
 
-                {notifications.length === 0 ? (
+                {notifications.length === 0 && !loadingNotificationGetSaved ? (
                     <h3 className="sidebarRight__allCaughtUpMessage">
                         No Notifications! You're all caught up.
                     </h3>

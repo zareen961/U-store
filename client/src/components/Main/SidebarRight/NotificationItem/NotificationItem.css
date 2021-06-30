@@ -76,3 +76,29 @@
     top: -5px;
     left: -5px;
 }
+
+/*  TO DELETE notification styling **********************************************/
+.notificationItem.deleting {
+    background-color: rgba(var(--secondary-light), 0.5);
+    box-shadow: none;
+}
+
+.notificationItem.deleting .notificationItem__timestamp {
+    color: rgba(var(--primary-light), 0.5);
+}
+
+.notificationItem.deleting .notificationItem__deleteButton {
+    color: rgba(var(--primary-light), 0.5) !important;
+}
+
+.notificationItem.deleting .notificationItem__body {
+    color: rgba(var(--primary-light), 0.5);
+}
+
+.notificationItem.deleting .notificationItem__body span {
+    color: rgba(var(--primary-light), 0.5);
+}
+
+.notificationItem.deleting .notificationItem__body span.action {
+    color: rgba(var(--gradient-extra), 0.7);
+}

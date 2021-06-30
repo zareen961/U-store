@@ -107,7 +107,8 @@ const notificationDelete = asyncHandler(async (req, res) => {
     // removing the notificationID from User's notifications array
     await User.updateOne(
         { _id: req.authUser._id },
-        { $pull: { notifications: notificationID } }
+        { $pull: { notifications: { _id: notificationID } } },
+        { safe: true, upsert: true }
     )
 
     res.status(200).json({ message: 'Notification deleted!' })

@@ -90,7 +90,10 @@ export const notificationDelete = (notificationID) => async (dispatch) => {
 
         await axiosInstance.delete(api.NOTIFICATION_DELETE(notificationID))
 
-        // TODO: store updates
+        dispatch({
+            type: actionTypes.NOTIFICATION_REMOVE_DELETED,
+            payload: notificationID,
+        })
 
         dispatch({
             type: actionTypes.NOTIFICATION_DELETE_SUCCESS,
