@@ -121,6 +121,7 @@ const bidPlace = asyncHandler(async (req, res) => {
 // to delete a bid
 const bidDelete = asyncHandler(async (req, res) => {
     const bidID = req.params.bidID
+    const notificationClientToken = getNotificationToken(req.headers)
 
     const foundBid = await Bid.findById(bidID).populate('product')
 
@@ -141,7 +142,17 @@ const bidDelete = asyncHandler(async (req, res) => {
         await User.updateOne({ _id: req.authUser._id }, { $pull: { bids: bidID } })
 
         // removing the deleted Bid's ID from the Product's bids array
-        await Product.updateOne({ _id: foundBid.product }, { $pull: { bids: bidID } })
+        await Product.updateOne({ _id: foundBid.product._id }, { $pull: { bids: bidID } })
+
+        // checking to see if there is any bid left of the user on the product
+        const isLastBid = await Bid.countDocuments({
+            bidOwner: req.authUser._id,
+            product: foundBid.product._id,
+        })
+        if (isLastBid === 1) {
+            // unsubscribe to this topic group
+            unsubscribeTopic(notificationClientToken, foundBid.product._id)
+        }
 
         await foundBid.remove()
         res.status(200).json({
