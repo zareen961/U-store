@@ -61,6 +61,7 @@ const saveAndSendNotification = async ({
     creator,
     spotlightUser = '',
     isRead = 'false',
+    isProductDelete = false,
 }) => {
     const foundProduct = await Product.findById(product._id)
         .select('productOwner bids following')
@@ -118,6 +119,11 @@ const saveAndSendNotification = async ({
         isRead: String(isRead),
         createdAt: String(newNotification.createdAt),
     })
+
+    // permanently removing the product
+    if (isProductDelete) {
+        await foundProduct.remove()
+    }
 }
 
 module.exports = {

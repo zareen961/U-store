@@ -8,15 +8,8 @@ import { productSearch } from '../../../../store/actions/product'
 import { PRODUCT_SEARCH_CLEANUP } from '../../../../store/actionTypes'
 import SearchItem from '../SearchItem'
 import Loader from '../../../utils/Loader'
+import { DEBOUNCE_TIME, debounce } from '../../../../utils/debounceAndThrottle'
 import './SearchBar.css'
-
-const DEBOUNCE_TIME = 2000
-
-let timeout
-const debounce = (func, delay) => {
-    clearTimeout(timeout)
-    timeout = setTimeout(func, delay)
-}
 
 const SearchBar = () => {
     const dispatch = useDispatch()

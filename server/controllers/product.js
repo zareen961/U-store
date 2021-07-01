@@ -102,9 +102,15 @@ const productDelete = asyncHandler(async (req, res) => {
             { $pull: { products: productID } }
         )
 
-        // if the product is deleted we set isActive to false
-        foundProduct.isActive = false
-        await foundProduct.save()
+        // if no one is related to the product (No bids, No following)
+        const isProductDelete =
+            foundProduct.bids.length === 0 && foundProduct.following.length === 0
+
+        // if not then don't delete the product, instead just set isActive to false
+        if (!isProductDelete) {
+            foundProduct.isActive = false
+            await foundProduct.save()
+        }
 
         // unsubscribe and send notifications to this product group
         saveAndSendNotification({
@@ -115,6 +121,7 @@ const productDelete = asyncHandler(async (req, res) => {
                 username: req.authUser.username,
                 avatar: String(req.authUser.avatar),
             },
+            isProductDelete,
         })
 
         // unsubscribe to this topic group

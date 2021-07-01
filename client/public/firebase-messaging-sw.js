@@ -22,7 +22,7 @@ if ('serviceWorker' in navigator) {
         const notificationTitle = payload.data.creatorUsername
         const notificationOptions = {
             body: createNotificationBody(payload.data, '@blck_tie'),
-            icon: '/ustore-logo.png',
+            icon: `/avatars/avatar${payload.data.creatorAvatar}.png`,
         }
 
         console.log(notificationTitle, notificationOptions)

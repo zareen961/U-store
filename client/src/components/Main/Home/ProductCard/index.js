@@ -6,12 +6,14 @@ import _ from 'lodash'
 
 import BidCard from './BidCard'
 import { productDelete } from '../../../../store/actions/product'
+import { alertAdd } from '../../../../store/actions/ui'
 import ConfirmModal from '../../../utils/ConfirmModal'
 import ImageModal from './ImageModal'
 import DotsMenu from './DotsMenu'
 import AvatarHeader from './AvatarHeader'
 import BidMoreAvatars from './BidMoreAvatars'
 import ActionFooter from './ActionFooter'
+import { storage } from '../../../../utils/firebase'
 import './ProductCard.css'
 
 const ProductCard = ({ product }) => {
@@ -29,6 +31,21 @@ const ProductCard = ({ product }) => {
 
     // product delete function
     const handleProductDelete = () => {
+        // deleting the image of the product if there are no bids and following on it
+        if (product.bids.length === 0 && product.following.length === 0) {
+            storage
+                .ref('images')
+                .child(product.image.fileName)
+                .delete()
+                .then(() => {
+                    dispatch(
+                        alertAdd('Your product will be deleted permanently!', 'success')
+                    )
+                })
+                .catch((error) => {
+                    dispatch(alertAdd(error.message, 'error'))
+                })
+        }
         dispatch(productDelete(product._id))
     }
 

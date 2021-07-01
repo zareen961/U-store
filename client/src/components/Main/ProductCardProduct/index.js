@@ -8,9 +8,11 @@ import BidsAllModal from '../Home/ProductCard/BidsAllModal'
 import DotsMenu from '../Home/ProductCard/DotsMenu'
 import ProductDetails from '../../utils/ProductDetails'
 import { productDelete } from '../../../store/actions/product'
+import { alertAdd } from '../../../store/actions/ui'
 import ConfirmModal from '../../utils/ConfirmModal'
 import PriceBox from '../../utils/PriceBox'
 import ProductImage from '../../utils/ProductImage'
+import { storage } from '../../../utils/firebase'
 import './ProductCardProduct.css'
 
 const ProductCardProduct = ({ product }) => {
@@ -25,6 +27,21 @@ const ProductCardProduct = ({ product }) => {
 
     // product delete function
     const handleProductDelete = () => {
+        // deleting the image of the product if there are no bids and following on it
+        if (product.bids.length === 0 && product.following.length === 0) {
+            storage
+                .ref('images')
+                .child(product.image.fileName)
+                .delete()
+                .then(() => {
+                    dispatch(
+                        alertAdd('Your product will be deleted permanently!', 'success')
+                    )
+                })
+                .catch((error) => {
+                    dispatch(alertAdd(error.message, 'error'))
+                })
+        }
         dispatch(productDelete(product._id))
     }
 

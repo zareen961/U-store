@@ -14,6 +14,8 @@ import AvatarHeader from '../Home/ProductCard/AvatarHeader'
 import ActionFooter from '../Home/ProductCard/ActionFooter'
 import DotsMenu from '../Home/ProductCard/DotsMenu'
 import { productDelete } from '../../../store/actions/product'
+import { alertAdd } from '../../../store/actions/ui'
+import { storage } from '../../../utils/firebase'
 import './ProductSingleCard.css'
 
 const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
@@ -37,6 +39,21 @@ const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
 
     // product delete function
     const handleProductDelete = () => {
+        // deleting the image of the product if there are no bids and following on it
+        if (product.bids.length === 0 && product.following.length === 0) {
+            storage
+                .ref('images')
+                .child(product.image.fileName)
+                .delete()
+                .then(() => {
+                    dispatch(
+                        alertAdd('Your product will be deleted permanently!', 'success')
+                    )
+                })
+                .catch((error) => {
+                    dispatch(alertAdd(error.message, 'error'))
+                })
+        }
         dispatch(productDelete(product._id, history))
     }
 
