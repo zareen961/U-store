@@ -4,7 +4,7 @@ import { ReplyIcon } from '@primer/octicons-react'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 
-import * as actionTypes from '../../../store/actionTypes'
+import { PRODUCT_SINGLE_CLEANUP } from '../../../store/actionTypes'
 import ProductSingleCard from '../../../components/Main/ProductSingleCard'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import BlockHeader from '../../../components/utils/BlockHeader'
@@ -25,7 +25,7 @@ const ProductSingle = () => {
 
     useEffect(() => {
         return () => {
-            dispatch({ type: actionTypes.PRODUCT_SINGLE_CLEANUP })
+            dispatch({ type: PRODUCT_SINGLE_CLEANUP })
         }
     }, [dispatch])
 

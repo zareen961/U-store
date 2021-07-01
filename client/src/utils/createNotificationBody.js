@@ -12,9 +12,7 @@ export const createNotificationBody = (notification, loggedInUsername) => {
                 <p>
                     <span>@{notification.creatorUsername}</span>{' '}
                     <span className="action">placed</span> a bid on{' '}
-                    {loggedInUsername === notification.spotlightUser
-                        ? 'your product'
-                        : ''}{' '}
+                    {loggedInUsername === notification.spotlightUser && 'your product'}{' '}
                     <span>{productName}</span>.
                 </p>
             )
@@ -52,9 +50,7 @@ export const createNotificationBody = (notification, loggedInUsername) => {
                 <p>
                     <span>@{notification.creatorUsername}</span>{' '}
                     <span className="action">updated</span> the bid on{' '}
-                    {loggedInUsername === notification.spotlightUser
-                        ? 'your product'
-                        : ''}{' '}
+                    {loggedInUsername === notification.spotlightUser && 'your product'}{' '}
                     <span>{productName}</span>.
                 </p>
             )

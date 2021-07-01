@@ -145,11 +145,15 @@ const bidDelete = asyncHandler(async (req, res) => {
         await Product.updateOne({ _id: foundBid.product._id }, { $pull: { bids: bidID } })
 
         // checking to see if there is any bid left of the user on the product
-        const isLastBid = await Bid.countDocuments({
-            bidOwner: req.authUser._id,
-            product: foundBid.product._id,
-        })
-        if (isLastBid === 1) {
+        const isLastBid =
+            (await Bid.countDocuments({
+                bidOwner: req.authUser._id,
+                product: foundBid.product._id,
+            })) === 1
+                ? true
+                : false
+
+        if (isLastBid) {
             // unsubscribe to this topic group
             unsubscribeTopic(notificationClientToken, foundBid.product._id)
         }
