@@ -15,16 +15,23 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging()
 
-messaging.onBackgroundMessage((payload) => {
-    console.log('[firebase-messaging-sw.js] Received background message ', payload)
-    // Customize notification here
-    const notificationTitle = payload.data.creatorUsername
-    const notificationOptions = {
-        body: createNotificationBody(payload.data, '@blck_tie'),
-        icon: '/ustore-logo.png',
-    }
+if ('serviceWorker' in navigator) {
+    messaging.onBackgroundMessage((payload) => {
+        console.log('[firebase-messaging-sw.js] Received background message ', payload)
 
-    console.log(notificationTitle, notificationOptions)
+        const notificationTitle = payload.data.creatorUsername
+        const notificationOptions = {
+            body: createNotificationBody(payload.data, '@blck_tie'),
+            icon: '/ustore-logo.png',
+        }
 
-    self.registration.showNotification(notificationTitle, notificationOptions)
-})
+        console.log(notificationTitle, notificationOptions)
+
+        self.registration.showNotification(notificationTitle, notificationOptions)
+        // runtime.register().then((registration) => {
+        //     registration.showNotification(notificationTitle, notificationOptions)
+        // })
+    })
+} else {
+    console.log('Push Notification is not supported by your browser!')
+}

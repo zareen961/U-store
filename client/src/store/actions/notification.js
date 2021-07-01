@@ -6,7 +6,8 @@ import * as api from '../../utils/constants/api'
 // to batch subscribe/unsubscribe logged in user's concerned topics to get live updates
 export const notificationLoginAndLogoutAction =
     (action) => async (dispatch, getState) => {
-        const { user } = getState().userLogin
+        const { user = { userInfo: { products: [], bids: [], following: [] } } } =
+            getState().userLogin
 
         const topicsArray = [
             ...user.userInfo.products.map((product) =>
