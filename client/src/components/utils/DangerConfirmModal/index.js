@@ -69,7 +69,6 @@ const DangerConfirmModal = ({ isDangerOpen, setIsDangerOpen, title, textToEnter 
                         </span>
                         <input
                             autoFocus
-                            required
                             type="text"
                             placeholder={textToEnter}
                             autoComplete="new-password"
@@ -84,7 +83,11 @@ const DangerConfirmModal = ({ isDangerOpen, setIsDangerOpen, title, textToEnter 
                         <ButtonComp
                             typeClass={'primary'}
                             text={'Proceed'}
-                            modifyClass={'deleteAccount'}
+                            modifyClass={
+                                inputVals.textToEnter.trim() === textToEnter.trim()
+                                    ? 'deleteAccount'
+                                    : 'deleteAccount disabled'
+                            }
                             handleOnClick={handleProceed}
                         />
 

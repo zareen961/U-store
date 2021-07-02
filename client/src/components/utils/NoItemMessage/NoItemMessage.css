@@ -5,6 +5,7 @@
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 20px;
+    box-shadow: var(--box-shadow);
 }
 
 .noItemMessage__title {

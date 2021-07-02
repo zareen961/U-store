@@ -147,18 +147,15 @@ const SidebarRight = () => {
                     />
                 )}
 
-                {notifications.length === 0 && !loadingNotificationGetSaved ? (
-                    <h3 className="sidebarRight__allCaughtUpMessage">
-                        No Notifications! You're all caught up.
-                    </h3>
-                ) : (
-                    notifications.map((notification) => (
-                        <NotificationItem
-                            key={notification._id}
-                            notification={notification}
-                        />
-                    ))
-                )}
+                {notifications.map((notification) => (
+                    <NotificationItem
+                        key={notification._id}
+                        notification={notification}
+                    />
+                ))}
+                <h3 className="sidebarRight__allCaughtUpMessage">
+                    You're all caught up!
+                </h3>
             </div>
         </div>
     )

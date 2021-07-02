@@ -219,7 +219,6 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         <AlternateEmailIcon />
                     </span>
                     <input
-                        required
                         type="text"
                         disabled={!isEdit}
                         placeholder="Try new username!"
@@ -264,7 +263,6 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         <EmailIcon />
                     </span>
                     <input
-                        required
                         type="email"
                         disabled={!isEdit}
                         placeholder="Change your email"
@@ -284,7 +282,6 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         <PersonIcon />
                     </span>
                     <input
-                        required
                         type="text"
                         disabled={!isEdit}
                         placeholder="Enter First Name"
@@ -323,7 +320,6 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         <PhoneIcon />
                     </span>
                     <input
-                        required
                         type="text"
                         disabled={!isEdit}
                         placeholder="Primary contact changed?"

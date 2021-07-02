@@ -1,9 +1,11 @@
 import React from 'react'
 import { KeyIcon } from '@primer/octicons-react'
 import LinearProgress from '@material-ui/core/LinearProgress'
+import { useDispatch } from 'react-redux'
 
 import ModalComp from '../ModalComp'
 import ButtonComp from '../ButtonComp'
+import { alertAdd } from '../../../store/actions/ui'
 import './ConfirmModal.css'
 
 const ConfirmModal = ({
@@ -16,6 +18,8 @@ const ConfirmModal = ({
     isLoading,
     isSecure = true,
 }) => {
+    const dispatch = useDispatch()
+
     const handleOnCancel = () => {
         setIsOpen(false)
         if (isSecure) setCurrentPassword('')
@@ -23,8 +27,12 @@ const ConfirmModal = ({
 
     // to submit the form functionality on pressing enter
     const handleOnKeyPress = (e) => {
-        if (e.key === 'Enter' && currentPassword) {
-            handleOnConfirm()
+        if (e.key === 'Enter') {
+            if (currentPassword) {
+                handleOnConfirm()
+            } else {
+                dispatch(alertAdd('You forgot to enter your password!', 'error'))
+            }
         }
     }
 
@@ -51,7 +59,6 @@ const ConfirmModal = ({
                             </span>
                             <input
                                 autoFocus
-                                required
                                 type="password"
                                 placeholder="Enter Password"
                                 autoComplete="new-password"

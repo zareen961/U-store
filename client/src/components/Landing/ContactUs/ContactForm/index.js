@@ -4,6 +4,7 @@ import SendIcon from '@material-ui/icons/Send'
 
 import { useForm } from '../../../../utils/hooks/useForm'
 import { contactMailSend } from '../../../../store/actions/contact'
+import { alertAdd } from '../../../../store/actions/ui'
 import './ContactForm.css'
 
 const initialInputVals = {
@@ -28,7 +29,16 @@ const ContactForm = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault()
 
-        dispatch(contactMailSend(inputVals))
+        if (inputVals.name && inputVals.email && inputVals.subject && inputVals.message) {
+            dispatch(contactMailSend(inputVals))
+        } else {
+            dispatch(
+                alertAdd(
+                    "You can't send an incomplete contact message! Please fill all the fields.",
+                    'error'
+                )
+            )
+        }
     }
 
     return (
@@ -41,7 +51,6 @@ const ContactForm = () => {
             <form className="contactForm__form" onSubmit={handleOnSubmit}>
                 <div>
                     <input
-                        required
                         type="text"
                         placeholder="What's your name?"
                         name="name"
@@ -51,7 +60,6 @@ const ContactForm = () => {
                         onChange={handleOnChange}
                     />
                     <input
-                        required
                         type="email"
                         placeholder="Tell us your email address."
                         name="email"
@@ -62,7 +70,6 @@ const ContactForm = () => {
                     />
                 </div>
                 <input
-                    required
                     type="text"
                     placeholder="Why do you want to contact us?"
                     name="subject"
@@ -72,7 +79,6 @@ const ContactForm = () => {
                     onChange={handleOnChange}
                 />
                 <textarea
-                    required
                     rows="7"
                     placeholder="You can write your message here."
                     name="message"

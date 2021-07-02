@@ -4,6 +4,7 @@ import PersonIcon from '@material-ui/icons/Person'
 import LockIcon from '@material-ui/icons/Lock'
 
 import { userLogin } from '../../../store/actions/user'
+import { alertAdd } from '../../../store/actions/ui'
 import { useForm } from '../../../utils/hooks/useForm'
 import FormLoader from '../../utils/FormLoader'
 import './LoginForm.css'
@@ -20,7 +21,17 @@ const LoginForm = ({ setIsOpen }) => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-        dispatch(userLogin(inputVals))
+
+        if (inputVals.usernameOrEmail && inputVals.password) {
+            dispatch(userLogin(inputVals))
+        } else {
+            dispatch(
+                alertAdd(
+                    'You can login either with your email or username along with password!',
+                    'error'
+                )
+            )
+        }
     }
 
     return (
@@ -33,7 +44,6 @@ const LoginForm = ({ setIsOpen }) => {
                             <PersonIcon />
                         </label>
                         <input
-                            required
                             type="text"
                             autoComplete="new-password"
                             id="loginFormInputID"
@@ -49,7 +59,6 @@ const LoginForm = ({ setIsOpen }) => {
                             <LockIcon />
                         </label>
                         <input
-                            required
                             type="password"
                             autoComplete="current-password"
                             className="loginForm__input"
