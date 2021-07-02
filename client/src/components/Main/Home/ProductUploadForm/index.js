@@ -18,7 +18,6 @@ import { productUpload } from '../../../../store/actions/product'
 import { alertAdd } from '../../../../store/actions/ui'
 import { validateProductInputs } from '../../../../validators/product'
 import { DESCRIPTION_LEN_MAX } from '../../../../utils/constants/validators'
-// import { } from '../../../../utils/debounceAndThrottle'
 import './ProductUploadForm.css'
 
 const initialInputVals = {
@@ -39,6 +38,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     const [uploadProgress, setUploadProgress] = useState(0)
     const [file, setFile] = useState('')
     const [imagePreview, setImagePreview] = useState('')
+    const [isThrottled, setIsThrottled] = useState(false)
 
     const { inputVals, handleOnChange, customSetInputVals, handleReset } =
         useForm(initialInputVals)
@@ -108,6 +108,8 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     const handleUploadFormSubmit = async (e) => {
         e.preventDefault()
 
+        setIsThrottled(true)
+
         // validating all the inputs except image
         const { isValid, message } = validateProductInputs({
             ...inputVals,
@@ -140,6 +142,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     // function to handle all the cleanup when the upload form closes
     const handleOnClose = useCallback(() => {
         handleReset()
+        setIsThrottled(false)
         setUploadProgress(0)
         setFile('')
         setImagePreview('')
@@ -285,7 +288,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
                             typeClass={'primary'}
                             handleOnClick={() => {}}
                             modifyClass={
-                                loading || uploadProgress > 0
+                                loading || uploadProgress > 0 || isThrottled
                                     ? 'disabled insideInputButton'
                                     : 'insideInputButton'
                             }

@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import PersonIcon from '@material-ui/icons/Person'
 import LockIcon from '@material-ui/icons/Lock'
+import ButtonBase from '@material-ui/core/ButtonBase'
 
 import { userLogin } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/ui'
@@ -69,9 +70,9 @@ const LoginForm = ({ setIsOpen }) => {
                         />
                     </div>
 
-                    <button type="submit" className="loginForm__loginButton">
+                    <ButtonBase type="submit" className="loginForm__loginButton">
                         Login
-                    </button>
+                    </ButtonBase>
                 </form>
 
                 <div className="loginForm__dividerWrapper">

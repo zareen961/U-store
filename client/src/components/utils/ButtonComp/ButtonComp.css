@@ -118,3 +118,15 @@
     color: rgba(var(--secondary-light), 1);
     border-color: transparent;
 }
+
+.buttonComp.deleteAccount.disabled {
+    background-color: rgba(var(--secondary-light), 1);
+    color: rgba(220, 20, 60, 0.472);
+    border-color: rgba(220, 20, 60, 0.472);
+}
+
+.buttonComp.deleteAccount.disabled:hover {
+    background-color: rgba(220, 20, 60, 0.472);
+    color: rgba(220, 20, 60, 0.472);
+    border-color: rgba(220, 20, 60, 0.472);
+}
