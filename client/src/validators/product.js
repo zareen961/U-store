@@ -4,7 +4,7 @@ import {
     DESCRIPTION_LEN_MAX,
     PRODUCT_LEN_MIN,
     PRODUCT_LEN_MAX,
-} from '../utils/constants/validators'
+} from '../constants/validators'
 
 export const validateProductInputs = (inputData, isEdit = false) => {
     const { name, price, description } = inputData

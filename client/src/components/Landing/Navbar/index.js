@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { HashLink } from 'react-router-hash-link'
 
-import { WEBSITE_URL } from '../../../utils/constants/urls'
+import { WEBSITE_URL } from '../../../constants/urls'
 import Logo from '../../utils/Logo'
 import './Navbar.css'
 

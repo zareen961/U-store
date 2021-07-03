@@ -10,7 +10,7 @@ import { userLogout } from '../../../store/actions/user'
 import Logo from '../../utils/Logo'
 import ButtonComp from '../../utils/ButtonComp'
 import SearchBar from './SearchBar'
-import { WEBSITE_URL } from '../../../utils/constants/urls'
+import { WEBSITE_URL } from '../../../constants/urls'
 import './Header.css'
 
 const Header = ({ setIsUploadFormOpen }) => {

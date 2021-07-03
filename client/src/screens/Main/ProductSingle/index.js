@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { ReplyIcon } from '@primer/octicons-react'
 import { useHistory } from 'react-router-dom'
 import _ from 'lodash'
 
-import { PRODUCT_SINGLE_CLEANUP } from '../../../store/actionTypes'
 import ProductSingleCard from '../../../components/Main/ProductSingleCard'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import BlockHeader from '../../../components/utils/BlockHeader'
@@ -15,19 +14,12 @@ import './ProductSingle.css'
 
 const ProductSingle = () => {
     const history = useHistory()
-    const dispatch = useDispatch()
 
     const { loading: loadingProductSingle, product } = useSelector(
         (state) => state.productSingle
     )
 
     const [isBidEditOpen, setIsBidEditOpen] = useState(false)
-
-    useEffect(() => {
-        return () => {
-            dispatch({ type: PRODUCT_SINGLE_CLEANUP })
-        }
-    }, [dispatch])
 
     return (
         <>

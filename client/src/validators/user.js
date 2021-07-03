@@ -5,7 +5,7 @@ import {
     NAME_REGEX,
     PASSWORD_LEN_MIN,
     PHONE_REGEX,
-} from '../utils/constants/validators'
+} from '../constants/validators'
 
 export const validateUserInputs = (inputData, isEdit = false) => {
     const {

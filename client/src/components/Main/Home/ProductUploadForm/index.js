@@ -17,7 +17,7 @@ import { handleImageCompress } from '../../../../utils/imageCompressor'
 import { productUpload } from '../../../../store/actions/product'
 import { alertAdd } from '../../../../store/actions/ui'
 import { validateProductInputs } from '../../../../validators/product'
-import { DESCRIPTION_LEN_MAX } from '../../../../utils/constants/validators'
+import { DESCRIPTION_LEN_MAX } from '../../../../constants/validators'
 import './ProductUploadForm.css'
 
 const initialInputVals = {

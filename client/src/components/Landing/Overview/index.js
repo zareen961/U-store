@@ -2,7 +2,7 @@ import React from 'react'
 
 import laptopImage from '../../../assets/images/laptop.png'
 import OverviewItem from './OverviewItem'
-import overviewData from '../../../utils/constants/overviewData'
+import overviewData from '../../../constants/overviewData'
 import Logo from '../../utils/Logo'
 import SectionHeader from '../../utils/SectionHeader'
 import './Overview.css'

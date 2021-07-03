@@ -6,7 +6,7 @@ import PhoneIcon from '@material-ui/icons/Phone'
 
 import developerImage1 from '../../../assets/images/developer1.png'
 import developerImage2 from '../../../assets/images/developer2.png'
-import { WEBSITE_URL } from '../../../utils/constants/urls'
+import { WEBSITE_URL } from '../../../constants/urls'
 import './Footer.css'
 
 const Footer = () => {

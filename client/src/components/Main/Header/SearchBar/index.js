@@ -8,7 +8,8 @@ import { productSearch } from '../../../../store/actions/product'
 import { PRODUCT_SEARCH_CLEANUP } from '../../../../store/actionTypes'
 import SearchItem from '../SearchItem'
 import Loader from '../../../utils/Loader'
-import { DEBOUNCE_TIME, debounce } from '../../../../utils/debounce'
+import { debounce } from '../../../../utils/debounce'
+import { DEBOUNCE_TIME } from '../../../../constants/vars'
 import './SearchBar.css'
 
 const SearchBar = () => {

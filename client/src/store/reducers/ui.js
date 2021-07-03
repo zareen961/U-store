@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes'
-import themeData from '../../utils/constants/themeData'
+import themeData from '../../constants/themeData'
 
 export const alertReducer = (state = [], action) => {
     switch (action.type) {

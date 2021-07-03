@@ -1,4 +1,4 @@
-import * as notificationType from './constants/notificationType'
+import * as notificationType from '../constants/notificationType'
 
 export const createNotificationBody = (notification, loggedInUsername) => {
     const productName =

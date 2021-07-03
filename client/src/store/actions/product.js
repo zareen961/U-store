@@ -2,7 +2,7 @@ import * as actionTypes from '../actionTypes'
 import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
 import { handleCache } from '../../utils/handleCache'
-import * as api from '../../utils/constants/api'
+import * as api from '../../constants/api'
 
 // to fetch all the Products of the logged in user's college
 export const productFetchAll = () => async (dispatch, getState) => {

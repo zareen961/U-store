@@ -3,7 +3,7 @@ import axiosInstance from '../../utils/axiosInstance'
 import { alertAdd } from './ui'
 import { handleCache } from '../../utils/handleCache'
 import { setAuthHeader } from '../../utils/setAxiosHeaders'
-import * as api from '../../utils/constants/api'
+import * as api from '../../constants/api'
 import { notificationLoginAndLogoutAction } from './notification'
 
 // to fetch all the colleges data

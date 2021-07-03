@@ -1,9 +1,9 @@
-import moment from "moment"
+import moment from 'moment'
 
-const CACHE_TIME_IN_MINUTES = 10
+import { CACHE_TIME_IN_MINUTES } from '../constants/vars'
 
 export const handleCache = (lastFetch) => {
-    const diffInMinutes = moment().diff(moment(lastFetch), "minutes")
+    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes')
     if (diffInMinutes < CACHE_TIME_IN_MINUTES) {
         return true
     } else {
