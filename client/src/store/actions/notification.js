@@ -6,17 +6,14 @@ import * as api from '../../utils/constants/api'
 // to batch subscribe/unsubscribe logged in user's concerned topics to get live updates
 export const notificationLoginAndLogoutAction =
     (action) => async (dispatch, getState) => {
-        const { user = { userInfo: { products: [], bids: [], following: [] } } } =
-            getState().userLogin
+        const { user } = getState().userLogin
+        const { userInfo = {} } = user
+        const { products = [], bids = [], following = [] } = userInfo
 
         const topicsArray = [
-            ...user.userInfo.products.map((product) =>
-                product._id ? product._id : product
-            ),
-            ...user.userInfo.following.map((product) =>
-                product._id ? product._id : product
-            ),
-            ...user.userInfo.bids.map((bid) => (bid.product ? bid.product : bid._id)),
+            ...products.map((product) => (product._id ? product._id : product)),
+            ...bids.map((bid) => (bid.product ? bid.product : bid._id)),
+            ...following.map((product) => (product._id ? product._id : product)),
         ]
 
         if (topicsArray.length > 0) {
@@ -75,11 +72,21 @@ export const notificationGetSaved = () => async (dispatch) => {
 }
 
 // to push a live incoming notification to notifications store
-export const notificationLivePush = (newNotification) => async (dispatch) => {
-    dispatch({
-        type: actionTypes.NOTIFICATION_PUSH_NEW,
-        payload: newNotification,
-    })
+export const notificationLivePush = (newNotification) => async (dispatch, getState) => {
+    const { user = {} } = getState().userLogin
+    const { userInfo = {} } = user
+
+    // by-passing the redundant data sent from the firebase
+    if (newNotification.hasOwnProperty('data')) {
+        return
+    }
+
+    if (userInfo.username !== newNotification.creatorUsername) {
+        dispatch({
+            type: actionTypes.NOTIFICATION_PUSH_NEW,
+            payload: newNotification,
+        })
+    }
 }
 
 // to delete a notification

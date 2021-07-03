@@ -91,14 +91,10 @@ const SidebarRight = () => {
 
     // setting up the firebase listener to receive incoming live notifications
     useEffect(() => {
-        if (user && user.userInfo) {
-            messaging.onMessage((payload) => {
-                if (user.userInfo.username !== payload.data.creatorUsername) {
-                    dispatch(notificationLivePush(payload.data))
-                }
-            })
-        }
-    }, [dispatch, user])
+        messaging.onMessage((payload) => {
+            dispatch(notificationLivePush(payload.data))
+        })
+    }, [dispatch])
 
     // getting the saved notifications from the database
     useEffect(() => {
@@ -106,6 +102,25 @@ const SidebarRight = () => {
             dispatch(notificationGetSaved())
         }
     }, [user, dispatch, successNotificationGetSaved])
+
+    // receiving background notifications from service worker
+    useEffect(() => {
+        const receiveBackgroundNotificationListener = (e) => {
+            dispatch(notificationLivePush(e.data))
+        }
+
+        navigator.serviceWorker.addEventListener(
+            'message',
+            receiveBackgroundNotificationListener
+        )
+
+        return () => {
+            navigator.serviceWorker.removeEventListener(
+                'message',
+                receiveBackgroundNotificationListener
+            )
+        }
+    }, [dispatch])
 
     return (
         <div className="sidebarRight">

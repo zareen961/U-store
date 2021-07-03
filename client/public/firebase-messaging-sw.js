@@ -1,8 +1,6 @@
 importScripts('https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js')
 importScripts('https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js')
 
-importScripts('./createNotificationBody.js')
-
 firebase.initializeApp({
     apiKey: 'AIzaSyC0gnQJ9V0qbI1OBw0XFuBQU2YVd94Xw00',
     authDomain: 'u-store-961.firebaseapp.com',
@@ -15,14 +13,16 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging()
 
+const sendBackgroundNotificationToClient = async (notificationData) => {
+    const allActiveClients = await clients.matchAll({ includeUncontrolled: true })
+
+    return Promise.all(
+        allActiveClients.map((client) => {
+            return client.postMessage(notificationData)
+        })
+    )
+}
+
 messaging.onBackgroundMessage((payload) => {
-    const notificationTitle = payload.data.creatorUsername
-    const notificationOptions = {
-        body: createNotificationBody(payload.data, 'blck_tie'),
-        icon: `/avatars/avatar${payload.data.creatorAvatar}.png`,
-    }
-
-    console.log('Notification Received:', { notificationTitle, notificationOptions })
-
-    self.registration.showNotification(notificationTitle, notificationOptions)
+    sendBackgroundNotificationToClient(payload.data)
 })
