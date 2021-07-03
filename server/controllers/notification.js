@@ -63,11 +63,8 @@ const notificationGetSaved = asyncHandler(async (req, res) => {
         .select('notifications')
         .populate({
             path: 'notifications',
-            // select: '_id product creator type spotlightUser',
-            // select: '_id isRead notification',
             populate: {
                 path: 'notification',
-                // select: '_id product creator spotlightUser type',
                 populate: {
                     path: 'product creator',
                     select: '_id name username avatar',
@@ -82,20 +79,18 @@ const notificationGetSaved = asyncHandler(async (req, res) => {
         )
     }
 
-    const notifications = foundUser.notifications.map(
-        ({ _id, notification, isRead }) => ({
-            _id: String(_id),
-            productID: notification.product._id,
-            productName: notification.product.name,
-            creatorID: notification.creator._id,
-            creatorUsername: notification.creator.username,
-            creatorAvatar: notification.creator.avatar,
-            spotlightUser: notification.spotlightUser,
-            type: notification.type,
-            isRead: String(isRead),
-            createdAt: notification.createdAt,
-        })
-    )
+    const notifications = foundUser.notifications.map(({ notification, isRead }) => ({
+        _id: String(notification._id),
+        productID: notification.product._id,
+        productName: notification.product.name,
+        creatorID: notification.creator._id,
+        creatorUsername: notification.creator.username,
+        creatorAvatar: notification.creator.avatar,
+        spotlightUser: notification.spotlightUser,
+        type: notification.type,
+        isRead: String(isRead),
+        createdAt: notification.createdAt,
+    }))
 
     res.status(200).json(notifications)
 })
@@ -107,7 +102,7 @@ const notificationDelete = asyncHandler(async (req, res) => {
     // removing the notificationID from User's notifications array
     await User.updateOne(
         { _id: req.authUser._id },
-        { $pull: { notifications: { _id: notificationID } } },
+        { $pull: { notifications: { notification: notificationID } } },
         { safe: true, upsert: true }
     )
 
@@ -120,7 +115,7 @@ const notificationUpdateRead = asyncHandler(async (req, res) => {
 
     // setting that one notification in User's notifications array as READ
     await User.updateOne(
-        { _id: req.authUser._id, 'notifications._id': notificationID },
+        { _id: req.authUser._id, 'notifications.notification': notificationID },
         { $set: { 'notifications.$.isRead': true } }
     )
 
