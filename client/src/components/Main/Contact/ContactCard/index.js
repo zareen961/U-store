@@ -67,9 +67,11 @@ const ContactCard = ({ contact }) => {
                         <DeviceMobileIcon size={24} />
                     </div>
                     <div className="phoneWrapper">
-                        <a href={`tel:${contact.primaryPhone}`}>{contact.primaryPhone}</a>
+                        <a href={`tel:${contact.primaryPhone}`} title="dialer">
+                            {contact.primaryPhone}
+                        </a>
                         {contact.secondaryPhone && (
-                            <a href={`tel:${contact.secondaryPhone}`}>
+                            <a href={`tel:${contact.secondaryPhone}`} title="dialer">
                                 {contact.secondaryPhone}
                             </a>
                         )}
@@ -87,7 +89,9 @@ const ContactCard = ({ contact }) => {
                         <h3>Email</h3>
                         <MailIcon size={24} />
                     </div>
-                    <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                    <a href={`mailto:${contact.email}`} title="mailbox">
+                        {contact.email}
+                    </a>
                 </div>
             </div>
         </div>

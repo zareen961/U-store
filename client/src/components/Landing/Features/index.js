@@ -2,7 +2,6 @@ import React from 'react'
 
 import FeatureItem from './FeatureItem'
 import SectionHeader from '../../utils/SectionHeader'
-import './Features.css'
 
 const Features = () => {
     return (

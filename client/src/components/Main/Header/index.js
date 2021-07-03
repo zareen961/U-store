@@ -37,6 +37,7 @@ const Header = ({ setIsUploadFormOpen }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="header__logoWrapper"
+                title="U-store"
             >
                 <Logo sizeClass={'small'} />
                 <div className="header__logoIconWrapper"></div>

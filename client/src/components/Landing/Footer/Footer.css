@@ -1,7 +1,6 @@
 .footer {
     margin-top: 100px;
     height: 80vh;
-    /* background-color: rgba(var(--primary-dark), 0.85); */
     background-color: rgba(var(--primary-light), 1);
     display: flex;
     flex-direction: column;

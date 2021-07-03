@@ -30,6 +30,7 @@ const Navbar = ({ setIsOpen }) => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="navbar__logoWrapper"
+                    title="Ustore"
                 >
                     <Logo />
                 </a>

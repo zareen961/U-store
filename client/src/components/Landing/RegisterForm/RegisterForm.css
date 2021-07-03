@@ -171,8 +171,7 @@
     background: linear-gradient(
         210deg,
         rgba(var(--secondary-light), 0.796),
-        rgba(var(--primary-light), 0.89) 40% 60%,
-        rgba(var(--secondary-light), 0.796)
+        rgba(var(--primary-light), 0.9) 40%
     );
     font-weight: 600;
     color: rgba(var(--secondary-light), 1);

@@ -48,6 +48,7 @@ const Footer = () => {
                                     target="_blank"
                                     rel="noreferrer noopener"
                                     className="footer__developerIcon github"
+                                    title="Shubham's Github"
                                 >
                                     <GitHubIcon />
                                 </a>
@@ -56,6 +57,7 @@ const Footer = () => {
                                     target="_blank"
                                     rel="noreferrer noopener"
                                     className="footer__developerIcon linkedIn"
+                                    title="Shubham's LinkedIn"
                                 >
                                     <LinkedInIcon />
                                 </a>
@@ -72,6 +74,7 @@ const Footer = () => {
                                     target="_blank"
                                     rel="noreferrer noopener"
                                     className="footer__developerIcon github"
+                                    title="Ifa's Github"
                                 >
                                     <GitHubIcon />
                                 </a>
@@ -80,6 +83,7 @@ const Footer = () => {
                                     target="_blank"
                                     rel="noreferrer noopener"
                                     className="footer__developerIcon linkedIn"
+                                    title="Ifa's LinkedIn"
                                 >
                                     <LinkedInIcon />
                                 </a>
@@ -90,7 +94,12 @@ const Footer = () => {
             </div>
             <p className="footer__copyright">
                 Copyright &copy; 2021 | Made{' '}
-                <a href={WEBSITE_URL} target="_blank" rel="noopener noreferrer">
+                <a
+                    href={WEBSITE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="U-store"
+                >
                     U-store
                 </a>{' '}
                 with <span className="footer__heart">❤</span>

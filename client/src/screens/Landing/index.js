@@ -8,7 +8,6 @@ import Features from '../../components/Landing/Features'
 import ContactUs from '../../components/Landing/ContactUs'
 import CallToAction from '../../components/Landing/CallToAction'
 import Footer from '../../components/Landing/Footer'
-import './Landing.css'
 
 const Landing = () => {
     const [isRegisterFormOpen, setIsRegisterFormOpen] = useState(false)
