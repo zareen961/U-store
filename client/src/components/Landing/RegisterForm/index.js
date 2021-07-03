@@ -23,7 +23,7 @@ import GpsFixedIcon from '@material-ui/icons/GpsFixed'
 import CloseSharpIcon from '@material-ui/icons/CloseSharp'
 import IconButton from '@material-ui/core/IconButton'
 
-import { useForm } from '../../../utils/hooks/useForm'
+import { useForm } from '../../../hooks/useForm'
 import { userRegister, collegeFetchData } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/ui'
 import FormLoader from '../../utils/FormLoader'

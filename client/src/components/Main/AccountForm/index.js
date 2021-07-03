@@ -15,7 +15,7 @@ import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined'
 import PersonIcon from '@material-ui/icons/Person'
 import { useHistory } from 'react-router-dom'
 
-import { useForm } from '../../../utils/hooks/useForm'
+import { useForm } from '../../../hooks/useForm'
 import ButtonComp from '../../utils/ButtonComp'
 import UnderlineButtonComp from '../../utils/UnderlineButtonComp'
 import AvatarForm from '../../Landing/RegisterForm/AvatarForm'

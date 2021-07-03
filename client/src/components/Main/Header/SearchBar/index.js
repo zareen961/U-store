@@ -9,7 +9,7 @@ import { PRODUCT_SEARCH_CLEANUP } from '../../../../store/actionTypes'
 import SearchItem from '../SearchItem'
 import Loader from '../../../utils/Loader'
 import { debounce } from '../../../../utils/debounce'
-import { DEBOUNCE_TIME } from '../../../../constants/vars'
+import { DEBOUNCE_TIME_IN_MILLISECONDS } from '../../../../constants/vars'
 import './SearchBar.css'
 
 const SearchBar = () => {
@@ -25,7 +25,7 @@ const SearchBar = () => {
     }, [query, dispatch])
 
     useEffect(() => {
-        debounce(handleSearchCall, DEBOUNCE_TIME)
+        debounce(handleSearchCall, DEBOUNCE_TIME_IN_MILLISECONDS)
     }, [handleSearchCall])
 
     // to clean earlier results once the query is cleared

@@ -6,7 +6,7 @@ import ButtonBase from '@material-ui/core/ButtonBase'
 
 import { userLogin } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/ui'
-import { useForm } from '../../../utils/hooks/useForm'
+import { useForm } from '../../../hooks/useForm'
 import FormLoader from '../../utils/FormLoader'
 import './LoginForm.css'
 

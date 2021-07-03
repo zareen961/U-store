@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SendIcon from '@material-ui/icons/Send'
 
-import { useForm } from '../../../../utils/hooks/useForm'
+import { useForm } from '../../../../hooks/useForm'
 import { contactMailSend } from '../../../../store/actions/contact'
 import { alertAdd } from '../../../../store/actions/ui'
 import './ContactForm.css'
