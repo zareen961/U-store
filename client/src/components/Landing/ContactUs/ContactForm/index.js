@@ -5,6 +5,7 @@ import SendIcon from '@material-ui/icons/Send'
 import { useForm } from '../../../../hooks/useForm'
 import { contactMailSend } from '../../../../store/actions/contact'
 import { alertAdd } from '../../../../store/actions/ui'
+import { REACH_HEADING } from '../../../../constants/contactUsData'
 import './ContactForm.css'
 
 const initialInputVals = {
@@ -44,10 +45,7 @@ const ContactForm = () => {
     return (
         <div className="contactForm">
             <h3>Reach Us</h3>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quasi in
-                nesciunt placeat sint.
-            </p>
+            <p>{REACH_HEADING}</p>
             <form className="contactForm__form" onSubmit={handleOnSubmit}>
                 <div>
                     <input

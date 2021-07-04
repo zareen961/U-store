@@ -3,6 +3,7 @@ import React from 'react'
 import ContactForm from './ContactForm'
 import FAQ from './FAQ'
 import SectionHeader from '../../utils/SectionHeader'
+import { CONTACT_HEADING } from '../../../constants/contactUsData'
 import './ContactUs.css'
 
 const ContactUs = () => {
@@ -10,9 +11,7 @@ const ContactUs = () => {
         <div className="contactUs" id="contactID">
             <SectionHeader
                 title={'Contact Us'}
-                content={
-                    'Loremc ipsum dolor sit amet consectetur adipisicing elit. Quod, placeat recusandae dolore sit vel temporibus illo debitis eaque molestiae? Mollitia molestias quo nulla neque error.'
-                }
+                content={CONTACT_HEADING}
                 paddingTop={80}
             />
             <div className="contactUs__bodyWrapper">

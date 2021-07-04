@@ -4,9 +4,8 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn'
 import MailIcon from '@material-ui/icons/Mail'
 import PhoneIcon from '@material-ui/icons/Phone'
 
-import developerImage1 from '../../../assets/images/developer1.png'
-import developerImage2 from '../../../assets/images/developer2.png'
 import { WEBSITE_URL } from '../../../constants/urls'
+import { ABOUT, DEVELOPERS } from '../../../constants/footerData'
 import './Footer.css'
 
 const Footer = () => {
@@ -16,12 +15,7 @@ const Footer = () => {
             <div className="footer__contentWrapper">
                 <div className="footer__about">
                     <h3>About</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                        Molestias culpa id aspernatur. Laudantium illum cum, vero odit
-                        beatae et id suscipit voluptatibus? Ratione expedita odit, quis
-                        dolores.
-                    </p>
+                    <p>{ABOUT}</p>
                 </div>
 
                 <div className="footer__contact">
@@ -38,58 +32,34 @@ const Footer = () => {
 
                 <div className="footer__developers">
                     <h3>Developers</h3>
-                    <div className="footer__developerCard card1">
-                        <img src={developerImage1} alt="Developer 1" />
-                        <div>
-                            <span>Shubham Kumar Singh</span>
-                            <p>
-                                <a
-                                    href="https://github.com/kumarsks619"
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                    className="footer__developerIcon github"
-                                    title="Shubham's Github"
-                                >
-                                    <GitHubIcon />
-                                </a>
-                                <a
-                                    href="https://www.linkedin.com/in/kumarsks619"
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                    className="footer__developerIcon linkedIn"
-                                    title="Shubham's LinkedIn"
-                                >
-                                    <LinkedInIcon />
-                                </a>
-                            </p>
+                    {DEVELOPERS.map((developer) => (
+                        <div className="footer__developerCard" key={developer.name}>
+                            <img src={developer.image} alt={developer.name} />
+                            <div>
+                                <span>{developer.name}</span>
+                                <p>
+                                    <a
+                                        href={developer.github}
+                                        target="_blank"
+                                        rel="noreferrer noopener"
+                                        className="footer__developerIcon github"
+                                        title={`${developer.name}'s Github`}
+                                    >
+                                        <GitHubIcon />
+                                    </a>
+                                    <a
+                                        href={developer.linkedin}
+                                        target="_blank"
+                                        rel="noreferrer noopener"
+                                        className="footer__developerIcon linkedIn"
+                                        title={`${developer.name}'s Linkedin`}
+                                    >
+                                        <LinkedInIcon />
+                                    </a>
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="footer__developerCard">
-                        <img src={developerImage2} alt="Developer 2" />
-                        <div>
-                            <span>Ifa Zareen</span>
-                            <p>
-                                <a
-                                    href="https://github.com/zareen961"
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                    className="footer__developerIcon github"
-                                    title="Ifa's Github"
-                                >
-                                    <GitHubIcon />
-                                </a>
-                                <a
-                                    href="https://www.linkedin.com/in/ifa-zareen"
-                                    target="_blank"
-                                    rel="noreferrer noopener"
-                                    className="footer__developerIcon linkedIn"
-                                    title="Ifa's LinkedIn"
-                                >
-                                    <LinkedInIcon />
-                                </a>
-                            </p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
             <p className="footer__copyright">

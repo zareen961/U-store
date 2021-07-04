@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 import Accordion from './Accordion'
-import faqData from '../../../../constants/faqData'
+import { FAQ_CONTENT, FAQ_HEADING } from '../../../../constants/faqData'
 import './FAQ.css'
 
 const FAQ = () => {
-    const [show, setShow] = useState(faqData.map(() => false))
+    const [show, setShow] = useState(FAQ_CONTENT.map(() => false))
 
     const handleShow = (index) => {
         setShow(
@@ -19,13 +19,10 @@ const FAQ = () => {
     return (
         <div className="faq">
             <h3>FAQ's</h3>
-            <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quasi in
-                nesciunt placeat sint.
-            </p>
-            {faqData.map((query, i) => (
+            <p>{FAQ_HEADING}</p>
+            {FAQ_CONTENT.map((query, i) => (
                 <Accordion
-                    key={query.title}
+                    key={query.question}
                     index={i}
                     query={{ ...query, show: show[i] }}
                     handleShow={handleShow}

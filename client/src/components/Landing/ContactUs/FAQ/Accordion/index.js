@@ -9,7 +9,7 @@ const Accordion = ({ query, handleShow, index }) => {
     return (
         <div className="accordion">
             <div className="accordion__header">
-                <h3>{query.title}</h3>
+                <h3>{query.question}</h3>
                 <IconButton
                     className="accordion__showButton"
                     onClick={() => handleShow(index)}
