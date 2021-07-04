@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler')
 
-const { transporter } = require('../utils/mailerTransporter')
+const { createTransporter } = require('../utils/mailerTransporter')
 const validateContactInputs = require('../validators/contact')
 
 const contactMailTemplate = (name, email, subject, message) => {
@@ -10,7 +10,8 @@ const contactMailTemplate = (name, email, subject, message) => {
                   <hr />
                   <br />
                   <p>${message}</p>`
-    return { to, replyTo, subject, html }
+    const text = `Message from ${name}: ${message}`
+    return { to, replyTo, subject, html, text }
 }
 
 // to send mail from the contact form
@@ -25,7 +26,8 @@ const sendContactMail = asyncHandler((req, res) => {
 
     const emailTemplate = contactMailTemplate(name, email, subject, message)
 
-    const sendEmail = () => {
+    const sendEmail = async () => {
+        const transporter = await createTransporter()
         transporter.sendMail(emailTemplate, (err, info) => {
             if (err) {
                 res.status(500).json({
