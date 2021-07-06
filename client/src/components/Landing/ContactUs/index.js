@@ -4,7 +4,7 @@ import ContactForm from './ContactForm'
 import FAQ from './FAQ'
 import SectionHeader from '../../utils/SectionHeader'
 import { CONTACT_HEADING } from '../../../constants/contactUsData'
-import './ContactUs.css'
+import './ContactUs.scss'
 
 const ContactUs = () => {
     return (

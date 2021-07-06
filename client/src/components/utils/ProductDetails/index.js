@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import './ProductDetails.css'
+import './ProductDetails.scss'
 
 const ProductDescription = ({ name, description, isProductsScreen = false }) => {
     const [isReadMoreOpen, setIsReadMoreOpen] = useState(false)

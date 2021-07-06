@@ -1,0 +1,9 @@
+.contactUs {
+    width: 85vw;
+    margin: 0 auto;
+
+    &__bodyWrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+}

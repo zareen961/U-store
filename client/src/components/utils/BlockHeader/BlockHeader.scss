@@ -1,0 +1,15 @@
+.blockHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    margin-bottom: 25px;
+
+    h1 {
+        font-weight: 600;
+        font-size: 1rem;
+        text-transform: uppercase;
+        color: rgba(var(--primary-dark), 0.5);
+        align-self: flex-end;
+    }
+}

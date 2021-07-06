@@ -6,7 +6,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import { userFetchBids } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
-import './Bids.css'
+import './Bids.scss'
 
 const Bids = () => {
     const dispatch = useDispatch()

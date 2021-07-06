@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Loader from '../Loader'
-import './BidInputLoader.css'
+import './BidInputLoader.scss'
 
 const BidInputLoader = ({ isLoading }) => {
     return (

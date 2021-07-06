@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 
-import './ScrollToTop.css'
+import './ScrollToTop.scss'
 
 const handleScrollToTop = () => {
     window.scrollTo(0, 0)

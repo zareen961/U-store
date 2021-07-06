@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import ModalComp from '../ModalComp'
 import ButtonComp from '../ButtonComp'
 import { alertAdd } from '../../../store/actions/ui'
-import './ConfirmModal.css'
+import './ConfirmModal.scss'
 
 const ConfirmModal = ({
     isOpen,

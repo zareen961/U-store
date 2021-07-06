@@ -2,7 +2,7 @@ import React from 'react'
 import { TrashIcon, PinIcon } from '@primer/octicons-react'
 
 import ButtonComp from '../ButtonComp'
-import './DeleteCover.css'
+import './DeleteCover.scss'
 
 const DeleteCover = ({ message, buttonText, handleOnClick, isLoading }) => {
     return (

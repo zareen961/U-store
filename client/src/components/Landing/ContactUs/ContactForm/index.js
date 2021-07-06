@@ -6,7 +6,7 @@ import { useForm } from '../../../../hooks/useForm'
 import { contactMailSend } from '../../../../store/actions/contact'
 import { alertAdd } from '../../../../store/actions/ui'
 import { REACH_HEADING } from '../../../../constants/contactUsData'
-import './ContactForm.css'
+import './ContactForm.scss'
 
 const initialInputVals = {
     name: '',
@@ -44,10 +44,10 @@ const ContactForm = () => {
 
     return (
         <div className="contactForm">
-            <h3>Reach Us</h3>
-            <p>{REACH_HEADING}</p>
+            <h3 className="contactForm__heading">Reach Us</h3>
+            <p className="contactForm__description">{REACH_HEADING}</p>
             <form className="contactForm__form" onSubmit={handleOnSubmit}>
-                <div>
+                <div className="contactForm__inputGroup">
                     <input
                         type="text"
                         placeholder="What's your name?"
@@ -75,6 +75,7 @@ const ContactForm = () => {
                     autoComplete="new-password"
                     spellCheck="false"
                     onChange={handleOnChange}
+                    className="contactForm__subjectInput"
                 />
                 <textarea
                     rows="7"

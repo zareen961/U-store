@@ -8,7 +8,7 @@ import { userLogin } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/ui'
 import { useForm } from '../../../hooks/useForm'
 import FormLoader from '../../utils/FormLoader'
-import './LoginForm.css'
+import './LoginForm.scss'
 
 const LoginForm = ({ setIsOpen }) => {
     const dispatch = useDispatch()

@@ -1,7 +1,7 @@
 import React from 'react'
 import Dialog from '@material-ui/core/Dialog'
 
-import './ModalComp.css'
+import './ModalComp.scss'
 
 const ModalComp = ({
     isOpen,

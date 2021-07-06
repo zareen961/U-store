@@ -1,0 +1,14 @@
+.settings {
+    background-color: transparent;
+    min-height: 90vh;
+    box-sizing: border-box;
+    padding-top: 30px;
+
+    &__bodyWrapper {
+        padding: 25px;
+        background-color: rgba(var(--secondary-light), 1);
+        border-radius: 15px;
+        box-shadow: var(--box-shadow);
+        min-height: 60vh;
+    }
+}

@@ -1,0 +1,48 @@
+.overview {
+    width: 85vw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+    &__bodyWrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__section {
+        flex: 0.3;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__centerSection {
+        flex: 0.4;
+        margin: 0 40px;
+        position: relative;
+
+        img {
+            width: 100%;
+            margin-top: 20px;
+        }
+    }
+
+    &__laptopOverlay {
+        position: absolute;
+        height: 48%;
+        width: 74%;
+        top: 43px;
+        left: 63px;
+        z-index: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(var(--gradient-extra), 0.6);
+        background: linear-gradient(
+            150deg,
+            rgba(var(--primary-light), 0.89) 20%,
+            rgba(var(--primary-dark), 0.8) 70%
+        );
+        border-radius: 13px;
+    }
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import laptopImage from '../../../../assets/images/laptop.png'
-import './FeatureItem.css'
+import './FeatureItem.scss'
 
 const FeatureItem = ({ isShapeLeft, featureData }) => {
     return (

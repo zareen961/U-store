@@ -3,7 +3,7 @@ import { HashLink } from 'react-router-hash-link'
 
 import { WEBSITE_URL } from '../../../constants/urls'
 import Logo from '../../utils/Logo'
-import './Navbar.css'
+import './Navbar.scss'
 
 const Navbar = ({ setIsOpen }) => {
     const [backgroundClass, setBackgroundClass] = useState('navbar')

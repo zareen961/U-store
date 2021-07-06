@@ -14,7 +14,7 @@ import ButtonComp from '../../../components/utils/ButtonComp'
 import SettingsItem from '../../../components/Main/Settings/SettingsItem'
 import DangerConfirmModal from '../../../components/utils/DangerConfirmModal'
 import { themeSwitch } from '../../../store/actions/ui'
-import './Settings.css'
+import './Settings.scss'
 
 const Settings = () => {
     const dispatch = useDispatch()

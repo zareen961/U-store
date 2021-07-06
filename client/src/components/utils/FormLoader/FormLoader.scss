@@ -1,0 +1,75 @@
+.formLoader {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    height: 0;
+    box-sizing: border-box;
+    transition: all 0.8s ease-in-out;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: grid;
+    place-items: center;
+
+    .spinner {
+        opacity: 0;
+        background-color: var(--shadow-secondary);
+        -webkit-animation: sk-rotate-plane 1.2s infinite ease-in-out;
+        animation: sk-rotate-plane 1.2s infinite ease-in-out;
+    }
+
+    &.show {
+        z-index: 15;
+        height: 100%;
+
+        .spinner {
+            opacity: 1;
+        }
+    }
+
+    /* INNER LOADER STYLES ************************************************************/
+    &.innerLoader {
+        border-radius: 15px;
+        background-color: rgba(var(--primary-light), 0.2);
+    }
+
+    &.bidPlaceLoader {
+        border-radius: 10px;
+        background-color: rgba(var(--primary-light), 0.2);
+        transition: all 0.5s ease-in-out;
+    }
+
+    &.bidEditLoader {
+        border-radius: 15px;
+        background-color: rgba(var(--primary-light), 0.2);
+        transition: all 0.5s ease-in-out;
+    }
+
+    // loader animation
+    @-webkit-keyframes sk-rotate-plane {
+        0% {
+            -webkit-transform: perspective(120px);
+        }
+        50% {
+            -webkit-transform: perspective(120px) rotateY(180deg);
+        }
+        100% {
+            -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg);
+        }
+    }
+
+    @keyframes sk-rotate-plane {
+        0% {
+            transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+            -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+            -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        }
+        100% {
+            transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+            -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        }
+    }
+}

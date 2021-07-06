@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './NoItemMessage.css'
+import './NoItemMessage.scss'
 
 const NoItemMessage = ({ title, text, titleSize = 2 }) => {
     return (

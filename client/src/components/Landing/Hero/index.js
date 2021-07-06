@@ -4,7 +4,7 @@ import { HashLink } from 'react-router-hash-link'
 
 import waveImage from '../../../assets/images/hero-wave.png'
 import LoginForm from '../LoginForm'
-import './Hero.css'
+import './Hero.scss'
 
 const Hero = ({ isOpen, setIsOpen }) => {
     const { secondaryColor } = useSelector((state) => state.theme)

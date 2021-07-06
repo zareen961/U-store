@@ -1,0 +1,18 @@
+.account {
+    background-color: transparent;
+    padding-top: 40px;
+    min-height: 90vh;
+    box-sizing: border-box;
+
+    &__card {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__formWrapper {
+        padding: 25px;
+        background-color: rgba(var(--secondary-light), 1);
+        border-radius: 15px;
+        box-shadow: var(--box-shadow);
+    }
+}

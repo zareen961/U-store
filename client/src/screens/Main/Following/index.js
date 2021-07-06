@@ -6,7 +6,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
 import { userFetchFollowing } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
-import './Following.css'
+import './Following.scss'
 
 const Following = () => {
     const dispatch = useDispatch()

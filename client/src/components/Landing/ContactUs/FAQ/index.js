@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import Accordion from './Accordion'
 import { FAQ_CONTENT, FAQ_HEADING } from '../../../../constants/faqData'
-import './FAQ.css'
+import './FAQ.scss'
 
 const FAQ = () => {
     const [show, setShow] = useState(FAQ_CONTENT.map(() => false))
@@ -18,8 +18,8 @@ const FAQ = () => {
 
     return (
         <div className="faq">
-            <h3>FAQ's</h3>
-            <p>{FAQ_HEADING}</p>
+            <h3 className="faq__heading">FAQ's</h3>
+            <p className="faq__description">{FAQ_HEADING}</p>
             {FAQ_CONTENT.map((query, i) => (
                 <Accordion
                     key={query.question}

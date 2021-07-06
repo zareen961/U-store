@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import ErrorIcon from '@material-ui/icons/Error'
 
-import './Alerts.css'
+import './Alerts.scss'
 
 const Alerts = ({ isRounded }) => {
     const alerts = useSelector((state) => state.alerts)

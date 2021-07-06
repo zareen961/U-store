@@ -1,0 +1,34 @@
+.underlineButtonComp {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif !important;
+    color: rgba(var(--primary-light), 0.6);
+    font-weight: 600;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+
+    &:hover {
+        color: rgba(var(--primary-dark), 0.8) !important;
+    }
+
+    &.active::after {
+        content: '';
+        width: 80%;
+        background-color: rgba(var(--primary-light), 0.5);
+        height: 3px;
+        border-radius: 3px;
+        position: absolute;
+        left: 10%;
+        top: 85%;
+        transition: all 0.3s ease-in-out;
+    }
+
+    &.active:hover:after {
+        background-color: rgba(var(--primary-dark), 0.8);
+    }
+
+    &.active {
+        color: rgba(var(--primary-light), 0.8);
+    }
+}

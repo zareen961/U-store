@@ -1,0 +1,21 @@
+.products {
+    background-color: transparent;
+    min-height: 90vh;
+    box-sizing: border-box;
+    padding-top: 30px;
+
+    &__productsWrapper {
+        display: flex;
+    }
+
+    &__left,
+    &__right {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    &__left {
+        margin-right: 30px;
+    }
+}

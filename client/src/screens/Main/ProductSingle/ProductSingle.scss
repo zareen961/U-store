@@ -1,0 +1,22 @@
+.productSingle {
+    background-color: transparent;
+    min-height: 90vh;
+    box-sizing: border-box;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+    &__bodyWrapper {
+        .bidCard {
+            background-color: rgba(var(--secondary-light), 1);
+            box-shadow: var(--box-shadow);
+        }
+
+        .bidCard__price {
+            background-color: rgba(var(--primary-light), 1);
+
+            h3 {
+                color: rgba(var(--secondary-light), 1) !important;
+            }
+        }
+    }
+}

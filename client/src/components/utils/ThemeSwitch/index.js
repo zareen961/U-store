@@ -5,7 +5,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 
 import { themeSwitch } from '../../../store/actions/ui'
 
-import './ThemeSwitch.css'
+import './ThemeSwitch.scss'
 
 const ThemeSwitch = () => {
     const dispatch = useDispatch()

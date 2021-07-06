@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './ButtonComp.css'
+import './ButtonComp.scss'
 
 const Button = ({
     typeClass,

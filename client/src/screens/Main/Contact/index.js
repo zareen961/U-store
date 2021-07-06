@@ -17,7 +17,7 @@ import NoItemMessage from '../../../components/utils/NoItemMessage'
 import ContactCard from '../../../components/Main/Contact/ContactCard'
 import ContactShape from '../../../components/Main/Contact/ContactShape'
 import BlockHeader from '../../../components/utils/BlockHeader'
-import './Contact.css'
+import './Contact.scss'
 
 const Contact = () => {
     const history = useHistory()

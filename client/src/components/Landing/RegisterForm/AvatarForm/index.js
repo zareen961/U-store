@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseSharpIcon from '@material-ui/icons/CloseSharp'
 
 import ModalComp from '../../../utils/ModalComp'
-import './AvatarForm.css'
+import './AvatarForm.scss'
 
 const shuffle = (array) => {
     var currentIndex = array.length,

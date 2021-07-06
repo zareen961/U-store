@@ -7,7 +7,7 @@ import NoItemMessage from '../../../components/utils/NoItemMessage'
 import { userFetchProducts } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 
-import './Products.css'
+import './Products.scss'
 
 const Products = () => {
     const dispatch = useDispatch()

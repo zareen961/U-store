@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './BlockHeader.css'
+import './BlockHeader.scss'
 
 const BlockHeader = ({ title, children }) => {
     return (

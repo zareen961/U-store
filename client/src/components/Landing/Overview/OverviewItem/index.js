@@ -6,7 +6,7 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt'
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 import MyLocationIcon from '@material-ui/icons/MyLocation'
 
-import './OverviewItem.css'
+import './OverviewItem.scss'
 
 const getIcon = (icon) => {
     switch (icon) {

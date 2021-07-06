@@ -7,7 +7,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import { productFetchAll } from '../../../store/actions/product'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
-import './Home.css'
+import './Home.scss'
 
 const Home = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
     const dispatch = useDispatch()

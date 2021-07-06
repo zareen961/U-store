@@ -4,7 +4,7 @@ import { PencilIcon, XCircleIcon } from '@primer/octicons-react'
 import AccountForm from '../../../components/Main/AccountForm'
 import BlockHeader from '../../../components/utils/BlockHeader'
 import ButtonComp from '../../../components/utils/ButtonComp'
-import './Account.css'
+import './Account.scss'
 
 const Account = () => {
     const [isEdit, setIsEdit] = useState(false)

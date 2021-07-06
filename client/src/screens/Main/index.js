@@ -4,7 +4,7 @@ import SidebarLeft from '../../components/Main/SidebarLeft'
 import SidebarRight from '../../components/Main/SidebarRight'
 import Header from '../../components/Main/Header'
 import Routes from '../../Routes'
-import './Main.css'
+import './Main.scss'
 
 const Main = () => {
     const [isUploadFormOpen, setIsUploadFormOpen] = useState(false)

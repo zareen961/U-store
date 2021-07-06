@@ -1,0 +1,82 @@
+.featureItem {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    position: relative;
+    margin-bottom: 100px;
+
+    img {
+        position: absolute;
+        width: 500px;
+        top: 35%;
+        right: 25%;
+        z-index: 2;
+    }
+
+    &__contentWrapper {
+        margin: auto;
+        height: 100%;
+        width: 85vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
+    &__content {
+        width: 40%;
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            padding: 0;
+
+            li {
+                margin-bottom: 8px;
+                font-size: 1.1rem;
+                max-width: 450px;
+            }
+        }
+    }
+
+    &__shape {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 50vw;
+        background: linear-gradient(
+                150deg,
+                rgba(var(--primary-light), 0.6) 20%,
+                rgba(var(--primary-dark), 0.8) 70%
+            ),
+            url(../../../../assets/images/hero-wall.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 400px 0px;
+        background-attachment: fixed;
+        clip-path: ellipse(100% 50% at 100% 50%);
+    }
+
+    // converting the shape to align on left-side
+    &.left {
+        .featureItem__shape {
+            left: 0;
+            clip-path: ellipse(100% 50% at 0% 50%);
+            background-position: -50px 0px;
+        }
+
+        .featureItem__contentWrapper {
+            align-items: flex-end;
+            margin-right: 10px;
+        }
+
+        img {
+            top: 35%;
+            left: 26%;
+        }
+    }
+}

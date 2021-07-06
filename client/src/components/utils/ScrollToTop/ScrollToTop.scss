@@ -1,0 +1,27 @@
+.scrollToTop {
+    position: fixed;
+    bottom: 3vh;
+    right: 1vw;
+    z-index: 2;
+    border-radius: 50%;
+    padding: 1px 4px;
+    border: none;
+    opacity: 1;
+    border-left: 3px solid rgba(var(--primary-light), 1);
+    border-top: 3px solid rgba(var(--primary-light), 1);
+    background-color: rgba(var(--secondary-light), 1);
+    box-shadow: 3px 3px 3px var(--shadow-primary);
+    color: rgba(var(--primary-light), 1);
+    font-weight: 800;
+    transform: translateX(0);
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &.hide {
+        transform: translateX(100px);
+    }
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}

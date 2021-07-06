@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './UnderlineButtonComp.css'
+import './UnderlineButtonComp.scss'
 
 const UnderlineButtonComp = ({ text, handleOnClick, isActive = false }) => {
     return (

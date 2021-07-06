@@ -1,0 +1,148 @@
+.footer {
+    margin-top: 100px;
+    height: 80vh;
+    background-color: rgba(var(--primary-light), 1);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+
+    &__shape {
+        flex: 1;
+        clip-path: ellipse(101% 90% at 0% 0%);
+        background-color: rgba(var(--secondary-light), 1);
+    }
+
+    &__contentWrapper {
+        flex: 0.6;
+        width: 85vw;
+        display: flex;
+        justify-content: space-between;
+        padding: 70px 0 0;
+        align-self: center;
+    }
+
+    &__about {
+        flex: 0.35;
+    }
+
+    &__contact {
+        flex: 0.3;
+        margin: 0 100px;
+
+        div {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-right: 10px;
+            color: rgba(var(--secondary-light), 1);
+        }
+    }
+
+    &__developers {
+        flex: 0.3;
+    }
+
+    &__contentWrapper {
+        font-weight: 500;
+        color: rgba(var(--secondary-light), 1);
+
+        h3 {
+            color: rgba(var(--secondary-light), 1);
+            font-weight: 500;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+        }
+    }
+
+    &__emailWrapper {
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+
+    &__developerCard {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        img {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+
+            span {
+                margin-bottom: 10px;
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    &__developerIcon,
+    &__developerIcon:visited {
+        margin-right: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out !important;
+        color: rgba(var(--secondary-light), 1);
+    }
+
+    &__developerIcon.github:hover {
+        color: black;
+    }
+
+    &__developerIcon.linkedIn:hover {
+        color: #0a66c2;
+    }
+
+    &__copyright {
+        flex: 0.1;
+        text-align: center;
+        color: rgba(var(--secondary-light), 1);
+        padding: 60px 0 50px;
+
+        a {
+            color: rgba(var(--primary-dark), 1);
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin: 0 5px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease-in-out;
+        }
+
+        a:hover {
+            border-color: rgba(var(--primary-dark), 1);
+        }
+    }
+
+    &__heart {
+        color: red;
+        text-shadow: 2px 2px 100px var(--shadow-secondary),
+            -2px -2px 100px var(--shadow-secondary),
+            2px -2px 100px var(--shadow-secondary), -2px 2px 100px var(--shadow-secondary);
+        animation: animate-heart 1s infinite ease-in-out;
+        animation-direction: alternate;
+        margin-left: 10px;
+    }
+
+    // footer heart beating animation
+    @keyframes animate-heart {
+        0% {
+            font-size: 1.4rem;
+        }
+        100% {
+            font-size: 1rem;
+            text-shadow: 0.5px 0.5px 2px var(--shadow-secondary),
+                -0.5px 0.5px 2px var(--shadow-secondary),
+                0.5px -0.5px 2px var(--shadow-secondary),
+                -0.5px 0.5px 2px var(--shadow-secondary);
+        }
+    }
+}

@@ -1,0 +1,132 @@
+.buttonComp {
+    border: 2px solid transparent;
+    background-color: rgba(var(--primary-light), 1);
+    color: rgba(var(--secondary-light), 1);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    height: 40px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif !important;
+
+    .icon {
+        margin-right: 5px;
+        margin-top: -4px;
+    }
+
+    /* Primary Button Styles ***********************************************************************/
+    &.primary {
+        background-color: rgba(var(--primary-light), 1);
+        color: rgba(var(--secondary-light), 1);
+        border-color: transparent;
+    }
+
+    &.primary:hover {
+        background-color: rgba(var(--secondary-light), 1);
+        color: rgba(var(--primary-light), 1);
+        border-color: rgba(var(--primary-light), 0.7);
+    }
+
+    &.primary.disabled {
+        background-color: rgba(var(--primary-light), 0.5);
+    }
+
+    &.primary.disabled:hover {
+        background-color: rgba(var(--primary-light), 0.5);
+        color: rgba(var(--secondary-light), 1);
+        border-color: transparent;
+        cursor: not-allowed;
+    }
+
+    /* Secondary Button Styles *********************************************************************/
+    &.secondary {
+        background-color: rgba(var(--secondary-light), 1);
+        color: rgba(var(--primary-light), 1);
+        border-color: rgba(var(--primary-light), 0.7);
+    }
+
+    &.secondary:hover {
+        background-color: rgba(var(--primary-light), 1);
+        color: rgba(var(--secondary-light), 1);
+        border-color: transparent;
+    }
+
+    /* Modify Class Styles ****************************************************************************/
+    &.iconButton {
+        margin-left: 5px;
+
+        .icon {
+            margin: 0 !important;
+        }
+    }
+
+    &.insideInputButton {
+        margin: 10px;
+    }
+
+    &.themePurple {
+        background-color: rgba(247, 251, 252, 1);
+        color: rgba(143, 110, 213, 1);
+        border-color: rgba(143, 110, 213, 1);
+    }
+
+    &.themePurple:hover {
+        background-color: rgba(143, 110, 213, 1);
+        color: rgba(247, 251, 252, 1);
+        border-color: transparent;
+    }
+
+    &.themeRed {
+        background-color: rgba(34, 40, 49, 1);
+        color: rgba(255, 113, 113, 1);
+        border-color: rgba(255, 113, 113, 1);
+        margin: 0 15px;
+    }
+
+    &.themeRed:hover {
+        background-color: rgba(255, 113, 113, 1);
+        color: rgba(34, 40, 49, 1);
+        border-color: transparent;
+    }
+
+    &.themeBlue {
+        background-color: rgba(0, 0, 0, 1);
+        color: rgba(14, 148, 200, 1);
+        border-color: rgba(14, 148, 200, 1);
+    }
+
+    &.themeBlue:hover {
+        background-color: rgba(14, 148, 200, 1);
+        color: rgba(0, 0, 0, 1);
+        border-color: transparent;
+    }
+
+    &.deleteAccount {
+        background-color: rgba(var(--secondary-light), 1);
+        color: crimson;
+        border-color: crimson;
+    }
+
+    &.deleteAccount:hover {
+        background-color: crimson;
+        color: rgba(var(--secondary-light), 1);
+        border-color: transparent;
+    }
+
+    &.deleteAccount.disabled {
+        background-color: rgba(var(--secondary-light), 1);
+        color: rgba(220, 20, 60, 0.472);
+        border-color: rgba(220, 20, 60, 0.472);
+    }
+
+    &.deleteAccount.disabled:hover {
+        background-color: rgba(220, 20, 60, 0.472);
+        color: rgba(220, 20, 60, 0.472);
+        border-color: rgba(220, 20, 60, 0.472);
+    }
+}

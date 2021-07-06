@@ -6,7 +6,7 @@ import PhoneIcon from '@material-ui/icons/Phone'
 
 import { WEBSITE_URL } from '../../../constants/urls'
 import { ABOUT, DEVELOPERS } from '../../../constants/footerData'
-import './Footer.css'
+import './Footer.scss'
 
 const Footer = () => {
     return (

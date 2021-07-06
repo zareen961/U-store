@@ -1,0 +1,87 @@
+.confirmModal {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(var(--secondary-light), 1);
+    padding: 25px;
+    border-radius: 15px;
+    overflow-x: hidden !important;
+
+    .loaderLinear {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: 4px;
+        width: 98%;
+        border-radius: 15px !important;
+    }
+
+    .loaderLinear.MuiLinearProgress-colorPrimary {
+        background-color: rgba(var(--primary-light), 0.6);
+    }
+
+    .loaderLinear .MuiLinearProgress-barColorPrimary {
+        background-color: rgba(var(--primary-light), 1);
+    }
+
+    h1 {
+        margin-bottom: 10px;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        color: rgba(var(--primary-dark), 0.8);
+    }
+
+    p {
+        color: rgba(var(--primary-light), 0.9);
+        font-weight: 500;
+        font-size: 0.9rem;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    &__input {
+        margin: 15px 0;
+        height: 1.2rem;
+        background-color: rgba(var(--primary-light), 0.08);
+        border: 0;
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+
+        .icon {
+            color: rgba(var(--primary-dark), 0.8);
+            transition: all 0.5s ease-in;
+            margin-top: -5px;
+        }
+
+        input {
+            background-color: transparent;
+            border: 0;
+            flex: 1;
+            margin: 0 10px;
+            color: rgba(var(--primary-dark), 1);
+            letter-spacing: 5px !important;
+            width: 150px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            transition: all 1s ease;
+        }
+
+        input::placeholder {
+            color: rgba(var(--primary-dark), 0.5);
+            letter-spacing: 1px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+    }
+
+    &__buttonsWrapper {
+        display: flex;
+        align-self: flex-end;
+
+        .buttonComp:nth-child(1) {
+            margin-right: 10px;
+        }
+    }
+}

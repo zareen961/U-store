@@ -3,13 +3,13 @@ import AddBoxIcon from '@material-ui/icons/AddBox'
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox'
 import IconButton from '@material-ui/core/IconButton'
 
-import './Accordion.css'
+import './Accordion.scss'
 
 const Accordion = ({ query, handleShow, index }) => {
     return (
         <div className="accordion">
             <div className="accordion__header">
-                <h3>{query.question}</h3>
+                <h3 className="accordion__question">{query.question}</h3>
                 <IconButton
                     className="accordion__showButton"
                     onClick={() => handleShow(index)}

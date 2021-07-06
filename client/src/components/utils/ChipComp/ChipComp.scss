@@ -1,0 +1,39 @@
+.chipComp {
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+
+    h3 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif !important;
+        letter-spacing: 0.5px;
+        margin-right: 5px;
+    }
+
+    &.positionAbsolute {
+        position: absolute;
+        left: 8px;
+        bottom: -12px;
+        z-index: 2;
+    }
+
+    &.neutral {
+        background-color: rgba(var(--secondary-light), 1);
+        color: rgba(var(--primary-light), 1);
+        border-color: rgba(var(--primary-light), 1);
+    }
+
+    &.success {
+        background-color: rgba(var(--primary-light), 1);
+        color: rgba(var(--secondary-light), 1);
+    }
+
+    &.error {
+        background-color: rgba(var(--gradient-extra), 1);
+        color: rgba(var(--secondary-light), 1);
+    }
+}

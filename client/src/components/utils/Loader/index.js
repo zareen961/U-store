@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './Loader.css'
+import './Loader.scss'
 
 const Loader = ({ sizeClass = 'small' }) => {
     return <div className={`loader ${sizeClass}`}></div>

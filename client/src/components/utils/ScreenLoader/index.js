@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Loader from '../../utils/Loader'
-import './ScreenLoader.css'
+import './ScreenLoader.scss'
 
 const ScreenLoader = () => {
     return (

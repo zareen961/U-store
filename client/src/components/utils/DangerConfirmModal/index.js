@@ -9,7 +9,7 @@ import ConfirmModal from '../ConfirmModal'
 import { useForm } from '../../../hooks/useForm'
 import { alertAdd } from '../../../store/actions/ui'
 import { userDelete } from '../../../store/actions/user'
-import './DangerConfirmModal.css'
+import './DangerConfirmModal.scss'
 
 const initialInputVals = {
     textToEnter: '',

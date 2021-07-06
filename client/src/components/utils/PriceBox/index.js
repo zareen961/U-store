@@ -3,7 +3,7 @@ import NumberFormat from 'react-number-format'
 import _ from 'lodash'
 import { TagIcon, ArrowUpIcon } from '@primer/octicons-react'
 
-import './PriceBox.css'
+import './PriceBox.scss'
 
 const PriceBox = ({ productPrice, bids }) => {
     return (

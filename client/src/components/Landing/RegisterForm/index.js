@@ -29,7 +29,7 @@ import { alertAdd } from '../../../store/actions/ui'
 import FormLoader from '../../utils/FormLoader'
 import AvatarForm from './AvatarForm'
 import { validateUserInputs } from '../../../validators/user'
-import './RegisterForm.css'
+import './RegisterForm.scss'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />

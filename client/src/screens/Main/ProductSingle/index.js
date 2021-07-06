@@ -10,7 +10,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
 import ButtonComp from '../../../components/utils/ButtonComp'
 import BidCard from '../../../components/Main/Home/ProductCard/BidCard'
-import './ProductSingle.css'
+import './ProductSingle.scss'
 
 const ProductSingle = () => {
     const history = useHistory()

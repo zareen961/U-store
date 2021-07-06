@@ -1,15 +1,13 @@
 import React from 'react'
 
 import Loader from '../Loader'
-import './FormLoader.css'
+import './FormLoader.scss'
 
 const FormLoader = ({ size = 50, loading, modifyClass = '', loaderSizeClass }) => {
     return (
         <div
             className={
-                loading
-                    ? `formLoader__overlay ${modifyClass} show`
-                    : `formLoader__overlay  ${modifyClass}`
+                loading ? `formLoader ${modifyClass} show` : `formLoader  ${modifyClass}`
             }
         >
             {modifyClass !== '' ? (

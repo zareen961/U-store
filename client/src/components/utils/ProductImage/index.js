@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import ImageModal from '../../Main/Home/ProductCard/ImageModal'
-import './ProductImage.css'
+import './ProductImage.scss'
 
 const ProductImage = ({ image, name }) => {
     const [isImageOpen, setIsImageOpen] = useState(false)

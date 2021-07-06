@@ -1,7 +1,7 @@
 import React from 'react'
 import { ClockIcon, CheckCircleIcon, XCircleIcon } from '@primer/octicons-react'
 
-import './ChipComp.css'
+import './ChipComp.scss'
 
 const ChipComp = ({ type, text, isPositionAbsolute = false, children }) => {
     return (

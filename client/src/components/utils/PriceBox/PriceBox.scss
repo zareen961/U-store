@@ -1,0 +1,27 @@
+.priceBox {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(var(--primary-light), 0.3);
+    padding: 15px;
+    border-radius: 15px;
+    margin: 20px 0;
+    justify-content: space-between;
+
+    &__priceWrapper {
+        color: rgba(var(--primary-light), 0.8);
+        display: flex;
+        align-items: center;
+
+        h3 {
+            margin-left: 5px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+    }
+
+    &__price {
+        font-weight: 500;
+        font-size: 1.1rem;
+        color: rgba(var(--primary-dark), 0.8);
+    }
+}

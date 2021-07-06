@@ -5,7 +5,7 @@ import OverviewItem from './OverviewItem'
 import { OVERVIEW_CONTENT, OVERVIEW_HEADING } from '../../../constants/overviewData'
 import Logo from '../../utils/Logo'
 import SectionHeader from '../../utils/SectionHeader'
-import './Overview.css'
+import './Overview.scss'
 
 const Overview = () => {
     return (

@@ -1,0 +1,100 @@
+.logo {
+    display: flex;
+    background: transparent;
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    cursor: pointer;
+
+    &__icon {
+        height: var(--logo-size);
+        width: var(--logo-size);
+        background-color: rgba(var(--secondary-light), 1);
+        display: flex;
+        justify-content: space-between;
+        transition: all 0.3s ease-in-out;
+    }
+
+    &__leftLines,
+    &__rightLines {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: calc(var(--logo-size) / 5) 0;
+        transition: all 0.3s ease-in-out;
+    }
+
+    &__leftLines {
+        margin-left: calc(var(--logo-size) * -0.3);
+    }
+
+    &__iconLine {
+        height: calc(var(--logo-size) / 10);
+        width: calc(var(--logo-size) / 2 + calc(var(--logo-size) * 0.3));
+        background-color: rgba(var(--primary-dark), 1);
+    }
+
+    &__iconLine.behind {
+        z-index: -1;
+    }
+
+    &__text {
+        h1 {
+            display: inline;
+            font-size: calc(var(--logo-size) * 0.608);
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            margin-left: calc(var(--logo-size) / 2 + 5px);
+            color: rgba(var(--secondary-light), 1);
+        }
+    }
+
+    // logo hover effect
+    &:hover &__icon &__leftLines {
+        transform: translateX(var(--logo-size));
+    }
+
+    &:hover &__icon &__rightLines {
+        transform: translateX(calc(var(--logo-size) * -1));
+    }
+
+    &:hover &__icon {
+        transform: rotateZ(180deg);
+    }
+
+    // logo inside laptop
+    &.animate &__icon {
+        animation: animate-box 1s infinite ease-in-out;
+        animation-direction: alternate;
+    }
+
+    /* Size classes ************************************/
+    &.small {
+        --logo-size: 30px !important;
+    }
+
+    // animation of logo inside laptop
+    @keyframes animate-box {
+        0% {
+            transform: rotateZ(0deg);
+        }
+        100% {
+            transform: rotateZ(180deg);
+        }
+    }
+}
+
+// effect on logo on landing page scroll
+.navbar.filled {
+    .logo__icon {
+        transform: rotateZ(180deg);
+
+        .logo__leftLines {
+            transform: translateX(var(--logo-size));
+        }
+
+        .logo__rightLines {
+            transform: translateX(calc(var(--logo-size) * -1));
+        }
+    }
+}
