@@ -18,7 +18,7 @@ import { productUpload } from '../../../../store/actions/product'
 import { alertAdd } from '../../../../store/actions/ui'
 import { validateProductInputs } from '../../../../validators/product'
 import { DESCRIPTION_LEN_MAX } from '../../../../constants/validators'
-import './ProductUploadForm.css'
+import './ProductUploadForm.scss'
 
 const initialInputVals = {
     name: '',

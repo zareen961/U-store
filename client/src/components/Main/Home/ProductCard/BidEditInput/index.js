@@ -7,7 +7,7 @@ import TooltipComp from '../../../../utils/TooltipComp'
 import FormLoader from '../../../../utils/FormLoader'
 import { bidPriceUpdate, bidPlace } from '../../../../../store/actions/bid'
 import { alertAdd } from '../../../../../store/actions/ui'
-import './BidEditInput.css'
+import './BidEditInput.scss'
 
 const BidEditInput = ({
     isOpen,

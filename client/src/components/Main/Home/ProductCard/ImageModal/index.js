@@ -3,7 +3,7 @@ import { XIcon } from '@primer/octicons-react'
 
 import ModalComp from '../../../../utils/ModalComp'
 import ButtonComp from '../../../../utils/ButtonComp'
-import './ImageModal.css'
+import './ImageModal.scss'
 
 const ImageModal = ({ isOpen, setIsOpen, productImage, productName }) => {
     return (

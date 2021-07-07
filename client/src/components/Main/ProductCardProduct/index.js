@@ -13,7 +13,7 @@ import ConfirmModal from '../../utils/ConfirmModal'
 import PriceBox from '../../utils/PriceBox'
 import ProductImage from '../../utils/ProductImage'
 import { storage } from '../../../utils/firebase'
-import './ProductCardProduct.css'
+import './ProductCardProduct.scss'
 
 const ProductCardProduct = ({ product }) => {
     const dispatch = useDispatch()

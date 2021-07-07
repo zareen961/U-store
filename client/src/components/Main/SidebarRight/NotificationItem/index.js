@@ -12,7 +12,7 @@ import {
     notificationUpdateRead,
 } from '../../../../store/actions/notification'
 import { createNotificationBody } from '../../../../utils/createNotificationBody'
-import './NotificationItem.css'
+import './NotificationItem.scss'
 
 const NotificationItem = ({ notification }) => {
     const dispatch = useDispatch()

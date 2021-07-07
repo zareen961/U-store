@@ -1,0 +1,21 @@
+.imageModal {
+    width: 100% !important;
+    height: 90vh !important;
+    overflow: hidden !important;
+    border-radius: 5px;
+    position: relative;
+    background-color: rgba(var(--secondary-light), 1);
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    &__closeButtonWrapper {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 10000;
+    }
+}

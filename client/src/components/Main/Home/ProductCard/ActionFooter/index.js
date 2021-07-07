@@ -13,7 +13,7 @@ import BidPlaceInput from '../BidPlaceInput'
 import { getUserLatestBid } from '../../../../../utils/getUserLatestBid'
 import { checkIfUserFollow } from '../../../../../utils/checkIfUserFollow'
 
-import './ActionFooter.css'
+import './ActionFooter.scss'
 
 const ActionFooter = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
     const dispatch = useDispatch()

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './SettingsItem.css'
+import './SettingsItem.scss'
 
 const SettingsItem = ({ title, children }) => {
     return (

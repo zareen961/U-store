@@ -1,8 +1,10 @@
-.productDetails__name {
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: rgba(var(--primary-dark), 0.8);
-    font-family: 'Poppins', sans-serif !important;
+.productDetails {
+    &__name {
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: rgba(var(--primary-dark), 0.8);
+        font-family: 'Poppins', sans-serif !important;
+    }
 
     &__description {
         color: rgba(var(--primary-light), 0.8);

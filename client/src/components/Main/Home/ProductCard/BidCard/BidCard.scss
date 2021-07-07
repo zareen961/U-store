@@ -1,0 +1,75 @@
+.bidCard {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: rgba(var(--primary-light), 0.08);
+    font-family: 'Poppins', sans-serif !important;
+    position: relative;
+
+    &__avatar {
+        background-color: rgba(var(--primary-light), 0.5);
+        border-radius: 10px !important;
+        align-self: center;
+        height: 50px !important;
+        width: 50px !important;
+        margin-right: 10px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    &__avatar:hover {
+        border-color: rgba(var(--primary-dark), 0.8);
+    }
+
+    &__nameTime {
+        flex: 1;
+
+        p {
+            font-weight: 500;
+            width: fit-content;
+            font-size: 1rem;
+            margin-bottom: -5px;
+            color: rgba(var(--primary-dark), 0.8);
+            font-family: 'Poppins', sans-serif !important;
+            cursor: pointer;
+        }
+
+        p.username {
+            cursor: pointer;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        p.username:hover {
+            border-bottom-color: rgba(var(--primary-dark), 0.8);
+        }
+
+        span {
+            font-size: 0.85rem;
+            color: rgba(var(--primary-dark), 0.5);
+            font-family: 'Poppins', sans-serif !important;
+        }
+    }
+
+    &__price {
+        border: 1px solid rgba(var(--primary-light), 0.3);
+        padding: 10px;
+        border-radius: 15px;
+        background-color: rgba(var(--secondary-light), 1);
+
+        h3 {
+            font-weight: 500 !important;
+            font-size: 1.1rem !important;
+            color: rgba(var(--primary-dark), 0.8) !important;
+            font-family: 'Poppins', sans-serif !important;
+        }
+    }
+
+    & .icon {
+        margin-left: auto;
+        display: flex;
+    }
+}

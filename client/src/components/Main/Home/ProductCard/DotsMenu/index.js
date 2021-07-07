@@ -3,7 +3,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener'
 import IconButton from '@material-ui/core/IconButton'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 
-import './DotsMenu.css'
+import './DotsMenu.scss'
 
 const DotsMenu = ({ setIsProductDeleteOpen }) => {
     const [isMenuTrayOpen, setIsMenuTrayOpen] = useState(false)

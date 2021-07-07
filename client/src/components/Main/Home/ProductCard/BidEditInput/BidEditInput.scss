@@ -1,0 +1,57 @@
+.bidEditInput {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    padding: 0px;
+    max-height: 0;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: transparent;
+
+    &.open {
+        background-color: rgba(var(--secondary-light), 1);
+        padding: 20px;
+        max-height: 300px;
+        border-color: rgba(var(--primary-light), 0.3);
+    }
+
+    &__wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        background-color: rgba(var(--primary-light), 0.08);
+        height: 100%;
+        padding-left: 12px;
+        border-radius: 10px;
+        color: rgba(var(--primary-light), 0.8);
+        margin-right: 10px;
+        box-sizing: border-box;
+
+        input {
+            background-color: transparent;
+            border: 0;
+            flex: 1;
+            margin: 0 10px;
+            color: rgba(var(--primary-dark), 0.8);
+            letter-spacing: 2px;
+            width: 100%;
+            transition: all 0.5s ease;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        input::placeholder {
+            color: rgba(var(--primary-light), 0.8);
+            font-weight: 600;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+    }
+}

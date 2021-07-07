@@ -1,0 +1,42 @@
+.bidsAllModal {
+    background-color: rgba(var(--secondary-light), 1);
+    padding: 0 30px;
+    height: 500px;
+    overflow: auto;
+    border-radius: 5px;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        padding: 20px 0 10px 0;
+        border-bottom: 1px solid rgba(var(--primary-dark), 0.2);
+        margin-bottom: 15px;
+        position: sticky;
+        top: 0;
+        background-color: rgba(var(--secondary-light), 1);
+        z-index: 100;
+
+        h1 {
+            flex: 1;
+            text-align: center;
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 500 !important;
+            font-size: 1.1rem !important;
+            color: rgba(var(--primary-dark), 0.8) !important;
+        }
+    }
+
+    &__noBids {
+        height: 70%;
+        display: grid;
+        place-items: center;
+
+        h3 {
+            font-weight: 500;
+            font-size: 1rem;
+            color: rgba(var(--primary-light), 0.6);
+            text-align: center;
+            font-family: 'Poppins', sans-serif !important;
+        }
+    }
+}

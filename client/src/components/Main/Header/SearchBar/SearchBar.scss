@@ -1,0 +1,72 @@
+.searchBar {
+    height: 100%;
+    border-radius: 10px;
+    position: relative;
+    margin-right: 20px;
+
+    &__inputWrapper {
+        display: flex;
+        align-items: center;
+        background-color: rgba(var(--primary-light), 0.08);
+        height: 100%;
+        padding-left: 12px;
+        border-radius: 10px;
+        color: rgba(var(--primary-light), 0.8);
+        position: relative;
+
+        input {
+            background-color: transparent;
+            border: 0;
+            flex: 1;
+            margin: 0 10px;
+            color: rgba(var(--primary-dark), 1);
+            letter-spacing: 1px;
+            width: 150px;
+            transition: all 0.5s ease;
+        }
+
+        input::placeholder {
+            color: rgba(var(--primary-light), 0.8);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        input:focus {
+            width: 300px;
+        }
+    }
+
+    &__clearIcon {
+        color: rgba(var(--primary-light), 1) !important;
+        position: absolute !important;
+        right: 0 !important;
+    }
+
+    &__resultWrapper {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        border-radius: 0 0 15px 15px;
+        width: 100%;
+        background-color: rgba(var(--secondary-light), 1);
+        padding: 15px 10px 5px;
+        box-sizing: border-box;
+        box-shadow: 0px 3px 5px rgba(var(--primary-light), 0.08),
+            0px -1px 5px rgba(var(--primary-light), 0),
+            -3px 3px 5px rgba(var(--primary-light), 0.08),
+            3px 3px 5px rgba(var(--primary-light), 0.08);
+    }
+
+    &__loaderWrapper {
+        width: 100%;
+        display: grid;
+        place-items: center;
+        padding: 10px 0 15px;
+    }
+
+    &__message {
+        font-size: 0.9rem;
+        text-align: center;
+        padding: 10px 0 15px;
+    }
+}

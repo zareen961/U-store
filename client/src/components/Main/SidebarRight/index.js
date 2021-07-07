@@ -14,7 +14,7 @@ import {
 } from '../../../store/actions/notification'
 import { setNotificationHeader } from '../../../utils/setAxiosHeaders'
 import NotificationItem from './NotificationItem'
-import './SidebarRight.css'
+import './SidebarRight.scss'
 
 const { VAPID_KEY = '' } = process.env
 

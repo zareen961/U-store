@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { handleGetContact } from '../../../../../utils/handleGetContact'
-import './AvatarHeader.css'
+import './AvatarHeader.scss'
 
 const AvatarHeader = ({ product }) => {
     const history = useHistory()

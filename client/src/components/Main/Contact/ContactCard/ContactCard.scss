@@ -1,0 +1,124 @@
+.contactCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(var(--secondary-light), 1);
+    padding: 40px 20px 0;
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+
+    &__avatarWrapper {
+        border: 4px solid rgba(var(--gradient-extra), 1);
+        border-radius: 50%;
+        padding: 5px;
+    }
+
+    &__avatar {
+        width: 100px !important;
+        height: 100px !important;
+        background-color: rgba(var(--gradient-extra), 0.5);
+    }
+
+    &__fullName {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        font-size: 1.2rem;
+        margin-top: 10px;
+        color: rgba(var(--primary-dark), 0.7);
+    }
+
+    &__username {
+        font-family: 'Poppins', sans-serif !important;
+        color: rgba(var(--primary-light), 0.8);
+        font-weight: 600;
+        margin-top: -5px;
+        font-size: 0.9rem;
+    }
+
+    &__description {
+        text-align: center;
+        max-width: 300px;
+        margin: 10px 0 20px;
+        color: rgba(var(--primary-light), 0.8);
+        font-weight: 400;
+        font-size: 0.9rem;
+    }
+
+    &__buttonsWrapper {
+        display: flex;
+        min-width: 250px;
+
+        .buttonComp {
+            flex: 1;
+            justify-content: space-around;
+            align-items: center !important;
+            padding: 0 25px !important;
+            margin: 0 2.5px 0 2.5px;
+        }
+    }
+
+    &__footerWrapper {
+        position: relative;
+        color: rgba(var(--secondary-light), 1);
+        margin-top: 40px;
+        background-color: rgba(var(--primary-light), 1);
+        align-self: stretch;
+        border-radius: 10px 10px 0 0;
+
+        .phoneWrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footerItemHeader {
+            display: flex;
+            align-items: flex-end;
+
+            h3 {
+                font-weight: 500;
+                font-size: 0.8rem;
+                margin-right: 5px;
+                letter-spacing: 1px;
+            }
+        }
+    }
+
+    &__footerWrapper::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 0;
+        height: 2.75px;
+        width: 100%;
+        background-color: rgba(var(--primary-light), 1);
+        border-radius: 1px;
+    }
+
+    &__footerItem {
+        padding: 0 15px;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 1s linear, padding 0.5s linear;
+
+        a {
+            font-size: 1rem;
+            font-weight: 400;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            color: rgba(var(--secondary-light), 1);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease-in-out;
+        }
+
+        a:hover {
+            border-color: rgba(var(--secondary-light), 1);
+        }
+    }
+
+    &__footerItem.show {
+        padding: 10px 15px;
+        max-height: 150px;
+    }
+}

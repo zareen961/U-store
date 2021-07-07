@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { productSingleFetch } from '../../../../store/actions/product'
-import './SearchItem.css'
+import './SearchItem.scss'
 
 const SearchItem = ({ product }) => {
     const dispatch = useDispatch()

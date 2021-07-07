@@ -13,7 +13,7 @@ import ProductDetails from '../../utils/ProductDetails'
 import AvatarHeader from '../Home/ProductCard/AvatarHeader'
 import BidPlaceInput from '../Home/ProductCard/BidPlaceInput'
 import { productFollowToggle } from '../../../store/actions/product'
-import './ProductCardFollow.css'
+import './ProductCardFollow.scss'
 
 const ProductCardFollow = ({ product }) => {
     const dispatch = useDispatch()

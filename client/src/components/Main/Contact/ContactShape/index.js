@@ -1,7 +1,7 @@
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
-import './ContactShape.css'
+import './ContactShape.scss'
 
 const ContactShape = ({ label, content, children, isPrice = false, isImage = false }) => {
     return (

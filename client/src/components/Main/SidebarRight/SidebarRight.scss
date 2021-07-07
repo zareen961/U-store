@@ -1,0 +1,42 @@
+.sidebarRight {
+    background-color: rgba(var(--primary-light), 0.08);
+    height: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &__loaderWrapper {
+        display: grid;
+        place-items: center;
+        padding-bottom: 30px;
+    }
+
+    &__unreadCount {
+        margin-right: 20px;
+
+        .MuiBadge-colorPrimary {
+            background-color: rgba(var(--gradient-extra), 1);
+            color: rgba(var(--secondary-light), 1);
+        }
+    }
+
+    &__notificationsWrapper {
+        overflow-y: auto;
+        height: 95%;
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+
+    &__notificationsWrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    &__allCaughtUpMessage {
+        font-weight: 500;
+        font-size: 1rem;
+        color: rgba(var(--primary-light), 0.6);
+        text-align: center;
+        font-family: 'Poppins', sans-serif !important;
+    }
+}

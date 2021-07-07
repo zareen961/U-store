@@ -16,7 +16,7 @@ import DotsMenu from '../Home/ProductCard/DotsMenu'
 import { productDelete } from '../../../store/actions/product'
 import { alertAdd } from '../../../store/actions/ui'
 import { storage } from '../../../utils/firebase'
-import './ProductSingleCard.css'
+import './ProductSingleCard.scss'
 
 const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
     const dispatch = useDispatch()

@@ -1,0 +1,106 @@
+.notificationItem {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    background-color: rgba(var(--secondary-light), 1);
+    margin-bottom: 20px;
+    border-radius: 15px;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    box-shadow: var(--box-shadow);
+
+    &:hover {
+        border-color: rgba(var(--primary-light), 0.5);
+        box-shadow: none;
+    }
+
+    &__timestamp {
+        position: absolute;
+        top: 2px;
+        right: 7px;
+        font-size: 0.65rem;
+        font-weight: 500;
+        color: rgba(var(--primary-dark), 0.5);
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    &__clickWrapper {
+        display: flex;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    &__deleteButton {
+        position: absolute !important;
+        bottom: 0px !important;
+        right: 0px !important;
+        color: rgba(var(--primary-light), 0.8) !important;
+    }
+
+    &__avatar {
+        background-color: rgba(var(--primary-light), 0.5);
+        border-radius: 10px !important;
+        align-self: center;
+        height: 40px !important;
+        width: 40px !important;
+        margin-right: 10px;
+    }
+
+    &__body {
+        color: rgba(var(--primary-light), 0.8);
+        font-weight: 400;
+        font-size: 0.9rem;
+        font-family: 'Poppins', sans-serif !important;
+
+        span {
+            color: rgba(var(--primary-light), 0.9);
+            font-weight: 500;
+        }
+
+        span.action {
+            color: rgba(var(--gradient-extra), 1);
+            font-weight: 500;
+        }
+    }
+
+    /*  UNREAD notification styling **********************************************/
+    &.unread::before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        box-sizing: border-box;
+        background-color: transparent;
+        border-radius: 50%;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        border: 5.5px solid rgba(var(--gradient-extra), 1);
+    }
+
+    /*  TO DELETE notification styling **********************************************/
+    &.deleting {
+        background-color: rgba(var(--secondary-light), 0.5);
+        box-shadow: none;
+
+        .notificationItem__timestamp {
+            color: rgba(var(--primary-light), 0.5);
+        }
+
+        .notificationItem__deleteButton {
+            color: rgba(var(--primary-light), 0.5) !important;
+        }
+
+        .notificationItem__body {
+            color: rgba(var(--primary-light), 0.5);
+
+            span {
+                color: rgba(var(--primary-light), 0.5);
+            }
+
+            span.action {
+                color: rgba(var(--gradient-extra), 0.7);
+            }
+        }
+    }
+}

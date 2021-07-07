@@ -24,7 +24,7 @@ import { userUpdate } from '../../../store/actions/user'
 import { alertAdd } from '../../../store/actions/ui'
 import { validateUserInputs } from '../../../validators/user'
 import { handleGetContact } from '../../../utils/handleGetContact'
-import './AccountForm.css'
+import './AccountForm.scss'
 
 const AccountForm = ({ isEdit, setIsEdit }) => {
     const dispatch = useDispatch()

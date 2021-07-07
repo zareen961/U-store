@@ -1,0 +1,29 @@
+.productCardFollow {
+    background-color: rgba(var(--secondary-light), 1);
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        position: relative;
+
+        .follow {
+            margin-left: auto;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        color: rgba(var(--primary-dark), 0.8);
+    }
+}

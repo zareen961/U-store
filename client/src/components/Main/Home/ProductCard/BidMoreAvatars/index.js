@@ -5,7 +5,7 @@ import _ from 'lodash'
 
 import BidsAllModal from '../BidsAllModal'
 import TooltipComp from '../../../../utils/TooltipComp'
-import './BidMoreAvatars.css'
+import './BidMoreAvatars.scss'
 
 const BidMoreAvatars = ({
     bids,

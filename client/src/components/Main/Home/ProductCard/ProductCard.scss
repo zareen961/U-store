@@ -1,0 +1,96 @@
+.productCard {
+    background-color: rgba(var(--secondary-light), 1);
+    margin-bottom: 30px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 1fr 3fr 0.7fr;
+    padding: 30px;
+    gap: 20px;
+    box-shadow: var(--box-shadow);
+
+    &__header {
+        grid-column: 1/-1;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        position: relative;
+    }
+
+    &__productDetails {
+        grid-column: 1/-1;
+
+        .name {
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: rgba(var(--primary-dark), 0.8);
+        }
+
+        .description {
+            color: rgba(var(--primary-light), 0.8);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+    }
+
+    &__image {
+        grid-row: 3/6;
+
+        img {
+            height: 400px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+            max-height: 400px;
+        }
+    }
+
+    &__price {
+        display: flex;
+        align-items: center;
+        border: 1px solid rgba(var(--primary-light), 0.3);
+        padding: 15px;
+        border-radius: 15px;
+
+        h3 {
+            margin-left: 5px;
+            font-weight: 500;
+            font-size: 1.3rem;
+            color: rgba(var(--primary-dark), 0.8);
+        }
+
+        .price {
+            margin-left: auto;
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: rgba(var(--primary-dark), 0.8);
+        }
+    }
+
+    &__bids {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__noBid {
+        border: 1px solid rgba(var(--primary-light), 0.3);
+        border-radius: 15px;
+        display: grid;
+        place-items: center;
+        min-height: 100%;
+
+        h3 {
+            font-weight: 500;
+            font-size: 1rem;
+            color: rgba(var(--primary-light), 0.6);
+        }
+    }
+
+    &__action {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        position: relative;
+    }
+}

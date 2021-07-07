@@ -1,0 +1,47 @@
+.avatarHeader {
+    display: flex;
+    align-items: center;
+
+    &__avatar {
+        background-color: rgba(var(--primary-light), 0.5);
+        border-radius: 10px !important;
+        align-self: center;
+        height: 40px !important;
+        width: 40px !important;
+        margin-right: 10px;
+        cursor: pointer;
+        border: 1px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    &__avatar:hover {
+        border-color: rgba(var(--primary-dark), 0.8);
+    }
+
+    &__nameTime {
+        p {
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: -5px;
+            color: rgba(var(--primary-dark), 0.8);
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        p.username {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        p.username:hover {
+            border-bottom-color: rgba(var(--primary-dark), 0.8);
+        }
+
+        span {
+            font-size: 0.8rem;
+            color: rgba(var(--primary-dark), 0.5);
+            cursor: auto;
+            font-family: 'Poppins', sans-serif !important;
+        }
+    }
+}

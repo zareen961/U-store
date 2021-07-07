@@ -1,0 +1,54 @@
+.dotsMenu {
+    margin-left: auto !important;
+    position: relative;
+
+    &__button {
+        color: rgba(var(--primary-light), 0.5) !important;
+        border: 1px solid rgba(var(--primary-light), 0.3) !important;
+        height: 30px !important;
+        padding: 5px !important;
+        border-radius: 5px !important;
+    }
+
+    &__menuTray {
+        box-sizing: border-box;
+        position: absolute;
+        top: 90%;
+        left: 0%;
+        list-style: none;
+        background-color: rgba(var(--secondary-light), 1) !important;
+        border-radius: 10px;
+        opacity: 0;
+        padding: 10px 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        z-index: 5;
+
+        li {
+            color: rgba(var(--primary-dark), 0.9);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 6px 25px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        li:hover {
+            background-color: rgba(var(--primary-light), 0.03);
+        }
+    }
+
+    &__menuTray.open {
+        opacity: 1;
+        box-shadow: var(--box-shadow);
+    }
+
+    &__menuTrayLine {
+        width: 80% !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        border-top: 1px solid rgba(var(--primary-light), 0.15) !important;
+    }
+}

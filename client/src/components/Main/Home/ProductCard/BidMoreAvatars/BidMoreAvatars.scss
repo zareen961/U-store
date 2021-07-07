@@ -1,0 +1,36 @@
+.bidMoreAvatars {
+    width: fit-content;
+    cursor: pointer;
+    margin-left: 10px;
+
+    .avatar {
+        height: 30px;
+        width: 30px;
+        background-color: rgba(var(--primary-light), 1);
+        border-color: rgba(var(--primary-dark), 0.2);
+        z-index: 1 !important;
+        transition: all 0.3s ease;
+    }
+
+    .MuiAvatar-colorDefault {
+        background-color: rgba(var(--primary-light), 1);
+        color: rgba(var(--secondary-light), 1);
+        height: 33px;
+        width: 33px;
+        font-size: 1rem;
+        margin-left: -10px !important;
+        border-color: rgba(var(--primary-dark), 0.2);
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    &:hover {
+        .MuiAvatar-colorDefault,
+        .avatar {
+            background-color: rgba(var(--secondary-light), 1);
+            color: rgba(var(--primary-light), 1);
+            font-weight: 500;
+            border-color: rgba(var(--primary-light), 1);
+        }
+    }
+}

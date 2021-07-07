@@ -1,0 +1,57 @@
+.productCardProduct {
+    background-color: rgba(var(--secondary-light), 1);
+    border-radius: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: var(--box-shadow);
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        position: relative;
+    }
+
+    &__nameTime {
+        h2 {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: -7px;
+        }
+
+        span {
+            font-size: 0.8rem;
+            color: rgba(var(--primary-dark), 0.5);
+        }
+    }
+
+    &__bids {
+        display: flex;
+        align-items: center;
+        color: rgba(var(--primary-dark), 0.8);
+    }
+
+    &__bidsCount {
+        flex: 1;
+        display: flex;
+        align-items: center;
+
+        h3 {
+            margin: 0 8px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        span {
+            background-color: rgba(var(--primary-light), 1);
+            color: rgba(var(--secondary-light), 1);
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+    }
+}

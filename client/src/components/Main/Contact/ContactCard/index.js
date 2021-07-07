@@ -4,7 +4,7 @@ import moment from 'moment'
 import { MailIcon, DeviceMobileIcon } from '@primer/octicons-react'
 
 import ButtonComp from '../../../utils/ButtonComp'
-import './ContactCard.css'
+import './ContactCard.scss'
 
 const ContactCard = ({ contact }) => {
     const [toShow, setToShow] = useState('EMAIL')

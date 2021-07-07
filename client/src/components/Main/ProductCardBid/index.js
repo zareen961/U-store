@@ -23,7 +23,7 @@ import AvatarHeader from '../Home/ProductCard/AvatarHeader'
 import { bidDelete } from '../../../store/actions/bid'
 import { getUserLatestBid } from '../../../utils/getUserLatestBid'
 import { handleGetContact } from '../../../utils/handleGetContact'
-import './ProductCardBid.css'
+import './ProductCardBid.scss'
 
 const ProductCardBid = ({ product }) => {
     const history = useHistory()

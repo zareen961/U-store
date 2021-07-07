@@ -17,7 +17,7 @@ import TooltipComp from '../../../../utils/TooltipComp'
 import ConfirmModal from '../../../../utils/ConfirmModal'
 import { bidStatusUpdate, bidDelete } from '../../../../../store/actions/bid'
 import { handleGetContact } from '../../../../../utils/handleGetContact'
-import './BidCard.css'
+import './BidCard.scss'
 
 const BidCard = ({
     bid,

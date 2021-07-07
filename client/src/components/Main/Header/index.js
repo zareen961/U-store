@@ -11,7 +11,7 @@ import Logo from '../../utils/Logo'
 import ButtonComp from '../../utils/ButtonComp'
 import SearchBar from './SearchBar'
 import { WEBSITE_URL } from '../../../constants/urls'
-import './Header.css'
+import './Header.scss'
 
 const Header = ({ setIsUploadFormOpen }) => {
     const dispatch = useDispatch()

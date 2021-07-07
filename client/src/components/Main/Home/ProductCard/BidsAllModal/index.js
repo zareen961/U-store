@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import ModalComp from '../../../../utils/ModalComp'
 import ButtonComp from '../../../../utils/ButtonComp'
 import BidCard from '../BidCard'
-import './BidsAllModal.css'
+import './BidsAllModal.scss'
 
 const BidsAllModal = ({ bids, isOpen, setIsOpen, productOwnerID, setIsBidEditOpen }) => {
     const { user } = useSelector((state) => state.userLogin)

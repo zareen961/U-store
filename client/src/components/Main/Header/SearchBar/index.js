@@ -10,7 +10,7 @@ import SearchItem from '../SearchItem'
 import Loader from '../../../utils/Loader'
 import { debounce } from '../../../../utils/debounce'
 import { DEBOUNCE_TIME_IN_MILLISECONDS } from '../../../../constants/vars'
-import './SearchBar.css'
+import './SearchBar.scss'
 
 const SearchBar = () => {
     const dispatch = useDispatch()

@@ -7,7 +7,7 @@ import ButtonComp from '../../../../utils/ButtonComp'
 import FormLoader from '../../../../utils/FormLoader'
 import { bidPlace } from '../../../../../store/actions/bid'
 import { alertAdd } from '../../../../../store/actions/ui'
-import './BidPlaceInput.css'
+import './BidPlaceInput.scss'
 
 const BidPlaceInput = ({ bidVal, setBidVal, product, isFollowingScreen = false }) => {
     const dispatch = useDispatch()

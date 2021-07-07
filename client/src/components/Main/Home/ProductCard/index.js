@@ -14,7 +14,7 @@ import AvatarHeader from './AvatarHeader'
 import BidMoreAvatars from './BidMoreAvatars'
 import ActionFooter from './ActionFooter'
 import { storage } from '../../../../utils/firebase'
-import './ProductCard.css'
+import './ProductCard.scss'
 
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch()

@@ -1,0 +1,32 @@
+.bidPlaceInput {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    background-color: rgba(var(--primary-light), 0.08);
+    height: 100%;
+    padding-left: 12px;
+    border-radius: 10px;
+    color: rgba(var(--primary-light), 0.8);
+    box-sizing: border-box;
+    position: relative;
+
+    input {
+        background-color: transparent;
+        border: 0;
+        flex: 1;
+        margin: 0 10px;
+        color: rgba(var(--primary-dark), 0.8);
+        letter-spacing: 2px;
+        width: 100%;
+        transition: all 0.5s ease;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    input::placeholder {
+        color: rgba(var(--primary-light), 0.8);
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 0.9rem;
+    }
+}

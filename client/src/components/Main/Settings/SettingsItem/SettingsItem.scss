@@ -1,0 +1,17 @@
+.settingsItem {
+    margin-bottom: 20px;
+
+    &__title {
+        font-weight: 500;
+        color: rgba(var(--primary-dark), 0.5);
+        font-size: 1rem;
+    }
+
+    &__bodyWrapper {
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1.5px solid rgba(var(--primary-light), 0.1);
+        padding-bottom: 20px;
+    }
+}

@@ -12,7 +12,7 @@ import {
 } from '@primer/octicons-react'
 import Badge from '@material-ui/core/Badge'
 
-import './SidebarLeft.css'
+import './SidebarLeft.scss'
 
 const SidebarLeft = () => {
     const location = useLocation()
