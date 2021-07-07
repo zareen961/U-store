@@ -58,7 +58,6 @@ html {
 }
 
 .app {
-    --logo-size: 40px;
     background-color: rgba(var(--secondary-light), 1);
     color: rgba(var(--primary-dark), 1);
 }

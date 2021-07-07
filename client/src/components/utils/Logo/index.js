@@ -2,7 +2,7 @@ import React from 'react'
 
 import './Logo.scss'
 
-const Logo = ({ isAnimate, sizeClass }) => {
+const Logo = ({ isAnimate, sizeClass = 'medium' }) => {
     return (
         <div className={isAnimate ? `logo animate ${sizeClass}` : `logo ${sizeClass}`}>
             <div className="logo__icon">

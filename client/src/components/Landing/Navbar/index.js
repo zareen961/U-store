@@ -3,10 +3,12 @@ import { HashLink } from 'react-router-hash-link'
 
 import { WEBSITE_URL } from '../../../constants/urls'
 import Logo from '../../utils/Logo'
+import BurgerMenuButton from '../../utils/BurgerMenuButton'
 import './Navbar.scss'
 
 const Navbar = ({ setIsOpen }) => {
     const [backgroundClass, setBackgroundClass] = useState('navbar')
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     useEffect(() => {
         const listenerFunc = () => {
@@ -34,7 +36,20 @@ const Navbar = ({ setIsOpen }) => {
                 >
                     <Logo />
                 </a>
-                <div className="navbar__linksWrapper">
+
+                {/* Responsive screen menu toggle button */}
+                <button
+                    className="navbar__toggleButton"
+                    onClick={() => setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen)}
+                >
+                    <BurgerMenuButton isOpen={isMenuOpen} />
+                </button>
+
+                <div
+                    className={
+                        isMenuOpen ? 'navbar__linksWrapper open' : 'navbar__linksWrapper'
+                    }
+                >
                     <HashLink to="#homeID">Home</HashLink>
                     <HashLink to="#overviewID">Overview</HashLink>
                     <HashLink to="#featuresID">Features</HashLink>

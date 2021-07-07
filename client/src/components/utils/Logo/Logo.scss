@@ -73,6 +73,10 @@
         --logo-size: 30px !important;
     }
 
+    &.medium {
+        --logo-size: 40px !important;
+    }
+
     // animation of logo inside laptop
     @keyframes animate-box {
         0% {
@@ -95,6 +99,14 @@
 
         .logo__rightLines {
             transform: translateX(calc(var(--logo-size) * -1));
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .logo {
+        &.medium {
+            --logo-size: 30px !important;
         }
     }
 }

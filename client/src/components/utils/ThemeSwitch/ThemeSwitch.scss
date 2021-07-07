@@ -198,3 +198,9 @@
             -1px 1px 20px var(--shadow-secondary);
     }
 }
+
+@media (max-width: 1000px) {
+    .themeSwitch {
+        display: none;
+    }
+}
