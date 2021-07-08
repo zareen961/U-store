@@ -97,3 +97,43 @@
         margin-bottom: 90px;
     }
 }
+
+@media (max-width: 1000px) {
+    .hero {
+        margin-bottom: 80px;
+
+        &__container {
+            height: 100%;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        &__taglineWrapper {
+            margin-bottom: 30px;
+            margin-top: 50px;
+            text-align: center;
+            align-self: center;
+
+            h1 {
+                text-align: center;
+                font-size: 2.5rem;
+                line-height: 3.5rem;
+            }
+
+            .overLine {
+                border-width: 5px;
+            }
+
+            a {
+                padding: 10px 20px;
+                font-size: 0.75rem;
+            }
+        }
+
+        &__loginFormWrapper {
+            align-self: center;
+            margin-bottom: -80px;
+            width: 90%;
+        }
+    }
+}

@@ -30,7 +30,7 @@
     }
 
     input {
-        height: 40px;
+        min-height: 40px !important;
     }
 
     &__subjectInput {
@@ -110,6 +110,27 @@
         }
         100% {
             border-radius: 30px;
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .contactForm {
+        &__heading {
+            display: none;
+        }
+
+        &__description {
+            display: none;
+        }
+
+        &__inputGroup {
+            flex-direction: column;
+
+            input[type='email'] {
+                margin-top: 25px;
+                margin-left: 0;
+            }
         }
     }
 }

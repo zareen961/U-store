@@ -134,3 +134,15 @@
         border-color: rgba(var(--primary-dark), 1);
     }
 }
+
+@media (max-width: 1000px) {
+    .loginForm {
+        &__main {
+            padding: 30px 40px 20px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+        }
+    }
+}

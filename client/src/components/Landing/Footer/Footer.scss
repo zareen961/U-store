@@ -19,6 +19,16 @@
         justify-content: space-between;
         padding: 70px 0 0;
         align-self: center;
+        font-weight: 500;
+        color: rgba(var(--secondary-light), 1);
+
+        h3 {
+            color: rgba(var(--secondary-light), 1);
+            font-weight: 500;
+            font-size: 2rem;
+            letter-spacing: 1.5px;
+            margin-bottom: 30px;
+        }
     }
 
     &__about {
@@ -42,19 +52,6 @@
 
     &__developers {
         flex: 0.3;
-    }
-
-    &__contentWrapper {
-        font-weight: 500;
-        color: rgba(var(--secondary-light), 1);
-
-        h3 {
-            color: rgba(var(--secondary-light), 1);
-            font-weight: 500;
-            font-size: 2rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 30px;
-        }
     }
 
     &__emailWrapper {
@@ -143,6 +140,47 @@
                 -0.5px 0.5px 2px var(--shadow-secondary),
                 0.5px -0.5px 2px var(--shadow-secondary),
                 -0.5px 0.5px 2px var(--shadow-secondary);
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .footer {
+        height: fit-content;
+
+        &__shape {
+            min-height: 100px;
+        }
+
+        &__contentWrapper {
+            flex-direction: column;
+
+            h3 {
+                font-size: 1.8rem;
+            }
+        }
+
+        &__contact {
+            margin: 50px 0;
+        }
+
+        &__copyright {
+            .sentence {
+                display: flex;
+                margin-bottom: 5px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .stick {
+                display: none;
+            }
+        }
+
+        &__heart {
+            animation: none;
+            font-size: 1.4rem;
+            text-shadow: 0px 0px 7px var(--shadow-secondary);
         }
     }
 }

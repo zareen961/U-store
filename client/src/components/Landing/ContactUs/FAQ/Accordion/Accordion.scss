@@ -47,3 +47,10 @@
         transition: max-height 2s linear;
     }
 }
+
+@media (max-width: 1000px) {
+    .accordion {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

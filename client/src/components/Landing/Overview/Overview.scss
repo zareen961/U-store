@@ -46,3 +46,16 @@
         border-radius: 13px;
     }
 }
+
+@media (max-width: 1000px) {
+    .overview {
+        &__bodyWrapper {
+            flex-direction: column;
+        }
+
+        &__centerSection {
+            order: -1;
+            margin-bottom: 50px;
+        }
+    }
+}

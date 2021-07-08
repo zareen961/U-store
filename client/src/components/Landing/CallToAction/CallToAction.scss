@@ -92,3 +92,31 @@
         }
     }
 }
+
+@media (max-width: 1000px) {
+    .callToAction {
+        margin: 0 !important;
+        height: 250px;
+
+        &__contentWrapper {
+            width: 90%;
+            height: 80px;
+            margin-top: 50px;
+
+            p {
+                font-size: 2rem;
+            }
+        }
+
+        &__buttonsWrapper {
+            width: 80%;
+            height: 60px;
+            margin: 0 auto;
+
+            button {
+                font-size: 1.2rem;
+                font-weight: 500;
+            }
+        }
+    }
+}

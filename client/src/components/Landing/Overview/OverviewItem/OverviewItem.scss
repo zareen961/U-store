@@ -45,3 +45,24 @@
         }
     }
 }
+
+@media (max-width: 1000px) {
+    .overviewItem {
+        &.left {
+            flex-direction: row;
+
+            .overviewItem__bodyWrapper {
+                margin-left: 15px;
+                margin-right: 0;
+
+                h3 {
+                    text-align: left;
+                }
+
+                p {
+                    text-align: left;
+                }
+            }
+        }
+    }
+}

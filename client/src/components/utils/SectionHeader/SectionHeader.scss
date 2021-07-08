@@ -19,3 +19,18 @@
         text-align: center;
     }
 }
+
+@media (max-width: 1000px) {
+    .sectionHeader {
+        margin-top: 0px;
+        margin-bottom: 50px;
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        p {
+            width: 100%;
+        }
+    }
+}

@@ -12,3 +12,19 @@
         width: 85%;
     }
 }
+
+@media (max-width: 1000px) {
+    .faq {
+        order: 2;
+        margin-top: 80px;
+
+        &__heading {
+            text-align: center;
+        }
+
+        &__description {
+            text-align: center;
+            width: 100%;
+        }
+    }
+}

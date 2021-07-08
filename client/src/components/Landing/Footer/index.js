@@ -63,16 +63,20 @@ const Footer = () => {
                 </div>
             </div>
             <p className="footer__copyright">
-                Copyright &copy; 2021 | Made{' '}
-                <a
-                    href={WEBSITE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="U-store"
-                >
-                    U-store
-                </a>{' '}
-                with <span className="footer__heart">❤</span>
+                <span className="sentence">Copyright &copy; 2021</span>{' '}
+                <span className="stick">|</span>{' '}
+                <span className="sentence">
+                    Made{' '}
+                    <a
+                        href={WEBSITE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="U-store"
+                    >
+                        U-store
+                    </a>{' '}
+                    with <span className="footer__heart">❤</span>
+                </span>
             </p>
         </div>
     )

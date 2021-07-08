@@ -71,3 +71,17 @@
         border-color: rgba(var(--primary-light), 1);
     }
 }
+
+@media (max-width: 1000px) {
+    .alerts {
+        max-width: 100vw;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+
+        &__box {
+            max-width: 90%;
+            margin: 10px auto;
+        }
+    }
+}

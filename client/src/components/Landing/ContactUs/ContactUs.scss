@@ -7,3 +7,11 @@
         justify-content: space-between;
     }
 }
+
+@media (max-width: 1000px) {
+    .contactUs {
+        &__bodyWrapper {
+            flex-direction: column;
+        }
+    }
+}

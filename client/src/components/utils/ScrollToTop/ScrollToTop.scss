@@ -25,3 +25,10 @@
         transform: scale(1.05);
     }
 }
+
+@media (max-width: 1000px) {
+    .scrollToTop {
+        right: 3vw;
+        bottom: 2vh;
+    }
+}
