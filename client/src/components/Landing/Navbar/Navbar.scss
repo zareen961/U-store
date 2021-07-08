@@ -90,64 +90,28 @@
 
 @media (max-width: 1000px) {
     .navbar {
-        &__logoWrapper {
-            z-index: 100;
-        }
-
         &__container {
-            padding: 5px 0px 5px 15px;
             box-sizing: border-box;
         }
 
         &__toggleButton {
             display: block;
-            z-index: 100;
             background-color: transparent !important;
             border: none;
-            position: relative;
         }
 
         &__linksWrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 0;
-            flex-direction: column;
-            justify-content: center;
-            background-color: rgba(var(--primary-dark), 1);
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
-
-            a {
-                font-size: 1.5rem;
-                margin: 15px 0;
-            }
-
-            a:hover {
-                border-top: none;
-                padding-top: 0;
-                border-left: 5px solid rgba(var(--secondary-light), 1);
-                padding-left: 3px;
-            }
-
-            button {
-                margin: 15px 0;
-                background-color: rgba(var(--secondary-light), 1);
-                color: rgba(var(--primary-dark), 1);
-            }
-
-            button:hover {
-                box-shadow: none;
-            }
-        }
-
-        &__linksWrapper.open {
-            height: 100vh;
+            display: none;
         }
 
         &.filled {
             transform: translateY(0px);
+            background: none;
+
+            .navbar__logoWrapper {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
         }
     }
 }

@@ -42,14 +42,13 @@ const Navbar = ({ setIsOpen }) => {
                     className="navbar__toggleButton"
                     onClick={() => setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen)}
                 >
-                    <BurgerMenuButton isOpen={isMenuOpen} />
+                    <BurgerMenuButton
+                        setIsRegisterOpen={setIsOpen}
+                        isMenuOpen={isMenuOpen}
+                    />
                 </button>
 
-                <div
-                    className={
-                        isMenuOpen ? 'navbar__linksWrapper open' : 'navbar__linksWrapper'
-                    }
-                >
+                <div className="navbar__linksWrapper">
                     <HashLink to="#homeID">Home</HashLink>
                     <HashLink to="#overviewID">Overview</HashLink>
                     <HashLink to="#featuresID">Features</HashLink>
