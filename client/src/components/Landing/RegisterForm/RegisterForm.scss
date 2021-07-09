@@ -21,17 +21,17 @@
         justify-content: space-between;
     }
 
-    h1 {
-        font-size: 2rem;
-        font-weight: 500;
-        margin-bottom: 20px;
-        color: rgba(var(--secondary-light), 1);
-    }
-
     &__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 500;
+        color: rgba(var(--secondary-light), 1);
     }
 
     &__closeButton {
@@ -263,7 +263,7 @@
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
 
         &__firstWrapper,
@@ -275,7 +275,7 @@
 
         &__avatarWrapper {
             order: -1;
-            margin: 40px 0 65px;
+            margin: 30px 0 65px;
         }
 
         &__secondWrapper &__formGroup:nth-child(2),

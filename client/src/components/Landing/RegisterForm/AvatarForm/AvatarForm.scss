@@ -8,17 +8,17 @@
     justify-content: space-between;
     background-color: rgba(var(--primary-light), 1);
 
-    h1 {
-        font-size: 2rem;
-        font-weight: 500;
-        margin-bottom: 20px;
-        color: rgba(var(--secondary-light), 1);
-    }
-
     &__header {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 500;
+        color: rgba(var(--secondary-light), 1);
     }
 
     &__closeButton {
@@ -90,5 +90,28 @@
     &__doneButton:hover {
         box-shadow: 1px 1px 1px var(--shadow-primary);
         background-color: rgba(var(--primary-dark), 0.7);
+    }
+}
+
+@media (max-width: 1000px) {
+    .avatarForm {
+        padding: 25px 20px;
+
+        h1 {
+            font-size: 1.5rem;
+        }
+
+        &__inputGroup {
+            label {
+                height: 50px;
+                width: 50px;
+            }
+        }
+
+        &__doneButton {
+            align-self: center;
+            width: 100%;
+            margin-top: 30px;
+        }
     }
 }
