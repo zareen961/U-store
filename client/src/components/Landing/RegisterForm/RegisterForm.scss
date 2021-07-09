@@ -251,3 +251,69 @@
 .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input:focus {
     background-color: transparent;
 }
+
+@media (max-width: 1000px) {
+    .registerForm {
+        .MuiDialog-paper {
+            overflow-y: auto !important;
+        }
+
+        &__main {
+            padding: 25px 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        &__firstWrapper,
+        &__secondWrapper,
+        &__thirdWrapper,
+        &__fourthWrapper {
+            flex-direction: column;
+        }
+
+        &__avatarWrapper {
+            order: -1;
+            margin: 40px 0 65px;
+        }
+
+        &__secondWrapper &__formGroup:nth-child(2),
+        &__thirdWrapper &__formGroup:nth-child(2) {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        &__fourthWrapper &__formGroup:nth-child(1) {
+            margin-right: 0px;
+        }
+
+        &__fourthWrapper &__formGroup:nth-child(2) {
+            margin-left: 0px;
+        }
+
+        &__formGroup {
+            height: 40px !important;
+            max-height: 40px !important;
+            width: 100%;
+
+            input {
+                height: 40px !important;
+                max-height: 40px !important;
+            }
+        }
+
+        &__nameWrapper,
+        &__phoneWrapper {
+            width: 100%;
+        }
+
+        &__select .MuiSelect-root {
+            min-width: 100% !important;
+        }
+
+        &__formGroup.buttonWrapper {
+            min-height: 40px !important;
+        }
+    }
+}
