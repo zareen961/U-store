@@ -5,17 +5,20 @@
     flex-direction: column;
     padding: 30px;
     box-sizing: border-box;
+    width: 100%;
 
     /* Account ******************************************************************************** */
     &__account {
         display: grid;
-        grid-template-columns: 1fr 100%;
+        grid-template-columns: 1fr calc(100% - 65px);
         background-color: rgba(var(--secondary-light), 1);
         padding: 20px 25px;
         border-radius: 15px;
         grid-column-gap: 15px;
         grid-row-gap: 0px;
         box-shadow: var(--box-shadow);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     &__avatar {
