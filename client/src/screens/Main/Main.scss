@@ -39,3 +39,25 @@
         top: 10vh;
     }
 }
+
+@media (max-width: 1000px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+
+        &__header {
+            height: fit-content;
+        }
+
+        &__sidebarLeft {
+            display: none;
+        }
+
+        &__screen {
+            padding: 0 15px;
+        }
+    }
+}

@@ -130,3 +130,11 @@
         border-color: rgba(220, 20, 60, 0.472);
     }
 }
+
+@media (max-width: 1000px) {
+    .buttonComp {
+        &.insideInputButton {
+            margin-left: 0;
+        }
+    }
+}

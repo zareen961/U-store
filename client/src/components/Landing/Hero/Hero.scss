@@ -100,6 +100,7 @@
 
 @media (max-width: 1000px) {
     .hero {
+        min-height: 85vh;
         margin-bottom: 80px;
 
         &__container {
@@ -135,5 +136,12 @@
             margin-bottom: -80px;
             width: 90%;
         }
+    }
+}
+
+// fix for smaller resolutions like iphone 5/SE
+@media (max-width: 400px) {
+    .hero {
+        min-height: 120vh;
     }
 }

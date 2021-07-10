@@ -242,3 +242,35 @@
         }
     }
 }
+
+@media (max-width: 1000px) {
+    .productUploadForm {
+        padding: 15px;
+
+        &__avatar {
+            height: 50px !important;
+            width: 50px !important;
+        }
+
+        &__inputWrapper {
+            margin-right: 0;
+            height: 50px;
+            padding-left: 8px;
+
+            input {
+                margin: 0 0 0 3px;
+            }
+
+            input::placeholder {
+                letter-spacing: 0.5px;
+                font-size: 0.8rem;
+            }
+        }
+
+        &__modalHeader {
+            input {
+                width: 100%;
+            }
+        }
+    }
+}

@@ -52,3 +52,13 @@
         border-top: 1px solid rgba(var(--primary-light), 0.15) !important;
     }
 }
+
+@media (max-width: 1000px) {
+    .dotsMenu {
+        &__menuTray {
+            top: 95%;
+            left: auto;
+            right: -30px;
+        }
+    }
+}

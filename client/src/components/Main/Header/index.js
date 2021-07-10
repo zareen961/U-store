@@ -1,29 +1,21 @@
-import React, { useState } from 'react'
-import IconButton from '@material-ui/core/IconButton'
-import Avatar from '@material-ui/core/Avatar'
-import { Link, useHistory } from 'react-router-dom'
-import { DiffAddedIcon } from '@primer/octicons-react'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener'
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { DiffAddedIcon, BellFillIcon } from '@primer/octicons-react'
+import { useSelector } from 'react-redux'
+import Badge from '@material-ui/core/Badge'
 
-import { userLogout } from '../../../store/actions/user'
 import Logo from '../../utils/Logo'
 import ButtonComp from '../../utils/ButtonComp'
 import SearchBar from './SearchBar'
+import HeaderMenu from './HeaderMenu'
 import { WEBSITE_URL } from '../../../constants/urls'
 import './Header.scss'
 
 const Header = ({ setIsUploadFormOpen }) => {
-    const dispatch = useDispatch()
     const history = useHistory()
 
     const { user } = useSelector((state) => state.userLogin)
-
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-    const logoutHandler = () => {
-        dispatch(userLogout(history))
-    }
+    const { notifications } = useSelector((state) => state.notificationGetSaved)
 
     const handleUploadFormOpen = () => {
         history.push('../')
@@ -32,16 +24,43 @@ const Header = ({ setIsUploadFormOpen }) => {
 
     return (
         <div className="header">
-            <a
-                href={WEBSITE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="header__logoWrapper"
-                title="U-store"
-            >
-                <Logo sizeClass={'small'} />
-                <div className="header__logoIconWrapper"></div>
-            </a>
+            <div className="header__logoAndMenuWrapper">
+                <a
+                    href={WEBSITE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="header__logoWrapper"
+                    title="U-store"
+                >
+                    <Logo sizeClass={'small'} />
+                    <div className="header__logoIconWrapper"></div>
+                </a>
+                {/* responsive header menu */}
+                <div className="header__menuWrapper responsive">
+                    <HeaderMenu
+                        avatar={user && user.userInfo ? user.userInfo.avatar : '0'}
+                    />
+
+                    <Badge
+                        badgeContent={notifications.reduce(
+                            (acc, curr) => acc + (curr.isRead === 'true' ? 0 : 1),
+                            0
+                        )}
+                        max={9}
+                        color="primary"
+                        className="header__notificationBadge"
+                    >
+                        <ButtonComp
+                            typeClass={'primary'}
+                            modifyClass={'iconButton'}
+                            handleOnClick={() => {}}
+                        >
+                            <BellFillIcon size={20} />
+                        </ButtonComp>
+                    </Badge>
+                </div>
+            </div>
+
             <div className="header__rightWrapper">
                 <SearchBar />
 
@@ -54,27 +73,9 @@ const Header = ({ setIsUploadFormOpen }) => {
                 </ButtonComp>
 
                 <div className="header__menuWrapper">
-                    <ClickAwayListener onClickAway={() => setIsMenuOpen(false)}>
-                        <IconButton
-                            onClick={() =>
-                                setIsMenuOpen((prevIsMenuOpen) => !prevIsMenuOpen)
-                            }
-                        >
-                            <Avatar
-                                src={`/avatars/avatar${
-                                    user && user.userInfo ? user.userInfo.avatar : '0'
-                                }.png`}
-                                className="header__avatar"
-                            />
-                        </IconButton>
-                    </ClickAwayListener>
-                    <div className={isMenuOpen ? 'header__menu show' : 'header__menu'}>
-                        <Link to="/account">My Account</Link>
-                        <span className="line"></span>
-                        <Link to="/settings">Settings</Link>
-                        <span className="line"></span>
-                        <button onClick={logoutHandler}>Logout</button>
-                    </div>
+                    <HeaderMenu
+                        avatar={user && user.userInfo ? user.userInfo.avatar : '0'}
+                    />
                 </div>
             </div>
         </div>

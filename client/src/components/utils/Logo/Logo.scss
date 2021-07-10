@@ -105,6 +105,10 @@
 
 @media (max-width: 1000px) {
     .logo {
+        &.small {
+            --logo-size: 25px !important;
+        }
+
         &.medium {
             --logo-size: 35px !important;
         }

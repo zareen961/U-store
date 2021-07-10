@@ -1,0 +1,66 @@
+.headerMenu {
+    &__avatar {
+        background-color: rgba(var(--primary-light), 0.5);
+        border-radius: 10px !important;
+        box-sizing: border-box !important;
+        padding: 2px;
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        background-color: rgba(var(--secondary-light), 1);
+        padding: 10px 0;
+        position: absolute;
+        top: 105%;
+        left: -70px;
+        border-radius: 10px;
+        box-shadow: var(--box-shadow);
+        transition: all 0.3s ease-in-out;
+        transform: translateX(300px);
+        z-index: 20;
+
+        a {
+            color: rgba(var(--primary-dark), 1);
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 6px 20px;
+            text-align: center;
+        }
+
+        button {
+            border: none;
+            color: rgba(var(--primary-dark), 1);
+            font-size: 0.9rem;
+            background-color: transparent;
+            cursor: pointer;
+            padding: 6px 20px;
+        }
+
+        a:hover,
+        button:hover {
+            background-color: rgba(var(--primary-light), 0.03);
+        }
+
+        .line {
+            width: 80%;
+            margin: 0 auto;
+            border-top: 1px solid rgba(var(--primary-light), 0.15);
+        }
+    }
+
+    &__menu::before {
+        content: '';
+        position: absolute;
+        top: -12%;
+        left: 80%;
+        height: 14px;
+        width: 14px;
+        background-color: rgba(var(--secondary-light), 1);
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    &__menu.show {
+        transform: translateX(0px);
+    }
+}

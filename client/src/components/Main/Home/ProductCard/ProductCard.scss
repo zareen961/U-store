@@ -94,3 +94,17 @@
         position: relative;
     }
 }
+
+@media (max-width: 1000px) {
+    .productCard {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        padding: 20px;
+
+        &__image {
+            img {
+                height: 300px;
+            }
+        }
+    }
+}

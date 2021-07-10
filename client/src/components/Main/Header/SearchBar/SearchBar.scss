@@ -70,3 +70,18 @@
         padding: 10px 0 15px;
     }
 }
+
+@media (max-width: 1000px) {
+    .searchBar {
+        flex: 1;
+
+        &__inputWrapper {
+            input {
+                width: 100%;
+            }
+            input:focus {
+                width: 100%;
+            }
+        }
+    }
+}
