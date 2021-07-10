@@ -22,6 +22,11 @@ const Header = ({ setIsUploadFormOpen }) => {
         setIsUploadFormOpen(true)
     }
 
+    const handleSlideToNotifications = () => {
+        const bodyWrapperElement = document.querySelector('.main__bodyWrapper')
+        bodyWrapperElement.scrollLeft = 9000
+    }
+
     return (
         <div className="header">
             <div className="header__logoAndMenuWrapper">
@@ -53,7 +58,7 @@ const Header = ({ setIsUploadFormOpen }) => {
                         <ButtonComp
                             typeClass={'primary'}
                             modifyClass={'iconButton'}
-                            handleOnClick={() => {}}
+                            handleOnClick={handleSlideToNotifications}
                         >
                             <BellFillIcon size={20} />
                         </ButtonComp>

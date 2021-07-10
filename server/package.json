@@ -4,7 +4,8 @@
     "description": "This is u-store server directory",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index.js"
+        "start": "node index.js",
+        "dev": "nodemon index.js"
     },
     "author1": "Shubham Kumar Singh",
     "author2": "Ifa Zareen",
@@ -23,7 +24,9 @@
         "jsonwebtoken": "^8.5.1",
         "lodash": "^4.17.21",
         "mongoose": "^5.12.3",
-        "morgan": "^1.10.0",
         "nodemailer": "^6.6.0"
+    },
+    "devDependencies": {
+        "morgan": "^1.10.0"
     }
 }

@@ -1,9 +1,8 @@
 .main {
     width: 100%;
     height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 2.5fr 1.075fr;
-    grid-template-rows: auto;
+    display: flex;
+    flex-direction: column;
     position: relative;
 
     * {
@@ -16,48 +15,87 @@
     }
 
     &__header {
-        grid-column: 1 / -1;
+        width: 100%;
         height: 10vh;
+        min-height: 75px;
         position: sticky;
         top: 0;
         z-index: 7;
     }
 
+    &__bodyWrapper {
+        display: flex;
+    }
+
     &__sidebarLeft {
         height: 90vh;
+        overflow-y: auto;
         position: sticky;
         top: 10vh;
+        flex: 1;
+    }
+
+    &__sidebarLeft::-webkit-scrollbar {
+        display: none;
     }
 
     &__screen {
         background-color: rgba(var(--primary-light), 0.08);
+        flex: 2.5;
     }
 
     &__sidebarRight {
         height: 90vh;
         position: sticky;
         top: 10vh;
+        flex: 1.075;
     }
 }
 
 @media (max-width: 1000px) {
     .main {
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        position: fixed;
-        top: 0;
+        overflow: hidden;
+        min-height: 100vh;
+        max-height: 100vh;
 
         &__header {
-            height: fit-content;
+            min-height: 125px;
+            position: fixed;
+            top: 0;
+        }
+
+        &__bodyWrapper {
+            overflow-x: auto;
+            overflow-y: hidden;
+            flex: 1;
+            margin-top: 125px;
+            scroll-snap-type: x mandatory;
         }
 
         &__sidebarLeft {
-            display: none;
+            flex: 1;
+            min-width: 100vw;
+            max-width: 100vw;
+            box-sizing: border-box;
+            scroll-snap-align: center;
         }
 
         &__screen {
+            flex: 1;
+            min-width: 100vw;
+            max-width: 100vw;
+            box-sizing: border-box;
             padding: 0 15px;
+            overflow-y: auto;
+            scroll-snap-align: center;
+        }
+
+        &__sidebarRight {
+            flex: 1;
+            min-width: 100vw;
+            max-width: 100vw;
+            box-sizing: border-box;
+            scroll-snap-align: center;
         }
     }
 }

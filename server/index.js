@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const chalk = require('chalk')
 const cors = require('cors')
-const morgan = require('morgan')
 const compression = require('compression')
 
 const connectDB = require('./config/db')
@@ -21,7 +20,8 @@ connectDB()
 const app = express()
 
 // adding morgan as middleware to log http requests in the console
-if ((process.env.NODE_ENV = 'development')) {
+if (process.env.NODE_ENV === 'development') {
+    const morgan = require('morgan')
     app.use(morgan('dev'))
 }
 

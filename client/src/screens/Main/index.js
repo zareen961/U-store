@@ -14,17 +14,20 @@ const Main = () => {
             <div className="main__header">
                 <Header setIsUploadFormOpen={setIsUploadFormOpen} />
             </div>
-            <div className="main__sidebarLeft">
-                <SidebarLeft />
-            </div>
-            <div className="main__screen">
-                <Routes
-                    isUploadFormOpen={isUploadFormOpen}
-                    setIsUploadFormOpen={setIsUploadFormOpen}
-                />
-            </div>
-            <div className="main__sidebarRight">
-                <SidebarRight />
+
+            <div className="main__bodyWrapper">
+                <div className="main__sidebarLeft">
+                    <SidebarLeft />
+                </div>
+                <div className="main__screen">
+                    <Routes
+                        isUploadFormOpen={isUploadFormOpen}
+                        setIsUploadFormOpen={setIsUploadFormOpen}
+                    />
+                </div>
+                <div className="main__sidebarRight">
+                    <SidebarRight />
+                </div>
             </div>
         </div>
     )
