@@ -22,7 +22,7 @@
     }
 
     &__avatar {
-        grid-row: 2/ 4;
+        grid-row: 2/4;
         grid-column: 2/3;
         align-self: center;
         justify-self: center;
@@ -116,6 +116,21 @@
 
         .underlineButtonComp {
             margin-right: 10px;
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    .accountForm {
+        grid-template-columns: 1fr;
+
+        &__avatar {
+            grid-column: auto;
+            margin-bottom: 15px;
+        }
+
+        &__buttonWrapper {
+            grid-column: auto;
         }
     }
 }

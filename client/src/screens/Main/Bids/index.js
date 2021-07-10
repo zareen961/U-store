@@ -6,6 +6,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import { userFetchBids } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
+import { getViewportWidth } from '../../../utils/getViewport'
 import './Bids.scss'
 
 const Bids = () => {
@@ -35,14 +36,23 @@ const Bids = () => {
                     ) : (
                         <>
                             <div className="bids__left">
-                                {user.userInfo.bids.map((product, index) =>
-                                    index % 2 === 0 ? (
-                                        <ProductCardBid
-                                            key={product._id}
-                                            product={product}
-                                        />
-                                    ) : null
-                                )}
+                                {user.userInfo.bids.map((product, index) => {
+                                    if (getViewportWidth() > 1000) {
+                                        return index % 2 === 0 ? (
+                                            <ProductCardBid
+                                                key={product._id}
+                                                product={product}
+                                            />
+                                        ) : null
+                                    } else {
+                                        return (
+                                            <ProductCardBid
+                                                key={product._id}
+                                                product={product}
+                                            />
+                                        )
+                                    }
+                                })}
                             </div>
                             <div className="bids__right">
                                 {user.userInfo.bids.map((product, index) =>

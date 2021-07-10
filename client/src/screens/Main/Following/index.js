@@ -6,6 +6,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
 import { userFetchFollowing } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
+import { getViewportWidth } from '../../../utils/getViewport'
 import './Following.scss'
 
 const Following = () => {
@@ -38,14 +39,23 @@ const Following = () => {
                     ) : (
                         <>
                             <div className="following__left">
-                                {user.userInfo.following.map((product, index) =>
-                                    index % 2 === 0 ? (
-                                        <ProductCardFollow
-                                            key={product._id}
-                                            product={product}
-                                        />
-                                    ) : null
-                                )}
+                                {user.userInfo.following.map((product, index) => {
+                                    if (getViewportWidth() > 1000) {
+                                        return index % 2 === 0 ? (
+                                            <ProductCardFollow
+                                                key={product._id}
+                                                product={product}
+                                            />
+                                        ) : null
+                                    } else {
+                                        return (
+                                            <ProductCardFollow
+                                                key={product._id}
+                                                product={product}
+                                            />
+                                        )
+                                    }
+                                })}
                             </div>
                             <div className="following__right">
                                 {user.userInfo.following.map((product, index) =>

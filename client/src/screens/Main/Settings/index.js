@@ -14,6 +14,7 @@ import ButtonComp from '../../../components/utils/ButtonComp'
 import SettingsItem from '../../../components/Main/Settings/SettingsItem'
 import DangerConfirmModal from '../../../components/utils/DangerConfirmModal'
 import { themeSwitch } from '../../../store/actions/ui'
+import { getViewportWidth } from '../../../utils/getViewport'
 import './Settings.scss'
 
 const Settings = () => {
@@ -41,24 +42,36 @@ const Settings = () => {
                     <SettingsItem title={'Switch Theme'}>
                         <ButtonComp
                             typeClass={'primary'}
-                            text={'Serene Sky'}
-                            modifyClass={'themePurple'}
+                            text={getViewportWidth() > 1000 && 'Serene Sky'}
+                            modifyClass={
+                                getViewportWidth() > 1000
+                                    ? 'themePurple'
+                                    : 'themePurple iconButton'
+                            }
                             handleOnClick={() => dispatch(themeSwitch('PURPLE'))}
                         >
                             <SunIcon size={18} />
                         </ButtonComp>
                         <ButtonComp
                             typeClass={'primary'}
-                            text={'Erotic Eve'}
-                            modifyClass={'themeRed'}
+                            text={getViewportWidth() > 1000 && 'Erotic Eve'}
+                            modifyClass={
+                                getViewportWidth() > 1000
+                                    ? 'themeRed'
+                                    : 'themeRed iconButton'
+                            }
                             handleOnClick={() => dispatch(themeSwitch('RED'))}
                         >
                             <HeartFillIcon size={18} />
                         </ButtonComp>
                         <ButtonComp
                             typeClass={'primary'}
-                            text={'Numb Night'}
-                            modifyClass={'themeBlue'}
+                            text={getViewportWidth() > 1000 && 'Numb Night'}
+                            modifyClass={
+                                getViewportWidth() > 1000
+                                    ? 'themeBlue'
+                                    : 'themeBlue iconButton'
+                            }
                             handleOnClick={() => dispatch(themeSwitch('BLUE'))}
                         >
                             <MoonIcon size={18} />

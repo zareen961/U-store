@@ -228,6 +228,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         onChange={handleOnChange}
                     />
                 </div>
+
                 {/* avatar */}
                 <div className="accountForm__avatar">
                     <Badge
@@ -253,6 +254,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         />
                     </Badge>
                 </div>
+
                 {/* email */}
                 <div
                     className={
@@ -272,6 +274,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         onChange={handleOnChange}
                     />
                 </div>
+
                 {/* first name */}
                 <div
                     className={
@@ -291,6 +294,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         onChange={handleOnChange}
                     />
                 </div>
+
                 {/* last name */}
                 <div
                     className={
@@ -310,6 +314,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         onChange={handleOnChange}
                     />
                 </div>
+
                 {/* primary phone */}
                 <div
                     className={
@@ -329,6 +334,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         onChange={handleOnChange}
                     />
                 </div>
+
                 {/* secondary phone */}
                 <div
                     className={
@@ -348,6 +354,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         onChange={handleOnChange}
                     />
                 </div>
+
                 {/* password */}
                 <div
                     className={
@@ -367,6 +374,7 @@ const AccountForm = ({ isEdit, setIsEdit }) => {
                         onChange={handleOnChange}
                     />
                 </div>
+
                 {/* confirm password */}
                 <div
                     className={

@@ -16,3 +16,11 @@
         box-shadow: var(--box-shadow);
     }
 }
+
+@media (max-width: 1000px) {
+    .account {
+        &__formWrapper {
+            padding: 15px;
+        }
+    }
+}

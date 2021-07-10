@@ -6,6 +6,7 @@ import BlockHeader from '../../../components/utils/BlockHeader'
 import NoItemMessage from '../../../components/utils/NoItemMessage'
 import { userFetchProducts } from '../../../store/actions/user'
 import ScreenLoader from '../../../components/utils/ScreenLoader'
+import { getViewportWidth } from '../../../utils/getViewport'
 
 import './Products.scss'
 
@@ -37,14 +38,23 @@ const Products = () => {
                     ) : (
                         <>
                             <div className="products__left">
-                                {user.userInfo.products.map((product, index) =>
-                                    index % 2 === 0 ? (
-                                        <ProductCardProduct
-                                            key={product._id}
-                                            product={product}
-                                        />
-                                    ) : null
-                                )}
+                                {user.userInfo.products.map((product, index) => {
+                                    if (getViewportWidth() > 1000) {
+                                        return index % 2 === 0 ? (
+                                            <ProductCardProduct
+                                                key={product._id}
+                                                product={product}
+                                            />
+                                        ) : null
+                                    } else {
+                                        return (
+                                            <ProductCardProduct
+                                                key={product._id}
+                                                product={product}
+                                            />
+                                        )
+                                    }
+                                })}
                             </div>
                             <div className="products__right">
                                 {user.userInfo.products.map((product, index) =>

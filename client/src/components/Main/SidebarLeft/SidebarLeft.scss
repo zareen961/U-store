@@ -9,11 +9,12 @@
     /* Account ******************************************************************************** */
     &__account {
         display: grid;
-        grid-template-columns: 1fr 3fr;
+        grid-template-columns: 1fr 100%;
         background-color: rgba(var(--secondary-light), 1);
         padding: 20px 25px;
         border-radius: 15px;
-        column-gap: 5px;
+        grid-column-gap: 15px;
+        grid-row-gap: 0px;
         box-shadow: var(--box-shadow);
     }
 
@@ -102,5 +103,11 @@
             background-color: rgba(var(--primary-light), 1);
             color: rgba(var(--secondary-light), 1);
         }
+    }
+}
+
+@media (max-width: 1000px) {
+    .sidebarLeft {
+        padding: 30px 15px;
     }
 }
