@@ -83,5 +83,10 @@
                 width: 100%;
             }
         }
+
+        &__closeButtonWrapper {
+            display: grid;
+            place-items: center;
+        }
     }
 }

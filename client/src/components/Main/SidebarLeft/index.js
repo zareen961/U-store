@@ -12,6 +12,7 @@ import {
 } from '@primer/octicons-react'
 import Badge from '@material-ui/core/Badge'
 
+import { getViewportWidth } from '../../../utils/getViewport'
 import './SidebarLeft.scss'
 
 const SidebarLeft = () => {
@@ -26,8 +27,16 @@ const SidebarLeft = () => {
         setActive(path)
     }, [path])
 
+    // to auto scroll when a menu item is clicked
+    const handleResponsiveClick = () => {
+        if (getViewportWidth() <= 1000) {
+            const mainBodyElement = document.querySelector('.main__bodyWrapper')
+            mainBodyElement.scrollLeft = mainBodyElement.scrollLeft + getViewportWidth()
+        }
+    }
+
     return (
-        <div className="sidebarLeft">
+        <div className="sidebarLeft" onClick={handleResponsiveClick}>
             {/* Account */}
             <Link to="/account" className="sidebarLeft__account">
                 <Avatar

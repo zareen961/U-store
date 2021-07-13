@@ -10,6 +10,8 @@ import SearchItem from '../SearchItem'
 import Loader from '../../../utils/Loader'
 import { debounce } from '../../../../utils/debounce'
 import { DEBOUNCE_TIME_IN_MILLISECONDS } from '../../../../constants/vars'
+import { getViewportWidth } from '../../../../utils/getViewport'
+import UnderlineButtonComp from '../../../utils/UnderlineButtonComp'
 import './SearchBar.scss'
 
 const SearchBar = () => {
@@ -35,9 +37,16 @@ const SearchBar = () => {
         }
     }, [query, dispatch])
 
+    // to auto close the search results panel when clicked outside
+    const handleClickAway = () => {
+        if (getViewportWidth() > 1000) {
+            setQuery('')
+        }
+    }
+
     return (
         <div className="searchBar">
-            <ClickAwayListener onClickAway={() => setQuery('')}>
+            <ClickAwayListener onClickAway={handleClickAway}>
                 <div className="searchBar__inputWrapper">
                     <SearchIcon size={18} />
                     <input
@@ -72,8 +81,21 @@ const SearchBar = () => {
                     ) : (
                         result &&
                         result.map((product) => (
-                            <SearchItem product={product} key={product._id} />
+                            <SearchItem
+                                product={product}
+                                key={product._id}
+                                setQuery={setQuery}
+                            />
                         ))
+                    )}
+
+                    {getViewportWidth() < 1000 && (
+                        <div className="searchBar__closeButtonWrapper">
+                            <UnderlineButtonComp
+                                text={'Close'}
+                                handleOnClick={() => setQuery('')}
+                            />
+                        </div>
                     )}
                 </div>
             )}

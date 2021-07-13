@@ -14,6 +14,7 @@ import {
 } from '../../../store/actions/notification'
 import { setNotificationHeader } from '../../../utils/setAxiosHeaders'
 import NotificationItem from './NotificationItem'
+import { getViewportWidth } from '../../../utils/getViewport'
 import './SidebarRight.scss'
 
 const { VAPID_KEY = '' } = process.env
@@ -122,6 +123,14 @@ const SidebarRight = () => {
         }
     }, [dispatch])
 
+    // to auto scroll to left when a notification is clicked
+    const handleResponsiveClick = () => {
+        if (getViewportWidth() <= 1000) {
+            const mainBodyElement = document.querySelector('.main__bodyWrapper')
+            mainBodyElement.scrollLeft = mainBodyElement.scrollLeft - getViewportWidth()
+        }
+    }
+
     return (
         <div className="sidebarRight">
             <div className="sidebarRight__headerWrapper">
@@ -137,7 +146,10 @@ const SidebarRight = () => {
                     />
                 </BlockHeader>
             </div>
-            <div className="sidebarRight__notificationsWrapper">
+            <div
+                className="sidebarRight__notificationsWrapper"
+                onClick={handleResponsiveClick}
+            >
                 {(loadingNotificationLoginAndLogout || loadingNotificationGetSaved) && (
                     <div className="sidebarRight__loaderWrapper">
                         <Loader />

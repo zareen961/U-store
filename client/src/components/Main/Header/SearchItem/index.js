@@ -6,9 +6,10 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { productSingleFetch } from '../../../../store/actions/product'
+import { getViewportWidth } from '../../../../utils/getViewport'
 import './SearchItem.scss'
 
-const SearchItem = ({ product }) => {
+const SearchItem = ({ product, setQuery }) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -17,6 +18,31 @@ const SearchItem = ({ product }) => {
     const handleSearchResultOnClick = () => {
         dispatch(productSingleFetch(product._id))
         history.push(`/products/${productSlug}`)
+
+        // to auto scroll to main screen when a search result is clicked
+        if (getViewportWidth() < 1000) {
+            const mainBodyElement = document.querySelector('.main__bodyWrapper')
+            const fullWidth = mainBodyElement.offsetWidth
+            const currentScrollPos = mainBodyElement.scrollLeft
+
+            if (
+                currentScrollPos > fullWidth / 3 &&
+                currentScrollPos < (fullWidth / 3) * 2
+            ) {
+                // don't scroll ---> already on the main screen
+            } else {
+                if (currentScrollPos < fullWidth / 3 + 50) {
+                    // currently on sidebar left panel
+                    mainBodyElement.scrollLeft = currentScrollPos + getViewportWidth()
+                } else if (currentScrollPos > (fullWidth / 3) * 2 - 50) {
+                    // currently on notification panel
+                    mainBodyElement.scrollLeft = currentScrollPos - getViewportWidth()
+                }
+            }
+
+            //  close the results panel
+            setQuery('')
+        }
     }
 
     return (
