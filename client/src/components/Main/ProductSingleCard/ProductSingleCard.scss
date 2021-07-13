@@ -59,6 +59,7 @@
         width: 100%;
         position: relative;
         margin-bottom: 25px;
+        box-sizing: border-box;
     }
 
     &__statsWrapper {
@@ -86,5 +87,35 @@
     &__footerWrapper {
         flex: 100%;
         padding: 15px 30px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .productSingleCard {
+        flex-direction: column;
+
+        &__headerWrapper.responsive {
+            padding: 15px;
+        }
+
+        &__imageWrapper {
+            img {
+                border-radius: 15px 15px 0 0 !important;
+                min-height: 320px;
+                max-height: 400px;
+            }
+        }
+
+        &__detailsWrapper {
+            flex: 1;
+            padding: 15px;
+            margin: 15px 0 25px;
+        }
+
+        &__totalBidsCount {
+            top: auto;
+            bottom: -30px;
+            right: 0;
+        }
     }
 }

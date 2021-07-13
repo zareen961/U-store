@@ -16,6 +16,8 @@ import DotsMenu from '../Home/ProductCard/DotsMenu'
 import { productDelete } from '../../../store/actions/product'
 import { alertAdd } from '../../../store/actions/ui'
 import { storage } from '../../../utils/firebase'
+import { getViewportWidth } from '../../../utils/getViewport'
+
 import './ProductSingleCard.scss'
 
 const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
@@ -67,6 +69,17 @@ const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
     return (
         <>
             <div className="productSingleCard">
+                {getViewportWidth() <= 1000 && (
+                    <div className="productSingleCard__headerWrapper responsive">
+                        <AvatarHeader product={product} />
+
+                        {String(user.userInfo._id) ===
+                            String(product.productOwner._id) && (
+                            <DotsMenu setIsProductDeleteOpen={setIsProductDeleteOpen} />
+                        )}
+                    </div>
+                )}
+
                 <div className="productSingleCard__imageWrapper">
                     <img
                         src={product.image.url}
@@ -89,14 +102,18 @@ const ProductSingleCard = ({ product, isBidEditOpen, setIsBidEditOpen }) => {
                 </div>
 
                 <div className="productSingleCard__detailsWrapper">
-                    <div className="productSingleCard__headerWrapper">
-                        <AvatarHeader product={product} />
+                    {getViewportWidth() > 1000 && (
+                        <div className="productSingleCard__headerWrapper">
+                            <AvatarHeader product={product} />
 
-                        {String(user.userInfo._id) ===
-                            String(product.productOwner._id) && (
-                            <DotsMenu setIsProductDeleteOpen={setIsProductDeleteOpen} />
-                        )}
-                    </div>
+                            {String(user.userInfo._id) ===
+                                String(product.productOwner._id) && (
+                                <DotsMenu
+                                    setIsProductDeleteOpen={setIsProductDeleteOpen}
+                                />
+                            )}
+                        </div>
+                    )}
 
                     <ProductDetails
                         name={product.name}
