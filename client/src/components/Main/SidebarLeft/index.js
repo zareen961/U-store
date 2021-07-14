@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Avatar from '@material-ui/core/Avatar'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import {
     HomeIcon,
@@ -17,6 +17,7 @@ import './SidebarLeft.scss'
 
 const SidebarLeft = () => {
     const location = useLocation()
+    const history = useHistory()
 
     const { user } = useSelector((state) => state.userLogin)
 
@@ -36,9 +37,15 @@ const SidebarLeft = () => {
     }
 
     return (
-        <div className="sidebarLeft" onClick={handleResponsiveClick}>
+        <div className="sidebarLeft">
             {/* Account */}
-            <Link to="/account" className="sidebarLeft__account">
+            <div
+                className="sidebarLeft__account"
+                onClick={() => {
+                    history.push('/account')
+                    handleResponsiveClick()
+                }}
+            >
                 <Avatar
                     src={`/avatars/avatar${
                         user && user.userInfo ? user.userInfo.avatar : 0
@@ -53,10 +60,10 @@ const SidebarLeft = () => {
                 <span className="sidebarLeft__username">
                     {user && user.userInfo ? `@${user.userInfo.username}` : '@john_doe'}
                 </span>
-            </Link>
+            </div>
 
             {/* Menu */}
-            <div className="sidebarLeft__menu">
+            <div className="sidebarLeft__menu" onClick={handleResponsiveClick}>
                 <Link to="/" className={active === 'home' ? 'active' : ''}>
                     <span className="sidebarLeft__menuIcon">
                         <HomeIcon size={20} />

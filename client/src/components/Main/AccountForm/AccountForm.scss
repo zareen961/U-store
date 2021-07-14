@@ -124,6 +124,16 @@
     .accountForm {
         grid-template-columns: 1fr;
 
+        &__collegeInfo {
+            h1 {
+                font-size: 1.1rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+            }
+        }
+
         &__avatar {
             grid-column: auto;
             margin-bottom: 15px;

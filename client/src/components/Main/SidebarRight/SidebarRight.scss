@@ -40,6 +40,11 @@
         text-align: center;
         font-family: 'Poppins', sans-serif !important;
     }
+
+    &__allCaughtUpMessage.noNotifications {
+        text-align: left;
+        padding-left: 8px;
+    }
 }
 
 @media (max-width: 1000px) {

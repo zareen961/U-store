@@ -180,7 +180,14 @@ const SidebarRight = () => {
                         notification={notification}
                     />
                 ))}
-                <h3 className="sidebarRight__allCaughtUpMessage">
+
+                <h3
+                    className={
+                        notifications.length === 0
+                            ? 'sidebarRight__allCaughtUpMessage noNotifications'
+                            : 'sidebarRight__allCaughtUpMessage'
+                    }
+                >
                     You're all caught up!
                 </h3>
             </div>

@@ -22,7 +22,7 @@ const SearchItem = ({ product, setQuery }) => {
         // to auto scroll to main screen when a search result is clicked
         if (getViewportWidth() < 1000) {
             const mainBodyElement = document.querySelector('.main__bodyWrapper')
-            const fullWidth = mainBodyElement.offsetWidth
+            const fullWidth = mainBodyElement.scrollWidth - mainBodyElement.clientWidth
             const currentScrollPos = mainBodyElement.scrollLeft
 
             if (
