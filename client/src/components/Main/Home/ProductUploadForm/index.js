@@ -117,6 +117,7 @@ const ProductUploadForm = ({ isUploadFormOpen, setIsUploadFormOpen }) => {
         })
         if (!isValid) {
             dispatch(alertAdd(message, 'error'))
+            setIsThrottled(false)
             return
         }
 
