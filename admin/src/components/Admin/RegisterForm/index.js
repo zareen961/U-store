@@ -7,17 +7,19 @@ import { adminRegister, alertAdd } from '../../../store/actions'
 import ConfirmModal from '../../utils/ConfirmModal'
 import './RegisterForm.css'
 
+const initialInputVals = {
+    username: '',
+    password: '',
+    passwordConfirm: '',
+}
+
 const RegisterForm = () => {
     const dispatch = useDispatch()
     const { loading, success } = useSelector((state) => state.adminRegister)
 
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [adminPassword, setAdminPassword] = useState('')
-    const { inputVals, handleOnChange, handleReset } = useForm({
-        username: '',
-        password: '',
-        passwordConfirm: '',
-    })
+    const { inputVals, handleOnChange, handleReset } = useForm(initialInputVals)
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
@@ -47,7 +49,7 @@ const RegisterForm = () => {
             setIsModalOpen(false)
             setAdminPassword('')
         }
-    }, [success])
+    }, [success, handleReset])
 
     return (
         <>
@@ -55,7 +57,7 @@ const RegisterForm = () => {
                 <TextField
                     required
                     type="text"
-                    autoComplete="off"
+                    autoComplete="new-password"
                     spellCheck="off"
                     variant="outlined"
                     color="secondary"
@@ -70,6 +72,7 @@ const RegisterForm = () => {
                     type="password"
                     variant="outlined"
                     color="secondary"
+                    autoComplete="new-password"
                     label="Password"
                     className="registerForm__input"
                     name="password"
@@ -80,6 +83,7 @@ const RegisterForm = () => {
                     required
                     type="password"
                     variant="outlined"
+                    autoComplete="new-password"
                     color="secondary"
                     label="Confirm Password"
                     className="registerForm__input"
