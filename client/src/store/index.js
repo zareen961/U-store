@@ -25,7 +25,7 @@ const middleware = [thunk]
 
 let middlewareWrapper
 
-if (NODE_ENV === 'development') {
+if (NODE_ENV === 'DEV') {
     middlewareWrapper = composeWithDevTools(applyMiddleware(...middleware))
 } else {
     middlewareWrapper = applyMiddleware(...middleware)

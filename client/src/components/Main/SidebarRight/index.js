@@ -15,9 +15,8 @@ import {
 import { setNotificationHeader } from '../../../utils/setAxiosHeaders'
 import NotificationItem from './NotificationItem'
 import { getViewportWidth } from '../../../utils/getViewport'
+import { VAPID_KEY } from '../../../constants/vars.js'
 import './SidebarRight.scss'
-
-const { VAPID_KEY = '' } = process.env
 
 const SidebarRight = () => {
     const dispatch = useDispatch()

@@ -41,6 +41,7 @@ const ConfirmModal = ({
                     <TextField
                         fullWidth
                         autoFocus
+                        autoComplete="new-password"
                         required
                         label="Admin Password"
                         type="password"
